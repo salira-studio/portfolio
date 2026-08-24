@@ -67,14 +67,6 @@ export function PortfolioLayout() {
           </Link>
 
           {/* Status Badge (Center on desktop) */}
-          <div className="hidden md:flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-white/60 shadow-2xs backdrop-blur-xs">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-            </span>
-            <span className="font-medium text-[11px] tracking-tight">Interactive client-side prototypes</span>
-          </div>
-
           {/* Navigation */}
           <nav
             className="flex items-center gap-1 sm:gap-2 text-sm font-medium"
