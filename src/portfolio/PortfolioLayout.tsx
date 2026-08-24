@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
-import { ArrowUpRight, Sparkles } from 'lucide-react'
+import { ArrowUpRight, Sparkles, Phone } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CustomCursor } from './components/CustomCursor'
 import { MagneticButton } from './components/MagneticButton'
+import { WhatsAppButton } from './components/WhatsAppButton'
 import { usePrefersReducedMotion } from './lib/usePrefersReducedMotion'
 
 export function PortfolioLayout() {
@@ -67,12 +68,20 @@ export function PortfolioLayout() {
           </Link>
 
           {/* Status Badge (Center on desktop) */}
-          {/* Navigation */}
-          <nav
-            className="flex items-center gap-1 sm:gap-2 text-sm font-medium"
-            onMouseLeave={() => setHoveredNav(null)}
-          >
-            {navItems.map((item) => {
+          {/* Phone + Navigation */}
+          <div className="flex items-center gap-3 sm:gap-5">
+            <a
+              href="tel:+917397430568"
+              className="hidden sm:inline-flex items-center gap-1.5 text-xs font-medium text-white/60 hover:text-white transition-colors"
+            >
+              <Phone size={12} />
+              <span>+91 73974 30568</span>
+            </a>
+            <nav
+              className="flex items-center gap-1 sm:gap-2 text-sm font-medium"
+              onMouseLeave={() => setHoveredNav(null)}
+            >
+              {navItems.map((item) => {
               const isWorkActive = item.isRoute && location.pathname.startsWith('/work')
               return (
                 <div key={item.label} className="relative">
@@ -111,7 +120,8 @@ export function PortfolioLayout() {
                 </div>
               )
             })}
-          </nav>
+            </nav>
+          </div>
         </div>
       </motion.header>
 
@@ -152,7 +162,7 @@ export function PortfolioLayout() {
                 </p>
               </div>
               <p className="max-w-sm text-sm leading-relaxed sl-on-dark">
-                We design and build custom, high-velocity digital software architectures tailored to how each business runs in the physical world.
+                We build custom software for web, mobile, and desktop. We understand how your business works, then build the software that fits.
               </p>
               <div className="flex items-center gap-2 text-xs text-[rgba(245,241,234,0.65)] pt-2">
                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--sl-teal-sage)] animate-pulse" />
@@ -187,6 +197,15 @@ export function PortfolioLayout() {
                 <ul className="space-y-2.5 sl-on-dark">
                   <li>
                     <a
+                      href="tel:+917397430568"
+                      className="inline-flex items-center gap-1 transition-colors hover:text-[var(--sl-gold)]"
+                    >
+                      +91 73974 30568
+                      <ArrowUpRight size={13} />
+                    </a>
+                  </li>
+                  <li>
+                    <a
                       href="mailto:hello@salira.studio"
                       className="inline-flex items-center gap-1 transition-colors hover:text-[var(--sl-gold)]"
                     >
@@ -196,7 +215,7 @@ export function PortfolioLayout() {
                   </li>
                   <li>
                     <span className="text-xs text-[rgba(245,241,234,0.5)] font-mono">
-                      {timeString ? `Local: ${timeString}` : 'Remote Studio'}
+                      India · Remote Studio
                     </span>
                   </li>
                 </ul>
@@ -237,6 +256,9 @@ export function PortfolioLayout() {
           </div>
         </div>
       </footer>
+      {/* ── WhatsApp Floating Button ── */}
+      <WhatsAppButton />
+
     </div>
   )
 }

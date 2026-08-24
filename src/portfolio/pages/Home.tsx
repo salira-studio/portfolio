@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, ArrowUpRight, Sparkles, Layers, Cpu, Zap, HeartPulse, ShoppingBag, Truck, UtensilsCrossed, Check, X } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Sparkles, Layers, Cpu, Zap, HeartPulse, ShoppingBag, Truck, UtensilsCrossed, Check, Code2, Handshake, Shield, Phone, FileCode } from 'lucide-react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { HeroAntigravity } from '../components/HeroAntigravity'
 import { DeviceShowcase } from '../components/DeviceShowcase'
@@ -155,7 +155,7 @@ export default function Home() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--sl-gold)] opacity-60" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--sl-gold)]" />
                 </span>
-                Custom Software Studio
+                Building since 2024
               </div>
             </motion.div>
 
@@ -182,7 +182,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              Salira Software Studio builds custom software for web, mobile, and desktop tailored to your specific needs. We start with understanding, then deliver.
+              Salira Software Studio builds custom software for web, mobile, and desktop. We don't do marketing or growth promises — we build reliable software and hand you full ownership.
             </motion.p>
 
             {/* CTAs */}
@@ -193,22 +193,22 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
             >
               <MagneticButton strength={0.3}>
-                <Link
-                  to="/work"
-                  data-cursor="view"
-                  data-cursor-text="Work"
+                <a
+                  href="#contact"
+                  data-cursor="open"
+                  data-cursor-text="Contact"
                   className="sl-halo-gold inline-flex items-center gap-2.5 rounded-xl bg-[var(--sl-paper)] px-6 py-3.5 text-sm font-semibold text-[var(--sl-ink)] transition-all hover:bg-white hover:shadow-lg active:scale-98"
                 >
-                  View our work
+                  Tell us about your business
                   <ArrowRight size={16} />
-                </Link>
+                </a>
               </MagneticButton>
               <MagneticButton strength={0.15}>
                 <a
-                  href="#about"
+                  href="#pricing"
                   className="group inline-flex items-center gap-1.5 px-2 py-3 text-sm font-medium text-white/70 transition-colors hover:text-white"
                 >
-                  <span>About the studio</span>
+                  <span>See pricing</span>
                   <ArrowRight
                     size={14}
                     className="text-white/40 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-white"
@@ -225,10 +225,10 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="text-xs font-medium uppercase tracking-wider text-white/35">
-                We build
+                What we build
               </div>
               <div className="flex flex-wrap items-center gap-5 text-sm text-white/55">
-                <span>Web Applications</span>
+                <span>Web Apps</span>
                 <span className="h-1 w-1 rounded-full bg-white/20" />
                 <span>Mobile Apps</span>
                 <span className="h-1 w-1 rounded-full bg-white/20" />
@@ -434,6 +434,67 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── 2b. Why Choose Us — 5 Reasons ── */}
+      <section className="relative z-10 bg-white border-t border-[var(--sl-line)]">
+        <div className="mx-auto max-w-6xl px-5 py-18 sm:px-8 sm:py-24">
+          <FadeUp>
+            <p className="sl-label text-[var(--sl-charcoal)]">Why Salira</p>
+          </FadeUp>
+          <FadeUp delay={0.1}>
+            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-[var(--sl-ink)] sm:text-4xl">
+              Software built around your business.
+            </h2>
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--sl-ink-soft)] sm:text-base">
+              We build custom software for web, mobile, and desktop. Every project starts with understanding your business, then engineering the right solution.
+            </p>
+          </FadeUp>
+
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                icon: Handshake,
+                title: 'Business-first approach',
+                desc: 'We start by understanding how your business works — your process, your data, your constraints — then build the software that fits.',
+              },
+              {
+                icon: FileCode,
+                title: 'Full source code ownership',
+                desc: 'Every line of code belongs to you. No lock-in, no platform dependency. Hire any developer later — they can work with it.',
+              },
+              {
+                icon: Shield,
+                title: 'Transparent fixed pricing',
+                desc: 'You know the cost before we start. Milestone-based billing. No surprise invoices, no scope creep.',
+              },
+              {
+                icon: Code2,
+                title: 'Technology matched to the problem',
+                desc: "We don't push a single stack. React, Flutter, Node, Python — we choose what fits your project, not what fits our resume.",
+              },
+              {
+                icon: Zap,
+                title: 'From prototype to production',
+                desc: 'Whether you need a working demo to validate an idea or a full-scale system serving thousands, we build at the right scale.',
+              },
+            ].map((item) => (
+              <FadeUp key={item.title} delay={0.15}>
+                <div className="rounded-2xl border border-[var(--sl-line)] bg-[var(--sl-paper-lifted)] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--sl-accent-wash)] text-[var(--sl-accent)]">
+                    <item.icon size={20} strokeWidth={1.8} />
+                  </span>
+                  <h3 className="mt-4 font-display text-base font-semibold tracking-tight text-[var(--sl-ink)]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-xs leading-relaxed text-[var(--sl-ink-soft)]">
+                    {item.desc}
+                  </p>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── 3. Services / Process Section: Deep Pine (#1D2B26) ── */}
       <section className="sl-section-process relative z-10">
         <div className="mx-auto max-w-6xl px-5 py-18 sm:px-8 sm:py-28">
@@ -503,7 +564,7 @@ export default function Home() {
       </section>
 
       {/* ── 4. Pricing Section ── */}
-      <section className="sl-section-pricing relative z-10">
+      <section id="pricing" className="sl-section-pricing relative z-10 scroll-mt-20">
         <div className="mx-auto max-w-6xl px-5 py-18 sm:px-8 sm:py-28">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto">
@@ -539,151 +600,266 @@ export default function Home() {
             </div>
           </FadeUp>
 
-          {/* Pricing Cards */}
+          {/* ── Website Design Pricing ── */}
           <FadeUp delay={0.4}>
-            <div className="mt-16 grid gap-6 lg:grid-cols-3">
-              {/* Starter */}
-              <div className="rounded-2xl border border-[var(--sl-line)] bg-white p-7 shadow-sm flex flex-col">
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--sl-charcoal)]">Starter</p>
-                <p className="mt-2 font-display text-3xl font-bold text-[var(--sl-ink)]">₹49,999<span className="text-sm font-normal text-[var(--sl-ink-soft)]"> onwards</span></p>
-                <p className="mt-1 text-xs text-[var(--sl-ink-soft)]">2–3 weeks delivery</p>
-                <p className="mt-4 text-xs font-medium text-[var(--sl-charcoal)]">For businesses that need an online presence</p>
-                <div className="mt-6 flex-1 space-y-2.5">
-                  {['Professional website (5–8 pages)', 'Mobile responsive', 'Contact form + WhatsApp button', 'Google My Business setup', 'Basic SEO', 'Hosting setup (1 year)', 'Source code ownership', '30 days free support'].map((f) => (
-                    <div key={f} className="flex items-start gap-2 text-xs text-[var(--sl-ink-soft)]">
-                      <Check size={14} className="mt-0.5 shrink-0 text-[var(--sl-teal-sage)]" />
-                      <span>{f}</span>
-                    </div>
-                  ))}
-                  {['Mobile app', 'Online payments', 'Booking system', 'Admin dashboard'].map((f) => (
-                    <div key={f} className="flex items-start gap-2 text-xs text-[var(--sl-charcoal)]/50">
-                      <X size={14} className="mt-0.5 shrink-0 text-[var(--sl-charcoal)]/30" />
-                      <span>{f}</span>
-                    </div>
-                  ))}
-                </div>
-                <p className="mt-5 text-[11px] text-[var(--sl-charcoal)]">Perfect for: local restaurants, shops, doctors, consultants</p>
-                <div className="mt-4 pt-4 border-t border-[var(--sl-line-light)]">
-                  <p className="text-[11px] font-medium text-[var(--sl-charcoal)]">Payment: 50% advance, 50% on delivery</p>
-                </div>
-              </div>
-
-              {/* Growth — Highlighted */}
-              <div className="rounded-2xl border-2 border-[var(--sl-gold)] bg-white p-7 shadow-lg flex flex-col relative">
-                <span className="absolute -top-3 left-6 rounded-full bg-[var(--sl-gold)] px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">Most Popular</span>
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--sl-gold)]">Growth</p>
-                <p className="mt-2 font-display text-3xl font-bold text-[var(--sl-ink)]">₹1,49,999<span className="text-sm font-normal text-[var(--sl-ink-soft)]"> onwards</span></p>
-                <p className="mt-1 text-xs text-[var(--sl-ink-soft)]">6–10 weeks delivery</p>
-                <p className="mt-4 text-xs font-medium text-[var(--sl-charcoal)]">For businesses that need online orders or bookings</p>
-                <div className="mt-6 flex-1 space-y-2.5">
-                  {['Everything in Starter', 'E-commerce / Booking system', 'Payment gateway (UPI, Cards)', 'Customer mobile app (Android + iPhone)', 'Admin dashboard', 'Push notifications', 'Order/booking notifications', '3 months free maintenance'].map((f) => (
-                    <div key={f} className="flex items-start gap-2 text-xs text-[var(--sl-ink-soft)]">
-                      <Check size={14} className="mt-0.5 shrink-0 text-[var(--sl-teal-sage)]" />
-                      <span>{f}</span>
-                    </div>
-                  ))}
-                  {['Driver/staff app', 'Multi-location support', 'Advanced analytics', 'AI features'].map((f) => (
-                    <div key={f} className="flex items-start gap-2 text-xs text-[var(--sl-charcoal)]/50">
-                      <X size={14} className="mt-0.5 shrink-0 text-[var(--sl-charcoal)]/30" />
-                      <span>{f}</span>
-                    </div>
-                  ))}
-                </div>
-                <p className="mt-5 text-[11px] text-[var(--sl-charcoal)]">Perfect for: restaurants with ordering, travel bookings, clinics, retail stores</p>
-                <div className="mt-4 pt-4 border-t border-[var(--sl-line-light)]">
-                  <p className="text-[11px] font-medium text-[var(--sl-charcoal)]">Payment: 30/30/20/20 milestone billing</p>
-                </div>
-              </div>
-
-              {/* Business */}
-              <div className="rounded-2xl border border-[var(--sl-line)] bg-white p-7 shadow-sm flex flex-col">
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--sl-charcoal)]">Business</p>
-                <p className="mt-2 font-display text-3xl font-bold text-[var(--sl-ink)]">₹3,49,999<span className="text-sm font-normal text-[var(--sl-ink-soft)]"> onwards</span></p>
-                <p className="mt-1 text-xs text-[var(--sl-ink-soft)]">12–20 weeks delivery</p>
-                <p className="mt-4 text-xs font-medium text-[var(--sl-charcoal)]">For businesses needing a complete digital system</p>
-                <div className="mt-6 flex-1 space-y-2.5">
-                  {['Everything in Growth', 'Multiple mobile apps (customer + staff)', 'Advanced admin with reports + analytics', 'Multi-user roles', 'Real-time GPS tracking', 'Third-party integrations', 'WhatsApp automation', '6 months free maintenance'].map((f) => (
-                    <div key={f} className="flex items-start gap-2 text-xs text-[var(--sl-ink-soft)]">
-                      <Check size={14} className="mt-0.5 shrink-0 text-[var(--sl-teal-sage)]" />
-                      <span>{f}</span>
-                    </div>
-                  ))}
-                  {['Enterprise compliance (HIPAA, PCI)', 'Multi-country support', 'White-label reseller system'].map((f) => (
-                    <div key={f} className="flex items-start gap-2 text-xs text-[var(--sl-charcoal)]/50">
-                      <X size={14} className="mt-0.5 shrink-0 text-[var(--sl-charcoal)]/30" />
-                      <span>{f}</span>
-                    </div>
-                  ))}
-                </div>
-                <p className="mt-5 text-[11px] text-[var(--sl-charcoal)]">Perfect for: logistics, multi-location chains, education, marketplaces</p>
-                <div className="mt-4 pt-4 border-t border-[var(--sl-line-light)]">
-                  <p className="text-[11px] font-medium text-[var(--sl-charcoal)]">Payment: 25/25/25/15/10 milestone billing</p>
-                </div>
-              </div>
-            </div>
-          </FadeUp>
-
-          {/* Comparison Table */}
-          <FadeUp delay={0.5}>
-            <div className="mt-16 overflow-x-auto rounded-2xl border border-[var(--sl-line)] bg-white shadow-sm">
-              <table className="w-full text-left text-xs">
-                <thead>
-                  <tr className="border-b border-[var(--sl-line)] bg-[var(--sl-sand-deep)]/30">
-                    <th className="p-4 font-semibold text-[var(--sl-ink)]">Feature</th>
-                    <th className="p-4 font-semibold text-[var(--sl-ink)]">Starter</th>
-                    <th className="p-4 font-semibold text-[var(--sl-gold)]">Growth</th>
-                    <th className="p-4 font-semibold text-[var(--sl-ink)]">Business</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {[
-                    { label: 'Price', starter: '₹49,999+', growth: '₹1,49,999+', business: '₹3,49,999+' },
-                    { label: 'Timeline', starter: '2–3 weeks', growth: '6–10 weeks', business: '12–20 weeks' },
-                    { label: 'Website', starter: '✓', growth: '✓', business: '✓' },
-                    { label: 'Customer Mobile App', starter: '—', growth: '✓', business: '✓' },
-                    { label: 'Staff/Driver App', starter: '—', growth: '—', business: '✓' },
-                    { label: 'Admin Dashboard', starter: '—', growth: 'Basic', business: 'Advanced' },
-                    { label: 'Payment Gateway', starter: '—', growth: '✓', business: '✓' },
-                    { label: 'Booking/Order System', starter: '—', growth: '✓', business: '✓' },
-                    { label: 'Push Notifications', starter: '—', growth: '✓', business: '✓' },
-                    { label: 'Real-time GPS', starter: '—', growth: '—', business: '✓' },
-                    { label: 'Analytics & Reports', starter: '—', growth: 'Basic', business: 'Advanced' },
-                    { label: 'Integrations', starter: '—', growth: '—', business: '✓' },
-                    { label: 'Source Code Ownership', starter: '✓', growth: '✓', business: '✓' },
-                    { label: 'Free Maintenance', starter: '30 days', growth: '3 months', business: '6 months' },
-                  ].map((row, i) => (
-                    <tr key={row.label} className={i % 2 === 0 ? 'bg-white' : 'bg-[var(--sl-sand-deep)]/10'}>
-                      <td className="p-4 font-medium text-[var(--sl-ink)]">{row.label}</td>
-                      <td className="p-4 text-[var(--sl-ink-soft)]">{row.starter}</td>
-                      <td className="p-4 font-medium text-[var(--sl-gold)]">{row.growth}</td>
-                      <td className="p-4 text-[var(--sl-ink-soft)]">{row.business}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </FadeUp>
-
-          {/* Add-Ons */}
-          <FadeUp delay={0.55}>
             <div className="mt-16">
-              <h3 className="font-display text-xl font-semibold tracking-tight text-[var(--sl-ink)]">Add-Ons</h3>
-              <p className="mt-1 text-xs text-[var(--sl-ink-soft)]">Need something extra? Add it anytime.</p>
-              <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="flex items-center gap-3 mb-8">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--sl-accent-wash)] text-[var(--sl-accent)]">
+                  <Layers size={20} strokeWidth={1.8} />
+                </span>
+                <div>
+                  <h3 className="font-display text-xl font-semibold tracking-tight text-[var(--sl-ink)]">Website Design</h3>
+                  <p className="text-xs text-[var(--sl-ink-soft)]">From simple brochure sites to full business platforms</p>
+                </div>
+              </div>
+
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {[
-                  { name: 'Extra Mobile App', price: '₹1,50,000+', desc: 'Driver, staff, or vendor app' },
-                  { name: 'WhatsApp Automation', price: '₹25,000', desc: 'Order updates via WhatsApp' },
-                  { name: 'Advanced Analytics', price: '₹35,000', desc: 'Custom reports and dashboards' },
-                  { name: 'CRM Integration', price: '₹30,000', desc: 'Connect to Zoho, HubSpot' },
-                  { name: 'Multi-language Support', price: '₹20,000', desc: 'Hindi, Tamil, Telugu, etc.' },
-                  { name: 'SEO Package (6 months)', price: '₹48,000', desc: 'Monthly SEO to rank higher' },
-                ].map((addon) => (
-                  <div key={addon.name} className="flex items-center justify-between rounded-xl border border-[var(--sl-line-light)] bg-white px-4 py-3">
-                    <div>
-                      <p className="text-xs font-medium text-[var(--sl-ink)]">{addon.name}</p>
-                      <p className="text-[11px] text-[var(--sl-ink-soft)]">{addon.desc}</p>
+                  {
+                    tier: 'Starter',
+                    price: '₹25,000',
+                    timeline: '2–3 weeks',
+                    desc: 'For new businesses that need a clean online presence',
+                    features: [
+                      '3–5 page responsive website',
+                      'Professional layout with your branding',
+                      'Contact form + WhatsApp button',
+                      'Google Maps integration',
+                      'Social media links',
+                      'Basic on-page SEO setup',
+                      'Mobile responsive design',
+                      'SSL certificate setup',
+                      '1 round of revisions',
+                    ],
+                  },
+                  {
+                    tier: 'Professional',
+                    price: '₹60,000',
+                    timeline: '4–6 weeks',
+                    desc: 'For established businesses that need to look credible and get found',
+                    features: [
+                      '8–15 page custom-designed website',
+                      'Content management system (CMS)',
+                      'Blog with SEO-optimized structure',
+                      'Lead capture forms + enquiry routing',
+                      'Google My Business + Search Console setup',
+                      'Structured data & schema markup',
+                      'Speed optimization (< 3s load)',
+                      'Image gallery / video section',
+                      '2 rounds of revisions',
+                      '30 days post-launch support',
+                    ],
+                    popular: true,
+                  },
+                  {
+                    tier: 'Business',
+                    price: '₹1,50,000',
+                    timeline: '8–12 weeks',
+                    desc: 'For businesses needing custom functionality and integrations',
+                    features: [
+                      'Everything in Professional',
+                      'Custom modules (booking, catalogue, membership)',
+                      'Role-based admin dashboard',
+                      'Payment gateway integration',
+                      'CRM / email marketing integration',
+                      'Multi-location or multi-language support',
+                      'Advanced analytics & reporting',
+                      'Staging environment for testing',
+                      'Performance & security audit',
+                      '3 months post-launch support',
+                    ],
+                  },
+                ].map((item) => (
+                  <div key={item.tier} className={`rounded-2xl border bg-white p-6 shadow-sm flex flex-col ${item.popular ? 'border-2 border-[var(--sl-gold)] shadow-lg relative' : 'border-[var(--sl-line)]'}`}>
+                    {item.popular && <span className="absolute -top-3 left-6 rounded-full bg-[var(--sl-gold)] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-sm">Most Popular</span>}
+                    <p className={`text-xs font-semibold uppercase tracking-wider ${item.popular ? 'text-[var(--sl-gold)]' : 'text-[var(--sl-charcoal)]'}`}>{item.tier}</p>
+                    <div className="mt-3 flex items-baseline gap-1">
+                      <span className="font-display text-3xl font-bold text-[var(--sl-ink)]">{item.price}</span>
+                      <span className="text-xs text-[var(--sl-ink-soft)]">onwards</span>
                     </div>
-                    <p className="text-xs font-semibold text-[var(--sl-gold)] whitespace-nowrap">{addon.price}</p>
+                    <p className="mt-1 text-xs text-[var(--sl-ink-soft)]">{item.timeline} delivery</p>
+                    <p className="mt-2 text-xs text-[var(--sl-charcoal)]">{item.desc}</p>
+
+                    <div className="my-4 h-px bg-[var(--sl-line-light)]" />
+
+                    <div className="flex-1 space-y-2">
+                      {item.features.map((f) => (
+                        <div key={f} className="flex items-start gap-2 text-xs text-[var(--sl-ink-soft)]">
+                          <Check size={14} className="mt-0.5 shrink-0 text-[var(--sl-teal-sage)]" />
+                          <span>{f}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="mt-5 pt-4 border-t border-[var(--sl-line-light)]">
+                      <a href="#contact" className={`flex items-center justify-center rounded-xl px-4 py-2.5 text-xs font-semibold transition-all ${item.popular ? 'bg-[var(--sl-gold)] text-white shadow-md hover:bg-[#c49535]' : 'border border-[var(--sl-line)] bg-[var(--sl-sand-deep)]/30 text-[var(--sl-ink)] hover:bg-[var(--sl-sand-deep)]'}`}>
+                        Get a Quote
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </FadeUp>
+
+          {/* ── Mobile App Pricing ── */}
+          <FadeUp delay={0.5}>
+            <div className="mt-20">
+              <div className="flex items-center gap-3 mb-8">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--sl-accent-wash)] text-[var(--sl-accent)]">
+                  <Cpu size={20} strokeWidth={1.8} />
+                </span>
+                <div>
+                  <h3 className="font-display text-xl font-semibold tracking-tight text-[var(--sl-ink)]">Mobile App Development</h3>
+                  <p className="text-xs text-[var(--sl-ink-soft)]">Android + iPhone apps built with Flutter or React Native</p>
+                </div>
+              </div>
+
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {[
+                  {
+                    tier: 'MVP',
+                    price: '₹1,00,000',
+                    timeline: '4–6 weeks',
+                    desc: 'For startups validating an idea with real users',
+                    features: [
+                      '5–10 screens with clean UI',
+                      'User registration (email + phone)',
+                      'Core business feature (1 workflow)',
+                      'Basic admin panel',
+                      'Push notifications',
+                      'App store submission (Play Store)',
+                      '30 days post-launch support',
+                    ],
+                  },
+                  {
+                    tier: 'Business App',
+                    price: '₹2,50,000',
+                    timeline: '8–12 weeks',
+                    desc: 'For businesses that need a proper mobile presence',
+                    features: [
+                      '15–25 screens with custom design',
+                      'User auth (email, phone, social login)',
+                      'Payment gateway (UPI, Cards, Wallets)',
+                      'Real-time push notifications',
+                      'Google Maps + location services',
+                      'Camera + media upload',
+                      'Admin dashboard (web-based)',
+                      'Play Store + App Store submission',
+                      '3 months post-launch support',
+                    ],
+                    popular: true,
+                  },
+                  {
+                    tier: 'Enterprise',
+                    price: '₹5,00,000',
+                    timeline: '16–24 weeks',
+                    desc: 'For complex platforms with multiple user roles',
+                    features: [
+                      'Everything in Business App',
+                      'Multi-role system (customer + staff + admin)',
+                      'Real-time features (chat, tracking, live updates)',
+                      'Advanced analytics & reporting',
+                      'Third-party API integrations',
+                      'Offline mode + data sync',
+                      'Multi-language support',
+                      'Security audit + compliance',
+                      '6 months post-launch support',
+                    ],
+                  },
+                ].map((item) => (
+                  <div key={item.tier} className={`rounded-2xl border bg-white p-6 shadow-sm flex flex-col ${item.popular ? 'border-2 border-[var(--sl-gold)] shadow-lg relative' : 'border-[var(--sl-line)]'}`}>
+                    {item.popular && <span className="absolute -top-3 left-6 rounded-full bg-[var(--sl-gold)] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-sm">Most Popular</span>}
+                    <p className={`text-xs font-semibold uppercase tracking-wider ${item.popular ? 'text-[var(--sl-gold)]' : 'text-[var(--sl-charcoal)]'}`}>{item.tier}</p>
+                    <div className="mt-3 flex items-baseline gap-1">
+                      <span className="font-display text-3xl font-bold text-[var(--sl-ink)]">{item.price}</span>
+                      <span className="text-xs text-[var(--sl-ink-soft)]">onwards</span>
+                    </div>
+                    <p className="mt-1 text-xs text-[var(--sl-ink-soft)]">{item.timeline} delivery</p>
+                    <p className="mt-2 text-xs text-[var(--sl-charcoal)]">{item.desc}</p>
+
+                    <div className="my-4 h-px bg-[var(--sl-line-light)]" />
+
+                    <div className="flex-1 space-y-2">
+                      {item.features.map((f) => (
+                        <div key={f} className="flex items-start gap-2 text-xs text-[var(--sl-ink-soft)]">
+                          <Check size={14} className="mt-0.5 shrink-0 text-[var(--sl-teal-sage)]" />
+                          <span>{f}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="mt-5 pt-4 border-t border-[var(--sl-line-light)]">
+                      <a href="#contact" className={`flex items-center justify-center rounded-xl px-4 py-2.5 text-xs font-semibold transition-all ${item.popular ? 'bg-[var(--sl-gold)] text-white shadow-md hover:bg-[#c49535]' : 'border border-[var(--sl-line)] bg-[var(--sl-sand-deep)]/30 text-[var(--sl-ink)] hover:bg-[var(--sl-sand-deep)]'}`}>
+                        Get a Quote
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </FadeUp>
+
+          {/* ── Bundle: Website + App ── */}
+          <FadeUp delay={0.55}>
+            <div className="mt-20 rounded-2xl border-2 border-[var(--sl-gold)] bg-white p-8 shadow-lg relative">
+              <span className="absolute -top-3.5 left-8 rounded-full bg-[var(--sl-gold)] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-sm">Best Value</span>
+              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+                <div className="max-w-xl">
+                  <h3 className="font-display text-2xl font-semibold tracking-tight text-[var(--sl-ink)]">Website + Mobile App Bundle</h3>
+                  <p className="mt-2 text-sm text-[var(--sl-ink-soft)]">Get both a professional website and mobile apps (Android + iPhone) at a combined price. Shared design system, shared backend, less repeat work — you save ₹1L+ compared to buying separately.</p>
+                  <div className="mt-4 flex items-baseline gap-2">
+                    <span className="font-display text-4xl font-bold text-[var(--sl-ink)]">₹2,50,000</span>
+                    <span className="text-sm text-[var(--sl-ink-soft)]">onwards</span>
+                    <span className="text-xs text-[var(--sl-charcoal)] ml-2">8–14 weeks delivery</span>
+                  </div>
+                </div>
+                <div className="shrink-0">
+                  <a href="#contact" className="inline-flex items-center justify-center rounded-xl bg-[var(--sl-gold)] px-6 py-3 text-sm font-bold text-white shadow-md transition-all hover:bg-[#c49535] hover:shadow-lg">
+                    Get a Quote
+                  </a>
+                </div>
+              </div>
+              <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                {[
+                  'Professional website (8–15 pages)',
+                  'Android + iPhone mobile apps',
+                  'Payment gateway integration',
+                  'Admin dashboard',
+                  'Push notifications',
+                  'Play Store + App Store listing',
+                  'Shared backend & design system',
+                  '3 months free maintenance',
+                ].map((f) => (
+                  <div key={f} className="flex items-start gap-2 text-xs text-[var(--sl-ink-soft)]">
+                    <Check size={14} className="mt-0.5 shrink-0 text-[var(--sl-teal-sage)]" />
+                    <span>{f}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </FadeUp>
+
+          {/* What's Always Included */}
+          <FadeUp delay={0.5}>
+            <div className="mt-16">
+              <h3 className="font-display text-xl font-semibold tracking-tight text-[var(--sl-ink)]">Every Project. Every Time. No Exceptions.</h3>
+              <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+                {[
+                  'Source code ownership',
+                  'Fixed-price quote',
+                  'Mobile responsive',
+                  'Fast loading',
+                  'SSL security',
+                  'Google setup',
+                  'Milestone billing',
+                  'Minimum 30 days support',
+                  'Documentation',
+                  'Training session',
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-2 rounded-xl border border-[var(--sl-line-light)] bg-white px-3 py-2.5">
+                    <Check size={14} className="shrink-0 text-[var(--sl-teal-sage)]" />
+                    <span className="text-[11px] font-medium text-[var(--sl-ink)]">{item}</span>
                   </div>
                 ))}
               </div>
@@ -691,7 +867,7 @@ export default function Home() {
           </FadeUp>
 
           {/* Maintenance Plans */}
-          <FadeUp delay={0.6}>
+          <FadeUp delay={0.55}>
             <div className="mt-16 rounded-2xl border border-[var(--sl-line)] bg-white p-7 shadow-sm">
               <h3 className="font-display text-xl font-semibold tracking-tight text-[var(--sl-ink)]">Keep It Running — Maintenance Plans</h3>
               <p className="mt-1 text-xs text-[var(--sl-ink-soft)]">After launch, keep your software secure and updated.</p>
@@ -718,57 +894,6 @@ export default function Home() {
             </div>
           </FadeUp>
 
-          {/* What's Always Included */}
-          <FadeUp delay={0.65}>
-            <div className="mt-16">
-              <h3 className="font-display text-xl font-semibold tracking-tight text-[var(--sl-ink)]">Every Project. Every Time. No Exceptions.</h3>
-              <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-                {[
-                  'Source code ownership',
-                  'Fixed-price quote',
-                  'Mobile responsive',
-                  'Fast loading (<3s)',
-                  'SSL security',
-                  'Google setup',
-                  'Milestone billing',
-                  '30-day minimum support',
-                  'Documentation',
-                  'Training session',
-                ].map((item) => (
-                  <div key={item} className="flex items-center gap-2 rounded-xl border border-[var(--sl-line-light)] bg-white px-3 py-2.5">
-                    <Check size={14} className="shrink-0 text-[var(--sl-teal-sage)]" />
-                    <span className="text-[11px] font-medium text-[var(--sl-ink)]">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </FadeUp>
-
-          {/* Industry Examples */}
-          <FadeUp delay={0.7}>
-            <div className="mt-16">
-              <h3 className="font-display text-xl font-semibold tracking-tight text-[var(--sl-ink)]">See What We Build for Businesses Like Yours</h3>
-              <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                {[
-                  { industry: 'Restaurant', need: 'Online ordering, menu display, payment collection', got: 'Customer app + website + admin panel + Razorpay', cost: '₹1,80,000', time: '8 weeks' },
-                  { industry: 'Travel Company', need: 'Booking system, driver management, customer app', got: 'Customer booking app + driver app + admin dashboard', cost: '₹4,50,000', time: '14 weeks' },
-                  { industry: 'Clinic', need: 'Appointment booking, patient records, payment', got: 'Patient app + doctor dashboard + billing system', cost: '₹2,50,000', time: '10 weeks' },
-                  { industry: 'Retail Store', need: 'E-commerce, inventory management, delivery', got: 'Online store + shopping app + inventory system', cost: '₹3,20,000', time: '12 weeks' },
-                ].map((ex) => (
-                  <div key={ex.industry} className="rounded-2xl border border-[var(--sl-line)] bg-white p-5 shadow-sm">
-                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--sl-gold)]">{ex.industry}</p>
-                    <p className="mt-2 text-[11px] text-[var(--sl-ink-soft)]"><span className="font-medium text-[var(--sl-charcoal)]">Need:</span> {ex.need}</p>
-                    <p className="mt-1 text-[11px] text-[var(--sl-ink-soft)]"><span className="font-medium text-[var(--sl-charcoal)]">Got:</span> {ex.got}</p>
-                    <div className="mt-3 flex items-center gap-3 border-t border-[var(--sl-line-light)] pt-3">
-                      <span className="text-sm font-bold text-[var(--sl-ink)]">{ex.cost}</span>
-                      <span className="text-[11px] text-[var(--sl-charcoal)]">{ex.time}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </FadeUp>
-
           {/* FAQ */}
           <FadeUp delay={0.75}>
             <div className="mt-16 max-w-3xl mx-auto">
@@ -776,11 +901,11 @@ export default function Home() {
               <div className="mt-6 space-y-3">
                 {[
                   { q: "I don't know what I need technically. Is that okay?", a: "Yes. That's exactly why we exist. Tell us your business problem in plain language. We'll figure out the technical part and explain it back to you in simple terms before you pay anything." },
-                  { q: "How is this different from hiring a freelancer?", a: "Freelancers are individuals. We're a team. You get design + development + testing + project management. Fixed timeline. Fixed price. Someone to call when things break. And we don't disappear mid-project." },
-                  { q: "Can I start small and add features later?", a: "Absolutely. Start with the Starter package. When you're ready for an app or booking system, add it as a separate project. We build in a way that makes adding features easy later." },
-                  { q: "What if I need changes after launch?", a: "Every project includes free support (30 days to 6 months depending on package). After that, maintenance plans start at ₹8,000/month. You can also hire any developer — you own the code." },
+                  { q: "Should I start with just a website or go straight to the bundle?", a: "Start with what your business needs right now. If you need an online presence fast, start with the website. When you're ready for an app, we'll build it as a separate project — or you can bundle both from the start and save." },
+                  { q: "What if I need changes after launch?", a: "Every project includes free support (30 days to 6 months depending on the service). After that, maintenance plans start at ₹8,000/month. You can also hire any developer — you own the code." },
                   { q: "How do I know the price is fair?", a: "Our prices are based on actual Indian market rates. We're not the cheapest (freelancers who may disappear). We're not the most expensive (large agencies with overhead). We're the sweet spot: quality work, fair price, reliable delivery." },
-                  { q: "Can I pay in EMI?", a: "Yes. For projects above ₹3L, we offer EMI options through Razorpay. Pay in 3–6 monthly installments." },
+                  { q: "Can I pay in installments?", a: "Yes. Every project uses milestone-based billing — you pay as we deliver, not all upfront. For projects above ₹3L, we also offer EMI options through Razorpay." },
+                  { q: "How is the bundle cheaper than buying separately?", a: "The bundle saves you money because we build the website and app together — shared design system, shared backend, less重复 work. You save ₹1L+ compared to buying each separately." },
                 ].map((item) => (
                   <details key={item.q} className="group rounded-xl border border-[var(--sl-line-light)] bg-white">
                     <summary className="flex cursor-pointer items-center justify-between p-4 text-xs font-medium text-[var(--sl-ink)] list-none">
@@ -802,7 +927,7 @@ export default function Home() {
               <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
                 <MagneticButton strength={0.3}>
                   <a
-                    href="https://wa.me/919999999999"
+                    href="https://wa.me/917397430568"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2.5 rounded-xl bg-[var(--sl-ink)] px-6 py-3.5 text-sm font-semibold text-[var(--sl-paper)] shadow-md transition-all hover:bg-black hover:shadow-lg active:scale-98"
@@ -827,40 +952,116 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 5. Contact / CTA Section: Oxblood (#C6472B) — Hard Cut Crescendo ── */}
+      {/* ── 5. Contact Section with Form ── */}
       <section
         id="contact"
         className="sl-section-contact scroll-mt-16 relative overflow-hidden"
       >
         <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-32">
-          <div className="relative rounded-3xl border border-white/20 bg-black/10 p-8 backdrop-blur-xs sm:p-14 shadow-2xl shadow-black/25">
-            <div className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
-              <div className="max-w-xl">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-[var(--sl-paper)] ring-1 ring-white/25">
-                  <Sparkles size={12} />
-                  Get in Touch
-                </span>
-                <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-[var(--sl-paper)] sm:text-5xl">
-                  Ready to build something that fits?
-                </h2>
-                <p className="mt-4 text-sm leading-relaxed text-[rgba(245,241,234,0.8)] sm:text-base">
-                  We work directly with founders and operations leaders to craft software solutions that fit your specific needs. Let us understand your requirements and build the right solution together.
-                </p>
-              </div>
+          <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-start">
+            {/* Left: Copy */}
+            <div>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-[var(--sl-paper)] ring-1 ring-white/25">
+                <Sparkles size={12} />
+                Get in Touch
+              </span>
+              <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-[var(--sl-paper)] sm:text-5xl">
+                Ready to build something that fits?
+              </h2>
+              <p className="mt-4 text-sm leading-relaxed text-[rgba(245,241,234,0.8)] sm:text-base">
+                Tell us about your business and what's not working. We'll figure out what you need — and what you don't.
+              </p>
 
-              <div className="shrink-0">
-                <MagneticButton strength={0.35}>
-                  <a
-                    href="mailto:hello@salira.studio"
-                    data-cursor="open"
-                    data-cursor-text="Email"
-                    className="inline-flex items-center gap-2.5 rounded-2xl bg-[var(--sl-paper)] px-7 py-4 text-sm font-semibold text-[var(--sl-ink)] shadow-xl shadow-black/25 transition-all hover:bg-white hover:text-black hover:shadow-2xl active:scale-98"
-                  >
-                    <span>hello@salira.studio</span>
-                    <ArrowUpRight size={16} />
-                  </a>
-                </MagneticButton>
+              <div className="mt-8 space-y-4">
+                <div className="flex items-center gap-3 text-sm text-[rgba(245,241,234,0.8)]">
+                  <Phone size={16} className="shrink-0" />
+                  <a href="tel:+917397430568" className="hover:text-white transition-colors">+91 73974 30568</a>
+                </div>
+                <div className="flex items-center gap-3 text-sm text-[rgba(245,241,234,0.8)]">
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 shrink-0">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                  </svg>
+                  <a href="https://wa.me/917397430568" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">WhatsApp us</a>
+                </div>
+                <div className="flex items-center gap-3 text-sm text-[rgba(245,241,234,0.8)]">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 shrink-0">
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                  </svg>
+                  <a href="mailto:hello@salira.studio" className="hover:text-white transition-colors">hello@salira.studio</a>
+                </div>
               </div>
+            </div>
+
+            {/* Right: Contact Form */}
+            <div className="rounded-2xl border border-white/15 bg-white/[0.08] p-6 backdrop-blur-xs sm:p-8">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  const form = e.target as HTMLFormElement
+                  const data = new FormData(form)
+                  const name = data.get('name')
+                  const phone = data.get('phone')
+                  const type = data.get('type')
+                  const message = data.get('message')
+                  const text = `Hi Salira, I'm ${name}. Phone: ${phone}. Project type: ${type}. ${message}`
+                  window.open(`https://wa.me/917397430568?text=${encodeURIComponent(text)}`, '_blank')
+                }}
+                className="space-y-4"
+              >
+                <div>
+                  <label htmlFor="name" className="block text-xs font-medium text-[rgba(245,241,234,0.7)] mb-1.5">Your Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    placeholder="e.g. Rahul Sharma"
+                    className="w-full rounded-xl border border-white/15 bg-white/[0.08] px-4 py-2.5 text-sm text-[var(--sl-paper)] placeholder:text-white/30 outline-none focus:border-[var(--sl-gold)] focus:ring-1 focus:ring-[var(--sl-gold)] transition-colors"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="phone" className="block text-xs font-medium text-[rgba(245,241,234,0.7)] mb-1.5">Phone Number</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    required
+                    placeholder="+91 XXXXX XXXXX"
+                    className="w-full rounded-xl border border-white/15 bg-white/[0.08] px-4 py-2.5 text-sm text-[var(--sl-paper)] placeholder:text-white/30 outline-none focus:border-[var(--sl-gold)] focus:ring-1 focus:ring-[var(--sl-gold)] transition-colors"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="type" className="block text-xs font-medium text-[rgba(245,241,234,0.7)] mb-1.5">What do you need?</label>
+                  <select
+                    id="type"
+                    name="type"
+                    className="w-full rounded-xl border border-white/15 bg-white/[0.08] px-4 py-2.5 text-sm text-[var(--sl-paper)] outline-none focus:border-[var(--sl-gold)] focus:ring-1 focus:ring-[var(--sl-gold)] transition-colors appearance-none"
+                  >
+                    <option value="website" className="bg-[var(--sl-ink)]">Website</option>
+                    <option value="mobile-app" className="bg-[var(--sl-ink)]">Mobile App</option>
+                    <option value="both" className="bg-[var(--sl-ink)]">Website + App</option>
+                    <option value="not-sure" className="bg-[var(--sl-ink)]">Not sure — need help figuring it out</option>
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="message" className="block text-xs font-medium text-[rgba(245,241,234,0.7)] mb-1.5">Tell us about your business</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={3}
+                    placeholder="What does your business do? What's not working?"
+                    className="w-full rounded-xl border border-white/15 bg-white/[0.08] px-4 py-2.5 text-sm text-[var(--sl-paper)] placeholder:text-white/30 outline-none focus:border-[var(--sl-gold)] focus:ring-1 focus:ring-[var(--sl-gold)] transition-colors resize-none"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full rounded-xl bg-[var(--sl-gold)] px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:bg-[#c49535] hover:shadow-lg active:scale-[0.98]"
+                >
+                  Send via WhatsApp
+                </button>
+                <p className="text-center text-[10px] text-white/40">Opens WhatsApp with your details. No commitment.</p>
+              </form>
             </div>
           </div>
         </div>
