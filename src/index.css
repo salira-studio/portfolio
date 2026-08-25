@@ -175,6 +175,7 @@
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    line-clamp: 2;
     overflow: hidden;
   }
 }
@@ -583,6 +584,7 @@
   animation: borderShimmer 9s ease infinite;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
   pointer-events: none;
   z-index: 2;
@@ -669,6 +671,7 @@
   animation: borderShimmer 6s ease infinite;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
   pointer-events: none;
   z-index: 1;
