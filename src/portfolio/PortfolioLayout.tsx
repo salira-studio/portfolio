@@ -14,7 +14,8 @@ export function PortfolioLayout() {
 
   const navItems = [
     { label: 'Work', to: '/work', isRoute: true },
-    { label: 'About', to: '/#about', isRoute: false },
+    { label: 'Services', to: '/#services', isRoute: false },
+    { label: 'Pricing', to: '/#pricing', isRoute: false },
     { label: 'Contact', to: '/#contact', isRoute: false },
   ]
 
@@ -27,7 +28,7 @@ export function PortfolioLayout() {
         initial={reduced ? {} : { y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="sl-header-glass sticky top-0 z-40 transition-shadow"
+        className="sl-header-glass sticky top-0 z-40 transition-shadow backdrop-blur-md bg-black/40 border-b border-white/10"
       >
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
           {/* Logo & Studio Mark */}
@@ -37,20 +38,25 @@ export function PortfolioLayout() {
             data-cursor="view"
             data-cursor-text="Home"
           >
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-white text-[#13163a] shadow-sm transition-transform duration-300 group-hover:scale-105">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-[var(--sl-oxblood)] to-[var(--sl-gold)] text-white shadow-sm transition-transform duration-300 group-hover:scale-105">
               <span className="font-display text-sm font-bold leading-none tracking-tight">S</span>
             </div>
             <div className="flex items-baseline gap-1.5">
               <span className="font-display text-xl font-bold tracking-tight text-white">
                 SaLira
               </span>
-              <span className="hidden sm:inline text-[9px] font-semibold uppercase tracking-[0.24em] text-white/40">
+              <span className="hidden sm:inline text-[9px] font-semibold uppercase tracking-[0.24em] text-white/50">
                 Studio
               </span>
             </div>
           </Link>
 
-          {/* Status Badge (Center on desktop) */}
+          {/* Center: Live Availability Indicator */}
+          <div className="hidden lg:flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] font-mono text-white/70">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#10B981] animate-pulse" />
+            <span>Studio: Available for Q3 Builds</span>
+          </div>
+
           {/* Phone + Navigation */}
           <div className="flex items-center gap-3 sm:gap-5">
             <a
@@ -76,7 +82,7 @@ export function PortfolioLayout() {
                         `relative px-3.5 py-1.5 transition-colors rounded-lg z-10 block ${
                           isActive
                             ? 'text-white font-semibold'
-                            : 'text-white/55 hover:text-white/85'
+                            : 'text-white/65 hover:text-white'
                         }`
                       }
                     >
@@ -86,7 +92,7 @@ export function PortfolioLayout() {
                     <a
                       href={item.to}
                       onMouseEnter={() => setHoveredNav(item.label)}
-                      className="relative px-3.5 py-1.5 transition-colors rounded-lg z-10 text-white/55 hover:text-white/85 block"
+                      className="relative px-3.5 py-1.5 transition-colors rounded-lg z-10 text-white/65 hover:text-white block"
                     >
                       {item.label}
                     </a>

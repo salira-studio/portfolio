@@ -221,10 +221,11 @@ If you have 3 clients: "3 businesses trust us"
 
 4. PROCESS (keep as-is — it's good)
 
-5. PRICING (tune with badges + CTAs)
-   3 cards with "POPULAR" badge + "Get a Quote" on each
-   Comparison table
-   Add-ons
+5. PRICING (add-on model implemented)
+   3 service-type tiers: Website / Mobile App / Bundle
+   Each tier has base plan + add-on modules + per-unit pricing
+   "Most Popular" badge on Professional tier
+   "Best Value" badge on Bundle
    Maintenance plans
    FAQ
 

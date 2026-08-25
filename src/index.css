@@ -752,6 +752,38 @@
     0 24px 60px -12px rgba(0, 0, 0, 0.55);
 }
 
+/* ── High-Tech Specular & Craft Sandbox Utilities ── */
+.sl-specular-panel {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 8px 32px -4px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.sl-grid-blueprint {
+  background-size: 24px 24px;
+  background-image: 
+    radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+}
+
+.sl-specular-card-light {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(251, 249, 244, 0.9));
+  border: 1px solid rgba(23, 22, 27, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 4px 20px -2px rgba(23, 22, 27, 0.04);
+}
+
+.sl-specular-card-light:hover {
+  border-color: rgba(217, 164, 65, 0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 12px 36px -4px rgba(217, 164, 65, 0.12);
+}
+
 /* Respect the OS reduced-motion setting across the whole portfolio shell. */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -786,4 +818,5 @@
     opacity: 0.55;
   }
 }
+
 
