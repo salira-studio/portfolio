@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { ArrowUpRight, Sparkles, Phone } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -11,23 +11,6 @@ export function PortfolioLayout() {
   const location = useLocation()
   const reduced = usePrefersReducedMotion()
   const [hoveredNav, setHoveredNav] = useState<string | null>(null)
-  const [timeString, setTimeString] = useState<string>('')
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date()
-      // Display current IST / UTC offset or local studio time format
-      const formatted = new Intl.DateTimeFormat('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-        timeZoneName: 'short',
-      }).format(now)
-      setTimeString(formatted)
-    }
-    updateTime()
-    const timer = setInterval(updateTime, 60000)
-    return () => clearInterval(timer)
-  }, [])
 
   const navItems = [
     { label: 'Work', to: '/work', isRoute: true },
