@@ -231,59 +231,60 @@
    ──────────────────────────────────────────────────────────────── */
 :root,
 .salira {
-  /* ── Core Neutrals & Atmosphere ── */
-  --sl-ink: #17161B;
-  --sl-ink-soft: #4A464E;
-  --sl-ink-faint: #6B6558;
-  --sl-paper: #F5F1EA;
-  --sl-paper-lifted: #FBF9F4;
-  --sl-sand-deep: #EFE7D8;
-  --sl-pine-deep: #1D2B26;
+  /* ── Core Neutrals & Atmosphere (soft warm light studio) ── */
+  --sl-ink: #14161C;
+  --sl-ink-soft: #4A5160;
+  --sl-ink-faint: #6B7280;
+  --sl-paper: #FDF8F5;
+  --sl-paper-lifted: #FFFBF8;
+  --sl-sand-deep: #F7E8E1;
+  --sl-warm-mist: #F0F4F7;
+  --sl-warm-peach: #F5E2DB;
+  --sl-pine-deep: #1A2F2A;
   --sl-surface: #FFFFFF;
-  --sl-surface-glass: rgba(251, 249, 244, 0.88);
+  --sl-surface-glass: rgba(255, 255, 255, 0.78);
 
   /* ── Lines & Hairline Borders ── */
-  --sl-line: rgba(23, 22, 27, 0.09);
-  --sl-line-light: rgba(23, 22, 27, 0.05);
-  --sl-line-dark: rgba(245, 241, 234, 0.12);
+  --sl-line: rgba(20, 22, 28, 0.08);
+  --sl-line-light: rgba(20, 22, 28, 0.045);
+  --sl-line-dark: rgba(255, 255, 255, 0.14);
 
   /* ── Primary & Named Accents ── */
-  --sl-oxblood: #C6472B;           /* Primary Dominant Accent (~50%) */
-  --sl-gold: #D9A441;              /* Secondary Accent (~20-25%) / Flagship tier */
-  --sl-teal-deep: #2E6F5E;         /* Tertiary Accent (~20-25%) / Shipped status */
-  --sl-teal-sage: #7FBFA6;         /* Sage-leaning Teal / Step markers */
-  --sl-taupe: #A9A08A;             /* Warm Taupe / Coming Soon status */
-  --sl-charcoal: #6B6558;          /* Warm Charcoal-Gray / Quiet pull quotes */
+  --sl-oxblood: #C6472B;
+  --sl-gold: #D9A441;
+  --sl-teal-deep: #2E6F5E;
+  --sl-teal-sage: #5BA88F;
+  --sl-taupe: #9AA3B2;
+  --sl-charcoal: #5C6575;
 
   /* ── Semantic System Aliases ── */
   --sl-accent: var(--sl-oxblood);
   --sl-accent-strong: var(--sl-oxblood);
   --sl-accent-wash: rgba(198, 71, 43, 0.08);
-  --sl-accent-glow: rgba(198, 71, 43, 0.15);
-  --sl-accent-soft: rgba(198, 71, 43, 0.35);
+  --sl-accent-glow: rgba(198, 71, 43, 0.14);
+  --sl-accent-soft: rgba(198, 71, 43, 0.32);
 
-  /* ── Living Accent Glows (halos for CTAs / cards / mockups) ── */
-  --sl-glow-gold: rgba(217, 164, 65, 0.38);
-  --sl-glow-oxblood: rgba(198, 71, 43, 0.42);
-  --sl-glow-teal: rgba(127, 191, 166, 0.3);
+  /* ── Living Accent Glows ── */
+  --sl-glow-gold: rgba(217, 164, 65, 0.32);
+  --sl-glow-oxblood: rgba(198, 71, 43, 0.28);
+  --sl-glow-teal: rgba(91, 168, 143, 0.28);
 
-  /* ── Iridescent Gradient (drifting oxblood → gold → sage) ── */
+  /* ── Iridescent Gradient (oxblood → gold → teal) ── */
   --sl-iris: linear-gradient(
     110deg,
     #c6472b 0%,
-    #d9a441 28%,
-    #f0dfb8 45%,
-    #7fbfa6 62%,
-    #d9a441 80%,
+    #d9a441 32%,
+    #7fbfa6 58%,
+    #d9a441 78%,
     #c6472b 100%
   );
 
   /* ── Section Background Tokens ── */
-  --sl-bg-work: var(--sl-paper-lifted);      /* #FBF9F4 Lifted White */
-  --sl-bg-about: var(--sl-sand-deep);        /* #EFE7D8 Deeper Sand */
-  --sl-bg-process: var(--sl-pine-deep);      /* #1D2B26 Deep Pine */
-  --sl-bg-contact: var(--sl-oxblood);        /* #C6472B Oxblood */
-  --sl-bg-casestudy: var(--sl-paper-lifted); /* #FBF9F4 Lifted White */
+  --sl-bg-work: var(--sl-paper-lifted);
+  --sl-bg-about: var(--sl-sand-deep);
+  --sl-bg-process: linear-gradient(160deg, #FDF8F5 0%, #F5F0EC 50%, #EEF5F2 100%);
+  --sl-bg-contact: linear-gradient(180deg, #F0F4F7 0%, #FDFCFB 40%, #F7E8E1 100%);
+  --sl-bg-casestudy: var(--sl-paper-lifted);
 
   position: relative;
   background: var(--sl-paper-lifted);
@@ -296,7 +297,7 @@
   color: #FFFFFF;
 }
 
-/* Tactile Grain Overlay */
+/* Soft film grain — lighter for glass aesthetic */
 .salira::before {
   content: "";
   position: fixed;
@@ -306,8 +307,8 @@
   height: 100vh;
   pointer-events: none;
   z-index: 99;
-  opacity: 0.032;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.018;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
 .salira .sl-label {
@@ -319,53 +320,73 @@
 }
 
 .salira .sl-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.92));
-  border: 1px solid rgba(23, 22, 27, 0.06);
-  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.82));
+  border: 1px solid rgba(20, 22, 28, 0.07);
+  border-radius: 22px;
   box-shadow:
-    0 1px 2px rgba(23, 22, 27, 0.02),
-    0 4px 8px rgba(23, 22, 27, 0.02),
-    0 8px 24px rgba(23, 22, 27, 0.03);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    0 1px 2px rgba(20, 22, 28, 0.02),
+    0 8px 24px rgba(20, 22, 28, 0.04);
+  backdrop-filter: blur(12px);
+  transition: border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .salira .sl-card:hover {
-  border-color: rgba(198, 71, 43, 0.18);
+  border-color: rgba(198, 71, 43, 0.22);
   box-shadow:
-    0 2px 4px rgba(23, 22, 27, 0.03),
-    0 8px 16px rgba(23, 22, 27, 0.03),
-    0 16px 48px rgba(198, 71, 43, 0.06);
-  transform: translateY(-2px);
+    0 4px 12px rgba(20, 22, 28, 0.04),
+    0 18px 48px rgba(198, 71, 43, 0.08);
+  transform: translateY(-3px);
+}
+
+/* Light glass panel — primary interactive surface */
+.salira .sl-panel {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.68));
+  border: 1px solid rgba(20, 22, 28, 0.07);
+  border-radius: 24px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 10px 40px rgba(20, 22, 28, 0.04);
+  backdrop-filter: blur(16px);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+.salira .sl-panel:hover {
+  border-color: rgba(46, 111, 94, 0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 16px 48px rgba(46, 111, 94, 0.08);
+  transform: translateY(-3px);
 }
 
 /* ────────────────────────────────────────────────────────────────
    Section Room & Container Classes (Strict Palette Mapping)
    ──────────────────────────────────────────────────────────────── */
 
-/* 1. Full-bleed Hero: Multi-layered gradient mesh */
+/* 1. Full-bleed Hero: soft warm light mesh */
 .sl-hero-vivid {
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(1200px 700px at 80% -5%, rgba(198, 71, 43, 0.15), transparent 55%),
-    radial-gradient(900px 550px at 10% 100%, rgba(217, 164, 65, 0.1), transparent 50%),
-    radial-gradient(800px 500px at 50% 40%, rgba(46, 111, 94, 0.08), transparent 45%),
-    radial-gradient(1100px 650px at 75% -10%, rgba(29, 43, 38, 0.45), transparent 65%),
-    linear-gradient(165deg, #17161B 0%, #1D2B26 50%, #17161B 100%);
-  color: var(--sl-paper);
+    radial-gradient(1100px 680px at 88% -8%, rgba(247, 232, 225, 0.9), transparent 55%),
+    radial-gradient(900px 560px at 8% 95%, rgba(240, 244, 247, 0.85), transparent 52%),
+    radial-gradient(780px 480px at 55% 40%, rgba(217, 164, 65, 0.08), transparent 48%),
+    linear-gradient(165deg, #F0F4F7 0%, #FDFCFB 42%, #F7E8E1 78%, #FFFBF8 100%);
+  color: var(--sl-ink);
 }
 
-/* Atmospheric drift layer with warm color shift */
+/* Soft drifting color blobs behind hero content */
 .sl-hero-hue {
   position: absolute;
-  inset: -20%;
+  inset: -25%;
   pointer-events: none;
   background:
-    radial-gradient(circle at 60% 35%, rgba(198, 71, 43, 0.12) 0%, transparent 50%),
-    radial-gradient(circle at 30% 65%, rgba(217, 164, 65, 0.08) 0%, transparent 45%),
-    radial-gradient(circle at 50% 45%, rgba(29, 43, 38, 0.2) 0%, transparent 60%);
-  filter: blur(80px);
-  animation: heroAtmosphereDrift 34s ease-in-out infinite alternate;
+    radial-gradient(circle at 72% 28%, rgba(245, 226, 219, 0.85) 0%, transparent 48%),
+    radial-gradient(circle at 22% 68%, rgba(240, 244, 247, 0.7) 0%, transparent 46%),
+    radial-gradient(circle at 48% 42%, rgba(217, 164, 65, 0.1) 0%, transparent 50%);
+  filter: blur(72px);
+  animation: heroAtmosphereDrift 28s ease-in-out infinite alternate;
 }
 
 @keyframes heroAtmosphereDrift {
@@ -379,11 +400,11 @@
 .sl-section-work {
   position: relative;
   background:
-    radial-gradient(700px 350px at 85% 10%, rgba(217, 164, 65, 0.05), transparent 50%),
-    radial-gradient(500px 300px at 10% 85%, rgba(198, 71, 43, 0.03), transparent 45%),
-    var(--sl-bg-work);
+    radial-gradient(800px 420px at 90% 0%, rgba(198, 71, 43, 0.08), transparent 52%),
+    radial-gradient(620px 380px at 5% 90%, rgba(46, 111, 94, 0.08), transparent 48%),
+    linear-gradient(180deg, #FBFCFF 0%, #F5F8FC 55%, #F7F9FC 100%);
   color: var(--sl-ink);
-  border-top: 1px solid rgba(23, 22, 27, 0.1);
+  border-top: 1px solid rgba(20, 22, 28, 0.06);
 }
 
 /* 3. About Section: Deeper Sand with subtle warm mesh */
@@ -397,15 +418,15 @@
   border-top: 1px solid rgba(23, 22, 27, 0.08);
 }
 
-/* 4. Services / Process Section: Deep Pine with cool gradient mesh */
+/* 4. Process Section: cool mint-glass light mesh */
 .sl-section-process {
   position: relative;
   background:
-    radial-gradient(700px 450px at 80% 20%, rgba(46, 111, 94, 0.15), transparent 55%),
-    radial-gradient(500px 350px at 15% 75%, rgba(29, 43, 38, 0.25), transparent 50%),
-    var(--sl-bg-process);
-  color: var(--sl-paper);
-  border-top: 1px solid rgba(107, 101, 88, 0.22);
+    radial-gradient(720px 420px at 85% 15%, rgba(46, 111, 94, 0.1), transparent 55%),
+    radial-gradient(560px 360px at 12% 80%, rgba(217, 164, 65, 0.07), transparent 50%),
+    linear-gradient(165deg, #F4F8FB 0%, #EEF5F2 48%, #F7F9FC 100%);
+  color: var(--sl-ink);
+  border-top: 1px solid rgba(20, 22, 28, 0.06);
 }
 
 /* 4b. Pricing Section: Lifted White with gold trust mesh */
@@ -419,28 +440,113 @@
   border-top: 1px solid rgba(23, 22, 27, 0.08);
 }
 
-/* 5. Contact / CTA Section: Oxblood with warm gradient mesh */
+/* 5. Contact — soft warm light; blends seamlessly into footer */
 .sl-section-contact {
   position: relative;
   background:
-    radial-gradient(600px 400px at 75% 30%, rgba(217, 164, 65, 0.15), transparent 55%),
-    radial-gradient(500px 350px at 20% 70%, rgba(29, 43, 38, 0.12), transparent 50%),
-    var(--sl-bg-contact);
-  color: var(--sl-paper);
+    radial-gradient(680px 420px at 82% 18%, rgba(245, 226, 219, 0.75), transparent 55%),
+    radial-gradient(520px 360px at 12% 70%, rgba(240, 244, 247, 0.65), transparent 50%),
+    linear-gradient(180deg, #F0F4F7 0%, #FDFCFB 38%, #F7E8E1 100%);
+  color: var(--sl-ink);
+  border-top: 1px solid rgba(20, 22, 28, 0.05);
+  border-bottom: none;
+  padding-bottom: 2.5rem;
 }
 
-/* ── Header Glass (dark, over hero & pages) ── */
+/* Footer — continues the same warm peach; no hard seam */
+.sl-footer-glass {
+  background:
+    radial-gradient(640px 280px at 70% 0%, rgba(245, 226, 219, 0.5), transparent 55%),
+    linear-gradient(180deg, #F7E8E1 0%, #F5E2DB 55%, #F3DDD5 100%);
+  color: var(--sl-ink);
+  border-top: none;
+  margin-top: -1px;
+}
+
+/* Scroll ambient orbs */
+.sl-scroll-ambient {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.sl-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  will-change: transform;
+}
+
+.sl-orb-peach {
+  top: 12%;
+  right: -8%;
+  width: min(42vw, 420px);
+  height: min(42vw, 420px);
+  background: radial-gradient(circle, rgba(247, 232, 225, 0.95) 0%, rgba(245, 226, 219, 0) 70%);
+  opacity: 0.85;
+}
+
+.sl-orb-mist {
+  top: 48%;
+  left: -12%;
+  width: min(48vw, 480px);
+  height: min(48vw, 480px);
+  background: radial-gradient(circle, rgba(240, 244, 247, 0.9) 0%, rgba(240, 244, 247, 0) 70%);
+  opacity: 0.8;
+}
+
+.sl-orb-gold {
+  bottom: 8%;
+  right: 18%;
+  width: min(28vw, 280px);
+  height: min(28vw, 280px);
+  background: radial-gradient(circle, rgba(217, 164, 65, 0.22) 0%, transparent 70%);
+  opacity: 0.7;
+}
+
+@media (max-width: 640px) {
+  .sl-scroll-ambient { display: none; }
+}
+
+/* ── Header Glass (light frosted) ── */
 .sl-header-glass {
-  background: rgba(23, 22, 27, 0.88);
-  backdrop-filter: blur(18px) saturate(1.2);
-  -webkit-backdrop-filter: blur(18px) saturate(1.2);
-  border-bottom: 1px solid rgba(245, 241, 234, 0.08);
-  color: var(--sl-paper);
+  background: rgba(251, 252, 255, 0.78);
+  backdrop-filter: blur(18px) saturate(1.25);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
+  border-bottom: 1px solid rgba(20, 22, 28, 0.07);
+  color: var(--sl-ink);
 }
 
 /* Section Text utilities */
-.sl-on-dark { color: rgba(245, 241, 234, 0.72); }
-.sl-label-on-dark { color: rgba(245, 241, 234, 0.55); }
+.sl-on-dark { color: rgba(20, 22, 28, 0.62); }
+.sl-label-on-dark { color: rgba(20, 22, 28, 0.45); }
+
+/* Process step connector line */
+.sl-process-rail {
+  position: relative;
+}
+.sl-process-rail::before {
+  content: "";
+  position: absolute;
+  top: 1.35rem;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(46, 111, 94, 0.28),
+    rgba(217, 164, 65, 0.28),
+    rgba(198, 71, 43, 0.22),
+    transparent
+  );
+  pointer-events: none;
+}
+@media (max-width: 1023px) {
+  .sl-process-rail::before { display: none; }
+}
 
 /* Gradient display type */
 .sl-gradient-text {
@@ -711,30 +817,47 @@
 /* Soft accent halos for CTAs / floating panels */
 .sl-halo-gold {
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.06),
-    0 12px 40px -8px var(--sl-glow-gold),
-    0 4px 14px -4px rgba(23, 22, 27, 0.5);
+    0 0 0 1px rgba(255, 255, 255, 0.55),
+    0 12px 36px -8px var(--sl-glow-gold),
+    0 4px 14px -4px rgba(20, 22, 28, 0.12);
+}
+
+.sl-halo-gold:hover {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.7),
+    0 16px 44px -6px rgba(217, 164, 65, 0.45),
+    0 6px 18px -4px rgba(20, 22, 28, 0.14);
 }
 
 .sl-halo-oxblood {
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.06),
-    0 12px 40px -8px var(--sl-glow-oxblood),
-    0 4px 14px -4px rgba(23, 22, 27, 0.5);
+    0 0 0 1px rgba(255, 255, 255, 0.55),
+    0 12px 36px -8px var(--sl-glow-oxblood),
+    0 4px 14px -4px rgba(20, 22, 28, 0.12);
 }
 
-/* Cursor spotlight layer (positioned via CSS vars from JS) */
+/* Cursor spotlight layer (light soft wash) */
 .sl-spotlight {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background: radial-gradient(
-    520px circle at var(--spot-x, 70%) var(--spot-y, 40%),
-    rgba(217, 164, 65, 0.09),
-    rgba(198, 71, 43, 0.05) 42%,
+    480px circle at var(--spot-x, 70%) var(--spot-y, 40%),
+    rgba(217, 164, 65, 0.12),
+    rgba(46, 111, 94, 0.06) 40%,
     transparent 68%
   );
   transition: opacity 0.4s ease;
+}
+
+/* Footer — continues the same warm peach; no hard seam */
+.sl-footer-glass {
+  background:
+    radial-gradient(640px 280px at 70% 0%, rgba(245, 226, 219, 0.5), transparent 55%),
+    linear-gradient(180deg, #F7E8E1 0%, #F5E2DB 55%, #F3DDD5 100%);
+  color: var(--sl-ink);
+  border-top: none;
+  margin-top: -1px;
 }
 
 /* Mini browser chrome for hero device mockups */
@@ -787,6 +910,253 @@
     0 12px 36px -4px rgba(217, 164, 65, 0.12);
 }
 
+/* ── Enhanced Card Hover — lift + oxblood underline sweep ── */
+.sl-card-hover-lift {
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sl-card-hover-lift::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--sl-oxblood), var(--sl-gold));
+  border-radius: 1px;
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              left 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sl-card-hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 8px 24px rgba(20, 22, 28, 0.06),
+    0 24px 60px rgba(198, 71, 43, 0.1);
+}
+
+.sl-card-hover-lift:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+/* ── Icon hover bounce ── */
+.sl-icon-bounce {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.sl-icon-bounce:hover {
+  transform: scale(1.18) rotate(-4deg);
+}
+
+/* ── Shine sweep on hover (for CTAs and featured cards) ── */
+.sl-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.sl-shine::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 80%
+  );
+  transform: skewX(-20deg);
+  transition: left 0s;
+  pointer-events: none;
+}
+
+.sl-shine:hover::before {
+  left: 130%;
+  transition: left 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Magnetic arrow — used on links ── */
+.sl-arrow-hover .sl-arrow {
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  display: inline-block;
+}
+
+.sl-arrow-hover:hover .sl-arrow {
+  transform: translate(3px, -3px);
+}
+
+/* ── Text underline draw ── */
+.sl-underline-draw {
+  position: relative;
+  display: inline;
+}
+
+.sl-underline-draw::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: currentColor;
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 1px;
+}
+
+.sl-underline-draw:hover::after {
+  width: 100%;
+}
+
+/* ── Pulsing ring for live indicators ── */
+@keyframes ringPulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.6); opacity: 0; }
+}
+
+.sl-ring-pulse {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sl-ring-pulse::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid var(--sl-teal-deep);
+  animation: ringPulse 2.2s ease-out infinite;
+}
+
+/* ── Number counter shimmer (for pricing/stats) ── */
+@keyframes numberShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.sl-number-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--sl-ink) 0%,
+    var(--sl-oxblood) 30%,
+    var(--sl-gold) 50%,
+    var(--sl-ink) 70%,
+    var(--sl-ink) 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: numberShimmer 3.5s ease-in-out infinite;
+}
+
+/* ── Scroll-triggered section entrance — used via JS ── */
+@keyframes sectionRise {
+  from { opacity: 0; transform: translateY(32px); filter: blur(6px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0);   }
+}
+
+.sl-section-rise {
+  animation: sectionRise 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ── Tilt card — 3D perspective wrapper ── */
+.sl-tilt-wrapper {
+  perspective: 1000px;
+}
+
+/* ── Subtle grid lines in background (used by ParallaxBackground) ── */
+.sl-grid-lines {
+  background-image:
+    linear-gradient(rgba(20, 22, 28, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 22, 28, 0.028) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ── Stagger fade-in for lists ── */
+.sl-stagger > * {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.sl-stagger > *:nth-child(1) { animation-delay: 0.05s; }
+.sl-stagger > *:nth-child(2) { animation-delay: 0.12s; }
+.sl-stagger > *:nth-child(3) { animation-delay: 0.19s; }
+.sl-stagger > *:nth-child(4) { animation-delay: 0.26s; }
+.sl-stagger > *:nth-child(5) { animation-delay: 0.33s; }
+.sl-stagger > *:nth-child(6) { animation-delay: 0.40s; }
+
+/* ── Marquee / ticker for social proof ── */
+@keyframes marqueeScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.sl-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 22s linear infinite;
+}
+
+.sl-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Floating label animation on form focus ── */
+.sl-input-group {
+  position: relative;
+}
+
+.sl-input-group input:focus ~ label,
+.sl-input-group input:not(:placeholder-shown) ~ label,
+.sl-input-group textarea:focus ~ label,
+.sl-input-group textarea:not(:placeholder-shown) ~ label {
+  transform: translateY(-1.6rem) scale(0.85);
+  color: var(--sl-gold);
+}
+
+.sl-input-group label {
+  position: absolute;
+  left: 1rem;
+  top: 0.75rem;
+  color: var(--sl-taupe);
+  font-size: 0.875rem;
+  pointer-events: none;
+  transform-origin: left center;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+              color 0.25s ease;
+}
+
+/* ── Section reveal animation using IntersectionObserver ── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  filter: blur(3px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-reveal].in-view {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0px);
+}
+
+[data-reveal-delay="1"] { transition-delay: 0.08s; }
+[data-reveal-delay="2"] { transition-delay: 0.16s; }
+[data-reveal-delay="3"] { transition-delay: 0.24s; }
+[data-reveal-delay="4"] { transition-delay: 0.32s; }
+[data-reveal-delay="5"] { transition-delay: 0.40s; }
+
 /* Respect the OS reduced-motion setting across the whole portfolio shell. */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -811,6 +1181,12 @@
   .sl-float-a,
   .sl-float-b {
     animation: none !important;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
 }
 

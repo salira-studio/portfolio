@@ -28,12 +28,9 @@ const workflowSteps = [
 
 export default function RestaurantShowcase() {
   return (
-    <div className="relative overflow-hidden bg-[var(--sl-bg-casestudy)] text-[var(--sl-ink)] min-h-screen">
-      {/* Background Ambient Glow */}
-      <div className="sl-hero-mesh" aria-hidden="true">
-        <div className="sl-hero-glow-1" />
-        <div className="sl-hero-glow-2" />
-      </div>
+    <div className="relative min-h-screen overflow-hidden bg-white text-[var(--sl-ink)]">
+      {/* Subtle top accent strip */}
+      <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[var(--sl-oxblood)] via-[var(--sl-gold)] to-[var(--sl-teal-deep)]" />
 
       <div className="relative mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-20">
         {/* Back Link */}
@@ -85,7 +82,7 @@ export default function RestaurantShowcase() {
               <StaggerItem key={step.label}>
                 <div className="flex items-center gap-3">
                   <div className="flex flex-col items-center gap-2">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--sl-line)] bg-white shadow-sm">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--sl-line)] bg-white shadow-sm transition-all duration-300 hover:border-[var(--sl-oxblood)]/30 hover:shadow-[0_8px_20px_rgba(198,71,43,0.1)] hover:-translate-y-0.5">
                       <step.icon size={18} className="text-[var(--sl-ink)]" strokeWidth={1.5} />
                     </div>
                     <span className="text-[11px] font-medium text-[var(--sl-charcoal)]">{step.label}</span>
@@ -103,7 +100,7 @@ export default function RestaurantShowcase() {
         <section className="mt-20 grid gap-6 lg:grid-cols-2">
           {/* Guest Experience Card */}
           <FadeUp delay={0.1}>
-            <div className="sl-card group flex h-full flex-col p-7 sm:p-10 shadow-lg shadow-neutral-900/3 transition-all duration-300 hover:-translate-y-1">
+            <div className="group flex h-full flex-col rounded-2xl border border-[rgba(198,71,43,0.15)] bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(198,71,43,0.3)] hover:shadow-[0_20px_50px_rgba(198,71,43,0.09)] sm:p-10">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--sl-accent-wash)] text-[var(--sl-oxblood)] shadow-2xs">
@@ -152,7 +149,7 @@ export default function RestaurantShowcase() {
 
           {/* Restaurant Operations Card */}
           <FadeUp delay={0.2}>
-            <div className="sl-card group flex h-full flex-col p-7 sm:p-10 shadow-lg shadow-neutral-900/3 transition-all duration-300 hover:-translate-y-1">
+            <div className="group flex h-full flex-col rounded-2xl border border-[var(--sl-line)] bg-[#FAFAFA] p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(92,101,117,0.3)] hover:shadow-[0_20px_50px_rgba(20,22,28,0.07)] sm:p-10">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--sl-sand-deep)]/60 text-[var(--sl-ink)] shadow-2xs">
@@ -202,7 +199,7 @@ export default function RestaurantShowcase() {
 
         {/* ── Note about live demo ── */}
         <FadeUp delay={0.3}>
-          <div className="mt-16 rounded-2xl border border-[var(--sl-line)] bg-white/60 p-6 sm:p-8">
+          <div className="mt-16 rounded-2xl border border-[var(--sl-line)] bg-[#FAFAFA] p-6 sm:p-8">
             <p className="text-sm text-[var(--sl-ink-soft)]">
               <span className="font-semibold text-[var(--sl-ink)]">About this demonstration.</span>{' '}
               Both experiences are independent but connected. Place an order in the Customer Experience, and it appears in the Restaurant Operations console. This is how SaLira approaches restaurant software — understanding the full workflow, then building the digital experiences it requires.

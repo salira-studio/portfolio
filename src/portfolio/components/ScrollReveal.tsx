@@ -15,8 +15,8 @@ export function FadeUp({
   children,
   className = '',
   delay = 0,
-  duration = 0.6,
-  yOffset = 24,
+  duration = 0.65,
+  yOffset = 28,
   once = true,
 }: RevealProps) {
   const reduced = usePrefersReducedMotion()
@@ -27,13 +27,13 @@ export function FadeUp({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: yOffset }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once, margin: '-40px' }}
+      initial={{ opacity: 0, y: yOffset, filter: 'blur(4px)' }}
+      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      viewport={{ once, margin: '-50px' }}
       transition={{
         duration,
         delay,
-        ease: [0.22, 1, 0.36, 1], // cinematic bezier
+        ease: [0.22, 1, 0.36, 1],
       }}
       className={className}
     >
@@ -100,16 +100,48 @@ export function StaggerItem({
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0, y: yOffset },
+        hidden: { opacity: 0, y: yOffset, filter: 'blur(4px)' },
         visible: {
           opacity: 1,
           y: 0,
+          filter: 'blur(0px)',
           transition: {
-            duration: 0.6,
+            duration: 0.65,
             ease: [0.22, 1, 0.36, 1],
           },
         },
       }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+/** Scale + fade reveal — great for cards popping in */
+export function ScaleIn({
+  children,
+  className = '',
+  delay = 0,
+  duration = 0.6,
+}: {
+  children: React.ReactNode
+  className?: string
+  delay?: number
+  duration?: number
+}) {
+  const reduced = usePrefersReducedMotion()
+
+  if (reduced) {
+    return <div className={className}>{children}</div>
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.92, y: 16 }}
+      whileInView={{ opacity: 1, scale: 1, y: 0 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
       {children}
