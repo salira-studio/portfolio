@@ -12,9 +12,8 @@ import {
 import { usePrefersReducedMotion } from '../lib/usePrefersReducedMotion'
 
 /**
- * Clean, High-Trust Multi-Device Showcase for the Hero Section.
- * Shows that SaLira builds modern, responsive websites and mobile apps
- * in a way that is immediately understandable and attractive to any business.
+ * Light glass multi-device showcase for the hero.
+ * Content labels preserved — chrome restyled for Light Studio Glass.
  */
 export function HeroShowcaseClean() {
   const reduced = usePrefersReducedMotion()
@@ -25,8 +24,8 @@ export function HeroShowcaseClean() {
   const sx = useSpring(mx, { stiffness: 90, damping: 18, mass: 0.5 })
   const sy = useSpring(my, { stiffness: 90, damping: 18, mass: 0.5 })
 
-  const rotateX = useTransform(sy, [0, 1], [5, -5])
-  const rotateY = useTransform(sx, [0, 1], [-7, 7])
+  const rotateX = useTransform(sy, [0, 1], [4, -4])
+  const rotateY = useTransform(sx, [0, 1], [-6, 6])
 
   const handleMove = (e: ReactMouseEvent<HTMLDivElement>) => {
     if (reduced) return
@@ -48,114 +47,105 @@ export function HeroShowcaseClean() {
       onMouseLeave={handleLeave}
       className="relative w-full max-w-lg [perspective:1200px]"
     >
-      {/* Warm Ambient Backdrop Glow */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute -inset-6 rounded-full blur-3xl opacity-50"
+        className="pointer-events-none absolute -inset-8 rounded-full opacity-70 blur-3xl"
         style={{
           background:
-            'radial-gradient(circle, rgba(217, 164, 65, 0.25) 0%, rgba(198, 71, 43, 0.15) 50%, transparent 70%)',
+            'radial-gradient(circle, rgba(217, 164, 65, 0.22) 0%, rgba(46, 111, 94, 0.14) 45%, rgba(198, 71, 43, 0.1) 70%, transparent 78%)',
         }}
-        animate={reduced ? {} : { scale: [1, 1.06, 1], opacity: [0.4, 0.6, 0.4] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+        animate={reduced ? {} : { scale: [1, 1.05, 1], opacity: [0.55, 0.75, 0.55] }}
+        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
       />
 
       <motion.div
         style={reduced ? undefined : { rotateX, rotateY, transformStyle: 'preserve-3d' }}
         className="relative space-y-4"
       >
-        {/* Main Laptop / Browser Screen */}
-        <div className="rounded-3xl border border-white/15 bg-black/40 p-4 sm:p-5 backdrop-blur-xl shadow-2xl text-white">
-          {/* Chrome bar */}
-          <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-3.5">
+        <div className="rounded-3xl border border-[var(--sl-line)] bg-white/80 p-4 shadow-[0_20px_60px_rgba(20,22,28,0.1)] backdrop-blur-xl sm:p-5">
+          <div className="mb-3.5 flex items-center justify-between border-b border-[var(--sl-line-light)] pb-3">
             <div className="flex items-center gap-1.5">
               <span className="h-2.5 w-2.5 rounded-full bg-[#E11D48]/80" />
               <span className="h-2.5 w-2.5 rounded-full bg-[#F5A623]/80" />
               <span className="h-2.5 w-2.5 rounded-full bg-[#10B981]/80" />
             </div>
-            <div className="flex items-center gap-1.5 rounded-lg bg-white/10 px-3 py-1 text-[10px] font-mono text-white/70">
+            <div className="flex items-center gap-1.5 rounded-lg bg-[var(--sl-sand-deep)]/80 px-3 py-1 font-mono text-[10px] text-[var(--sl-ink-soft)]">
               <Laptop size={11} className="text-[var(--sl-gold)]" />
               <span>yourbusiness.com · Custom Web Presence</span>
             </div>
-            <span className="text-[10px] font-bold text-[#10B981] flex items-center gap-1">
+            <span className="flex items-center gap-1 text-[10px] font-bold text-[#10B981]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#10B981] animate-pulse" />
               Live
             </span>
           </div>
 
-          {/* Website Preview UI */}
-          <div className="rounded-2xl bg-white/[0.06] p-4 border border-white/10 space-y-3">
-            <div className="flex items-center justify-between">
+          <div className="space-y-3 rounded-2xl border border-[var(--sl-line-light)] bg-[var(--sl-paper-lifted)]/90 p-4">
+            <div className="flex items-center justify-between gap-3">
               <div>
-                <p className="text-[10px] font-mono uppercase text-[var(--sl-gold)]">Custom Crafted</p>
-                <h4 className="text-sm font-bold text-white mt-0.5">High-Converting Business Website</h4>
+                <p className="font-mono text-[10px] uppercase text-[var(--sl-gold)]">Custom Crafted</p>
+                <h4 className="mt-0.5 text-sm font-bold text-[var(--sl-ink)]">High-Converting Business Website</h4>
               </div>
-              <span className="rounded-lg bg-[var(--sl-gold)] px-2.5 py-1 text-[10px] font-bold text-black shadow-xs">
+              <span className="shrink-0 rounded-lg bg-[var(--sl-gold)] px-2.5 py-1 text-[10px] font-bold text-black shadow-xs">
                 2–3 Week Delivery
               </span>
             </div>
 
-            {/* Feature Points Grid */}
             <div className="grid grid-cols-2 gap-2 pt-1">
-              <div className="rounded-xl bg-white/[0.04] p-2.5 border border-white/5 flex items-center gap-2 text-xs">
-                <CheckCircle2 size={14} className="text-[#10B981] shrink-0" />
-                <span className="text-white/80 text-[11px]">Mobile Responsive</span>
-              </div>
-              <div className="rounded-xl bg-white/[0.04] p-2.5 border border-white/5 flex items-center gap-2 text-xs">
-                <CheckCircle2 size={14} className="text-[#10B981] shrink-0" />
-                <span className="text-white/80 text-[11px]">WhatsApp Button</span>
-              </div>
-              <div className="rounded-xl bg-white/[0.04] p-2.5 border border-white/5 flex items-center gap-2 text-xs">
-                <CheckCircle2 size={14} className="text-[#10B981] shrink-0" />
-                <span className="text-white/80 text-[11px]">Google SEO Ready</span>
-              </div>
-              <div className="rounded-xl bg-white/[0.04] p-2.5 border border-white/5 flex items-center gap-2 text-xs">
-                <CheckCircle2 size={14} className="text-[#10B981] shrink-0" />
-                <span className="text-white/80 text-[11px]">100% Code Ownership</span>
-              </div>
+              {[
+                'Mobile Responsive',
+                'WhatsApp Button',
+                'Google SEO Ready',
+                '100% Code Ownership',
+              ].map((label) => (
+                <div
+                  key={label}
+                  className="flex items-center gap-2 rounded-xl border border-[var(--sl-line-light)] bg-white/90 p-2.5 text-xs transition-colors hover:border-[var(--sl-teal-deep)]/25"
+                >
+                  <CheckCircle2 size={14} className="shrink-0 text-[#10B981]" />
+                  <span className="text-[11px] text-[var(--sl-ink-soft)]">{label}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Floating Mobile Card Overlay */}
         <motion.div
-          className="rounded-2xl border border-white/20 bg-gradient-to-br from-[var(--sl-ink)] to-[#1D2B26] p-4 text-white shadow-xl backdrop-blur-md"
+          className="rounded-2xl border border-[var(--sl-line)] bg-gradient-to-br from-white via-white to-[rgba(46,111,94,0.08)] p-4 shadow-lg backdrop-blur-md"
           animate={reduced ? {} : { y: [0, -4, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
         >
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[var(--sl-gold)]/20 text-[var(--sl-gold)]">
+              <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[rgba(217,164,65,0.15)] text-[var(--sl-gold)]">
                 <Smartphone size={16} />
               </span>
               <div>
-                <p className="text-xs font-bold text-white">Need a Mobile App too?</p>
-                <p className="text-[10px] text-white/60">Android + iPhone apps built with shared backend</p>
+                <p className="text-xs font-bold text-[var(--sl-ink)]">Need a Mobile App too?</p>
+                <p className="text-[10px] text-[var(--sl-ink-soft)]">Android + iPhone apps built with shared backend</p>
               </div>
             </div>
             <div className="text-right">
-              <span className="font-mono text-xs font-bold text-[var(--sl-gold)]">From ₹1.5L</span>
-              <p className="text-[9px] text-white/50">Website + App Bundle</p>
+              <span className="font-mono text-xs font-bold text-[var(--sl-oxblood)]">From ₹1.5L</span>
+              <p className="text-[9px] text-[var(--sl-charcoal)]">Website + App Bundle</p>
             </div>
           </div>
         </motion.div>
 
-        {/* Bottom Trust Badges */}
-        <div className="grid grid-cols-3 gap-2 text-center text-white">
-          <div className="rounded-xl border border-white/10 bg-white/[0.04] p-2.5 backdrop-blur-xs">
-            <ShieldCheck size={14} className="mx-auto text-[var(--sl-gold)] mb-1" />
-            <p className="text-[10px] font-bold">100% Code Ownership</p>
-            <p className="text-[8px] text-white/50">Zero monthly rent</p>
+        <div className="grid grid-cols-3 gap-2 text-center">
+          <div className="rounded-xl border border-[var(--sl-line)] bg-white/75 p-2.5 shadow-xs backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-[var(--sl-gold)]/35">
+            <ShieldCheck size={14} className="mx-auto mb-1 text-[var(--sl-gold)]" />
+            <p className="text-[10px] font-bold text-[var(--sl-ink)]">100% Code Ownership</p>
+            <p className="text-[8px] text-[var(--sl-charcoal)]">Zero monthly rent</p>
           </div>
-          <div className="rounded-xl border border-white/10 bg-white/[0.04] p-2.5 backdrop-blur-xs">
-            <Clock size={14} className="mx-auto text-[#10B981] mb-1" />
-            <p className="text-[10px] font-bold">Fixed Timeline</p>
-            <p className="text-[8px] text-white/50">2–4 week turnaround</p>
+          <div className="rounded-xl border border-[var(--sl-line)] bg-white/75 p-2.5 shadow-xs backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-[var(--sl-teal-deep)]/35">
+            <Clock size={14} className="mx-auto mb-1 text-[#10B981]" />
+            <p className="text-[10px] font-bold text-[var(--sl-ink)]">Fixed Timeline</p>
+            <p className="text-[8px] text-[var(--sl-charcoal)]">2–4 week turnaround</p>
           </div>
-          <div className="rounded-xl border border-white/10 bg-white/[0.04] p-2.5 backdrop-blur-xs">
-            <Sparkles size={14} className="mx-auto text-[var(--sl-teal-sage)] mb-1" />
-            <p className="text-[10px] font-bold">Free Support</p>
-            <p className="text-[8px] text-white/50">30 days warranty</p>
+          <div className="rounded-xl border border-[var(--sl-line)] bg-white/75 p-2.5 shadow-xs backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-[var(--sl-oxblood)]/30">
+            <Sparkles size={14} className="mx-auto mb-1 text-[var(--sl-teal-sage)]" />
+            <p className="text-[10px] font-bold text-[var(--sl-ink)]">Free Support</p>
+            <p className="text-[8px] text-[var(--sl-charcoal)]">30 days warranty</p>
           </div>
         </div>
       </motion.div>
