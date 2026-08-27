@@ -521,7 +521,6 @@ export default function Home() {
 
       {/* ── 6. Contact ── */}
       <section id="contact" className="sl-section-contact relative scroll-mt-16 overflow-hidden py-20 sm:py-28">
-        <ParallaxBackground variant="warm" intensity={0.4} />
         <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <FadeUp>
