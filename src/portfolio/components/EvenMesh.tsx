@@ -47,7 +47,7 @@ export function EvenMesh() {
     }
 
     // ── Particle system ────────────────────────────────────
-    const COUNT = 120
+    const COUNT = 200
     const SPEED = 1.1
     const TAIL  = 14   // number of positions kept per particle
 
