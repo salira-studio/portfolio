@@ -910,7 +910,22 @@
     0 12px 36px -4px rgba(217, 164, 65, 0.12);
 }
 
-/* ── Warm Paper Section Backgrounds (matches header/footer family) ── */
+/* ── White Section — base for EvenMesh canvas sections ── */
+.sl-white-section {
+  background-color: #FFFFFF;
+  position: relative;
+}
+
+/* Section content always above canvas */
+.sl-white-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Canvas sits at z-index 0 */
+.sl-white-section canvas {
+  z-index: 0;
+}
 
 /* Base: FDF8F5 — brand --sl-paper, same family as footer #F7E8E1 */
 .sl-section-warm {
