@@ -4,6 +4,7 @@ import { ArrowUpRight, Sparkles, Phone } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MagneticButton } from './components/MagneticButton'
 import { WhatsAppButton } from './components/WhatsAppButton'
+import { EvenMesh } from './components/EvenMesh'
 import { usePrefersReducedMotion } from './lib/usePrefersReducedMotion'
 
 export function PortfolioLayout() {
@@ -20,6 +21,8 @@ export function PortfolioLayout() {
 
   return (
     <div className="salira min-h-screen flex flex-col selection:bg-[var(--sl-accent)] selection:text-white">
+      {/* ── Global particle canvas — behind everything except header/footer ── */}
+      <EvenMesh />
       {/* ── Header ── */}
       <motion.header
         initial={reduced ? {} : { y: -16, opacity: 0 }}
@@ -121,7 +124,7 @@ export function PortfolioLayout() {
         </AnimatePresence>
       </main>
 
-      <footer className="sl-footer-glass relative overflow-hidden border-t border-[var(--sl-line)]">
+      <footer className="sl-footer-glass relative z-10 overflow-hidden border-t border-[var(--sl-line)]">
         <div className="relative mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
           <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-8">
             <div className="space-y-4 lg:col-span-5">

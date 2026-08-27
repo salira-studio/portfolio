@@ -21,7 +21,6 @@ import { PricingTiers } from '../components/PricingTiers'
 import { MagneticButton } from '../components/MagneticButton'
 import { FadeUp, ScaleIn } from '../components/ScrollReveal'
 import { ParallaxBackground } from '../components/ParallaxBackground'
-import { EvenMesh } from '../components/EvenMesh'
 import { usePrefersReducedMotion } from '../lib/usePrefersReducedMotion'
 
 /** Masked word-by-word rise-in for hero display type */
@@ -249,7 +248,6 @@ export default function Home() {
 
       {/* ── 2. Services ── */}
       <section id="services" className="sl-white-section relative z-10 overflow-hidden border-t border-[rgba(20,22,28,0.06)] py-20 sm:py-28">
-        <EvenMesh />
         <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
           <FadeUp>
             <div className="mx-auto mb-14 max-w-2xl text-center">
@@ -338,7 +336,6 @@ export default function Home() {
         id="pricing"
         className="sl-white-section relative z-10 scroll-mt-16 overflow-hidden border-t border-[rgba(20,22,28,0.06)] py-20 sm:py-32"
       >
-        <EvenMesh />
         <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
           <FadeUp>
             <div className="mx-auto mb-12 max-w-2xl text-center">
@@ -360,7 +357,6 @@ export default function Home() {
 
       {/* ── 4. How We Work ── */}
       <section className="sl-white-section relative z-10 overflow-hidden border-t border-[rgba(20,22,28,0.06)] py-20 sm:py-28">
-        <EvenMesh />
         <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
           <FadeUp>
             <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
@@ -410,7 +406,6 @@ export default function Home() {
 
       {/* ── 5. Why SaLira ── */}
       <section className="sl-white-section relative z-10 overflow-hidden border-t border-[rgba(20,22,28,0.06)] py-20 sm:py-28">
-        <EvenMesh />
         <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
           <FadeUp>
             <div className="mx-auto mb-14 max-w-2xl text-center">
@@ -646,6 +641,7 @@ export default function Home() {
     </div>
   )
 }
+
 
 
 
