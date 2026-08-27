@@ -910,17 +910,16 @@
     0 12px 36px -4px rgba(217, 164, 65, 0.12);
 }
 
-/* ── White Section — pure white with flowing particle canvas ── */
+/* ── White Section — pure white, no canvas, clean ── */
 .sl-white-section {
   background-color: #FFFFFF;
   position: relative;
   isolation: isolate;
   border-top: none !important;
   border-bottom: none !important;
-  min-height: 400px;
 }
 
-.sl-white-section > *:not([aria-hidden]) {
+.sl-white-section > * {
   position: relative;
   z-index: 1;
 }

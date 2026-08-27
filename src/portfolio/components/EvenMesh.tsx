@@ -1,131 +1,126 @@
 import { useEffect, useRef } from 'react'
 import { usePrefersReducedMotion } from '../lib/usePrefersReducedMotion'
 
+/**
+ * Floating particle dots on white background.
+ * Small colored circles drifting slowly — no trails, no lines.
+ * Safe, simple, always visible.
+ */
+
+const COLORS = [
+  '#C6472B',
+  '#D9A441',
+  '#2E6F5E',
+  '#5BA88F',
+]
+
+interface Dot {
+  x: number
+  y: number
+  r: number
+  vx: number
+  vy: number
+  color: string
+  opacity: number
+  pulseSpeed: number
+  pulsePhase: number
+}
+
 export function EvenMesh() {
-  const ref = useRef<HTMLCanvasElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
   const reduced = usePrefersReducedMotion()
 
   useEffect(() => {
-    const cv = ref.current
-    if (!cv || reduced) return
-    const ctx = cv.getContext('2d')!
+    const canvas = canvasRef.current
+    if (!canvas || reduced) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
 
-    // Force canvas to fill parent immediately
-    const parent = cv.parentElement!
-    let W = parent.offsetWidth || window.innerWidth
-    let H = parent.offsetHeight || 600
-    let dead = false, raf = 0, time = 0
+    let W = 0, H = 0
+    let raf = 0, dead = false
+    let dots: Dot[] = []
+    let t = 0
 
-    const DPR = Math.min(window.devicePixelRatio || 1, 2)
-    cv.width  = Math.round(W * DPR)
-    cv.height = Math.round(H * DPR)
-    cv.style.width  = W + 'px'
-    cv.style.height = H + 'px'
-    ctx.scale(DPR, DPR)
-
-    // White fill first
-    ctx.fillStyle = '#fff'
-    ctx.fillRect(0, 0, W, H)
-
-    // ── Particles ──────────────────────────────────────────
-    const COLORS = ['#C6472B','#D9A441','#2E6F5E','#5BA88F','#C6472B','#D9A441']
-    const N = 180
-
-    const px   = new Float32Array(N).map(() => Math.random() * W)
-    const py   = new Float32Array(N).map(() => Math.random() * H)
-    const col  = new Uint8Array(N).map(() => Math.floor(Math.random() * COLORS.length))
-    const spd  = new Float32Array(N).map(() => 0.8 + Math.random() * 1.2)
-    const ph   = new Float32Array(N).map(() => Math.random() * Math.PI * 2)
-
-    // Trail history per particle — last 8 positions
-    const TRAIL = 8
-    const hx = Array.from({length: N}, () => new Float32Array(TRAIL))
-    const hy = Array.from({length: N}, () => new Float32Array(TRAIL))
-    let hptr = new Uint8Array(N) // ring buffer pointer
-
-    // Init trail to current position
-    for (let i = 0; i < N; i++) {
-      hx[i].fill(px[i])
-      hy[i].fill(py[i])
+    function makeDots() {
+      dots = Array.from({ length: 55 }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: 3 + Math.random() * 5,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        opacity: 0.25 + Math.random() * 0.35,
+        pulseSpeed: 0.02 + Math.random() * 0.02,
+        pulsePhase: Math.random() * Math.PI * 2,
+      }))
     }
 
-    function angle(x: number, y: number, t: number) {
-      const nx = x / W, ny = y / H
-      return (
-        Math.sin(nx * 3 + t * 0.5) * Math.cos(ny * 2.5 - t * 0.4) +
-        Math.cos(nx * 5 - t * 0.3) * Math.sin(ny * 4 + t * 0.45) +
-        Math.sin((nx + ny) * 2.2 + t * 0.35) * 0.5
-      ) * Math.PI
-
+    function resize() {
+      if (dead) return
+      const rect = canvas.parentElement!.getBoundingClientRect()
+      W = rect.width > 0 ? rect.width : window.innerWidth
+      H = rect.height > 0 ? rect.height : 500
+      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      canvas.width = Math.round(W * dpr)
+      canvas.height = Math.round(H * dpr)
+      ctx.scale(dpr, dpr)
+      makeDots()
     }
 
     function frame() {
       raf = 0
       if (dead) return
 
-      // Soft white fade — keeps trails visible but fades old ones
-      ctx.globalAlpha = 0.08
-      ctx.fillStyle = '#ffffff'
-      ctx.fillRect(0, 0, W, H)
-      ctx.globalAlpha = 1
+      t += 0.016
+      ctx.clearRect(0, 0, W, H)
 
-      time += 0.012
+      dots.forEach(d => {
+        // Move
+        d.x += d.vx
+        d.y += d.vy
 
-      for (let i = 0; i < N; i++) {
-        const a = angle(px[i], py[i], time) + ph[i] * 0.1
-        const vx = Math.cos(a) * spd[i]
-        const vy = Math.sin(a) * spd[i]
+        // Bounce off edges
+        if (d.x < 0 || d.x > W) d.vx *= -1
+        if (d.y < 0 || d.y > H) d.vy *= -1
+        d.x = Math.max(0, Math.min(W, d.x))
+        d.y = Math.max(0, Math.min(H, d.y))
 
-        px[i] += vx
-        py[i] += vy
+        // Pulsing opacity
+        const pulse = Math.sin(t * d.pulseSpeed * 60 + d.pulsePhase)
+        const alpha = d.opacity + pulse * 0.12
 
-        // Wrap edges
-        if (px[i] < 0) px[i] = W
-        if (px[i] > W) px[i] = 0
-        if (py[i] < 0) py[i] = H
-        if (py[i] > H) py[i] = 0
-
-        // Store in ring buffer
-        const p = hptr[i]
-        hx[i][p] = px[i]
-        hy[i][p] = py[i]
-        hptr[i] = (p + 1) % TRAIL
-
-        // Draw trail — walk ring buffer in order
+        // Draw glow
+        const glow = ctx.createRadialGradient(d.x, d.y, 0, d.x, d.y, d.r * 3)
+        glow.addColorStop(0, d.color + 'AA')
+        glow.addColorStop(1, d.color + '00')
         ctx.beginPath()
-        let first = true
-        for (let j = 0; j < TRAIL; j++) {
-          const idx = (hptr[i] + j) % TRAIL
-          if (first) { ctx.moveTo(hx[i][idx], hy[i][idx]); first = false }
-          else ctx.lineTo(hx[i][idx], hy[i][idx])
-        }
-        ctx.strokeStyle = COLORS[col[i]]
-        ctx.lineWidth = 1.5
-        ctx.globalAlpha = 0.6
-        ctx.lineCap = 'round'
-        ctx.lineJoin = 'round'
-        ctx.stroke()
-        ctx.globalAlpha = 1
-      }
+        ctx.arc(d.x, d.y, d.r * 3, 0, Math.PI * 2)
+        ctx.fillStyle = glow
+        ctx.globalAlpha = alpha * 0.4
+        ctx.fill()
 
+        // Draw solid dot
+        ctx.beginPath()
+        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2)
+        ctx.fillStyle = d.color
+        ctx.globalAlpha = alpha
+        ctx.fill()
+      })
+
+      ctx.globalAlpha = 1
       raf = requestAnimationFrame(frame)
     }
 
-    raf = requestAnimationFrame(frame)
-
-    // Resize observer
     const ro = new ResizeObserver(() => {
-      W = parent.offsetWidth || window.innerWidth
-      H = parent.offsetHeight || 600
-      cv.width  = Math.round(W * DPR)
-      cv.height = Math.round(H * DPR)
-      cv.style.width  = W + 'px'
-      cv.style.height = H + 'px'
-      ctx.setTransform(DPR, 0, 0, DPR, 0, 0)
-      ctx.fillStyle = '#fff'
-      ctx.fillRect(0, 0, W, H)
+      cancelAnimationFrame(raf)
+      ctx.resetTransform()
+      resize()
+      if (!dead) raf = requestAnimationFrame(frame)
     })
-    ro.observe(parent)
+    ro.observe(canvas.parentElement!)
+
+    resize()
+    raf = requestAnimationFrame(frame)
 
     return () => {
       dead = true
@@ -138,11 +133,14 @@ export function EvenMesh() {
 
   return (
     <canvas
-      ref={ref}
+      ref={canvasRef}
       aria-hidden="true"
       style={{
         position: 'absolute',
-        top: 0, left: 0,
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
         zIndex: 0,
         pointerEvents: 'none',
         display: 'block',

@@ -15,7 +15,6 @@ import {
 import { CUSTOMER_BASE, CONSOLE_BASE } from '../../templates/restaurant/routes'
 import { MagneticButton } from '../components/MagneticButton'
 import { FadeUp, StaggerContainer, StaggerItem } from '../components/ScrollReveal'
-import { EvenMesh } from '../components/EvenMesh'
 
 const workflowSteps = [
   { icon: Search, label: 'Discover' },
@@ -32,7 +31,6 @@ export default function RestaurantShowcase() {
     <div className="sl-white-section relative min-h-screen overflow-hidden text-[var(--sl-ink)]">
       {/* Subtle top accent strip */}
       <div className="absolute top-0 left-0 right-0 h-[3px] z-20 bg-gradient-to-r from-[var(--sl-oxblood)] via-[var(--sl-gold)] to-[var(--sl-teal-deep)]" />
-      <EvenMesh />
       <div className="relative z-10 mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-20">
         {/* Back Link */}
         <FadeUp>
@@ -211,6 +209,7 @@ export default function RestaurantShowcase() {
     </div>
   )
 }
+
 
 
 
