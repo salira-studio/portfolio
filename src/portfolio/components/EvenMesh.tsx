@@ -10,13 +10,13 @@ import { usePrefersReducedMotion } from '../lib/usePrefersReducedMotion'
 
 // Brand colors — visible on white
 const COLORS = [
-  'rgba(198, 71, 43, 0.45)',   // oxblood
-  'rgba(217, 164, 65, 0.45)',  // gold
-  'rgba(46, 111, 94, 0.40)',   // teal
-  'rgba(91, 168, 143, 0.38)',  // sage
-  'rgba(198, 71, 43, 0.28)',   // oxblood soft
-  'rgba(217, 164, 65, 0.30)',  // gold soft
-  'rgba(46, 111, 94, 0.28)',   // teal soft
+  'rgba(198, 71, 43, 0.65)',   // oxblood
+  'rgba(217, 164, 65, 0.65)',  // gold
+  'rgba(46, 111, 94, 0.60)',   // teal
+  'rgba(91, 168, 143, 0.55)',  // sage
+  'rgba(198, 71, 43, 0.45)',   // oxblood soft
+  'rgba(217, 164, 65, 0.50)',  // gold soft
+  'rgba(46, 111, 94, 0.45)',   // teal soft
 ]
 
 export function EvenMesh() {
@@ -48,7 +48,7 @@ export function EvenMesh() {
 
     // ── Particle system ────────────────────────────────────
     const COUNT = 300
-    const SPEED = 1.4
+    const SPEED = 1.8
 
     interface P {
       x: number; y: number
@@ -84,9 +84,9 @@ export function EvenMesh() {
 
       t += 0.008
 
-      // Very subtle white overlay — creates fading trail effect
-      // High alpha = short trails, low alpha = long persistent trails
-      ctx.fillStyle = 'rgba(255,255,255,0.04)'
+      // Clear to pure white every frame — NO trails, NO buildup
+      ctx.clearRect(0, 0, W, H)
+      ctx.fillStyle = '#ffffff'
       ctx.fillRect(0, 0, W, H)
 
       particles.forEach(p => {
@@ -114,8 +114,8 @@ export function EvenMesh() {
         ctx.moveTo(p.x, p.y)
         ctx.lineTo(nx, ny)
         ctx.strokeStyle = p.color
-        ctx.lineWidth = 1.0
-        ctx.globalAlpha = alpha
+        ctx.lineWidth = 2.0
+        ctx.globalAlpha = alpha * 0.9
         ctx.lineCap = 'round'
         ctx.stroke()
 
