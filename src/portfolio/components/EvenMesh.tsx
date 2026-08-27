@@ -47,9 +47,9 @@ export function EvenMesh() {
     }
 
     // ── Particle system ────────────────────────────────────
-    const COUNT = 400
-    const SPEED = 1.8
-    const TAIL  = 18   // number of positions kept per particle
+    const COUNT = 120
+    const SPEED = 1.1
+    const TAIL  = 14   // number of positions kept per particle
 
     interface P {
       x: number; y: number
@@ -80,8 +80,30 @@ export function EvenMesh() {
     }
 
     function initParticles() {
-      particles = Array.from({ length: COUNT }, spawn)
-      particles.forEach((p, i) => { p.life = Math.floor((i / COUNT) * p.maxLife) })
+      particles = []
+      // Grid spawn — evenly distribute across canvas to avoid clustering
+      const cols = Math.ceil(Math.sqrt(COUNT * (W / Math.max(H, 1))))
+      const rows = Math.ceil(COUNT / cols)
+      const cellW = W / cols
+      const cellH = H / rows
+      let idx = 0
+      for (let r = 0; r < rows && idx < COUNT; r++) {
+        for (let c = 0; c < cols && idx < COUNT; c++) {
+          // Spawn within each cell with small random offset
+          const sx = (c + 0.2 + Math.random() * 0.6) * cellW
+          const sy = (r + 0.2 + Math.random() * 0.6) * cellH
+          const hx = new Float32Array(TAIL).fill(sx)
+          const hy = new Float32Array(TAIL).fill(sy)
+          particles.push({
+            x: sx, y: sy,
+            hx, hy, hp: 0, hlen: 0,
+            color: COLORS[idx % COLORS.length],
+            life: Math.floor(Math.random() * 80), // stagger starts
+            maxLife: 150 + Math.floor(Math.random() * 200),
+          })
+          idx++
+        }
+      }
     }
 
     // ── Render ────────────────────────────────────────────
@@ -100,8 +122,11 @@ export function EvenMesh() {
 
       particles.forEach(p => {
         if (p.life >= p.maxLife) {
-          // Respawn at random position
+          // Respawn at a spread-out random position (avoid clustering at same spot)
           const np = spawn()
+          // Bias respawn toward underoccupied areas by using grid offset
+          np.x = Math.random() * W
+          np.y = Math.random() * H
           p.x = np.x; p.y = np.y
           p.hx.fill(np.x); p.hy.fill(np.y)
           p.hp = 0; p.hlen = 0
