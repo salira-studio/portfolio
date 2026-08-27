@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, UtensilsCrossed, Sparkles } from 'lucide-react'
 import { FadeUp } from '../components/ScrollReveal'
+import { EvenMesh } from '../components/EvenMesh'
 
 export default function Work() {
   return (
     <div className="sl-white-section relative min-h-[90vh] overflow-hidden text-[var(--sl-ink)]">
+      <EvenMesh />
       {/* Subtle top accent strip */}
-      <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[var(--sl-oxblood)] via-[var(--sl-gold)] to-[var(--sl-teal-deep)]" />
+      <div className="absolute top-0 left-0 right-0 h-[3px] z-10 bg-gradient-to-r from-[var(--sl-oxblood)] via-[var(--sl-gold)] to-[var(--sl-teal-deep)]" />
 
       <div className="relative z-10 mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
         <FadeUp>

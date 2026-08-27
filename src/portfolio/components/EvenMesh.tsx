@@ -2,50 +2,33 @@ import { useEffect, useRef } from 'react'
 import { usePrefersReducedMotion } from '../lib/usePrefersReducedMotion'
 
 /**
- * EvenMesh — Full-page fixed particle flow canvas
- * Sits behind ALL content (z-index: 0, position: fixed)
- * Visible brand-colored particles on white
+ * EvenMesh — absolute-positioned canvas that fills its parent container.
+ * Place parent as `relative overflow-hidden`.
+ * Particles are clearly visible, brand-colored, flowing with pointer repel.
  */
 
-const CONFIG = {
-  count: 120,
-  speed: 0.5,
-  size: 2.2,          // much bigger
-  direction: -20,
-  // SaLira brand — saturated enough to see on white
-  colors: [
-    '#C6472B',  // oxblood
-    '#D9A441',  // gold
-    '#2E6F5E',  // teal deep
-    '#5BA88F',  // teal sage
-    '#E8916A',  // warm coral
-    '#B8860B',  // dark gold
-  ],
-  opacity: 0.35,      // strong enough to see
-  background: '#FFFFFF',
-  intensity: 1.3,
-  motion: 1.4,
-  seed: 4217,
-}
+const COLORS = [
+  '#C6472B',  // oxblood
+  '#D9A441',  // gold
+  '#2E6F5E',  // teal deep
+  '#5BA88F',  // teal sage
+  '#E07A5F',  // warm terracotta
+  '#C49535',  // dark amber
+]
 
-interface Particle {
-  x: number; y: number; oldX: number; oldY: number
-  phase: number; drift: number; size: number; pace: number; color: number
-}
+const TAU = Math.PI * 2
+const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
 
-function seededRandom(seed: number) {
-  let state = (seed >>> 0) || 0x6d2b79f5
+function seededRnd(seed: number) {
+  let s = (seed >>> 0) || 0x6d2b79f5
   return () => {
-    state += 0x6d2b79f5
-    let v = state
+    s += 0x6d2b79f5
+    let v = s
     v = Math.imul(v ^ (v >>> 15), v | 1)
     v ^= v + Math.imul(v ^ (v >>> 7), v | 61)
     return ((v ^ (v >>> 14)) >>> 0) / 4294967296
   }
 }
-
-const TAU = Math.PI * 2
-const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
 
 export function EvenMesh() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -54,185 +37,183 @@ export function EvenMesh() {
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas || reduced) return
-
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    const random = seededRandom(CONFIG.seed)
-    let width = 0, height = 0, dpr = 1
-    let particles: Particle[] = []
-    let animFrame = 0, lastTime = 0
-    let destroyed = false
-    let clearNext = true
-    const pointer = { x: -9999, y: -9999, active: false }
+    const rnd = seededRnd(9073)
+    let W = 0, H = 0, dpr = 1
+    let raf = 0, last = 0, dead = false
 
-    function makeParticle(): Particle {
-      const x = random() * Math.max(width, 1)
-      const y = random() * Math.max(height, 1)
+    // ── Particles ──────────────────────────────────────────────
+    const COUNT = 150
+
+    interface P {
+      x: number; y: number
+      px: number; py: number
+      phase: number; drift: number
+      sz: number; pace: number; col: number
+    }
+
+    const pts: P[] = []
+
+    function makePt(): P {
       return {
-        x, y, oldX: x, oldY: y,
-        phase: random() * TAU,
-        drift: (random() - 0.5) * 0.6,
-        size: 0.7 + random() * 1.1,
-        pace: 0.55 + random() * 0.8,
-        color: Math.floor(random() * CONFIG.colors.length),
+        x: rnd() * W, y: rnd() * H,
+        px: 0, py: 0,
+        phase: rnd() * TAU,
+        drift: (rnd() - 0.5) * 0.7,
+        sz: 1.2 + rnd() * 1.6,     // 1.2 – 2.8
+        pace: 0.6 + rnd() * 0.7,
+        col: Math.floor(rnd() * COLORS.length),
       }
     }
 
-    function reconcile() {
-      const target = CONFIG.count
-      if (particles.length > target) particles.length = target
-      while (particles.length < target) particles.push(makeParticle())
+    function fill() {
+      while (pts.length < COUNT) pts.push(makePt())
     }
 
-    function wrap(p: Particle) {
-      const m = 12
-      let w = false
-      if (p.x < -m) { p.x = width + m; w = true }
-      else if (p.x > width + m) { p.x = -m; w = true }
-      if (p.y < -m) { p.y = height + m; w = true }
-      else if (p.y > height + m) { p.y = -m; w = true }
-      if (w) { p.oldX = p.x; p.oldY = p.y }
-      return w
+    // ── Pointer ─────────────────────────────────────────────────
+    const ptr = { x: -9999, y: -9999, on: false }
+
+    // ── Wrap ────────────────────────────────────────────────────
+    function wrap(p: P) {
+      const m = 20
+      if (p.x < -m) { p.x = W + m; p.px = p.x }
+      else if (p.x > W + m) { p.x = -m; p.px = p.x }
+      if (p.y < -m) { p.y = H + m; p.py = p.y }
+      else if (p.y > H + m) { p.y = -m; p.py = p.y }
     }
 
-    function pointerForce(p: Particle, vel: { x: number; y: number }) {
-      if (!pointer.active) return
-      const dx = p.x - pointer.x, dy = p.y - pointer.y
-      const dist = Math.hypot(dx, dy)
-      const radius = 140
-      if (dist <= 0.01 || dist >= radius) return
-      const falloff = Math.pow(1 - dist / radius, 2)
-      const force = falloff * 80
-      vel.x += (dx / dist) * force
-      vel.y += (dy / dist) * force
+    // ── Angle field ─────────────────────────────────────────────
+    function angle(p: P, t: number) {
+      const base = -20 * Math.PI / 180
+      const sc = 0.0038
+      const time = t * 0.00015
+      const a = Math.sin(p.y * sc + time + p.phase)
+      const b = Math.cos(p.x * sc * 0.8 - time * 0.75)
+      return base + (a + b) * 0.5 * 0.9 + p.drift * 0.3
     }
 
-    function angleAt(p: Particle, time: number) {
-      const dir = CONFIG.direction * Math.PI / 180
-      const scale = 0.003 + CONFIG.motion * 0.004
-      const temporal = time * 0.00014 * (0.3 + CONFIG.speed * 0.7)
-      const wA = Math.sin(p.y * scale + temporal + p.phase)
-      const wB = Math.cos(p.x * scale * 0.8 - temporal * 0.7)
-      return dir + (wA + wB) * 0.5 * (0.4 + CONFIG.motion * 0.5) * CONFIG.intensity
-    }
+    // ── Render ──────────────────────────────────────────────────
+    function draw(t: number, dt: number) {
+      if (!W || !H) return
+      fill()
 
-    function renderFrame(time: number, delta: number) {
-      if (!width || !height) return
-      reconcile()
+      const speed = 32
 
-      // Soft trail — thin white wash so lines have a soft tail
-      ctx.save()
+      // Fade trail — high alpha so old strokes vanish quickly = clean look
       ctx.globalCompositeOperation = 'source-over'
-      ctx.globalAlpha = clearNext ? 1 : 0.12
-      ctx.fillStyle = CONFIG.background
-      ctx.fillRect(0, 0, width, height)
-      ctx.restore()
+      ctx.globalAlpha = 0.25
+      ctx.fillStyle = '#ffffff'
+      ctx.fillRect(0, 0, W, H)
 
-      const pace = CONFIG.speed * 40 * (0.4 + CONFIG.motion * 0.6)
-
-      ctx.save()
-      ctx.globalCompositeOperation = 'source-over'
       ctx.lineCap = 'round'
+      ctx.globalCompositeOperation = 'source-over'
 
-      particles.forEach(p => {
-        const angle = angleAt(p, time)
-        const vel = {
-          x: Math.cos(angle) * pace * p.pace,
-          y: Math.sin(angle) * pace * p.pace,
+      pts.forEach(p => {
+        const ang = angle(p, t)
+        let vx = Math.cos(ang) * speed * p.pace
+        let vy = Math.sin(ang) * speed * p.pace
+
+        // Pointer repel
+        if (ptr.on) {
+          const dx = p.x - ptr.x
+          const dy = p.y - ptr.y
+          const d = Math.hypot(dx, dy)
+          if (d > 0 && d < 160) {
+            const f = Math.pow(1 - d / 160, 2) * 120
+            vx += (dx / d) * f
+            vy += (dy / d) * f
+          }
         }
-        pointerForce(p, vel)
 
-        p.oldX = p.x; p.oldY = p.y
-        p.x += vel.x * delta
-        p.y += vel.y * delta
-        if (wrap(p)) return
+        p.px = p.x; p.py = p.y
+        p.x += vx * dt
+        p.y += vy * dt
+        wrap(p)
 
-        // Line length proportional to speed
-        const lineLen = Math.hypot(p.x - p.oldX, p.y - p.oldY)
-        if (lineLen < 0.1) return
+        const len = Math.hypot(p.x - p.px, p.y - p.py)
+        if (len < 0.2) return
 
-        const color = CONFIG.colors[p.color % CONFIG.colors.length]
-        ctx.globalAlpha = clamp(CONFIG.opacity * (0.5 + p.size * 0.35), 0.1, 0.85)
-        ctx.strokeStyle = color
-        ctx.lineWidth = clamp(CONFIG.size * p.size, 0.8, 5)
-
-        // Add glow for visibility
-        ctx.shadowColor = color
-        ctx.shadowBlur = CONFIG.size * p.size * 3
-
+        const col = COLORS[p.col]
+        // Glow pass — wider, lower opacity
+        ctx.globalAlpha = 0.18
+        ctx.strokeStyle = col
+        ctx.lineWidth = p.sz * 6
+        ctx.shadowColor = col
+        ctx.shadowBlur = 18
         ctx.beginPath()
-        ctx.moveTo(p.oldX, p.oldY)
+        ctx.moveTo(p.px, p.py)
+        ctx.lineTo(p.x, p.y)
+        ctx.stroke()
+
+        // Core pass — solid, crisp
+        ctx.globalAlpha = 0.7
+        ctx.strokeStyle = col
+        ctx.lineWidth = p.sz * 1.8
+        ctx.shadowBlur = 0
+        ctx.beginPath()
+        ctx.moveTo(p.px, p.py)
         ctx.lineTo(p.x, p.y)
         ctx.stroke()
       })
-
-      ctx.restore()
-      clearNext = false
     }
 
-    function schedule() {
-      if (destroyed || animFrame) return
-      animFrame = requestAnimationFrame(time => {
-        animFrame = 0
-        const minFrame = 1000 / 50
-        if (lastTime && time - lastTime < minFrame - 1) { schedule(); return }
-        const delta = lastTime ? clamp((time - lastTime) / 1000, 0, 0.05) : 0
-        lastTime = time
-        renderFrame(time, delta)
-        schedule()
-      })
+    // ── Loop ────────────────────────────────────────────────────
+    function loop(t: number) {
+      raf = 0
+      if (dead) return
+      const min = 1000 / 50
+      if (last && t - last < min - 1) { raf = requestAnimationFrame(loop); return }
+      const dt = last ? clamp((t - last) / 1000, 0, 0.06) : 0
+      last = t
+      draw(t, dt)
+      raf = requestAnimationFrame(loop)
     }
 
-    function stop() {
-      if (animFrame) cancelAnimationFrame(animFrame)
-      animFrame = 0
-    }
-
+    // ── Resize ──────────────────────────────────────────────────
     function resize() {
-      if (destroyed) return
-      width = window.innerWidth
-      height = document.documentElement.scrollHeight
+      if (dead) return
+      const rect = canvas.getBoundingClientRect()
+      W = rect.width
+      H = rect.height
       dpr = Math.min(window.devicePixelRatio || 1, 2)
-      canvas.width = Math.round(width * dpr)
-      canvas.height = Math.round(height * dpr)
+      canvas.width = Math.round(W * dpr)
+      canvas.height = Math.round(H * dpr)
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      reconcile()
-      clearNext = true
-      lastTime = 0
-      schedule()
+      // Full white fill on resize
+      ctx.fillStyle = '#ffffff'
+      ctx.fillRect(0, 0, W, H)
+      last = 0
     }
 
-    function onPointer(e: PointerEvent) {
-      if (destroyed) { pointer.active = false; return }
-      pointer.active = true
-      pointer.x = e.clientX + window.scrollX
-      pointer.y = e.clientY + window.scrollY
+    // ── Pointer events ─────────────────────────────────────────
+    function onMove(e: PointerEvent) {
+      if (dead) return
+      const rect = canvas.getBoundingClientRect()
+      ptr.on = true
+      ptr.x = e.clientX - rect.left
+      ptr.y = e.clientY - rect.top
     }
-
-    function onPointerEnd() {
-      pointer.active = false
-      pointer.x = -9999
-      pointer.y = -9999
-    }
+    function onLeave() { ptr.on = false; ptr.x = -9999; ptr.y = -9999 }
 
     const ro = new ResizeObserver(resize)
-    ro.observe(document.documentElement)
-    window.addEventListener('pointermove', onPointer, { passive: true })
-    window.addEventListener('pointerdown', onPointer, { passive: true })
-    window.addEventListener('pointerup', onPointerEnd, { passive: true })
-    window.addEventListener('pointercancel', onPointerEnd, { passive: true })
+    ro.observe(canvas)
+    canvas.addEventListener('pointermove', onMove, { passive: true })
+    canvas.addEventListener('pointerleave', onLeave)
+    // Also track global pointer so it works when pointer is over child elements
+    window.addEventListener('pointermove', onMove, { passive: true })
 
     resize()
+    raf = requestAnimationFrame(loop)
 
     return () => {
-      destroyed = true
-      stop()
+      dead = true
+      cancelAnimationFrame(raf)
       ro.disconnect()
-      window.removeEventListener('pointermove', onPointer)
-      window.removeEventListener('pointerdown', onPointer)
-      window.removeEventListener('pointerup', onPointerEnd)
-      window.removeEventListener('pointercancel', onPointerEnd)
+      canvas.removeEventListener('pointermove', onMove)
+      canvas.removeEventListener('pointerleave', onLeave)
+      window.removeEventListener('pointermove', onMove)
     }
   }, [reduced])
 
@@ -243,14 +224,13 @@ export function EvenMesh() {
       ref={canvasRef}
       aria-hidden="true"
       style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
+        position: 'absolute',
+        inset: 0,
+        width: '100%',
+        height: '100%',
+        display: 'block',
         zIndex: 0,
         pointerEvents: 'none',
-        display: 'block',
       }}
     />
   )

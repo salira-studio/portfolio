@@ -910,34 +910,17 @@
     0 12px 36px -4px rgba(217, 164, 65, 0.12);
 }
 
-/* ── White Section — transparent so global EvenMesh canvas shows through ── */
+/* ── White Section — canvas fills section, content sits on top ── */
 .sl-white-section {
-  background-color: rgba(255, 255, 255, 0.82);
+  background-color: #FFFFFF;
   position: relative;
+  isolation: isolate;
 }
 
-/* All section content sits above the fixed canvas */
-.sl-white-section > *,
-.salira main > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* Hero, contact sections keep their own bg and sit above canvas */
-.sl-hero-vivid,
-.sl-section-contact {
+/* All direct children except the canvas get z-index 1 */
+.sl-white-section > *:not(canvas) {
   position: relative;
   z-index: 1;
-  isolation: isolate;
-}
-
-/* Header and footer always on top */
-.sl-header-glass {
-  isolation: isolate;
-}
-
-.sl-footer-glass {
-  isolation: isolate;
 }
 
 /* Base: FDF8F5 — brand --sl-paper, same family as footer #F7E8E1 */
