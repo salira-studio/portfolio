@@ -338,7 +338,7 @@ function ExpandableCard({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-4 text-left bg-[#FAFAFA] hover:bg-white transition-colors cursor-pointer"
+        className="w-full flex items-center justify-between p-4 text-left bg-[#EDE7DC] hover:bg-white transition-colors cursor-pointer"
       >
         <span className="text-sm font-semibold text-[var(--sl-ink)]">{title}</span>
         {isOpen ? (
@@ -459,7 +459,7 @@ function PricingCard({ category, reduced }: { category: PricingCategory; reduced
             className={`flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-all ${
               category.featured
                 ? 'bg-[var(--sl-ink)] text-white hover:bg-black'
-                : 'border border-[var(--sl-line)] bg-[#FAFAFA] text-[var(--sl-ink)] hover:bg-[var(--sl-sand-deep)]'
+                : 'border border-[var(--sl-line)] bg-[#EDE7DC] text-[var(--sl-ink)] hover:bg-[var(--sl-sand-deep)]'
             }`}
           >
             <span>{category.cta}</span>
@@ -514,7 +514,7 @@ export function PricingTiers() {
               initial={reduced ? {} : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
-              className="rounded-xl border border-[var(--sl-line)] bg-[#FAFAFA] p-5 shadow-sm transition-all duration-200 hover:border-[rgba(20,22,28,0.15)] hover:shadow-md hover:bg-white"
+              className="rounded-xl border border-[var(--sl-line)] bg-[#EDE7DC] p-5 shadow-sm transition-all duration-200 hover:border-[rgba(20,22,28,0.15)] hover:shadow-md hover:bg-white"
             >
               <h3 className="text-sm font-semibold text-[var(--sl-ink)]">
                 {factor.title}
@@ -586,7 +586,7 @@ export function PricingTiers() {
               initial={reduced ? {} : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
-              className="rounded-xl border border-[var(--sl-line)] bg-[#FAFAFA] p-5 shadow-sm transition-all duration-200 hover:border-[rgba(20,22,28,0.15)] hover:shadow-md hover:bg-white"
+              className="rounded-xl border border-[var(--sl-line)] bg-[#EDE7DC] p-5 shadow-sm transition-all duration-200 hover:border-[rgba(20,22,28,0.15)] hover:shadow-md hover:bg-white"
             >
               <h3 className="text-sm font-semibold text-[var(--sl-ink)]">
                 {item.title}
@@ -627,7 +627,7 @@ export function PricingTiers() {
           </div>
 
           {/* Client-Owned Services */}
-          <div className="rounded-2xl border border-[var(--sl-line)] bg-[#FAFAFA] p-6 sm:p-8">
+          <div className="rounded-2xl border border-[var(--sl-line)] bg-[#EDE7DC] p-6 sm:p-8">
             <h3 className="font-display text-lg font-bold text-[var(--sl-ink)] mb-4">
               Client-Owned Services
             </h3>
@@ -653,7 +653,7 @@ export function PricingTiers() {
       </div>
 
       {/* ── You Own What We Build ── */}
-      <div className="mt-20 sm:mt-24 rounded-2xl border border-[var(--sl-line)] bg-[#FAFAFA] p-8 sm:p-12">
+      <div className="mt-20 sm:mt-24 rounded-2xl border border-[var(--sl-line)] bg-[#EDE7DC] p-8 sm:p-12">
         <div className="max-w-2xl">
           <h2 className="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-[var(--sl-ink)]">
             You own what we build.
@@ -812,6 +812,9 @@ export function PricingTiers() {
     </div>
   )
 }
+
+
+
 
 
 

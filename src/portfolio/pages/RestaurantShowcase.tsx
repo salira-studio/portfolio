@@ -28,7 +28,7 @@ const workflowSteps = [
 
 export default function RestaurantShowcase() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-white text-[var(--sl-ink)]">
+    <div className="sl-sand-bg relative min-h-screen overflow-hidden text-[var(--sl-ink)]">
       {/* Subtle top accent strip */}
       <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[var(--sl-oxblood)] via-[var(--sl-gold)] to-[var(--sl-teal-deep)]" />
 
@@ -149,7 +149,7 @@ export default function RestaurantShowcase() {
 
           {/* Restaurant Operations Card */}
           <FadeUp delay={0.2}>
-            <div className="group flex h-full flex-col rounded-2xl border border-[var(--sl-line)] bg-[#FAFAFA] p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(92,101,117,0.3)] hover:shadow-[0_20px_50px_rgba(20,22,28,0.07)] sm:p-10">
+            <div className="group flex h-full flex-col rounded-2xl border border-[var(--sl-line)] bg-[#FAFAF8] p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(92,101,117,0.3)] hover:shadow-[0_20px_50px_rgba(20,22,28,0.07)] sm:p-10">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--sl-sand-deep)]/60 text-[var(--sl-ink)] shadow-2xs">
@@ -199,7 +199,7 @@ export default function RestaurantShowcase() {
 
         {/* ── Note about live demo ── */}
         <FadeUp delay={0.3}>
-          <div className="mt-16 rounded-2xl border border-[var(--sl-line)] bg-[#FAFAFA] p-6 sm:p-8">
+          <div className="mt-16 rounded-2xl border border-[rgba(198,71,43,0.12)] bg-white/80 p-6 backdrop-blur-sm sm:p-8">
             <p className="text-sm text-[var(--sl-ink-soft)]">
               <span className="font-semibold text-[var(--sl-ink)]">About this demonstration.</span>{' '}
               Both experiences are independent but connected. Place an order in the Customer Experience, and it appears in the Restaurant Operations console. This is how SaLira approaches restaurant software — understanding the full workflow, then building the digital experiences it requires.
@@ -210,3 +210,7 @@ export default function RestaurantShowcase() {
     </div>
   )
 }
+
+
+
+

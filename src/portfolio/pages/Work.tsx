@@ -4,13 +4,13 @@ import { FadeUp } from '../components/ScrollReveal'
 
 export default function Work() {
   return (
-    <div className="relative min-h-[90vh] overflow-hidden bg-white text-[var(--sl-ink)]">
+    <div className="sl-sand-bg relative min-h-[90vh] overflow-hidden text-[var(--sl-ink)]">
       {/* Subtle top accent strip */}
       <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[var(--sl-oxblood)] via-[var(--sl-gold)] to-[var(--sl-teal-deep)]" />
 
       <div className="relative mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
         <FadeUp>
-          <div className="inline-flex items-center gap-2 rounded-full border border-[var(--sl-line)] bg-[#FAFAFA] px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--sl-oxblood)] shadow-xs">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[var(--sl-line)] bg-white px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--sl-oxblood)] shadow-xs">
             <Sparkles size={12} />
             Selected Case Studies
           </div>
@@ -66,7 +66,7 @@ export default function Work() {
                     {['Customer PWA', 'Kitchen Operations', 'Spatial Tables', 'Live Cross-Tab Sync', 'TypeScript'].map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-lg bg-[#F5F5F5] px-3 py-1 text-xs font-mono text-[var(--sl-charcoal)] ring-1 ring-[var(--sl-line)]"
+                        className="rounded-lg bg-[#E8E0D5] px-3 py-1 text-xs font-mono text-[var(--sl-charcoal)] ring-1 ring-[var(--sl-line)]"
                       >
                         {tag}
                       </span>
@@ -87,7 +87,7 @@ export default function Work() {
           {/* ── Upcoming Verticals ── */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             <FadeUp delay={0.25} className="h-full">
-              <div className="flex h-full flex-col justify-between rounded-2xl border border-[var(--sl-line)] bg-[#FAFAFA] p-8 shadow-sm sm:p-10">
+              <div className="flex h-full flex-col justify-between rounded-2xl border border-[rgba(20,22,28,0.08)] bg-[rgba(255,255,255,0.6)] p-8 shadow-sm backdrop-blur-sm sm:p-10">
                 <div>
                   <div className="flex items-center justify-between">
                     <span className="sl-label text-[var(--sl-charcoal)]">Upcoming Pipeline</span>
@@ -104,7 +104,7 @@ export default function Work() {
                   </p>
                 </div>
 
-                <div className="mt-10 rounded-xl bg-white p-5 border border-[var(--sl-line)] shadow-xs">
+                <div className="mt-10 rounded-xl bg-white/90 p-5 border border-[rgba(198,71,43,0.12)] shadow-xs">
                   <p className="text-xs font-semibold text-[var(--sl-ink)]">
                     Want your industry built next?
                   </p>
@@ -127,3 +127,8 @@ export default function Work() {
     </div>
   )
 }
+
+
+
+
+
