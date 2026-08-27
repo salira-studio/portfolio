@@ -4,7 +4,7 @@ import { FadeUp } from '../components/ScrollReveal'
 
 export default function Work() {
   return (
-    <div className="sl-sand-bg relative min-h-[90vh] overflow-hidden text-[var(--sl-ink)]">
+    <div className="sl-section-warm relative min-h-[90vh] overflow-hidden text-[var(--sl-ink)]">
       {/* Subtle top accent strip */}
       <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[var(--sl-oxblood)] via-[var(--sl-gold)] to-[var(--sl-teal-deep)]" />
 
@@ -66,7 +66,7 @@ export default function Work() {
                     {['Customer PWA', 'Kitchen Operations', 'Spatial Tables', 'Live Cross-Tab Sync', 'TypeScript'].map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-lg bg-[#E8E0D5] px-3 py-1 text-xs font-mono text-[var(--sl-charcoal)] ring-1 ring-[var(--sl-line)]"
+                        className="rounded-lg bg-[#EDE8E0] px-3 py-1 text-xs font-mono text-[var(--sl-charcoal)] ring-1 ring-[var(--sl-line)]"
                       >
                         {tag}
                       </span>
@@ -87,7 +87,7 @@ export default function Work() {
           {/* ── Upcoming Verticals ── */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             <FadeUp delay={0.25} className="h-full">
-              <div className="flex h-full flex-col justify-between rounded-2xl border border-[rgba(20,22,28,0.08)] bg-[rgba(255,255,255,0.6)] p-8 shadow-sm backdrop-blur-sm sm:p-10">
+              <div className="flex h-full flex-col justify-between rounded-2xl border border-[rgba(20,22,28,0.08)] bg-[rgba(255,255,255,0.65)] p-8 shadow-sm backdrop-blur-sm sm:p-10">
                 <div>
                   <div className="flex items-center justify-between">
                     <span className="sl-label text-[var(--sl-charcoal)]">Upcoming Pipeline</span>
@@ -127,6 +127,8 @@ export default function Work() {
     </div>
   )
 }
+
+
 
 
 

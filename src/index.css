@@ -236,7 +236,7 @@
   --sl-ink-soft: #4A5160;
   --sl-ink-faint: #6B7280;
   --sl-paper: #FDF8F5;
-  --sl-paper-lifted: #F2EDE4;
+  --sl-paper-lifted: #FDF8F5;
   --sl-sand-deep: #F7E8E1;
   --sl-warm-mist: #F0F4F7;
   --sl-warm-peach: #F5E2DB;
@@ -287,7 +287,7 @@
   --sl-bg-casestudy: var(--sl-paper-lifted);
 
   position: relative;
-  background: var(--sl-paper-lifted);
+  background: #FDF8F5;
   color: var(--sl-ink);
   font-family: var(--font-sans);
 }
@@ -910,81 +910,141 @@
     0 12px 36px -4px rgba(217, 164, 65, 0.12);
 }
 
-/* ── Section Sand Background with animated blobs ── */
-.sl-sand-bg {
-  background-color: #F2EDE4;
+/* ── Warm Paper Section Backgrounds (matches header/footer family) ── */
+
+/* Base: FDF8F5 — brand --sl-paper, same family as footer #F7E8E1 */
+.sl-section-warm {
+  background-color: #FDF8F5;
+  background-image:
+    radial-gradient(ellipse 55% 45% at 88% 12%, rgba(245, 226, 219, 0.7) 0%, transparent 60%),
+    radial-gradient(ellipse 45% 40% at 8% 88%, rgba(240, 244, 247, 0.6) 0%, transparent 55%),
+    radial-gradient(ellipse 35% 50% at 50% 50%, rgba(217, 164, 65, 0.05) 0%, transparent 65%);
   position: relative;
 }
 
-.sl-sand-bg::before,
-.sl-sand-bg::after {
+/* Teal-leaning variant for process / why sections */
+.sl-section-warm-cool {
+  background-color: #FDF8F5;
+  background-image:
+    radial-gradient(ellipse 50% 45% at 85% 15%, rgba(240, 244, 247, 0.75) 0%, transparent 58%),
+    radial-gradient(ellipse 48% 42% at 10% 80%, rgba(245, 226, 219, 0.6) 0%, transparent 55%),
+    radial-gradient(ellipse 38% 48% at 55% 45%, rgba(46, 111, 94, 0.05) 0%, transparent 62%);
+  position: relative;
+}
+
+/* ── Animated floating blobs inside each warm section ── */
+.sl-section-warm::before,
+.sl-section-warm-cool::before,
+.sl-section-warm::after,
+.sl-section-warm-cool::after {
   content: '';
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
-  filter: blur(72px);
-  opacity: 0.55;
+  filter: blur(80px);
   will-change: transform;
+  z-index: 0;
 }
 
-/* Oxblood warm blob — top right */
-.sl-sand-bg::before {
-  width: min(50vw, 520px);
-  height: min(50vw, 520px);
-  top: -10%;
-  right: -8%;
-  background: radial-gradient(circle, rgba(198, 71, 43, 0.13) 0%, transparent 70%);
-  animation: sandBlobA 20s ease-in-out infinite alternate;
+/* Blob 1 — warm oxblood/peach, top-right */
+.sl-section-warm::before {
+  width: min(48vw, 500px);
+  height: min(48vw, 500px);
+  top: -5%;
+  right: -5%;
+  background: radial-gradient(circle,
+    rgba(245, 226, 219, 0.9) 0%,
+    rgba(198, 71, 43, 0.08) 45%,
+    transparent 70%);
+  opacity: 0.8;
+  animation: warmBlobA 22s ease-in-out infinite alternate;
 }
 
-/* Gold-teal blob — bottom left */
-.sl-sand-bg::after {
-  width: min(45vw, 460px);
-  height: min(45vw, 460px);
-  bottom: -8%;
-  left: -6%;
-  background: radial-gradient(circle, rgba(217, 164, 65, 0.14) 0%, rgba(46, 111, 94, 0.07) 50%, transparent 70%);
-  animation: sandBlobB 26s ease-in-out infinite alternate;
+/* Blob 2 — cool mist, bottom-left */
+.sl-section-warm::after {
+  width: min(42vw, 440px);
+  height: min(42vw, 440px);
+  bottom: -5%;
+  left: -4%;
+  background: radial-gradient(circle,
+    rgba(240, 244, 247, 0.85) 0%,
+    rgba(217, 164, 65, 0.07) 50%,
+    transparent 70%);
+  opacity: 0.75;
+  animation: warmBlobB 28s ease-in-out infinite alternate;
 }
 
-@keyframes sandBlobA {
-  0%   { transform: translate(0px, 0px) scale(1); }
-  33%  { transform: translate(-30px, 25px) scale(1.06); }
-  66%  { transform: translate(20px, -20px) scale(0.96); }
-  100% { transform: translate(-15px, 30px) scale(1.04); }
+/* Cool variant blob 1 — teal mist, top-right */
+.sl-section-warm-cool::before {
+  width: min(46vw, 480px);
+  height: min(46vw, 480px);
+  top: -5%;
+  right: -5%;
+  background: radial-gradient(circle,
+    rgba(240, 244, 247, 0.9) 0%,
+    rgba(46, 111, 94, 0.07) 48%,
+    transparent 70%);
+  opacity: 0.8;
+  animation: warmBlobA 25s ease-in-out infinite alternate;
 }
 
-@keyframes sandBlobB {
-  0%   { transform: translate(0px, 0px) scale(1); }
-  33%  { transform: translate(25px, -18px) scale(1.08); }
-  66%  { transform: translate(-20px, 22px) scale(0.94); }
-  100% { transform: translate(18px, -25px) scale(1.05); }
+/* Cool variant blob 2 — warm peach, bottom-left */
+.sl-section-warm-cool::after {
+  width: min(44vw, 460px);
+  height: min(44vw, 460px);
+  bottom: -5%;
+  left: -4%;
+  background: radial-gradient(circle,
+    rgba(245, 226, 219, 0.8) 0%,
+    rgba(217, 164, 65, 0.08) 45%,
+    transparent 70%);
+  opacity: 0.75;
+  animation: warmBlobB 20s ease-in-out infinite alternate;
 }
 
-/* Alternate variant — teal-leaning blob for process/why sections */
-.sl-sand-bg-cool::before {
-  background: radial-gradient(circle, rgba(46, 111, 94, 0.11) 0%, transparent 70%);
-  animation: sandBlobA 24s ease-in-out infinite alternate;
+/* Section content always above blobs */
+.sl-section-warm > *,
+.sl-section-warm-cool > * {
+  position: relative;
+  z-index: 1;
 }
 
-.sl-sand-bg-cool::after {
-  background: radial-gradient(circle, rgba(217, 164, 65, 0.12) 0%, rgba(198, 71, 43, 0.05) 55%, transparent 70%);
-  animation: sandBlobB 18s ease-in-out infinite alternate;
+@keyframes warmBlobA {
+  0%   { transform: translate(0px,   0px)   scale(1);    }
+  25%  { transform: translate(-22px,  18px)  scale(1.05); }
+  50%  { transform: translate(14px,  -24px)  scale(0.96); }
+  75%  { transform: translate(-18px, -12px)  scale(1.03); }
+  100% { transform: translate(20px,   22px)  scale(0.97); }
+}
+
+@keyframes warmBlobB {
+  0%   { transform: translate(0px,   0px)   scale(1);    }
+  25%  { transform: translate(20px,  -16px)  scale(1.06); }
+  50%  { transform: translate(-16px,  20px)  scale(0.95); }
+  75%  { transform: translate(22px,   14px)  scale(1.04); }
+  100% { transform: translate(-20px, -20px)  scale(0.98); }
+}
+
+/* Keep old sand classes working (no-op redirect) */
+.sl-sand-bg {
+  background-color: #FDF8F5;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sl-sand-bg::before,
-  .sl-sand-bg::after,
-  .sl-sand-bg-cool::before,
-  .sl-sand-bg-cool::after {
+  .sl-section-warm::before,
+  .sl-section-warm::after,
+  .sl-section-warm-cool::before,
+  .sl-section-warm-cool::after {
     animation: none !important;
   }
 }
 
 @media (max-width: 640px) {
-  .sl-sand-bg::before,
-  .sl-sand-bg::after {
-    opacity: 0.35;
+  .sl-section-warm::before,
+  .sl-section-warm::after,
+  .sl-section-warm-cool::before,
+  .sl-section-warm-cool::after {
+    opacity: 0.4;
     animation: none;
   }
 }
@@ -1274,6 +1334,7 @@
     opacity: 0.55;
   }
 }
+
 
 
 

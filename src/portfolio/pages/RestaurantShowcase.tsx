@@ -28,7 +28,7 @@ const workflowSteps = [
 
 export default function RestaurantShowcase() {
   return (
-    <div className="sl-sand-bg relative min-h-screen overflow-hidden text-[var(--sl-ink)]">
+    <div className="sl-section-warm relative min-h-screen overflow-hidden text-[var(--sl-ink)]">
       {/* Subtle top accent strip */}
       <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[var(--sl-oxblood)] via-[var(--sl-gold)] to-[var(--sl-teal-deep)]" />
 
@@ -210,6 +210,7 @@ export default function RestaurantShowcase() {
     </div>
   )
 }
+
 
 
 
