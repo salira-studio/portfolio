@@ -49,9 +49,14 @@ export function EvenMesh() {
     // ── Particle system ────────────────────────────────────
     const COUNT = 400
     const SPEED = 1.8
+    const TAIL  = 18   // number of positions kept per particle
 
     interface P {
       x: number; y: number
+      hx: Float32Array  // tail x history
+      hy: Float32Array  // tail y history
+      hp: number        // ring-buffer pointer
+      hlen: number      // how many positions are filled so far
       color: string
       life: number
       maxLife: number
@@ -60,9 +65,14 @@ export function EvenMesh() {
     let particles: P[] = []
 
     function spawn(): P {
+      const hx = new Float32Array(TAIL)
+      const hy = new Float32Array(TAIL)
+      const sx = Math.random() * W
+      const sy = Math.random() * H
+      hx.fill(sx); hy.fill(sy)
       return {
-        x: Math.random() * W,
-        y: Math.random() * H,
+        x: sx, y: sy,
+        hx, hy, hp: 0, hlen: 0,
         color: COLORS[Math.floor(Math.random() * COLORS.length)],
         life: 0,
         maxLife: 120 + Math.floor(Math.random() * 180),
@@ -71,7 +81,6 @@ export function EvenMesh() {
 
     function initParticles() {
       particles = Array.from({ length: COUNT }, spawn)
-      // Stagger initial life so they don't all start at once
       particles.forEach((p, i) => { p.life = Math.floor((i / COUNT) * p.maxLife) })
     }
 
@@ -94,6 +103,8 @@ export function EvenMesh() {
           // Respawn at random position
           const np = spawn()
           p.x = np.x; p.y = np.y
+          p.hx.fill(np.x); p.hy.fill(np.y)
+          p.hp = 0; p.hlen = 0
           p.color = np.color
           p.life = 0
           p.maxLife = np.maxLife
@@ -104,30 +115,48 @@ export function EvenMesh() {
         const nx = p.x + Math.cos(angle) * SPEED
         const ny = p.y + Math.sin(angle) * SPEED
 
-        // Fade in at start, fade out at end
-        const lifeFraction = p.life / p.maxLife
-        const fadeIn  = Math.min(1, p.life / 20)
-        const fadeOut = Math.min(1, (p.maxLife - p.life) / 30)
-        const alpha   = fadeIn * fadeOut
-
-        ctx.beginPath()
-        ctx.moveTo(p.x, p.y)
-        ctx.lineTo(nx, ny)
-        ctx.strokeStyle = p.color
-        ctx.lineWidth = 2.0
-        ctx.globalAlpha = alpha * 0.9
-        ctx.lineCap = 'round'
-        ctx.stroke()
+        // Store new position in ring buffer
+        p.hx[p.hp] = nx
+        p.hy[p.hp] = ny
+        p.hp = (p.hp + 1) % TAIL
+        p.hlen = Math.min(p.hlen + 1, TAIL)
 
         p.x = nx
         p.y = ny
-        p.life++
 
         // Wrap edges
-        if (p.x < -10) p.x = W + 10
-        if (p.x > W + 10) p.x = -10
-        if (p.y < -10) p.y = H + 10
-        if (p.y > H + 10) p.y = -10
+        if (p.x < -10) { p.x = W + 10; p.hx.fill(p.x); p.hy.fill(p.y) }
+        if (p.x > W+10) { p.x = -10;   p.hx.fill(p.x); p.hy.fill(p.y) }
+        if (p.y < -10) { p.y = H + 10; p.hx.fill(p.x); p.hy.fill(p.y) }
+        if (p.y > H+10) { p.y = -10;   p.hx.fill(p.x); p.hy.fill(p.y) }
+
+        p.life++
+
+        if (p.hlen < 2) return
+
+        // Fade in / fade out based on lifetime
+        const fadeIn  = Math.min(1, p.life / 20)
+        const fadeOut = Math.min(1, (p.maxLife - p.life) / 30)
+        const baseAlpha = fadeIn * fadeOut
+
+        // Draw tail — segments fade from transparent (old) to opaque (new head)
+        for (let s = 0; s < p.hlen - 1; s++) {
+          // s=0 is oldest segment, s=hlen-2 is newest
+          const segAlpha = ((s + 1) / p.hlen) * baseAlpha
+
+          // Walk ring buffer in chronological order
+          const ia = (p.hp - p.hlen + s + TAIL) % TAIL
+          const ib = (p.hp - p.hlen + s + 1 + TAIL) % TAIL
+
+          ctx.beginPath()
+          ctx.moveTo(p.hx[ia], p.hy[ia])
+          ctx.lineTo(p.hx[ib], p.hy[ib])
+          ctx.strokeStyle = p.color
+          ctx.lineWidth = 1.8
+          ctx.globalAlpha = segAlpha
+          ctx.lineCap = 'round'
+          ctx.stroke()
+        }
       })
 
       ctx.globalAlpha = 1
