@@ -47,7 +47,7 @@ export function EvenMesh() {
     }
 
     // ── Particle system ────────────────────────────────────
-    const COUNT = 300
+    const COUNT = 400
     const SPEED = 1.8
 
     interface P {
