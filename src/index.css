@@ -287,7 +287,7 @@
   --sl-bg-casestudy: var(--sl-paper-lifted);
 
   position: relative;
-  background: #FDF8F5;
+  background: #FFFFFF;
   color: var(--sl-ink);
   font-family: var(--font-sans);
 }
@@ -364,7 +364,7 @@
    Section Room & Container Classes (Strict Palette Mapping)
    ──────────────────────────────────────────────────────────────── */
 
-/* 1. Full-bleed Hero: soft warm light mesh */
+/* 1. Full-bleed Hero */
 .sl-hero-vivid {
   position: relative;
   overflow: hidden;
@@ -440,13 +440,10 @@
   border-top: 1px solid rgba(23, 22, 27, 0.08);
 }
 
-/* 5. Contact — soft warm light; blends seamlessly into footer */
+/* 5. Contact */
 .sl-section-contact {
   position: relative;
-  background:
-    radial-gradient(680px 420px at 82% 18%, rgba(245, 226, 219, 0.75), transparent 55%),
-    radial-gradient(520px 360px at 12% 70%, rgba(240, 244, 247, 0.65), transparent 50%),
-    linear-gradient(180deg, #F0F4F7 0%, #FDFCFB 38%, #F7E8E1 100%);
+  background: #FFFFFF;
   color: var(--sl-ink);
   border-top: 1px solid rgba(20, 22, 28, 0.05);
   border-bottom: none;
@@ -910,13 +907,14 @@
     0 12px 36px -4px rgba(217, 164, 65, 0.12);
 }
 
-/* ── White Section — pure white, no canvas, clean ── */
+/* ── White Section with particle mesh background ── */
 .sl-white-section {
   background-color: #FFFFFF;
   position: relative;
   isolation: isolate;
   border-top: none !important;
   border-bottom: none !important;
+  color: var(--sl-ink);
 }
 
 .sl-white-section > * {
@@ -985,12 +983,13 @@
   }
 }
 
-/* Keep old warm/sand classes as pure white now — no blobs */
+/* Keep old warm/sand classes as pure white */
 .sl-section-warm,
 .sl-section-warm-cool,
 .sl-sand-bg {
   background-color: #FFFFFF;
   position: relative;
+  color: var(--sl-ink);
 }
 
 .sl-card-hover-lift {

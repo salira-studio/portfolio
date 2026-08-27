@@ -19,7 +19,7 @@ import { motion, useMotionValue, useSpring, useScroll, useTransform } from 'fram
 import { HeroShowcaseClean } from '../components/HeroShowcaseClean'
 import { PricingTiers } from '../components/PricingTiers'
 import { MagneticButton } from '../components/MagneticButton'
-import { FadeUp, ScaleIn } from '../components/ScrollReveal'
+import { FadeUp, StaggerContainer, StaggerItem, SlideIn } from '../components/ScrollReveal'
 import { EvenMesh } from '../components/EvenMesh'
 import { usePrefersReducedMotion } from '../lib/usePrefersReducedMotion'
 
@@ -262,8 +262,8 @@ export default function Home() {
             </div>
           </FadeUp>
 
-          <div className="grid gap-6 sm:grid-cols-3">
-            <ScaleIn delay={0.08}>
+          <StaggerContainer className="grid gap-6 sm:grid-cols-3" staggerDelay={0.12} delayChildren={0.05}>
+            <StaggerItem>
               <div className="sl-shine group flex h-full flex-col justify-between rounded-2xl border border-[rgba(217,164,65,0.2)] bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(217,164,65,0.45)] hover:shadow-[0_20px_60px_rgba(217,164,65,0.12)]">
                 <div>
                   <span className="sl-icon-bounce flex h-11 w-11 items-center justify-center rounded-2xl bg-[rgba(217,164,65,0.1)] text-[var(--sl-gold)]">
@@ -283,9 +283,9 @@ export default function Home() {
                   </a>
                 </div>
               </div>
-            </ScaleIn>
+            </StaggerItem>
 
-            <ScaleIn delay={0.16}>
+            <StaggerItem>
               <div className="sl-shine group flex h-full flex-col justify-between rounded-2xl border border-[rgba(198,71,43,0.15)] bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(198,71,43,0.35)] hover:shadow-[0_20px_60px_rgba(198,71,43,0.1)]">
                 <div>
                   <span className="sl-icon-bounce flex h-11 w-11 items-center justify-center rounded-2xl bg-[rgba(198,71,43,0.08)] text-[var(--sl-oxblood)]">
@@ -305,9 +305,9 @@ export default function Home() {
                   </a>
                 </div>
               </div>
-            </ScaleIn>
+            </StaggerItem>
 
-            <ScaleIn delay={0.24}>
+            <StaggerItem>
               <div className="sl-shine group flex h-full flex-col justify-between rounded-2xl border border-[rgba(46,111,94,0.15)] bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(46,111,94,0.35)] hover:shadow-[0_20px_60px_rgba(46,111,94,0.1)]">
                 <div>
                   <span className="sl-icon-bounce flex h-11 w-11 items-center justify-center rounded-2xl bg-[rgba(46,111,94,0.08)] text-[var(--sl-teal-deep)]">
@@ -327,8 +327,8 @@ export default function Home() {
                   </a>
                 </div>
               </div>
-            </ScaleIn>
-          </div>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </section>
 
@@ -375,9 +375,9 @@ export default function Home() {
             </div>
           </FadeUp>
 
-          <div className="sl-process-rail mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {studioPillars.map((item, idx) => (
-              <ScaleIn key={item.n} delay={idx * 0.08}>
+          <StaggerContainer className="sl-process-rail mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" staggerDelay={0.1} delayChildren={0.05}>
+            {studioPillars.map((item) => (
+              <StaggerItem key={item.n}>
                 <motion.div
                   className="group relative flex h-full flex-col justify-between rounded-2xl border border-[var(--sl-line)] bg-white p-6 shadow-sm cursor-default overflow-hidden"
                   whileHover={reduced ? {} : { y: -5, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
@@ -401,9 +401,9 @@ export default function Home() {
                     </p>
                   </div>
                 </motion.div>
-              </ScaleIn>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
@@ -420,7 +420,7 @@ export default function Home() {
             </div>
           </FadeUp>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <StaggerContainer className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" staggerDelay={0.09} delayChildren={0.05}>
             {[
               {
                 icon: Handshake,
@@ -482,8 +482,8 @@ export default function Home() {
                 color: '#2E6F5E',
                 shadow: '0 20px 50px rgba(46,111,94,0.09)',
               },
-            ].map((item, idx) => (
-              <ScaleIn key={item.title} delay={idx * 0.07}>
+            ].map((item) => (
+              <StaggerItem key={item.title}>
                 <motion.div
                   className="group relative h-full overflow-hidden rounded-2xl border bg-white p-6 cursor-default transition-shadow duration-300"
                   style={{ borderColor: item.border }}
@@ -513,9 +513,9 @@ export default function Home() {
                     {item.desc}
                   </p>
                 </motion.div>
-              </ScaleIn>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
@@ -523,7 +523,7 @@ export default function Home() {
       <section id="contact" className="sl-section-contact relative scroll-mt-16 overflow-hidden py-20 sm:py-28">
         <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-            <FadeUp>
+            <SlideIn from="left" delay={0}>
               <div>
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--sl-line)] bg-white/80 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-[var(--sl-oxblood)] shadow-xs">
                   <Sparkles size={13} />
@@ -554,9 +554,9 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </FadeUp>
+            </SlideIn>
 
-            <FadeUp delay={0.12}>
+            <SlideIn from="right" delay={0.1}>
               <div className="sl-panel p-6 shadow-[0_20px_60px_rgba(20,22,28,0.08)] sm:p-8">
                 <form
                   onSubmit={(e) => {
@@ -637,7 +637,7 @@ export default function Home() {
                   </p>
                 </form>
               </div>
-            </FadeUp>
+            </SlideIn>
           </div>
         </div>
       </section>

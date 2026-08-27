@@ -15,8 +15,8 @@ export function FadeUp({
   children,
   className = '',
   delay = 0,
-  duration = 0.65,
-  yOffset = 28,
+  duration = 0.7,
+  yOffset = 40,
   once = true,
 }: RevealProps) {
   const reduced = usePrefersReducedMotion()
@@ -27,13 +27,13 @@ export function FadeUp({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: yOffset, filter: 'blur(4px)' }}
+      initial={{ opacity: 0, y: yOffset, filter: 'blur(6px)' }}
       whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-      viewport={{ once, margin: '-50px' }}
+      viewport={{ once, margin: '-80px' }}
       transition={{
         duration,
         delay,
-        ease: [0.22, 1, 0.36, 1],
+        ease: [0.16, 1, 0.3, 1],
       }}
       className={className}
     >
@@ -65,7 +65,7 @@ export function StaggerContainer({
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, margin: '-50px' }}
+      viewport={{ once, margin: '-60px' }}
       variants={{
         hidden: {},
         visible: {
@@ -85,7 +85,7 @@ export function StaggerContainer({
 export function StaggerItem({
   children,
   className = '',
-  yOffset = 20,
+  yOffset = 24,
 }: {
   children: React.ReactNode
   className?: string
@@ -100,14 +100,14 @@ export function StaggerItem({
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0, y: yOffset, filter: 'blur(4px)' },
+        hidden: { opacity: 0, y: yOffset, filter: 'blur(5px)' },
         visible: {
           opacity: 1,
           y: 0,
           filter: 'blur(0px)',
           transition: {
-            duration: 0.65,
-            ease: [0.22, 1, 0.36, 1],
+            duration: 0.7,
+            ease: [0.16, 1, 0.3, 1],
           },
         },
       }}
@@ -118,12 +118,12 @@ export function StaggerItem({
   )
 }
 
-/** Scale + fade reveal — great for cards popping in */
+/** Scale + fade reveal — cards popping in from below */
 export function ScaleIn({
   children,
   className = '',
   delay = 0,
-  duration = 0.6,
+  duration = 0.65,
 }: {
   children: React.ReactNode
   className?: string
@@ -138,10 +138,10 @@ export function ScaleIn({
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.92, y: 16 }}
-      whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration, delay, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0, scale: 0.88, y: 28, filter: 'blur(6px)' }}
+      whileInView={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration, delay, ease: [0.16, 1, 0.3, 1] }}
       className={className}
     >
       {children}
@@ -173,10 +173,10 @@ export function SlideIn({
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: sign * distance }}
-      whileInView={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, x: sign * distance, filter: 'blur(4px)' }}
+      whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
       viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration, delay, ease: [0.16, 1, 0.3, 1] }}
       className={className}
     >
       {children}
@@ -206,7 +206,7 @@ export function RevealLine({
         whileInView={{ y: '0%', opacity: 1 }}
         viewport={{ once: true, margin: '-20px' }}
         transition={{
-          duration: 0.8,
+          duration: 0.85,
           delay,
           ease: [0.16, 1, 0.3, 1],
         }}
@@ -214,5 +214,36 @@ export function RevealLine({
         {children}
       </motion.div>
     </div>
+  )
+}
+
+/** Fade in from nothing — subtle reveal for supporting text */
+export function FadeIn({
+  children,
+  className = '',
+  delay = 0,
+  duration = 0.6,
+}: {
+  children: React.ReactNode
+  className?: string
+  delay?: number
+  duration?: number
+}) {
+  const reduced = usePrefersReducedMotion()
+
+  if (reduced) {
+    return <div className={className}>{children}</div>
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration, delay, ease: 'easeOut' }}
+      className={className}
+    >
+      {children}
+    </motion.div>
   )
 }
