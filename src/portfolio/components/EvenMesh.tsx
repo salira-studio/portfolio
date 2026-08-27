@@ -1,148 +1,131 @@
 import { useEffect, useRef } from 'react'
 import { usePrefersReducedMotion } from '../lib/usePrefersReducedMotion'
 
-/**
- * FlowField — flowing curved line particles on white background
- * Exactly like the reference image but with brand colors on white
- * position: absolute, fills parent container
- */
-
-const COLORS = [
-  'rgba(198, 71, 43, 0.55)',   // oxblood
-  'rgba(217, 164, 65, 0.5)',   // gold
-  'rgba(46, 111, 94, 0.5)',    // teal
-  'rgba(91, 168, 143, 0.45)',  // sage
-  'rgba(198, 71, 43, 0.3)',    // oxblood light
-  'rgba(217, 164, 65, 0.35)',  // gold light
-]
-
 export function EvenMesh() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const ref = useRef<HTMLCanvasElement>(null)
   const reduced = usePrefersReducedMotion()
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas || reduced) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
+    const cv = ref.current
+    if (!cv || reduced) return
+    const ctx = cv.getContext('2d')!
 
-    let W = 0, H = 0
-    let raf = 0, t = 0, dead = false
+    // Force canvas to fill parent immediately
+    const parent = cv.parentElement!
+    let W = parent.offsetWidth || window.innerWidth
+    let H = parent.offsetHeight || 600
+    let dead = false, raf = 0, time = 0
 
-    // ── Flow field grid ─────────────────────────────────────
-    const COLS = 40
-    const ROWS = 25
-    let cellW = 0, cellH = 0
+    const DPR = Math.min(window.devicePixelRatio || 1, 2)
+    cv.width  = Math.round(W * DPR)
+    cv.height = Math.round(H * DPR)
+    cv.style.width  = W + 'px'
+    cv.style.height = H + 'px'
+    ctx.scale(DPR, DPR)
 
-    // ── Particles ───────────────────────────────────────────
-    const NUM = 200
+    // White fill first
+    ctx.fillStyle = '#fff'
+    ctx.fillRect(0, 0, W, H)
 
-    interface P {
-      x: number; y: number
-      history: { x: number; y: number }[]
-      col: number
-      speed: number
-      len: number   // trail length
+    // ── Particles ──────────────────────────────────────────
+    const COLORS = ['#C6472B','#D9A441','#2E6F5E','#5BA88F','#C6472B','#D9A441']
+    const N = 180
+
+    const px   = new Float32Array(N).map(() => Math.random() * W)
+    const py   = new Float32Array(N).map(() => Math.random() * H)
+    const col  = new Uint8Array(N).map(() => Math.floor(Math.random() * COLORS.length))
+    const spd  = new Float32Array(N).map(() => 0.8 + Math.random() * 1.2)
+    const ph   = new Float32Array(N).map(() => Math.random() * Math.PI * 2)
+
+    // Trail history per particle — last 8 positions
+    const TRAIL = 8
+    const hx = Array.from({length: N}, () => new Float32Array(TRAIL))
+    const hy = Array.from({length: N}, () => new Float32Array(TRAIL))
+    let hptr = new Uint8Array(N) // ring buffer pointer
+
+    // Init trail to current position
+    for (let i = 0; i < N; i++) {
+      hx[i].fill(px[i])
+      hy[i].fill(py[i])
     }
 
-    const pts: P[] = []
+    function angle(x: number, y: number, t: number) {
+      const nx = x / W, ny = y / H
+      return (
+        Math.sin(nx * 3 + t * 0.5) * Math.cos(ny * 2.5 - t * 0.4) +
+        Math.cos(nx * 5 - t * 0.3) * Math.sin(ny * 4 + t * 0.45) +
+        Math.sin((nx + ny) * 2.2 + t * 0.35) * 0.5
+      ) * Math.PI
 
-    function makePt(): P {
-      return {
-        x: Math.random() * W,
-        y: Math.random() * H,
-        history: [],
-        col: Math.floor(Math.random() * COLORS.length),
-        speed: 0.8 + Math.random() * 1.4,
-        len: 6 + Math.floor(Math.random() * 10),
-      }
     }
 
-    // ── Perlin-like noise angle field ───────────────────────
-    function fieldAngle(x: number, y: number, time: number): number {
-      const nx = x / W
-      const ny = y / H
-      // Multi-octave smooth noise using trig
-      const a1 = Math.sin(nx * 3.1 + time * 0.4) * Math.cos(ny * 2.7 - time * 0.3)
-      const a2 = Math.cos(nx * 5.3 - time * 0.2) * Math.sin(ny * 4.1 + time * 0.5)
-      const a3 = Math.sin((nx + ny) * 2.5 + time * 0.35)
-      return (a1 + a2 * 0.5 + a3 * 0.3) * Math.PI * 2
-    }
+    function frame() {
+      raf = 0
+      if (dead) return
 
-    // ── Draw ────────────────────────────────────────────────
-    function draw() {
-      // Very faint white overlay — creates the trail fade effect
-      ctx.fillStyle = 'rgba(255,255,255,0.06)'
+      // Soft white fade — keeps trails visible but fades old ones
+      ctx.globalAlpha = 0.08
+      ctx.fillStyle = '#ffffff'
       ctx.fillRect(0, 0, W, H)
+      ctx.globalAlpha = 1
 
-      t += 0.005
+      time += 0.012
 
-      pts.forEach(p => {
-        const angle = fieldAngle(p.x, p.y, t)
-        const vx = Math.cos(angle) * p.speed
-        const vy = Math.sin(angle) * p.speed
+      for (let i = 0; i < N; i++) {
+        const a = angle(px[i], py[i], time) + ph[i] * 0.1
+        const vx = Math.cos(a) * spd[i]
+        const vy = Math.sin(a) * spd[i]
 
-        p.history.push({ x: p.x, y: p.y })
-        if (p.history.length > p.len) p.history.shift()
+        px[i] += vx
+        py[i] += vy
 
-        p.x += vx
-        p.y += vy
+        // Wrap edges
+        if (px[i] < 0) px[i] = W
+        if (px[i] > W) px[i] = 0
+        if (py[i] < 0) py[i] = H
+        if (py[i] > H) py[i] = 0
 
-        // Wrap
-        if (p.x < 0) p.x = W
-        if (p.x > W) p.x = 0
-        if (p.y < 0) p.y = H
-        if (p.y > H) p.y = 0
+        // Store in ring buffer
+        const p = hptr[i]
+        hx[i][p] = px[i]
+        hy[i][p] = py[i]
+        hptr[i] = (p + 1) % TRAIL
 
-        // Draw trail as curved line
-        if (p.history.length < 2) return
-
+        // Draw trail — walk ring buffer in order
         ctx.beginPath()
-        ctx.moveTo(p.history[0].x, p.history[0].y)
-        for (let i = 1; i < p.history.length; i++) {
-          ctx.lineTo(p.history[i].x, p.history[i].y)
+        let first = true
+        for (let j = 0; j < TRAIL; j++) {
+          const idx = (hptr[i] + j) % TRAIL
+          if (first) { ctx.moveTo(hx[i][idx], hy[i][idx]); first = false }
+          else ctx.lineTo(hx[i][idx], hy[i][idx])
         }
-        ctx.strokeStyle = COLORS[p.col]
-        ctx.lineWidth = 1.2
+        ctx.strokeStyle = COLORS[col[i]]
+        ctx.lineWidth = 1.5
+        ctx.globalAlpha = 0.6
         ctx.lineCap = 'round'
         ctx.lineJoin = 'round'
         ctx.stroke()
-      })
+        ctx.globalAlpha = 1
+      }
 
-      raf = requestAnimationFrame(draw)
+      raf = requestAnimationFrame(frame)
     }
 
-    // ── Resize ──────────────────────────────────────────────
-    function resize() {
-      if (dead) return
-      const rect = canvas.getBoundingClientRect()
-      W = rect.width || window.innerWidth
-      H = rect.height || 400
-      const dpr = Math.min(window.devicePixelRatio || 1, 2)
-      canvas.width = Math.round(W * dpr)
-      canvas.height = Math.round(H * dpr)
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      cellW = W / COLS
-      cellH = H / ROWS
+    raf = requestAnimationFrame(frame)
 
-      // Reset particles spread across full canvas
-      pts.length = 0
-      for (let i = 0; i < NUM; i++) pts.push(makePt())
-
-      // Fill white
-      ctx.fillStyle = '#ffffff'
-      ctx.fillRect(0, 0, W, H)
-    }
-
+    // Resize observer
     const ro = new ResizeObserver(() => {
-      cancelAnimationFrame(raf)
-      resize()
-      if (!dead) raf = requestAnimationFrame(draw)
+      W = parent.offsetWidth || window.innerWidth
+      H = parent.offsetHeight || 600
+      cv.width  = Math.round(W * DPR)
+      cv.height = Math.round(H * DPR)
+      cv.style.width  = W + 'px'
+      cv.style.height = H + 'px'
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0)
+      ctx.fillStyle = '#fff'
+      ctx.fillRect(0, 0, W, H)
     })
-    ro.observe(canvas)
-
-    resize()
-    raf = requestAnimationFrame(draw)
+    ro.observe(parent)
 
     return () => {
       dead = true
@@ -155,16 +138,14 @@ export function EvenMesh() {
 
   return (
     <canvas
-      ref={canvasRef}
+      ref={ref}
       aria-hidden="true"
       style={{
         position: 'absolute',
         top: 0, left: 0,
-        width: '100%',
-        height: '100%',
-        display: 'block',
         zIndex: 0,
         pointerEvents: 'none',
+        display: 'block',
       }}
     />
   )

@@ -917,6 +917,7 @@
   isolation: isolate;
   border-top: none !important;
   border-bottom: none !important;
+  min-height: 400px;
 }
 
 .sl-white-section > *:not([aria-hidden]) {
@@ -924,7 +925,6 @@
   z-index: 1;
 }
 
-/* Remove all warm blob animations from white sections */
 .sl-white-section::before,
 .sl-white-section::after {
   display: none !important;
