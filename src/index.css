@@ -910,17 +910,72 @@
     0 12px 36px -4px rgba(217, 164, 65, 0.12);
 }
 
-/* ── White Section — canvas fills section, content sits on top ── */
+/* ── White Section — animated background sections ── */
 .sl-white-section {
   background-color: #FFFFFF;
   position: relative;
   isolation: isolate;
 }
 
-/* All direct children except the canvas get z-index 1 */
-.sl-white-section > *:not(canvas) {
+.sl-white-section > *:not([aria-hidden]) {
   position: relative;
   z-index: 1;
+}
+
+/* ── Animated mesh keyframes ── */
+@keyframes meshFloat1 {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  33%  { transform: translate(-30px, 25px) scale(1.06); }
+  66%  { transform: translate(20px, -20px) scale(0.95); }
+  100% { transform: translate(-15px, 30px) scale(1.04); }
+}
+@keyframes meshFloat2 {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  33%  { transform: translate(25px, -18px) scale(1.08); }
+  66%  { transform: translate(-20px, 22px) scale(0.93); }
+  100% { transform: translate(18px, -25px) scale(1.05); }
+}
+@keyframes meshFloat3 {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  50%  { transform: translate(-40px, 30px) scale(1.1); }
+  100% { transform: translate(35px, -25px) scale(0.92); }
+}
+/* Particle dot movement paths */
+@keyframes meshDot1 {
+  0%   { transform: translate(0px, 0px);   opacity: 0.45; }
+  25%  { transform: translate(40px, -30px); opacity: 0.7; }
+  50%  { transform: translate(-20px, 50px); opacity: 0.35; }
+  75%  { transform: translate(60px, 20px);  opacity: 0.6; }
+  100% { transform: translate(-35px, -40px); opacity: 0.45; }
+}
+@keyframes meshDot2 {
+  0%   { transform: translate(0px, 0px);    opacity: 0.4; }
+  30%  { transform: translate(-50px, 40px); opacity: 0.65; }
+  60%  { transform: translate(30px, -45px); opacity: 0.3; }
+  100% { transform: translate(45px, 35px);  opacity: 0.5; }
+}
+@keyframes meshDot3 {
+  0%   { transform: translate(0px, 0px);   opacity: 0.5; }
+  40%  { transform: translate(55px, 30px); opacity: 0.25; }
+  70%  { transform: translate(-40px, -35px); opacity: 0.65; }
+  100% { transform: translate(25px, 50px); opacity: 0.45; }
+}
+@keyframes meshDot4 {
+  0%   { transform: translate(0px, 0px);    opacity: 0.35; }
+  35%  { transform: translate(-45px, -30px); opacity: 0.6; }
+  65%  { transform: translate(35px, 45px);   opacity: 0.3; }
+  100% { transform: translate(-25px, -50px); opacity: 0.5; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sl-white-section [aria-hidden] * {
+    animation: none !important;
+  }
+}
+@media (max-width: 640px) {
+  .sl-white-section [aria-hidden] span:nth-child(n+20) {
+    display: none;
+  }
 }
 
 /* Base: FDF8F5 — brand --sl-paper, same family as footer #F7E8E1 */

@@ -15,6 +15,7 @@ import {
 import { CUSTOMER_BASE, CONSOLE_BASE } from '../../templates/restaurant/routes'
 import { MagneticButton } from '../components/MagneticButton'
 import { FadeUp, StaggerContainer, StaggerItem } from '../components/ScrollReveal'
+import { EvenMesh } from '../components/EvenMesh'
 
 const workflowSteps = [
   { icon: Search, label: 'Discover' },
@@ -210,6 +211,7 @@ export default function RestaurantShowcase() {
     </div>
   )
 }
+
 
 
 
