@@ -247,7 +247,7 @@ export default function Home() {
       </section>
 
       {/* ── 2. Services ── */}
-      <section id="services" className="sl-white-section relative z-10 overflow-hidden border-t border-[rgba(20,22,28,0.06)] py-20 sm:py-28">
+      <section id="services" className="sl-white-section relative z-10 overflow-hidden py-20 sm:py-28">
         <EvenMesh />
         <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
           <FadeUp>
@@ -335,7 +335,7 @@ export default function Home() {
       {/* ── 3. Pricing ── */}
       <section
         id="pricing"
-        className="sl-white-section relative z-10 scroll-mt-16 overflow-hidden border-t border-[rgba(20,22,28,0.06)] py-20 sm:py-32"
+        className="sl-white-section relative z-10 scroll-mt-16 overflow-hidden py-20 sm:py-32"
       >
         <EvenMesh />
         <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
@@ -358,7 +358,7 @@ export default function Home() {
       </section>
 
       {/* ── 4. How We Work ── */}
-      <section className="sl-white-section relative z-10 overflow-hidden border-t border-[rgba(20,22,28,0.06)] py-20 sm:py-28">
+      <section className="sl-white-section relative z-10 overflow-hidden py-20 sm:py-28">
         <EvenMesh />
         <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
           <FadeUp>
@@ -408,7 +408,7 @@ export default function Home() {
       </section>
 
       {/* ── 5. Why SaLira ── */}
-      <section className="sl-white-section relative z-10 overflow-hidden border-t border-[rgba(20,22,28,0.06)] py-20 sm:py-28">
+      <section className="sl-white-section relative z-10 overflow-hidden py-20 sm:py-28">
         <EvenMesh />
         <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
           <FadeUp>
@@ -644,6 +644,8 @@ export default function Home() {
     </div>
   )
 }
+
+
 
 
 
