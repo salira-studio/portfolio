@@ -116,9 +116,9 @@ export function EvenMesh() {
       t += 0.008
 
       // Clear to pure white every frame — NO trails, NO buildup
-      ctx.clearRect(0, 0, W, H)
-      ctx.fillStyle = '#ffffff'
-      ctx.fillRect(0, 0, W, H)
+      ctx!.clearRect(0, 0, W, H)
+      ctx!.fillStyle = '#ffffff'
+      ctx!.fillRect(0, 0, W, H)
 
       particles.forEach(p => {
         if (p.life >= p.maxLife) {
@@ -173,25 +173,25 @@ export function EvenMesh() {
           const ia = (p.hp - p.hlen + s + TAIL) % TAIL
           const ib = (p.hp - p.hlen + s + 1 + TAIL) % TAIL
 
-          ctx.beginPath()
-          ctx.moveTo(p.hx[ia], p.hy[ia])
-          ctx.lineTo(p.hx[ib], p.hy[ib])
-          ctx.strokeStyle = p.color
-          ctx.lineWidth = 1.8
-          ctx.globalAlpha = segAlpha
-          ctx.lineCap = 'round'
-          ctx.stroke()
+          ctx!.beginPath()
+          ctx!.moveTo(p.hx[ia], p.hy[ia])
+          ctx!.lineTo(p.hx[ib], p.hy[ib])
+          ctx!.strokeStyle = p.color
+          ctx!.lineWidth = 1.8
+          ctx!.globalAlpha = segAlpha
+          ctx!.lineCap = 'round'
+          ctx!.stroke()
         }
       })
 
-      ctx.globalAlpha = 1
+      ctx!.globalAlpha = 1
       raf = requestAnimationFrame(frame)
     }
 
     // ── Setup & resize ─────────────────────────────────────
     function setup() {
       if (dead) return
-      const parent = canvas.parentElement
+      const parent = canvas!.parentElement
       if (!parent) return
 
       const rect = parent.getBoundingClientRect()
@@ -200,14 +200,14 @@ export function EvenMesh() {
       if (W === 0 || H === 0) return
 
       dpr = Math.min(window.devicePixelRatio || 1, 2)
-      canvas.width  = W * dpr
-      canvas.height = H * dpr
-      ctx.resetTransform()
-      ctx.scale(dpr, dpr)
+      canvas!.width  = W * dpr
+      canvas!.height = H * dpr
+      ctx!.resetTransform()
+      ctx!.scale(dpr, dpr)
 
       // White base
-      ctx.fillStyle = '#ffffff'
-      ctx.fillRect(0, 0, W, H)
+      ctx!.fillStyle = '#ffffff'
+      ctx!.fillRect(0, 0, W, H)
 
       initParticles()
 
