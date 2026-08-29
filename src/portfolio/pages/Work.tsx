@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowUpRight, UtensilsCrossed, Sparkles } from 'lucide-react'
+import { ArrowUpRight, UtensilsCrossed, Sparkles, Plane } from 'lucide-react'
 import { FadeUp } from '../components/ScrollReveal'
 
 export default function Work() {
@@ -23,7 +23,8 @@ export default function Work() {
         </FadeUp>
 
         <div className="mt-14 grid gap-6 lg:grid-cols-12">
-          <div className="lg:col-span-7">
+          {/* ── AURA ── */}
+          <div className="lg:col-span-6">
             <FadeUp delay={0.15}>
               <Link
                 to="/work/restaurants"
@@ -64,15 +65,11 @@ export default function Work() {
                 <div className="mt-10 border-t border-[var(--sl-line)] pt-6">
                   <div className="flex flex-wrap gap-2">
                     {['Customer PWA', 'Kitchen Operations', 'Spatial Tables', 'Live Cross-Tab Sync', 'TypeScript'].map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-lg bg-[#F3F3F3] px-3 py-1 text-xs font-mono text-[var(--sl-charcoal)] ring-1 ring-[var(--sl-line)]"
-                      >
+                      <span key={tag} className="rounded-lg bg-[#F3F3F3] px-3 py-1 text-xs font-mono text-[var(--sl-charcoal)] ring-1 ring-[var(--sl-line)]">
                         {tag}
                       </span>
                     ))}
                   </div>
-
                   <div className="mt-6 flex items-center justify-between">
                     <span className="sl-arrow-hover text-sm font-semibold text-[var(--sl-oxblood)] group-hover:text-[var(--sl-gold)] transition-colors inline-flex items-center gap-1.5">
                       Launch Case Study &amp; Demos
@@ -84,39 +81,98 @@ export default function Work() {
             </FadeUp>
           </div>
 
-          {/* ── Upcoming Verticals ── */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
-            <FadeUp delay={0.25} className="h-full">
-              <div className="flex h-full flex-col justify-between rounded-2xl border border-[rgba(20,22,28,0.08)] bg-white/80 p-8 shadow-sm backdrop-blur-sm sm:p-10">
+          {/* ── VoyageAI ── */}
+          <div className="lg:col-span-6">
+            <FadeUp delay={0.22}>
+              <Link
+                to="/work/travel/customer"
+                data-cursor="view"
+                data-cursor-text="VoyageAI"
+                className="group sl-card-highlight block flex h-full flex-col justify-between rounded-2xl border border-[var(--sl-line)] bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(58,126,255,0.12)] sm:p-10"
+              >
                 <div>
                   <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[rgba(58,126,255,0.08)] text-[#3A7EFF]">
+                        <Plane size={18} strokeWidth={1.8} />
+                      </span>
+                      <span className="sl-label text-[#3A7EFF] font-bold">
+                        Travel Agency Platform
+                      </span>
+                    </div>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[rgba(46,111,94,0.08)] px-2.5 py-0.5 text-[11px] font-semibold text-[var(--sl-teal-deep)] ring-1 ring-[rgba(46,111,94,0.2)]">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[var(--sl-teal-deep)] animate-pulse" />
+                      Live Demo Ready
+                    </span>
+                  </div>
+
+                  <div className="mt-8">
+                    <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl text-[var(--sl-ink)]">
+                      VoyageAI
+                    </h2>
+                    <p className="mt-1 text-sm font-mono text-[var(--sl-charcoal)]">
+                      Premium Travel Agency — Destinations &amp; Packages
+                    </p>
+                  </div>
+
+                  <p className="mt-5 text-sm leading-relaxed text-[var(--sl-ink-soft)] sm:text-base">
+                    A full-featured travel agency platform with a dark luxury customer website for browsing destinations and packages, plus a complete admin console for managing bookings, enquiries, customers and analytics.
+                  </p>
+                </div>
+
+                <div className="mt-10 border-t border-[var(--sl-line)] pt-6">
+                  <div className="flex flex-wrap gap-2">
+                    {['Customer Website', 'Admin Console', 'Bookings', 'Wishlist', 'Dark UI'].map((tag) => (
+                      <span key={tag} className="rounded-lg bg-[#F3F3F3] px-3 py-1 text-xs font-mono text-[var(--sl-charcoal)] ring-1 ring-[var(--sl-line)]">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="mt-6 flex items-center gap-4">
+                    <span className="sl-arrow-hover text-sm font-semibold text-[#3A7EFF] group-hover:text-[var(--sl-gold)] transition-colors inline-flex items-center gap-1.5">
+                      Customer Site
+                      <ArrowUpRight size={16} className="sl-arrow transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    </span>
+                    <Link
+                      to="/work/travel/admin"
+                      onClick={(e) => e.stopPropagation()}
+                      className="text-sm font-semibold text-[var(--sl-charcoal)] hover:text-[var(--sl-ink)] transition-colors inline-flex items-center gap-1.5"
+                    >
+                      Admin Console
+                      <ArrowUpRight size={16} />
+                    </Link>
+                  </div>
+                </div>
+              </Link>
+            </FadeUp>
+          </div>
+
+          {/* ── Upcoming Verticals ── */}
+          <div className="lg:col-span-12">
+            <FadeUp delay={0.3}>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-2xl border border-[rgba(20,22,28,0.08)] bg-white/80 px-8 py-6 shadow-sm backdrop-blur-sm">
+                <div>
+                  <div className="flex items-center gap-3">
                     <span className="sl-label text-[var(--sl-charcoal)]">Upcoming Pipeline</span>
                     <span className="rounded-full bg-[rgba(92,101,117,0.08)] px-2.5 py-0.5 text-[10px] font-mono uppercase tracking-wider text-[var(--sl-charcoal)] ring-1 ring-[rgba(92,101,117,0.2)]">
                       Q3 / Q4 Roadmap
                     </span>
                   </div>
-
-                  <h2 className="mt-6 font-display text-2xl font-semibold tracking-tight text-[var(--sl-ink)]">
-                    Healthcare · Retail · Logistics
-                  </h2>
-                  <p className="mt-4 text-sm leading-relaxed text-[var(--sl-ink-soft)]">
-                    New specialized industry templates are currently undergoing architecture design. Each vertical will launch with the same zero-mockup philosophy — fully functional client-side interactive suites.
+                  <h3 className="mt-2 font-display text-lg font-semibold tracking-tight text-[var(--sl-ink)]">
+                    Healthcare · Retail · Logistics · E-Commerce
+                  </h3>
+                  <p className="mt-1 text-sm leading-relaxed text-[var(--sl-ink-soft)] max-w-xl">
+                    New industry templates undergoing architecture design — each will launch as a fully functional client-side interactive suite.
                   </p>
                 </div>
-
-                <div className="mt-10 rounded-xl bg-white/90 p-5 border border-[rgba(198,71,43,0.12)] shadow-xs">
-                  <p className="text-xs font-semibold text-[var(--sl-ink)]">
-                    Want your industry built next?
-                  </p>
-                  <p className="mt-1 text-xs text-[var(--sl-ink-soft)]">
-                    We take on select pilot partners for new vertical architectures.
-                  </p>
+                <div className="shrink-0 rounded-xl bg-white p-4 border border-[rgba(198,71,43,0.12)] shadow-xs min-w-[200px]">
+                  <p className="text-xs font-semibold text-[var(--sl-ink)]">Want your industry built next?</p>
+                  <p className="mt-1 text-xs text-[var(--sl-ink-soft)]">We take on select pilot partners.</p>
                   <a
                     href="mailto:hello@salira.studio"
-                    className="sl-arrow-hover mt-3.5 inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--sl-oxblood)] hover:text-[var(--sl-gold)] transition-colors"
+                    className="sl-arrow-hover mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--sl-oxblood)] hover:text-[var(--sl-gold)] transition-colors"
                   >
-                    Pitch a vertical build
-                    <ArrowUpRight size={13} className="sl-arrow" />
+                    Pitch a vertical build <ArrowUpRight size={13} className="sl-arrow" />
                   </a>
                 </div>
               </div>
