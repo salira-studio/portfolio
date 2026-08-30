@@ -195,7 +195,7 @@ export default function Home() {
                     href="#pricing"
                     className="sl-halo-gold inline-flex items-center gap-2.5 rounded-xl bg-[var(--sl-gold)] px-6 py-3.5 text-sm font-bold text-black transition-all hover:bg-[#e0ab3b] active:scale-98"
                   >
-                    Build Your Package (From ₹15k)
+                    Explore Pricing &amp; Scope
                     <ArrowRight size={16} />
                   </a>
                 </MagneticButton>
@@ -276,13 +276,13 @@ export default function Home() {
                     Websites &amp; Portals
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-[var(--sl-ink-soft)]">
-                    From clean 1-page landing sites to comprehensive business platforms with CMS, blog, lead routing, and Google SEO setup.
+                    From structured marketing websites to dynamic CMS portals with custom interactive components and Google SEO setup.
                   </p>
                 </div>
                 <div className="mt-6 flex items-center justify-between border-t border-[var(--sl-line)] pt-4">
-                  <span className="font-mono text-xs font-semibold text-[var(--sl-charcoal)]">From ₹15,000</span>
+                  <span className="font-mono text-xs font-semibold text-[var(--sl-charcoal)]">₹25k – ₹1.1L+</span>
                   <a href="#pricing" className="sl-arrow-hover text-xs font-bold text-[var(--sl-gold)] transition-colors hover:text-[var(--sl-oxblood)]">
-                    View Options <span className="sl-arrow">→</span>
+                    View Scope <span className="sl-arrow">→</span>
                   </a>
                 </div>
               </div>
@@ -303,9 +303,9 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="mt-6 flex items-center justify-between border-t border-[var(--sl-line)] pt-4">
-                  <span className="font-mono text-xs font-semibold text-[var(--sl-charcoal)]">From ₹1,00,000</span>
+                  <span className="font-mono text-xs font-semibold text-[var(--sl-charcoal)]">₹2L – ₹4.8L</span>
                   <a href="#pricing" className="sl-arrow-hover text-xs font-bold text-[var(--sl-oxblood)] transition-colors hover:text-[var(--sl-gold)]">
-                    View Options <span className="sl-arrow">→</span>
+                    View Scope <span className="sl-arrow">→</span>
                   </a>
                 </div>
               </div>
@@ -319,16 +319,16 @@ export default function Home() {
                     <LayoutDashboard size={22} />
                   </span>
                   <h3 className="mt-6 font-display text-xl font-bold tracking-tight text-[var(--sl-ink)]">
-                    Website + App Bundle
+                    Business Software &amp; Portals
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-[var(--sl-ink-soft)]">
-                    Complete multi-device system with shared backend and admin dashboard. Save ₹1L+ by building website and apps together.
+                    Custom operational software, staff management portals, and multi-sided platforms built around your real workflows.
                   </p>
                 </div>
                 <div className="mt-6 flex items-center justify-between border-t border-[var(--sl-line)] pt-4">
-                  <span className="font-mono text-xs font-semibold text-[var(--sl-charcoal)]">From ₹2,50,000</span>
+                  <span className="font-mono text-xs font-semibold text-[var(--sl-charcoal)]">₹3L – ₹7.5L+</span>
                   <a href="#pricing" className="sl-arrow-hover text-xs font-bold text-[var(--sl-teal-deep)] transition-colors hover:text-[var(--sl-oxblood)]">
-                    View Options <span className="sl-arrow">→</span>
+                    View Scope <span className="sl-arrow">→</span>
                   </a>
                 </div>
               </div>
@@ -345,13 +345,13 @@ export default function Home() {
         <EvenMesh />
         <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
           <FadeUp>
-            <div className="mx-auto mb-12 max-w-2xl text-center">
-              <p className="sl-label text-[var(--sl-charcoal)]">Transparent Pricing</p>
+            <div className="mx-auto mb-10 max-w-2xl text-center">
+              <p className="sl-label text-[var(--sl-charcoal)]">Transparent Scope &amp; Pricing</p>
               <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-[var(--sl-ink)] sm:text-5xl">
-                Clear packages. Fixed prices. Zero surprises.
+                Fixed-scope engineering. Zero surprises.
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-[var(--sl-ink-soft)] sm:text-base">
-                Select a tier to drill down into fixed-price packages. Plain-English inclusions, transparent timelines, and scoped add-ons.
+                Scope-first pricing with firm page bounds, explicit add-on rates, clear timelines, and full code ownership.
               </p>
             </div>
           </FadeUp>
