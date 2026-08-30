@@ -33,7 +33,7 @@ export default function AdminApp() {
   }
 
   return (
-    <div className="flex h-screen bg-[#0D1117] text-[#F8FAFC] overflow-hidden">
+    <div className="flex h-screen bg-[#FDFAF5] text-[#1C1917] overflow-hidden">
       <AdminSidebar
         open={sidebarOpen}
         onClose={() => setSidebarOpen(false)}

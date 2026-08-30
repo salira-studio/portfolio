@@ -37,7 +37,7 @@ export function Navbar({ user, onLogout }: NavbarProps) {
             <Globe size={18} className="text-[#0D1117]" />
           </div>
           <div>
-            <span className="font-bold text-white text-lg tracking-tight">Voyage</span>
+            <span className="font-bold text-[#1C1917] text-lg tracking-tight">Voyage</span>
             <span className="font-bold text-[#F4B942] text-lg tracking-tight">AI</span>
           </div>
         </Link>

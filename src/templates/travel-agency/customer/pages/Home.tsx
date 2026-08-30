@@ -135,7 +135,7 @@ export default function Home() {
               ].map((item) => (
                 <div key={item.label} className="flex items-center gap-1.5 text-xs text-[#78716C]">
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  <span className="text-white font-medium">{item.v}</span>
+                  <span className="text-[#1C1917] font-medium">{item.v}</span>
                   <span>{item.label}</span>
                 </div>
               ))}

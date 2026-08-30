@@ -42,7 +42,7 @@ export function DestinationCard({ destination, index = 0, variant = 'default' }:
               </span>
             )}
             {destination.featured && !destination.trending && (
-              <span className="bg-[#EDE8E0] backdrop-blur text-white text-xs font-medium px-2.5 py-1 rounded-full border border-[#D6CFC4]">
+              <span className="bg-[#EDE8E0] backdrop-blur text-[#1C1917] text-xs font-medium px-2.5 py-1 rounded-full border border-[#D6CFC4]">
                 Featured
               </span>
             )}

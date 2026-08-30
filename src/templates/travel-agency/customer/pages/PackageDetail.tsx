@@ -67,7 +67,7 @@ export default function PackageDetail() {
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <span className={`text-xs font-medium px-2.5 py-1 rounded-full capitalize ${categoryColors[pkg.category]}`}>{pkg.category}</span>
-                {pkg.discount > 0 && <span className="bg-red-500/90 text-white text-xs font-bold px-2.5 py-1 rounded-full">{pkg.discount}% OFF</span>}
+                {pkg.discount > 0 && <span className="bg-red-500/90 text-[#1C1917] text-xs font-bold px-2.5 py-1 rounded-full">{pkg.discount}% OFF</span>}
               </div>
               <h1 className="text-3xl sm:text-4xl font-bold text-white mb-1">{pkg.title}</h1>
               <div className="flex items-center gap-3 text-sm text-white/70">

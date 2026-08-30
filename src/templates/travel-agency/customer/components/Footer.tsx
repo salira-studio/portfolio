@@ -14,7 +14,7 @@ export function Footer() {
               <div className="w-8 h-8 rounded-lg bg-[#F4B942] flex items-center justify-center">
                 <Globe size={18} className="text-[#0D1117]" />
               </div>
-              <span className="font-bold text-white text-xl tracking-tight">
+              <span className="font-bold text-[#1C1917] text-xl tracking-tight">
                 Voyage<span className="text-[#F4B942]">AI</span>
               </span>
             </Link>

@@ -47,7 +47,7 @@ export function PackageCard({ pkg, index = 0 }: PackageCardProps) {
                 </span>
               )}
               {pkg.discount > 0 && (
-                <span className="bg-red-500/90 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                <span className="bg-red-500/90 text-[#1C1917] text-xs font-bold px-2 py-0.5 rounded-full">
                   {pkg.discount}% OFF
                 </span>
               )}
@@ -64,7 +64,7 @@ export function PackageCard({ pkg, index = 0 }: PackageCardProps) {
             </div>
 
             {/* Duration badge */}
-            <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-black/50 backdrop-blur text-white text-xs px-2.5 py-1 rounded-full">
+            <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-black/50 backdrop-blur text-[#1C1917] text-xs px-2.5 py-1 rounded-full">
               <Clock size={11} />
               <span>{pkg.duration}D / {pkg.nights}N</span>
             </div>

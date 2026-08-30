@@ -52,7 +52,7 @@ export default function Register() {
             <div className="w-9 h-9 rounded-xl bg-[#F4B942] flex items-center justify-center">
               <Globe size={18} className="text-[#0D1117]" />
             </div>
-            <span className="font-bold text-white text-xl">Voyage<span className="text-[#F4B942]">AI</span></span>
+            <span className="font-bold text-[#1C1917] text-xl">Voyage<span className="text-[#F4B942]">AI</span></span>
           </Link>
           <h2 className="text-3xl font-bold text-white mb-3">
             Join 30,000+<br />

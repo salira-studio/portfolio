@@ -34,7 +34,7 @@ function BarChart({ data, label, color, maxH = 100 }: { data: number[]; label: s
           transition={{ delay: i * 0.05, duration: 0.4 }}
           style={{ transformOrigin: 'bottom' }}>
           <div className={`w-full rounded-t-sm ${color}`} style={{ height: `${(v / max) * maxH}px` }} />
-          <span className="text-[#A8B0BA] text-[9px]">{label[i]}</span>
+          <span className="text-[#78716C] text-[9px]">{label[i]}</span>
         </motion.div>
       ))}
     </div>
@@ -57,19 +57,19 @@ export default function AdminAnalytics() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-white">Analytics</h1>
-        <p className="text-[#A8B0BA] text-sm">Business performance overview</p>
+        <p className="text-[#78716C] text-sm">Business performance overview</p>
       </div>
 
       {/* KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {kpis.map((kpi, i) => (
           <motion.div key={kpi.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
-            className="bg-[#171E27] border border-white/[0.06] rounded-2xl p-5">
+            className="bg-white border border-[#E8E0D5] rounded-2xl p-5">
             <div className={`w-10 h-10 rounded-xl ${kpi.bg} flex items-center justify-center mb-3`}>
               <kpi.icon size={18} className={kpi.color} />
             </div>
             <p className={`text-2xl font-bold ${kpi.color}`}>{kpi.value}</p>
-            <p className="text-[#A8B0BA] text-xs mt-0.5">{kpi.label}</p>
+            <p className="text-[#78716C] text-xs mt-0.5">{kpi.label}</p>
             <p className="text-emerald-400 text-xs mt-1 flex items-center gap-0.5"><TrendingUp size={10} />{kpi.change}</p>
           </motion.div>
         ))}
@@ -77,30 +77,30 @@ export default function AdminAnalytics() {
 
       <div className="grid lg:grid-cols-2 gap-5">
         {/* Revenue Chart */}
-        <div className="bg-[#171E27] border border-white/[0.06] rounded-2xl p-5">
-          <h2 className="text-white font-semibold mb-1">Monthly Revenue (₹ Lakhs)</h2>
-          <p className="text-[#A8B0BA] text-xs mb-4">FY 2024–25</p>
+        <div className="bg-white border border-[#E8E0D5] rounded-2xl p-5">
+          <h2 className="text-[#1C1917] font-semibold mb-1">Monthly Revenue (₹ Lakhs)</h2>
+          <p className="text-[#78716C] text-xs mb-4">FY 2024–25</p>
           <BarChart data={monthlyRevenue} label={months} color="bg-[#F4B942]/70 hover:bg-[#F4B942]" />
         </div>
 
         {/* Bookings Chart */}
-        <div className="bg-[#171E27] border border-white/[0.06] rounded-2xl p-5">
-          <h2 className="text-white font-semibold mb-1">Monthly Bookings</h2>
-          <p className="text-[#A8B0BA] text-xs mb-4">FY 2024–25</p>
+        <div className="bg-white border border-[#E8E0D5] rounded-2xl p-5">
+          <h2 className="text-[#1C1917] font-semibold mb-1">Monthly Bookings</h2>
+          <p className="text-[#78716C] text-xs mb-4">FY 2024–25</p>
           <BarChart data={monthlyBookings} label={months} color="bg-blue-500/70" />
         </div>
 
         {/* Top Destinations */}
-        <div className="bg-[#171E27] border border-white/[0.06] rounded-2xl p-5">
-          <h2 className="text-white font-semibold mb-4">Top Destinations by Revenue</h2>
+        <div className="bg-white border border-[#E8E0D5] rounded-2xl p-5">
+          <h2 className="text-[#1C1917] font-semibold mb-4">Top Destinations by Revenue</h2>
           <div className="space-y-3">
             {topDestinations.map(dest => (
               <div key={dest.name}>
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-[#A8B0BA] text-xs">{dest.name}</span>
+                  <span className="text-[#78716C] text-xs">{dest.name}</span>
                   <span className="text-[#F4B942] text-xs font-semibold">₹{(dest.revenue / 1000).toFixed(0)}K</span>
                 </div>
-                <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                <div className="h-2 bg-[#F5F0E8] rounded-full overflow-hidden">
                   <motion.div
                     className="h-full bg-gradient-to-r from-[#F4B942] to-[#e5ab38] rounded-full"
                     initial={{ width: 0 }}
@@ -114,18 +114,18 @@ export default function AdminAnalytics() {
         </div>
 
         {/* Category Breakdown */}
-        <div className="bg-[#171E27] border border-white/[0.06] rounded-2xl p-5">
-          <h2 className="text-white font-semibold mb-4">Bookings by Category</h2>
+        <div className="bg-white border border-[#E8E0D5] rounded-2xl p-5">
+          <h2 className="text-[#1C1917] font-semibold mb-4">Bookings by Category</h2>
           <div className="space-y-3">
             {categoryData.map(cat => (
               <div key={cat.name}>
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-[#A8B0BA] text-xs flex items-center gap-2">
+                  <span className="text-[#78716C] text-xs flex items-center gap-2">
                     <span className={`w-2 h-2 rounded-full ${cat.color}`} />{cat.name}
                   </span>
-                  <span className="text-white text-xs font-medium">{cat.pct}%</span>
+                  <span className="text-[#1C1917] text-xs font-medium">{cat.pct}%</span>
                 </div>
-                <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                <div className="h-2 bg-[#F5F0E8] rounded-full overflow-hidden">
                   <motion.div
                     className={`h-full ${cat.color} rounded-full`}
                     initial={{ width: 0 }}
@@ -140,7 +140,7 @@ export default function AdminAnalytics() {
           {/* Stacked donut-like visual */}
           <div className="mt-5 flex items-center gap-2 flex-wrap">
             {categoryData.map(cat => (
-              <div key={cat.name} className="flex items-center gap-1.5 text-xs text-[#A8B0BA]">
+              <div key={cat.name} className="flex items-center gap-1.5 text-xs text-[#78716C]">
                 <span className={`w-2.5 h-2.5 rounded-sm ${cat.color}`} />
                 {cat.name} ({cat.pct}%)
               </div>
@@ -150,8 +150,8 @@ export default function AdminAnalytics() {
       </div>
 
       {/* Revenue vs Target */}
-      <div className="bg-[#171E27] border border-white/[0.06] rounded-2xl p-5">
-        <h2 className="text-white font-semibold mb-4">Quarterly Performance vs Target</h2>
+      <div className="bg-white border border-[#E8E0D5] rounded-2xl p-5">
+        <h2 className="text-[#1C1917] font-semibold mb-4">Quarterly Performance vs Target</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
             { q: 'Q1 (Apr–Jun)', actual: 72, target: 80, revenue: '₹18.5L' },
@@ -159,23 +159,23 @@ export default function AdminAnalytics() {
             { q: 'Q3 (Oct–Dec)', actual: 95, target: 90, revenue: '₹28.8L' },
             { q: 'Q4 (Jan–Mar)', actual: 78, target: 95, revenue: '₹22.1L' },
           ].map(q => (
-            <div key={q.q} className="bg-[#0D1117] rounded-xl p-4">
-              <p className="text-[#A8B0BA] text-xs mb-2">{q.q}</p>
+            <div key={q.q} className="bg-[#FDFAF5] rounded-xl p-4">
+              <p className="text-[#78716C] text-xs mb-2">{q.q}</p>
               <p className="text-[#F4B942] font-bold text-lg">{q.revenue}</p>
               <div className="mt-2 space-y-1">
                 <div className="flex justify-between text-xs mb-0.5">
-                  <span className="text-[#A8B0BA]">Actual</span>
+                  <span className="text-[#78716C]">Actual</span>
                   <span className={q.actual >= q.target ? 'text-emerald-400' : 'text-red-400'}>{q.actual}%</span>
                 </div>
-                <div className="h-1.5 bg-white/5 rounded-full">
+                <div className="h-1.5 bg-[#F5F0E8] rounded-full">
                   <motion.div className={`h-full rounded-full ${q.actual >= q.target ? 'bg-emerald-500' : 'bg-red-500'}`}
                     initial={{ width: 0 }} animate={{ width: `${q.actual}%` }} transition={{ duration: 0.8 }} />
                 </div>
                 <div className="flex justify-between text-xs mb-0.5">
-                  <span className="text-[#A8B0BA]">Target</span>
-                  <span className="text-[#A8B0BA]">{q.target}%</span>
+                  <span className="text-[#78716C]">Target</span>
+                  <span className="text-[#78716C]">{q.target}%</span>
                 </div>
-                <div className="h-1.5 bg-white/5 rounded-full">
+                <div className="h-1.5 bg-[#F5F0E8] rounded-full">
                   <div className="h-full bg-white/20 rounded-full" style={{ width: `${q.target}%` }} />
                 </div>
               </div>

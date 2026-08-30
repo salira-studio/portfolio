@@ -56,10 +56,10 @@ function ToastItem({ toast, onRemove }: { toast: ToastMessage; onRemove: (id: st
     >
       <div className="shrink-0 mt-0.5">{icons[toast.type]}</div>
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-semibold text-[#F8FAFC]">{toast.title}</p>
-        {toast.message && <p className="text-xs text-[#A8B0BA] mt-0.5">{toast.message}</p>}
+        <p className="text-sm font-semibold text-[#1C1917]">{toast.title}</p>
+        {toast.message && <p className="text-xs text-[#78716C] mt-0.5">{toast.message}</p>}
       </div>
-      <button onClick={() => onRemove(toast.id)} className="shrink-0 text-[#A8B0BA] hover:text-white transition-colors">
+      <button onClick={() => onRemove(toast.id)} className="shrink-0 text-[#78716C] hover:text-white transition-colors">
         <X size={16} />
       </button>
     </motion.div>

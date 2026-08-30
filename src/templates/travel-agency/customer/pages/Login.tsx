@@ -54,7 +54,7 @@ export default function Login() {
               <div className="w-10 h-10 rounded-xl bg-[#F4B942] flex items-center justify-center">
                 <Globe size={22} className="text-[#0D1117]" />
               </div>
-              <span className="font-bold text-white text-2xl">Voyage<span className="text-[#F4B942]">AI</span></span>
+              <span className="font-bold text-[#1C1917] text-2xl">Voyage<span className="text-[#F4B942]">AI</span></span>
             </Link>
             <h1 className="text-2xl font-bold text-white">Welcome Back</h1>
             <p className="text-[#78716C] text-sm mt-1">Sign in to access your bookings and wishlist</p>

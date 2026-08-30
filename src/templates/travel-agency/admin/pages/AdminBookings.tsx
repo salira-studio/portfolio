@@ -42,20 +42,20 @@ export default function AdminBookings() {
     <div className="space-y-5">
       <div>
         <h1 className="text-2xl font-bold text-white">Bookings</h1>
-        <p className="text-[#A8B0BA] text-sm">{filtered.length} booking(s)</p>
+        <p className="text-[#78716C] text-sm">{filtered.length} booking(s)</p>
       </div>
 
       {/* Filters */}
       <div className="flex flex-wrap gap-3">
         <div className="relative">
-          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#A8B0BA]" />
+          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#78716C]" />
           <input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search bookings..."
-            className="bg-[#171E27] border border-white/10 rounded-xl pl-8 pr-3 py-2.5 text-sm text-white placeholder:text-[#A8B0BA]/60 focus:outline-none focus:border-[#F4B942]/40 transition-all w-56" />
+            className="bg-white border border-[#E8E0D5] rounded-xl pl-8 pr-3 py-2.5 text-sm text-white placeholder:text-[#78716C]/60 focus:outline-none focus:border-[#F4B942]/40 transition-all w-56" />
         </div>
         <div className="flex gap-1.5 flex-wrap">
           {(['all', 'confirmed', 'pending', 'cancelled', 'completed'] as Status[]).map(s => (
             <button key={s} onClick={() => setStatusFilter(s)}
-              className={`px-3 py-2 rounded-xl text-xs font-medium capitalize transition-colors ${statusFilter === s ? 'bg-[#F4B942] text-[#0D1117]' : 'bg-[#171E27] text-[#A8B0BA] border border-white/10 hover:text-white'}`}>
+              className={`px-3 py-2 rounded-xl text-xs font-medium capitalize transition-colors ${statusFilter === s ? 'bg-[#F4B942] text-[#0D1117]' : 'bg-white text-[#78716C] border border-[#E8E0D5] hover:text-[#1C1917]'}`}>
               {s}
             </button>
           ))}
@@ -63,26 +63,26 @@ export default function AdminBookings() {
       </div>
 
       {/* Table */}
-      <div className="bg-[#171E27] border border-white/[0.06] rounded-2xl overflow-hidden">
+      <div className="bg-white border border-[#E8E0D5] rounded-2xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm min-w-[900px]">
-            <thead className="border-b border-white/[0.06]">
+            <thead className="border-b border-[#E8E0D5]">
               <tr>
                 {['Ref', 'Customer', 'Package', 'Destination', 'Dates', 'Travelers', 'Amount', 'Status', 'Payment', 'Action'].map(h => (
-                  <th key={h} className="text-left text-xs font-medium text-[#A8B0BA] px-4 py-3">{h}</th>
+                  <th key={h} className="text-left text-xs font-medium text-[#78716C] px-4 py-3">{h}</th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/[0.04]">
+            <tbody className="divide-y divide-[#EDE8E0]">
               {filtered.map((booking, i) => (
                 <motion.tr key={booking.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.03 }}
-                  className="hover:bg-white/[0.02] transition-colors">
+                  className="hover:bg-[#F5F0E8] transition-colors">
                   <td className="px-4 py-3 text-[#F4B942] font-mono text-xs">{booking.bookingRef}</td>
-                  <td className="px-4 py-3 text-white text-sm">{booking.customerName}</td>
-                  <td className="px-4 py-3 text-[#A8B0BA] text-xs max-w-36 truncate">{booking.packageTitle}</td>
-                  <td className="px-4 py-3 text-[#A8B0BA] text-xs">{booking.destination}</td>
-                  <td className="px-4 py-3 text-[#A8B0BA] text-xs whitespace-nowrap">{booking.startDate}<br />{booking.endDate}</td>
-                  <td className="px-4 py-3 text-[#A8B0BA] text-xs text-center">{booking.travelers}</td>
+                  <td className="px-4 py-3 text-[#1C1917] text-sm">{booking.customerName}</td>
+                  <td className="px-4 py-3 text-[#78716C] text-xs max-w-36 truncate">{booking.packageTitle}</td>
+                  <td className="px-4 py-3 text-[#78716C] text-xs">{booking.destination}</td>
+                  <td className="px-4 py-3 text-[#78716C] text-xs whitespace-nowrap">{booking.startDate}<br />{booking.endDate}</td>
+                  <td className="px-4 py-3 text-[#78716C] text-xs text-center">{booking.travelers}</td>
                   <td className="px-4 py-3 text-[#F4B942] font-semibold text-sm whitespace-nowrap">₹{booking.totalAmount.toLocaleString('en-IN')}</td>
                   <td className="px-4 py-3">
                     <span className={`text-xs px-2 py-0.5 rounded-full capitalize ${statusColors[booking.status]}`}>{booking.status}</span>
@@ -92,9 +92,9 @@ export default function AdminBookings() {
                   </td>
                   <td className="px-4 py-3">
                     <select value={booking.status} onChange={e => updateStatus(booking.id, e.target.value as Booking['status'])}
-                      className="bg-[#0D1117] border border-white/10 text-[#A8B0BA] text-xs rounded-lg px-2 py-1 focus:outline-none cursor-pointer hover:border-[#F4B942]/30 transition-colors">
+                      className="bg-[#FDFAF5] border border-[#E8E0D5] text-[#78716C] text-xs rounded-lg px-2 py-1 focus:outline-none cursor-pointer hover:border-[#F4B942]/30 transition-colors">
                       {['confirmed', 'pending', 'cancelled', 'completed'].map(s => (
-                        <option key={s} value={s} className="bg-[#151B23] capitalize">{s}</option>
+                        <option key={s} value={s} className="bg-[#F5F0E8] capitalize">{s}</option>
                       ))}
                     </select>
                   </td>
@@ -105,7 +105,7 @@ export default function AdminBookings() {
         </div>
         {filtered.length === 0 && (
           <div className="text-center py-10">
-            <p className="text-[#A8B0BA]">No bookings match your filters</p>
+            <p className="text-[#78716C]">No bookings match your filters</p>
           </div>
         )}
       </div>

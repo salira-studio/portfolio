@@ -39,19 +39,19 @@ export default function AdminDashboard() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-white">Dashboard Overview</h1>
-        <p className="text-[#A8B0BA] text-sm mt-0.5">Welcome back. Here's what's happening today.</p>
+        <p className="text-[#78716C] text-sm mt-0.5">Welcome back. Here's what's happening today.</p>
       </div>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
         {stats.map((stat, i) => (
           <motion.div key={stat.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}>
-            <Link to={stat.link} className="block bg-[#171E27] border border-white/[0.06] hover:border-white/[0.12] rounded-2xl p-4 transition-all group">
+            <Link to={stat.link} className="block bg-white border border-[#E8E0D5] hover:border-[#E0D8CC] rounded-2xl p-4 transition-all group">
               <div className={`w-9 h-9 rounded-xl ${stat.bg} flex items-center justify-center mb-3`}>
                 <stat.icon size={16} className={stat.color} />
               </div>
               <p className="text-xl font-bold text-white">{stat.value}</p>
-              <p className="text-[#A8B0BA] text-xs mt-0.5">{stat.label}</p>
+              <p className="text-[#78716C] text-xs mt-0.5">{stat.label}</p>
               <p className="text-emerald-400 text-xs mt-1 flex items-center gap-0.5">
                 <TrendingUp size={11} />{stat.change}
               </p>
@@ -62,9 +62,9 @@ export default function AdminDashboard() {
 
       <div className="grid lg:grid-cols-3 gap-5">
         {/* Revenue Chart */}
-        <div className="lg:col-span-2 bg-[#171E27] border border-white/[0.06] rounded-2xl p-5">
+        <div className="lg:col-span-2 bg-white border border-[#E8E0D5] rounded-2xl p-5">
           <div className="flex items-center justify-between mb-5">
-            <h2 className="text-white font-semibold">Monthly Revenue (₹ Lakhs)</h2>
+            <h2 className="text-[#1C1917] font-semibold">Monthly Revenue (₹ Lakhs)</h2>
             <span className="text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded-full">+18% YoY</span>
           </div>
           {/* Bar Chart */}
@@ -85,7 +85,7 @@ export default function AdminDashboard() {
                     background: val === maxRevenue ? '#F4B942' : 'rgba(244,185,66,0.3)',
                   }}
                 />
-                <span className="text-[#A8B0BA] text-[9px]">{months[i]}</span>
+                <span className="text-[#78716C] text-[9px]">{months[i]}</span>
               </motion.div>
             ))}
           </div>
@@ -93,8 +93,8 @@ export default function AdminDashboard() {
 
         {/* Quick Stats */}
         <div className="space-y-4">
-          <div className="bg-[#171E27] border border-white/[0.06] rounded-2xl p-5">
-            <h2 className="text-white font-semibold text-sm mb-4">Booking Status</h2>
+          <div className="bg-white border border-[#E8E0D5] rounded-2xl p-5">
+            <h2 className="text-[#1C1917] font-semibold text-sm mb-4">Booking Status</h2>
             {[
               { label: 'Confirmed', count: mockBookings.filter(b => b.status === 'confirmed').length, color: 'bg-emerald-500' },
               { label: 'Pending', count: mockBookings.filter(b => b.status === 'pending').length, color: 'bg-yellow-500' },
@@ -103,24 +103,24 @@ export default function AdminDashboard() {
             ].map(item => (
               <div key={item.label} className="flex items-center gap-3 mb-2">
                 <div className={`w-2 h-2 rounded-full ${item.color}`} />
-                <span className="text-[#A8B0BA] text-xs flex-1">{item.label}</span>
-                <span className="text-white font-semibold text-sm">{item.count}</span>
+                <span className="text-[#78716C] text-xs flex-1">{item.label}</span>
+                <span className="text-[#1C1917] font-semibold text-sm">{item.count}</span>
               </div>
             ))}
           </div>
 
-          <div className="bg-[#171E27] border border-white/[0.06] rounded-2xl p-5">
-            <h2 className="text-white font-semibold text-sm mb-3">Top Destinations</h2>
+          <div className="bg-white border border-[#E8E0D5] rounded-2xl p-5">
+            <h2 className="text-[#1C1917] font-semibold text-sm mb-3">Top Destinations</h2>
             {[
               { name: 'Bali', count: 45 }, { name: 'Kerala', count: 38 },
               { name: 'Rajasthan', count: 32 }, { name: 'Maldives', count: 27 },
             ].map(d => (
               <div key={d.name} className="flex items-center gap-2 mb-2">
-                <span className="text-[#A8B0BA] text-xs flex-1">{d.name}</span>
-                <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                <span className="text-[#78716C] text-xs flex-1">{d.name}</span>
+                <div className="flex-1 h-1.5 bg-[#F5F0E8] rounded-full overflow-hidden">
                   <div className="h-full bg-[#F4B942]/60 rounded-full" style={{ width: `${(d.count / 45) * 100}%` }} />
                 </div>
-                <span className="text-white text-xs w-6 text-right">{d.count}</span>
+                <span className="text-[#1C1917] text-xs w-6 text-right">{d.count}</span>
               </div>
             ))}
           </div>
@@ -128,9 +128,9 @@ export default function AdminDashboard() {
       </div>
 
       {/* Recent Bookings */}
-      <div className="bg-[#171E27] border border-white/[0.06] rounded-2xl p-5">
+      <div className="bg-white border border-[#E8E0D5] rounded-2xl p-5">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-white font-semibold">Recent Bookings</h2>
+          <h2 className="text-[#1C1917] font-semibold">Recent Bookings</h2>
           <Link to={`${ADMIN_BASE}/bookings`} className="flex items-center gap-1 text-[#F4B942] text-xs hover:underline">
             View All <ArrowUpRight size={12} />
           </Link>
@@ -138,19 +138,19 @@ export default function AdminDashboard() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm min-w-[600px]">
             <thead>
-              <tr className="border-b border-white/[0.06]">
+              <tr className="border-b border-[#E8E0D5]">
                 {['Ref', 'Customer', 'Package', 'Destination', 'Status', 'Amount'].map(h => (
-                  <th key={h} className="text-left text-xs font-medium text-[#A8B0BA] pb-3 pr-4">{h}</th>
+                  <th key={h} className="text-left text-xs font-medium text-[#78716C] pb-3 pr-4">{h}</th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/[0.04]">
+            <tbody className="divide-y divide-[#EDE8E0]">
               {mockBookings.slice(0, 5).map(booking => (
-                <tr key={booking.id} className="hover:bg-white/[0.02] transition-colors">
+                <tr key={booking.id} className="hover:bg-[#F5F0E8] transition-colors">
                   <td className="py-3 pr-4 text-[#F4B942] font-mono text-xs">{booking.bookingRef}</td>
                   <td className="py-3 pr-4 text-white">{booking.customerName}</td>
-                  <td className="py-3 pr-4 text-[#A8B0BA] text-xs max-w-36 truncate">{booking.packageTitle}</td>
-                  <td className="py-3 pr-4 text-[#A8B0BA] text-xs">{booking.destination}</td>
+                  <td className="py-3 pr-4 text-[#78716C] text-xs max-w-36 truncate">{booking.packageTitle}</td>
+                  <td className="py-3 pr-4 text-[#78716C] text-xs">{booking.destination}</td>
                   <td className="py-3 pr-4">
                     <span className={`text-xs px-2 py-0.5 rounded-full capitalize ${statusColors[booking.status]}`}>{booking.status}</span>
                   </td>
