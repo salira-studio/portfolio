@@ -56,7 +56,7 @@ export default function Login() {
               </div>
               <span className="font-bold text-[#1C1917] text-2xl">Voyage<span className="text-[#F4B942]">AI</span></span>
             </Link>
-            <h1 className="text-2xl font-bold text-white">Welcome Back</h1>
+            <h1 className="text-2xl font-bold text-[#1C1917]">Welcome Back</h1>
             <p className="text-[#78716C] text-sm mt-1">Sign in to access your bookings and wishlist</p>
           </div>
 
@@ -72,15 +72,15 @@ export default function Login() {
               <div>
                 <label className="text-xs text-[#78716C] mb-1.5 block">Email</label>
                 <input type="email" value={email} onChange={e => setEmail(e.target.value)} required
-                  className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F4B942]/40 transition-all" />
+                  className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-[#1C1917] focus:outline-none focus:border-[#F4B942]/40 transition-all" />
               </div>
               <div>
                 <label className="text-xs text-[#78716C] mb-1.5 block">Password</label>
                 <div className="relative">
                   <input type={showPass ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)} required
-                    className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 pr-10 text-sm text-white focus:outline-none focus:border-[#F4B942]/40 transition-all" />
+                    className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 pr-10 text-sm text-[#1C1917] focus:outline-none focus:border-[#F4B942]/40 transition-all" />
                   <button type="button" onClick={() => setShowPass(!showPass)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#78716C] hover:text-white">
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#78716C] hover:text-[#92400E]">
                     {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
                   </button>
                 </div>

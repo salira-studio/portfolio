@@ -30,12 +30,12 @@ export default function Wishlist() {
     <div className="min-h-screen bg-[#FDFAF5]">
       <section className="bg-[#F5F0E8] border-b border-[#E8E0D5] py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link to={`${TRAVEL_BASE}/dashboard`} className="flex items-center gap-1.5 text-[#78716C] hover:text-white text-sm mb-4 transition-colors w-fit">
+          <Link to={`${TRAVEL_BASE}/dashboard`} className="flex items-center gap-1.5 text-[#78716C] hover:text-[#92400E] text-sm mb-4 transition-colors w-fit">
             <ArrowLeft size={15} /> Dashboard
           </Link>
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-white">My Wishlist</h1>
+              <h1 className="text-3xl font-bold text-[#1C1917]">My Wishlist</h1>
               <p className="text-[#78716C] mt-1">{wishlist.length} saved items</p>
             </div>
             {wishlist.length > 0 && (
@@ -54,7 +54,7 @@ export default function Wishlist() {
             <div className="w-20 h-20 rounded-full bg-pink-500/10 border border-pink-500/20 flex items-center justify-center mx-auto mb-4">
               <Heart size={32} className="text-pink-400" />
             </div>
-            <h2 className="text-xl font-bold text-white mb-2">Your wishlist is empty</h2>
+            <h2 className="text-xl font-bold text-[#1C1917] mb-2">Your wishlist is empty</h2>
             <p className="text-[#78716C] text-sm mb-6">Save destinations and packages you'd love to visit</p>
             <Link to={`${TRAVEL_BASE}/destinations`}
               className="inline-block bg-[#F4B942] hover:bg-[#e5ab38] text-[#0D1117] font-semibold px-6 py-3 rounded-xl transition-colors text-sm">
@@ -65,7 +65,7 @@ export default function Wishlist() {
           <div className="space-y-10">
             {wishlistDestinations.length > 0 && (
               <div>
-                <h2 className="text-xl font-bold text-white mb-5">
+                <h2 className="text-xl font-bold text-[#1C1917] mb-5">
                   Saved Destinations <span className="text-[#78716C] text-base font-normal">({wishlistDestinations.length})</span>
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
@@ -77,7 +77,7 @@ export default function Wishlist() {
             )}
             {wishlistPackages.length > 0 && (
               <div>
-                <h2 className="text-xl font-bold text-white mb-5">
+                <h2 className="text-xl font-bold text-[#1C1917] mb-5">
                   Saved Packages <span className="text-[#78716C] text-base font-normal">({wishlistPackages.length})</span>
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">

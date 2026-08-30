@@ -29,7 +29,7 @@ export default function About() {
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <p className="text-[#F4B942] text-sm font-medium uppercase tracking-wider mb-3">Our Story</p>
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+            <h1 className="text-4xl sm:text-5xl font-bold text-[#1C1917] mb-6">
               We Believe Every Journey is<br /><span className="text-[#F4B942]">Worth Telling</span>
             </h1>
             <p className="text-[#78716C] text-lg leading-relaxed max-w-2xl mx-auto">
@@ -64,7 +64,7 @@ export default function About() {
         <div className="grid lg:grid-cols-2 gap-14 items-center">
           <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
             <p className="text-[#F4B942] text-sm font-medium uppercase tracking-wider mb-3">How We Started</p>
-            <h2 className="text-3xl font-bold text-white mb-5">From One Road Trip to 120 Destinations</h2>
+            <h2 className="text-3xl font-bold text-[#1C1917] mb-5">From One Road Trip to 120 Destinations</h2>
             <div className="space-y-4 text-[#78716C] leading-relaxed">
               <p>In 2015, our founder Arjun Mehta left a corporate career to take a solo road trip through Rajasthan.
                 That journey changed everything. He returned knowing he wanted to help others discover that same transformative power of travel.</p>
@@ -77,12 +77,12 @@ export default function About() {
           <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
             className="relative h-72 rounded-3xl overflow-hidden bg-gradient-to-br from-amber-900 via-orange-800 to-yellow-700">
             <div className="absolute inset-0 flex items-center justify-center">
-              <Globe size={80} className="text-white/20" />
+              <Globe size={80} className="text-[#1C1917]/20" />
             </div>
             <div className="absolute bottom-6 left-6 right-6">
               <div className="bg-black/30 backdrop-blur rounded-2xl p-5 border border-[#E8E0D5]">
                 <p className="text-[#F4B942] font-bold text-xl">10 Years</p>
-                <p className="text-white text-sm">of crafting extraordinary journeys</p>
+                <p className="text-[#1C1917] text-sm">of crafting extraordinary journeys</p>
               </div>
             </div>
           </motion.div>
@@ -93,7 +93,7 @@ export default function About() {
       <section className="py-20 bg-[#F5F0E8]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white">Our Values</h2>
+            <h2 className="text-3xl font-bold text-[#1C1917]">Our Values</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {values.map((v, i) => (
@@ -113,7 +113,7 @@ export default function About() {
       {/* Team */}
       <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-white">Meet the Team</h2>
+          <h2 className="text-3xl font-bold text-[#1C1917]">Meet the Team</h2>
           <p className="text-[#78716C] mt-2">The passionate people behind every journey</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -134,13 +134,13 @@ export default function About() {
       {/* CTA */}
       <section className="py-16 bg-[#F5F0E8] text-center">
         <div className="max-w-2xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-white mb-4">Ready to Explore?</h2>
+          <h2 className="text-3xl font-bold text-[#1C1917] mb-4">Ready to Explore?</h2>
           <p className="text-[#78716C] mb-8">Let us craft your perfect journey. Talk to one of our experts today.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to={`${TRAVEL_BASE}/destinations`} className="bg-[#F4B942] hover:bg-[#e5ab38] text-[#0D1117] font-semibold px-8 py-3.5 rounded-xl transition-colors text-sm">
               Explore Destinations
             </Link>
-            <Link to={`${TRAVEL_BASE}/contact`} className="border border-[#D6CFC4] hover:border-white/40 text-white px-8 py-3.5 rounded-xl transition-colors text-sm">
+            <Link to={`${TRAVEL_BASE}/contact`} className="border border-[#D6CFC4] hover:border-white/40 text-[#1C1917] px-8 py-3.5 rounded-xl transition-colors text-sm">
               Contact Us
             </Link>
           </div>

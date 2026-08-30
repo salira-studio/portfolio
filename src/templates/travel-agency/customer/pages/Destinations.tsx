@@ -36,7 +36,7 @@ export default function Destinations() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <p className="text-[#F4B942] text-sm font-medium uppercase tracking-wider mb-2">Explore</p>
-            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">All Destinations</h1>
+            <h1 className="text-3xl sm:text-4xl font-bold text-[#1C1917] mb-2">All Destinations</h1>
             <p className="text-[#78716C]">{filtered.length} destinations found</p>
           </motion.div>
         </div>
@@ -52,10 +52,10 @@ export default function Destinations() {
               value={query}
               onChange={e => setQuery(e.target.value)}
               placeholder="Search destinations..."
-              className="w-full bg-white border border-[#E8E0D5] rounded-xl pl-9 pr-9 py-2.5 text-sm text-white placeholder:text-[#78716C]/60 focus:outline-none focus:border-[#F4B942]/40 transition-all"
+              className="w-full bg-white border border-[#E8E0D5] rounded-xl pl-9 pr-9 py-2.5 text-sm text-[#1C1917] placeholder:text-[#78716C]/60 focus:outline-none focus:border-[#F4B942]/40 transition-all"
             />
             {query && (
-              <button onClick={() => setQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#78716C] hover:text-white">
+              <button onClick={() => setQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#78716C] hover:text-[#92400E]">
                 <X size={14} />
               </button>
             )}
@@ -65,7 +65,7 @@ export default function Destinations() {
           <div className="flex items-center gap-1.5 flex-wrap">
             {continents.map(c => (
               <button key={c} onClick={() => setContinent(c)}
-                className={`px-3 py-2 rounded-xl text-xs font-medium transition-colors ${continent === c ? 'bg-[#F4B942] text-[#0D1117]' : 'bg-white text-[#78716C] hover:text-white border border-[#E8E0D5]'}`}>
+                className={`px-3 py-2 rounded-xl text-xs font-medium transition-colors ${continent === c ? 'bg-[#F4B942] text-[#0D1117]' : 'bg-white text-[#78716C] hover:text-[#92400E] border border-[#E8E0D5]'}`}>
                 {c}
               </button>
             ))}

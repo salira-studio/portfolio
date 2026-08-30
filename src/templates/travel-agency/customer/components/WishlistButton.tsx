@@ -76,7 +76,7 @@ export function WishlistButton({ itemId, itemType, className = '', size = 20, on
       >
         <Heart
           size={size}
-          className={`transition-colors duration-200 ${isWishlisted ? 'fill-[#F4B942] text-[#F4B942]' : 'text-white/70 hover:text-[#F4B942]'}`}
+          className={`transition-colors duration-200 ${isWishlisted ? 'fill-[#F4B942] text-[#F4B942]' : 'text-[#1C1917]/70 hover:text-[#F4B942]'}`}
         />
       </motion.div>
     </button>

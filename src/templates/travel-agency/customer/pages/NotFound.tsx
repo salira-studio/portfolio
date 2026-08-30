@@ -16,7 +16,7 @@ export default function NotFound() {
           <Globe size={36} className="text-[#F4B942]" />
         </div>
         <h1 className="text-7xl font-bold text-[#F4B942] mb-4">404</h1>
-        <h2 className="text-2xl font-bold text-white mb-2">Page Not Found</h2>
+        <h2 className="text-2xl font-bold text-[#1C1917] mb-2">Page Not Found</h2>
         <p className="text-[#78716C] mb-8 max-w-sm mx-auto">
           Looks like this destination doesn't exist on our map. Let's get you back on track.
         </p>

@@ -35,10 +35,10 @@ export default function MyBookings() {
     <div className="min-h-screen bg-[#FDFAF5]">
       <section className="bg-[#F5F0E8] border-b border-[#E8E0D5] py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link to={`${TRAVEL_BASE}/dashboard`} className="flex items-center gap-1.5 text-[#78716C] hover:text-white text-sm mb-4 transition-colors w-fit">
+          <Link to={`${TRAVEL_BASE}/dashboard`} className="flex items-center gap-1.5 text-[#78716C] hover:text-[#92400E] text-sm mb-4 transition-colors w-fit">
             <ArrowLeft size={15} /> Dashboard
           </Link>
-          <h1 className="text-3xl font-bold text-white">My Bookings</h1>
+          <h1 className="text-3xl font-bold text-[#1C1917]">My Bookings</h1>
           <p className="text-[#78716C] mt-1">{bookings.length} booking(s)</p>
         </div>
       </section>
@@ -48,7 +48,7 @@ export default function MyBookings() {
         <div className="flex flex-wrap gap-2 mb-8">
           {(['all', 'confirmed', 'pending', 'cancelled', 'completed'] as FilterStatus[]).map(s => (
             <button key={s} onClick={() => setFilter(s)}
-              className={`px-4 py-2 rounded-xl text-xs font-medium capitalize transition-colors ${filter === s ? 'bg-[#F4B942] text-[#0D1117]' : 'bg-white text-[#78716C] border border-[#E8E0D5] hover:text-white'}`}>
+              className={`px-4 py-2 rounded-xl text-xs font-medium capitalize transition-colors ${filter === s ? 'bg-[#F4B942] text-[#0D1117]' : 'bg-white text-[#78716C] border border-[#E8E0D5] hover:text-[#92400E]'}`}>
               {s}
             </button>
           ))}

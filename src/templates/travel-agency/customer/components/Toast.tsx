@@ -59,7 +59,7 @@ function ToastItem({ toast, onRemove }: { toast: ToastMessage; onRemove: (id: st
         <p className="text-sm font-semibold text-[#1C1917]">{toast.title}</p>
         {toast.message && <p className="text-xs text-[#78716C] mt-0.5">{toast.message}</p>}
       </div>
-      <button onClick={() => onRemove(toast.id)} className="shrink-0 text-[#78716C] hover:text-white transition-colors">
+      <button onClick={() => onRemove(toast.id)} className="shrink-0 text-[#78716C] hover:text-[#92400E] transition-colors">
         <X size={16} />
       </button>
     </motion.div>

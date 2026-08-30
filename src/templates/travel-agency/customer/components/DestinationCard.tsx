@@ -65,21 +65,21 @@ export function DestinationCard({ destination, index = 0, variant = 'default' }:
               <span>{destination.country}</span>
             </div>
             <h3 className="text-[#1C1917] font-bold text-lg leading-tight mb-1">{destination.name}</h3>
-            <p className="text-white/70 text-xs mb-3 line-clamp-1">{destination.tagline}</p>
+            <p className="text-[#1C1917]/70 text-xs mb-3 line-clamp-1">{destination.tagline}</p>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-1">
                   <Star size={12} className="fill-[#F4B942] text-[#F4B942]" />
-                  <span className="text-white text-xs font-semibold">{destination.rating}</span>
-                  <span className="text-white/50 text-xs">({(destination.reviewCount / 1000).toFixed(1)}k)</span>
+                  <span className="text-[#1C1917] text-xs font-semibold">{destination.rating}</span>
+                  <span className="text-[#1C1917]/50 text-xs">({(destination.reviewCount / 1000).toFixed(1)}k)</span>
                 </div>
-                <div className="flex items-center gap-1 text-white/60 text-xs">
+                <div className="flex items-center gap-1 text-[#1C1917]/60 text-xs">
                   <Clock size={11} />
                   <span>{destination.duration}</span>
                 </div>
               </div>
               <div className="text-right">
-                <span className="text-white/50 text-xs">From</span>
+                <span className="text-[#1C1917]/50 text-xs">From</span>
                 <p className="text-[#F4B942] font-bold text-sm">₹{destination.priceFrom.toLocaleString('en-IN')}</p>
               </div>
             </div>

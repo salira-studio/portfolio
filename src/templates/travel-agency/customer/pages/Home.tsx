@@ -47,37 +47,22 @@ export default function Home() {
     <div className="bg-[#FDFAF5]">
       {/* ── Hero ── */}
       <section className="relative min-h-[92vh] flex items-center overflow-hidden">
-        {/* Background gradient landscape */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8EE] via-[#FDFAF5] to-[#FFF3E0]">
-          <div className="absolute inset-0 opacity-30" style={{
+        {/* Warm gradient background — amber/sand tones */}
+        <div className="absolute inset-0" style={{
+          background: 'linear-gradient(135deg, #FFF3D6 0%, #FFF8EE 35%, #FDFAF5 60%, #F0EDE8 100%)'
+        }}>
+          {/* Warm amber radial glows */}
+          <div className="absolute inset-0" style={{
             backgroundImage: `
-              radial-gradient(ellipse 80% 60% at 20% 60%, rgba(244,185,66,0.15) 0%, transparent 60%),
-              radial-gradient(ellipse 60% 80% at 80% 30%, rgba(30,80,150,0.2) 0%, transparent 60%)
+              radial-gradient(ellipse 70% 60% at 15% 70%, rgba(244,185,66,0.22) 0%, transparent 60%),
+              radial-gradient(ellipse 50% 50% at 85% 25%, rgba(234,160,50,0.15) 0%, transparent 55%)
             `
           }} />
-          {/* Mountain silhouette using CSS */}
-          <svg className="absolute bottom-0 left-0 right-0 w-full opacity-20" viewBox="0 0 1440 320" preserveAspectRatio="none">
+          {/* Mountain silhouette */}
+          <svg className="absolute bottom-0 left-0 right-0 w-full opacity-25" viewBox="0 0 1440 320" preserveAspectRatio="none">
             <path fill="#F4B942" d="M0,320 L0,200 L120,100 L240,180 L400,60 L600,150 L720,40 L900,160 L1080,80 L1260,180 L1440,100 L1440,320 Z" />
-            <path fill="#1a2a4a" d="M0,320 L0,240 L180,160 L360,220 L540,120 L720,200 L900,140 L1080,200 L1260,140 L1440,180 L1440,320 Z" />
+            <path fill="#E8A020" opacity="0.5" d="M0,320 L0,240 L180,160 L360,220 L540,120 L720,200 L900,140 L1080,200 L1260,140 L1440,180 L1440,320 Z" />
           </svg>
-        </div>
-
-        {/* Animated stars */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(40)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute rounded-full bg-white"
-              style={{
-                width: Math.random() * 2 + 1,
-                height: Math.random() * 2 + 1,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 60}%`,
-              }}
-              animate={{ opacity: [0.3, 1, 0.3] }}
-              transition={{ duration: 2 + Math.random() * 3, repeat: Infinity, delay: Math.random() * 3 }}
-            />
-          ))}
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 grid lg:grid-cols-2 gap-12 items-center">
@@ -87,9 +72,9 @@ export default function Home() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="inline-flex items-center gap-2 bg-[#F4B942]/10 border border-[#F4B942]/20 text-[#F4B942] px-4 py-2 rounded-full text-sm font-medium mb-6"
+              className="inline-flex items-center gap-2 bg-[#F4B942]/15 border border-[#F4B942]/30 text-[#B45309] px-4 py-2 rounded-full text-sm font-medium mb-6"
             >
-              <Star size={14} className="fill-[#F4B942]" />
+              <Star size={14} className="fill-[#F4B942] text-[#F4B942]" />
               Trusted by 30,000+ travellers
             </motion.div>
 
@@ -97,7 +82,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="text-4xl sm:text-5xl xl:text-6xl font-bold text-white leading-[1.15] mb-6"
+              className="text-4xl sm:text-5xl xl:text-6xl font-bold text-[#1C1917] leading-[1.15] mb-6"
             >
               Every Journey Has{' '}
               <br className="hidden sm:block" />
@@ -189,7 +174,7 @@ export default function Home() {
         <div className="flex items-end justify-between mb-10">
           <div>
             <p className="text-[#F4B942] text-sm font-medium uppercase tracking-wider mb-2">Explore the World</p>
-            <h2 className="text-3xl font-bold text-white">Popular Destinations</h2>
+            <h2 className="text-3xl font-bold text-[#1C1917]">Popular Destinations</h2>
           </div>
           <Link to={`${TRAVEL_BASE}/destinations`} className="hidden sm:flex items-center gap-2 text-[#F4B942] text-sm font-medium hover:gap-3 transition-all">
             View All <ChevronRight size={16} />
@@ -211,7 +196,7 @@ export default function Home() {
           <div className="flex items-end justify-between mb-10">
             <div>
               <p className="text-[#F4B942] text-sm font-medium uppercase tracking-wider mb-2">Curated for You</p>
-              <h2 className="text-3xl font-bold text-white">Featured Packages</h2>
+              <h2 className="text-3xl font-bold text-[#1C1917]">Featured Packages</h2>
             </div>
             <Link to={`${TRAVEL_BASE}/packages`} className="hidden sm:flex items-center gap-2 text-[#F4B942] text-sm font-medium hover:gap-3 transition-all">
               All Packages <ChevronRight size={16} />
@@ -227,7 +212,7 @@ export default function Home() {
       <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <p className="text-[#F4B942] text-sm font-medium uppercase tracking-wider mb-2">Why Travellers Love Us</p>
-          <h2 className="text-3xl font-bold text-white">Your Journey, Our Passion</h2>
+          <h2 className="text-3xl font-bold text-[#1C1917]">Your Journey, Our Passion</h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {whyUs.map((item, i) => (
@@ -248,7 +233,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <p className="text-[#F4B942] text-sm font-medium uppercase tracking-wider mb-2">Simple Process</p>
-            <h2 className="text-3xl font-bold text-white">How It Works</h2>
+            <h2 className="text-3xl font-bold text-[#1C1917]">How It Works</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
             {/* Connecting line */}
@@ -271,7 +256,7 @@ export default function Home() {
       <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <p className="text-[#F4B942] text-sm font-medium uppercase tracking-wider mb-2">Real Stories</p>
-          <h2 className="text-3xl font-bold text-white">Travellers Love VoyageAI</h2>
+          <h2 className="text-3xl font-bold text-[#1C1917]">Travellers Love VoyageAI</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {reviews.slice(0, 3).map((review, i) => (
@@ -279,7 +264,7 @@ export default function Home() {
               className="bg-white border border-[#E8E0D5] rounded-2xl p-6">
               <div className="flex items-center gap-1 mb-3">
                 {[...Array(5)].map((_, j) => (
-                  <Star key={j} size={14} className={j < review.rating ? 'fill-[#F4B942] text-[#F4B942]' : 'text-white/20'} />
+                  <Star key={j} size={14} className={j < review.rating ? 'fill-[#F4B942] text-[#F4B942]' : 'text-[#1C1917]/20'} />
                 ))}
               </div>
               <h4 className="text-[#1C1917] font-semibold text-sm mb-2">"{review.title}"</h4>
@@ -289,7 +274,7 @@ export default function Home() {
                   {review.avatar}
                 </div>
                 <div>
-                  <p className="text-white text-sm font-medium">{review.author}</p>
+                  <p className="text-[#1C1917] text-sm font-medium">{review.author}</p>
                   <p className="text-[#78716C] text-xs">{review.city} · {review.destination}</p>
                 </div>
               </div>
@@ -302,7 +287,7 @@ export default function Home() {
       <section className="py-20 bg-[#F5F0E8]">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#1C1917] mb-4">
               Ready to Write Your <span className="text-[#F4B942]">Next Chapter?</span>
             </h2>
             <p className="text-[#78716C] mb-8 leading-relaxed">
@@ -314,7 +299,7 @@ export default function Home() {
                 Explore Packages <ArrowRight size={18} />
               </Link>
               <Link to={`${TRAVEL_BASE}/contact`}
-                className="flex items-center gap-2 border border-white/20 hover:border-white/40 text-white px-8 py-4 rounded-xl transition-colors text-sm">
+                className="flex items-center gap-2 border border-white/20 hover:border-white/40 text-[#1C1917] px-8 py-4 rounded-xl transition-colors text-sm">
                 Talk to an Expert
               </Link>
             </div>

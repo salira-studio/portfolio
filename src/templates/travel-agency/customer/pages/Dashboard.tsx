@@ -30,7 +30,7 @@ export default function Dashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <p className="text-[#78716C] text-sm mb-1">Welcome back,</p>
-            <h1 className="text-3xl font-bold text-white">{ctx.user.name} 👋</h1>
+            <h1 className="text-3xl font-bold text-[#1C1917]">{ctx.user.name} 👋</h1>
           </motion.div>
         </div>
       </section>
@@ -49,7 +49,7 @@ export default function Dashboard() {
               <div className={`w-10 h-10 rounded-xl ${stat.bg} flex items-center justify-center mb-3`}>
                 <stat.icon size={18} className={stat.color} />
               </div>
-              <p className="text-2xl font-bold text-white">{stat.value}</p>
+              <p className="text-2xl font-bold text-[#1C1917]">{stat.value}</p>
               <p className="text-[#78716C] text-xs mt-0.5">{stat.label}</p>
             </motion.div>
           ))}
@@ -79,7 +79,7 @@ export default function Dashboard() {
         {/* Recent Bookings */}
         <div>
           <div className="flex items-center justify-between mb-5">
-            <h2 className="text-xl font-bold text-white">Recent Bookings</h2>
+            <h2 className="text-xl font-bold text-[#1C1917]">Recent Bookings</h2>
             <Link to={`${TRAVEL_BASE}/dashboard/bookings`} className="text-[#F4B942] text-sm hover:underline">View All</Link>
           </div>
           <div className="space-y-4">

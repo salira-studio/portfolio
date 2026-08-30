@@ -54,7 +54,7 @@ export default function Register() {
             </div>
             <span className="font-bold text-[#1C1917] text-xl">Voyage<span className="text-[#F4B942]">AI</span></span>
           </Link>
-          <h2 className="text-3xl font-bold text-white mb-3">
+          <h2 className="text-3xl font-bold text-[#1C1917] mb-3">
             Join 30,000+<br />
             <span className="text-[#F4B942]">Happy Travellers</span>
           </h2>
@@ -77,28 +77,28 @@ export default function Register() {
         {/* Form */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <div className="bg-white border border-[#E8E0D5] rounded-2xl p-6">
-            <h1 className="text-xl font-bold text-white mb-5">Create Account</h1>
+            <h1 className="text-xl font-bold text-[#1C1917] mb-5">Create Account</h1>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="text-xs text-[#78716C] mb-1.5 block">Full Name</label>
                 <input required name="name" value={form.name} onChange={handleChange} placeholder="Your full name"
-                  className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-white placeholder:text-[#78716C]/50 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
+                  className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-[#1C1917] placeholder:text-[#78716C]/50 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
               </div>
               <div>
                 <label className="text-xs text-[#78716C] mb-1.5 block">Email</label>
                 <input required type="email" name="email" value={form.email} onChange={handleChange} placeholder="your@email.com"
-                  className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-white placeholder:text-[#78716C]/50 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
+                  className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-[#1C1917] placeholder:text-[#78716C]/50 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
               </div>
               <div>
                 <label className="text-xs text-[#78716C] mb-1.5 block">Phone (optional)</label>
                 <input name="phone" value={form.phone} onChange={handleChange} placeholder="+91 98765 43210"
-                  className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-white placeholder:text-[#78716C]/50 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
+                  className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-[#1C1917] placeholder:text-[#78716C]/50 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
               </div>
               <div>
                 <label className="text-xs text-[#78716C] mb-1.5 block">Password</label>
                 <div className="relative">
                   <input required type={showPass ? 'text' : 'password'} name="password" value={form.password} onChange={handleChange} placeholder="Min 8 characters"
-                    className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 pr-10 text-sm text-white focus:outline-none focus:border-[#F4B942]/40 transition-all" />
+                    className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 pr-10 text-sm text-[#1C1917] focus:outline-none focus:border-[#F4B942]/40 transition-all" />
                   <button type="button" onClick={() => setShowPass(!showPass)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-[#78716C]">
                     {showPass ? <EyeOff size={15} /> : <Eye size={15} />}
@@ -108,7 +108,7 @@ export default function Register() {
               <div>
                 <label className="text-xs text-[#78716C] mb-1.5 block">Confirm Password</label>
                 <input required type={showPass ? 'text' : 'password'} name="confirm" value={form.confirm} onChange={handleChange}
-                  className={`w-full bg-[#FDFAF5] border rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition-all ${form.confirm && form.confirm !== form.password ? 'border-red-500/50' : 'border-[#E8E0D5] focus:border-[#F4B942]/40'}`} />
+                  className={`w-full bg-[#FDFAF5] border rounded-xl px-4 py-3 text-sm text-[#1C1917] focus:outline-none transition-all ${form.confirm && form.confirm !== form.password ? 'border-red-500/50' : 'border-[#E8E0D5] focus:border-[#F4B942]/40'}`} />
                 {form.confirm && form.confirm !== form.password && (
                   <p className="text-red-400 text-xs mt-1">Passwords don't match</p>
                 )}

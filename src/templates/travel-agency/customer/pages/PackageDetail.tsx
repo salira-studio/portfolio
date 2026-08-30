@@ -18,7 +18,7 @@ export default function PackageDetail() {
       <div className="min-h-screen bg-[#FDFAF5] flex items-center justify-center">
         <div className="text-center">
           <p className="text-6xl mb-4">🧳</p>
-          <h1 className="text-2xl font-bold text-white mb-2">Package Not Found</h1>
+          <h1 className="text-2xl font-bold text-[#1C1917] mb-2">Package Not Found</h1>
           <Link to={`${TRAVEL_BASE}/packages`} className="text-[#F4B942] hover:underline">Back to Packages</Link>
         </div>
       </div>
@@ -67,7 +67,7 @@ export default function PackageDetail() {
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <span className={`text-xs font-medium px-2.5 py-1 rounded-full capitalize ${categoryColors[pkg.category]}`}>{pkg.category}</span>
-                {pkg.discount > 0 && <span className="bg-red-500/90 text-[#1C1917] text-xs font-bold px-2.5 py-1 rounded-full">{pkg.discount}% OFF</span>}
+                {pkg.discount > 0 && <span className="bg-red-500/90 text-white text-xs font-bold px-2.5 py-1 rounded-full">{pkg.discount}% OFF</span>}
               </div>
               <h1 className="text-3xl sm:text-4xl font-bold text-white mb-1">{pkg.title}</h1>
               <div className="flex items-center gap-3 text-sm text-white/70">
@@ -76,7 +76,7 @@ export default function PackageDetail() {
                 <span className="flex items-center gap-1"><Users size={13} />Max {pkg.groupSize}</span>
               </div>
             </div>
-            <WishlistButton itemId={pkg.id} itemType="package" className="w-11 h-11 bg-[#EDE8E0] backdrop-blur border border-[#D6CFC4]" size={20} />
+            <WishlistButton itemId={pkg.id} itemType="package" className="w-11 h-11 bg-white/10 backdrop-blur border border-white/20" size={20} />
           </div>
         </div>
       </section>
@@ -104,14 +104,14 @@ export default function PackageDetail() {
 
             {/* Highlights */}
             <div>
-              <h2 className="text-xl font-bold text-white mb-4">Package Highlights</h2>
+              <h2 className="text-xl font-bold text-[#1C1917] mb-4">Package Highlights</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {pkg.highlights.map((h, i) => (
                   <div key={i} className="flex items-center gap-3 bg-white rounded-xl p-3 border border-[#E8E0D5]">
                     <div className="w-6 h-6 rounded-full bg-[#F4B942]/20 flex items-center justify-center shrink-0">
                       <Check size={13} className="text-[#F4B942]" />
                     </div>
-                    <span className="text-white text-sm">{h}</span>
+                    <span className="text-[#1C1917] text-sm">{h}</span>
                   </div>
                 ))}
               </div>
@@ -143,7 +143,7 @@ export default function PackageDetail() {
 
             {/* Itinerary */}
             <div>
-              <h2 className="text-xl font-bold text-white mb-4">Day-by-Day Itinerary</h2>
+              <h2 className="text-xl font-bold text-[#1C1917] mb-4">Day-by-Day Itinerary</h2>
               <div className="space-y-3">
                 {pkg.itinerary.map((day) => (
                   <div key={day.day} className="bg-white border border-[#E8E0D5] rounded-xl overflow-hidden">
@@ -177,9 +177,9 @@ export default function PackageDetail() {
               <div className="mb-4">
                 <label className="text-xs text-[#78716C] mb-1.5 block">Number of Travelers</label>
                 <div className="flex items-center gap-3">
-                  <button onClick={() => setTravelers(Math.max(1, travelers - 1))} className="w-8 h-8 rounded-full bg-[#F5F0E8] border border-[#E8E0D5] text-white hover:bg-[#EDE8E0] transition-colors flex items-center justify-center text-lg">−</button>
+                  <button onClick={() => setTravelers(Math.max(1, travelers - 1))} className="w-8 h-8 rounded-full bg-[#F5F0E8] border border-[#E8E0D5] text-[#1C1917] hover:bg-[#EDE8E0] transition-colors flex items-center justify-center text-lg">−</button>
                   <span className="text-[#1C1917] font-semibold text-lg w-8 text-center">{travelers}</span>
-                  <button onClick={() => setTravelers(travelers + 1)} className="w-8 h-8 rounded-full bg-[#F5F0E8] border border-[#E8E0D5] text-white hover:bg-[#EDE8E0] transition-colors flex items-center justify-center text-lg">+</button>
+                  <button onClick={() => setTravelers(travelers + 1)} className="w-8 h-8 rounded-full bg-[#F5F0E8] border border-[#E8E0D5] text-[#1C1917] hover:bg-[#EDE8E0] transition-colors flex items-center justify-center text-lg">+</button>
                 </div>
               </div>
               <div className="bg-[#F4B942]/5 border border-[#F4B942]/10 rounded-xl p-3 mb-4">
@@ -197,7 +197,7 @@ export default function PackageDetail() {
                 Book This Package
               </button>
               <Link to={`${TRAVEL_BASE}/contact?package=${pkg.id}`}
-                className="block w-full text-center border border-[#D6CFC4] hover:border-white/40 text-white py-3 rounded-xl transition-colors text-sm">
+                className="block w-full text-center border border-[#D6CFC4] hover:border-white/40 text-[#1C1917] py-3 rounded-xl transition-colors text-sm">
                 Send Enquiry
               </Link>
               <p className="text-[#78716C] text-xs text-center mt-3">Free cancellation within 24 hours</p>

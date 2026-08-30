@@ -37,7 +37,7 @@ export function SearchWidget() {
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             className={`relative flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              activeTab === tab.id ? 'text-[#0D1117]' : 'text-[#78716C] hover:text-white'
+              activeTab === tab.id ? 'text-[#0D1117]' : 'text-[#78716C] hover:text-[#92400E]'
             }`}
           >
             {activeTab === tab.id && (
@@ -65,7 +65,7 @@ export function SearchWidget() {
                 value={destination}
                 onChange={e => setDestination(e.target.value)}
                 placeholder="Where to?"
-                className="w-full bg-[rgba(255,255,255,0.06)] border border-[#E8E0D5] rounded-xl pl-9 pr-3 py-3 text-sm text-white placeholder:text-[#78716C]/60 focus:outline-none focus:border-[#F4B942]/50 focus:bg-[rgba(255,255,255,0.09)] transition-all"
+                className="w-full bg-[rgba(255,255,255,0.06)] border border-[#E8E0D5] rounded-xl pl-9 pr-3 py-3 text-sm text-[#1C1917] placeholder:text-[#78716C]/60 focus:outline-none focus:border-[#F4B942]/50 focus:bg-[rgba(255,255,255,0.09)] transition-all"
               />
             </div>
           </div>
@@ -79,7 +79,7 @@ export function SearchWidget() {
                 type="date"
                 value={date}
                 onChange={e => setDate(e.target.value)}
-                className="w-full bg-[rgba(255,255,255,0.06)] border border-[#E8E0D5] rounded-xl pl-9 pr-3 py-3 text-sm text-white placeholder:text-[#78716C]/60 focus:outline-none focus:border-[#F4B942]/50 transition-all [color-scheme:dark]"
+                className="w-full bg-[rgba(255,255,255,0.06)] border border-[#E8E0D5] rounded-xl pl-9 pr-3 py-3 text-sm text-[#1C1917] placeholder:text-[#78716C]/60 focus:outline-none focus:border-[#F4B942]/50 transition-all [color-scheme:dark]"
               />
             </div>
           </div>
@@ -92,7 +92,7 @@ export function SearchWidget() {
               <select
                 value={travelers}
                 onChange={e => setTravelers(e.target.value)}
-                className="w-full bg-[rgba(255,255,255,0.06)] border border-[#E8E0D5] rounded-xl pl-9 pr-3 py-3 text-sm text-white focus:outline-none focus:border-[#F4B942]/50 transition-all appearance-none cursor-pointer"
+                className="w-full bg-[rgba(255,255,255,0.06)] border border-[#E8E0D5] rounded-xl pl-9 pr-3 py-3 text-sm text-[#1C1917] focus:outline-none focus:border-[#F4B942]/50 transition-all appearance-none cursor-pointer"
               >
                 {[1,2,3,4,5,6,7,8,9,10].map(n => (
                   <option key={n} value={n} className="bg-[#F5F0E8]">{n} {n === 1 ? 'Person' : 'People'}</option>

@@ -86,12 +86,12 @@ export function Footer() {
 
             {/* Newsletter */}
             <div className="mt-5">
-              <p className="text-white text-xs font-medium mb-2">Get travel deals in your inbox</p>
+              <p className="text-[#1C1917] text-xs font-medium mb-2">Get travel deals in your inbox</p>
               <div className="flex gap-2">
                 <input
                   type="email"
                   placeholder="your@email.com"
-                  className="flex-1 bg-[#F5F0E8] border border-[#E8E0D5] rounded-lg px-3 py-2 text-xs text-white placeholder:text-[#78716C]/60 focus:outline-none focus:border-[#F4B942]/40 transition-all"
+                  className="flex-1 bg-[#F5F0E8] border border-[#E8E0D5] rounded-lg px-3 py-2 text-xs text-[#1C1917] placeholder:text-[#78716C]/60 focus:outline-none focus:border-[#F4B942]/40 transition-all"
                 />
                 <button className="bg-[#F4B942] hover:bg-[#e5ab38] text-[#0D1117] text-xs font-semibold px-3 py-2 rounded-lg transition-colors whitespace-nowrap">
                   Subscribe
@@ -104,9 +104,9 @@ export function Footer() {
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#78716C]/60">
           <p>© {new Date().getFullYear()} VoyageAI Travel Pvt. Ltd. All rights reserved.</p>
           <div className="flex items-center gap-4">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-white transition-colors">Cancellation Policy</a>
+            <a href="#" className="hover:text-[#92400E] transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-[#92400E] transition-colors">Terms of Service</a>
+            <a href="#" className="hover:text-[#92400E] transition-colors">Cancellation Policy</a>
           </div>
         </div>
       </div>

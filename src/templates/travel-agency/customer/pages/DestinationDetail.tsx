@@ -17,7 +17,7 @@ export default function DestinationDetail() {
       <div className="min-h-screen bg-[#FDFAF5] flex items-center justify-center">
         <div className="text-center">
           <p className="text-6xl mb-4">🌍</p>
-          <h1 className="text-2xl font-bold text-white mb-2">Destination Not Found</h1>
+          <h1 className="text-2xl font-bold text-[#1C1917] mb-2">Destination Not Found</h1>
           <Link to={`${TRAVEL_BASE}/destinations`} className="text-[#F4B942] hover:underline">Back to Destinations</Link>
         </div>
       </div>
@@ -52,9 +52,9 @@ export default function DestinationDetail() {
               <p className="text-white/80 text-lg">{dest.tagline}</p>
             </div>
             <div className="flex items-center gap-3 shrink-0">
-              <WishlistButton itemId={dest.id} itemType="destination" className="w-11 h-11 bg-[#EDE8E0] backdrop-blur border border-[#D6CFC4] hover:bg-white/20" size={20} />
+              <WishlistButton itemId={dest.id} itemType="destination" className="w-11 h-11 bg-white/10 backdrop-blur border border-white/20 hover:bg-white/20" size={20} />
               <Link to={`${TRAVEL_BASE}/contact?destination=${dest.id}`}
-                className="bg-[#F4B942] hover:bg-[#e5ab38] text-[#0D1117] font-semibold px-6 py-3 rounded-xl transition-colors text-sm">
+                className="bg-[#F4B942] hover:bg-[#e5ab38] text-[#1C1917] font-semibold px-6 py-3 rounded-xl transition-colors text-sm">
                 Plan This Trip
               </Link>
             </div>
@@ -77,7 +77,7 @@ export default function DestinationDetail() {
                   <item.icon size={14} />
                   <span className="text-xs text-[#78716C]">{item.label}</span>
                 </div>
-                <p className="text-white text-sm font-semibold">{item.value}</p>
+                <p className="text-[#1C1917] text-sm font-semibold">{item.value}</p>
               </div>
             ))}
           </div>
@@ -90,20 +90,20 @@ export default function DestinationDetail() {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             <div>
-              <h2 className="text-xl font-bold text-white mb-3">About {dest.name}</h2>
+              <h2 className="text-xl font-bold text-[#1C1917] mb-3">About {dest.name}</h2>
               <p className="text-[#78716C] leading-relaxed">{dest.description}</p>
             </div>
 
             {/* Highlights */}
             <div>
-              <h2 className="text-xl font-bold text-white mb-4">Top Highlights</h2>
+              <h2 className="text-xl font-bold text-[#1C1917] mb-4">Top Highlights</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {dest.highlights.map((h, i) => (
                   <div key={i} className="flex items-center gap-3 bg-white rounded-xl p-3 border border-[#E8E0D5]">
                     <div className="w-6 h-6 rounded-full bg-[#F4B942]/20 flex items-center justify-center shrink-0">
                       <Check size={13} className="text-[#F4B942]" />
                     </div>
-                    <span className="text-white text-sm">{h}</span>
+                    <span className="text-[#1C1917] text-sm">{h}</span>
                   </div>
                 ))}
               </div>
@@ -111,7 +111,7 @@ export default function DestinationDetail() {
 
             {/* Tags */}
             <div>
-              <h2 className="text-xl font-bold text-white mb-3">Experiences</h2>
+              <h2 className="text-xl font-bold text-[#1C1917] mb-3">Experiences</h2>
               <div className="flex flex-wrap gap-2">
                 {dest.tags.map(tag => (
                   <span key={tag} className="bg-[#F4B942]/10 border border-[#F4B942]/20 text-[#F4B942] px-4 py-2 rounded-full text-sm font-medium">{tag}</span>
@@ -129,7 +129,7 @@ export default function DestinationDetail() {
                 Send Enquiry
               </Link>
               <Link to={`${TRAVEL_BASE}/packages?destination=${dest.id}`}
-                className="block w-full text-center border border-[#D6CFC4] hover:border-white/40 text-white py-3 rounded-xl transition-colors text-sm">
+                className="block w-full text-center border border-[#D6CFC4] hover:border-white/40 text-[#1C1917] py-3 rounded-xl transition-colors text-sm">
                 View All Packages
               </Link>
             </div>
@@ -150,7 +150,7 @@ export default function DestinationDetail() {
       {relatedPackages.length > 0 && (
         <section className="bg-[#F5F0E8] py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-bold text-white mb-8">Packages for {dest.name}</h2>
+            <h2 className="text-2xl font-bold text-[#1C1917] mb-8">Packages for {dest.name}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {relatedPackages.map((p, i) => <PackageCard key={p.id} pkg={p} index={i} />)}
             </div>
