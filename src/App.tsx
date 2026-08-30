@@ -5,6 +5,7 @@ import { PortfolioLayout } from './portfolio/PortfolioLayout'
 import PortfolioHome from './portfolio/pages/Home'
 import WorkPage from './portfolio/pages/Work'
 import RestaurantShowcase from './portfolio/pages/RestaurantShowcase'
+import TravelShowcase from './portfolio/pages/TravelShowcase'
 
 /* ── Restaurant template · AURA Customer App ── */
 import { CustomerLayout } from './templates/restaurant/customer/CustomerLayout'
@@ -63,6 +64,7 @@ export default function App() {
           <Route index element={<PortfolioHome />} />
           <Route path="work" element={<WorkPage />} />
           <Route path="work/restaurants" element={<RestaurantShowcase />} />
+          <Route path="work/travel" element={<TravelShowcase />} />
         </Route>
 
         {/* ── Restaurant template · Customer App ── */}
@@ -88,7 +90,7 @@ export default function App() {
           <Route path="settings" element={<ConsoleSettings />} />
         </Route>
 
-        {/* ── Travel Agency template · Customer App ── */}
+        {/* ── Travel Agency · Customer App ── */}
         <Route path="/work/travel/customer" element={<TravelCustomerApp />}>
           <Route index element={<TravelHome />} />
           <Route path="destinations" element={<TravelDestinations />} />
@@ -105,7 +107,7 @@ export default function App() {
           <Route path="*" element={<TravelNotFound />} />
         </Route>
 
-        {/* ── Travel Agency template · Admin App ── */}
+        {/* ── Travel Agency · Admin App ── */}
         <Route path="/work/travel/admin" element={<TravelAdminApp />}>
           <Route index element={<Navigate to="/work/travel/admin/dashboard" replace />} />
           <Route path="login" element={<AdminLogin />} />

@@ -29,7 +29,7 @@ export function PackageCard({ pkg, index = 0 }: PackageCardProps) {
       transition={{ delay: index * 0.08, duration: 0.5 }}
     >
       <Link to={`${TRAVEL_BASE}/packages/${pkg.id}`} className="block group">
-        <div className="bg-[#171E27] border border-white/[0.06] hover:border-[#F4B942]/30 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-[0_8px_32px_rgba(244,185,66,0.1)]">
+        <div className="bg-white border border-[#E8E0D5] hover:border-[#F4B942]/30 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-[0_8px_32px_rgba(244,185,66,0.1)]">
           {/* Image */}
           <div className="relative h-48 overflow-hidden">
             <div
@@ -73,7 +73,7 @@ export function PackageCard({ pkg, index = 0 }: PackageCardProps) {
           {/* Body */}
           <div className="p-4">
             <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-1.5 text-[#A8B0BA]/70 text-xs">
+              <div className="flex items-center gap-1.5 text-[#78716C]/70 text-xs">
                 <MapPin size={11} />
                 <span>{pkg.destination}, {pkg.country}</span>
               </div>
@@ -82,14 +82,14 @@ export function PackageCard({ pkg, index = 0 }: PackageCardProps) {
               </span>
             </div>
 
-            <h3 className="text-white font-semibold text-base mb-3 line-clamp-2 leading-snug group-hover:text-[#F4B942] transition-colors">
+            <h3 className="text-[#1C1917] font-semibold text-base mb-3 line-clamp-2 leading-snug group-hover:text-[#F4B942] transition-colors">
               {pkg.title}
             </h3>
 
             {/* Inclusions preview */}
             <div className="flex flex-wrap gap-1 mb-3">
               {pkg.inclusions.slice(0, 3).map((inc, i) => (
-                <span key={i} className="text-[10px] bg-white/5 text-[#A8B0BA] px-2 py-0.5 rounded-full border border-white/[0.06]">
+                <span key={i} className="text-[10px] bg-[#F5F0E8] text-[#78716C] px-2 py-0.5 rounded-full border border-[#E8E0D5]">
                   {inc}
                 </span>
               ))}
@@ -98,11 +98,11 @@ export function PackageCard({ pkg, index = 0 }: PackageCardProps) {
               )}
             </div>
 
-            <div className="flex items-center justify-between pt-3 border-t border-white/[0.06]">
-              <div className="flex items-center gap-3 text-xs text-[#A8B0BA]">
+            <div className="flex items-center justify-between pt-3 border-t border-[#E8E0D5]">
+              <div className="flex items-center gap-3 text-xs text-[#78716C]">
                 <div className="flex items-center gap-1">
                   <Star size={12} className="fill-[#F4B942] text-[#F4B942]" />
-                  <span className="text-white font-medium">{pkg.rating}</span>
+                  <span className="text-[#1C1917] font-medium">{pkg.rating}</span>
                   <span>({pkg.reviewCount})</span>
                 </div>
                 <div className="flex items-center gap-1">
@@ -111,9 +111,9 @@ export function PackageCard({ pkg, index = 0 }: PackageCardProps) {
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-[#A8B0BA] text-xs line-through">₹{pkg.originalPrice.toLocaleString('en-IN')}</p>
+                <p className="text-[#78716C] text-xs line-through">₹{pkg.originalPrice.toLocaleString('en-IN')}</p>
                 <p className="text-[#F4B942] font-bold text-base">₹{pkg.price.toLocaleString('en-IN')}</p>
-                <p className="text-[#A8B0BA] text-[10px]">per person</p>
+                <p className="text-[#78716C] text-[10px]">per person</p>
               </div>
             </div>
           </div>

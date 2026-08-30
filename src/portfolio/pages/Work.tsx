@@ -85,7 +85,7 @@ export default function Work() {
           <div className="lg:col-span-6">
             <FadeUp delay={0.22}>
               <Link
-                to="/work/travel/customer"
+                to="/work/travel"
                 data-cursor="view"
                 data-cursor-text="VoyageAI"
                 className="group sl-card-highlight block flex h-full flex-col justify-between rounded-2xl border border-[var(--sl-line)] bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(58,126,255,0.12)] sm:p-10"
@@ -130,17 +130,9 @@ export default function Work() {
                   </div>
                   <div className="mt-6 flex items-center gap-4">
                     <span className="sl-arrow-hover text-sm font-semibold text-[#3A7EFF] group-hover:text-[var(--sl-gold)] transition-colors inline-flex items-center gap-1.5">
-                      Customer Site
+                      Launch Case Study &amp; Demos
                       <ArrowUpRight size={16} className="sl-arrow transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                     </span>
-                    <Link
-                      to="/work/travel/admin"
-                      onClick={(e) => e.stopPropagation()}
-                      className="text-sm font-semibold text-[var(--sl-charcoal)] hover:text-[var(--sl-ink)] transition-colors inline-flex items-center gap-1.5"
-                    >
-                      Admin Console
-                      <ArrowUpRight size={16} />
-                    </Link>
                   </div>
                 </div>
               </Link>

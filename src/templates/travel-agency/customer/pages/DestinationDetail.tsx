@@ -14,7 +14,7 @@ export default function DestinationDetail() {
 
   if (!dest) {
     return (
-      <div className="min-h-screen bg-[#0D1117] flex items-center justify-center">
+      <div className="min-h-screen bg-[#FDFAF5] flex items-center justify-center">
         <div className="text-center">
           <p className="text-6xl mb-4">🌍</p>
           <h1 className="text-2xl font-bold text-white mb-2">Destination Not Found</h1>
@@ -27,7 +27,7 @@ export default function DestinationDetail() {
   const relatedPackages = packages.filter(p => p.destinationId === id).slice(0, 4)
 
   return (
-    <div className="min-h-screen bg-[#0D1117]">
+    <div className="min-h-screen bg-[#FDFAF5]">
       {/* Hero */}
       <section className="relative h-[55vh] overflow-hidden">
         <div
@@ -52,7 +52,7 @@ export default function DestinationDetail() {
               <p className="text-white/80 text-lg">{dest.tagline}</p>
             </div>
             <div className="flex items-center gap-3 shrink-0">
-              <WishlistButton itemId={dest.id} itemType="destination" className="w-11 h-11 bg-white/10 backdrop-blur border border-white/20 hover:bg-white/20" size={20} />
+              <WishlistButton itemId={dest.id} itemType="destination" className="w-11 h-11 bg-[#EDE8E0] backdrop-blur border border-[#D6CFC4] hover:bg-white/20" size={20} />
               <Link to={`${TRAVEL_BASE}/contact?destination=${dest.id}`}
                 className="bg-[#F4B942] hover:bg-[#e5ab38] text-[#0D1117] font-semibold px-6 py-3 rounded-xl transition-colors text-sm">
                 Plan This Trip
@@ -63,7 +63,7 @@ export default function DestinationDetail() {
       </section>
 
       {/* Info Cards */}
-      <section className="bg-[#151B23] border-b border-white/[0.06]">
+      <section className="bg-[#F5F0E8] border-b border-[#E8E0D5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
@@ -72,10 +72,10 @@ export default function DestinationDetail() {
               { icon: Calendar, label: 'Best Time', value: dest.bestTime },
               { icon: MapPin, label: 'Starting From', value: `₹${dest.priceFrom.toLocaleString('en-IN')}` },
             ].map((item) => (
-              <div key={item.label} className="bg-[#171E27] rounded-xl p-4 border border-white/[0.06]">
+              <div key={item.label} className="bg-white rounded-xl p-4 border border-[#E8E0D5]">
                 <div className="flex items-center gap-2 text-[#F4B942] mb-1">
                   <item.icon size={14} />
-                  <span className="text-xs text-[#A8B0BA]">{item.label}</span>
+                  <span className="text-xs text-[#78716C]">{item.label}</span>
                 </div>
                 <p className="text-white text-sm font-semibold">{item.value}</p>
               </div>
@@ -91,7 +91,7 @@ export default function DestinationDetail() {
           <div className="lg:col-span-2 space-y-8">
             <div>
               <h2 className="text-xl font-bold text-white mb-3">About {dest.name}</h2>
-              <p className="text-[#A8B0BA] leading-relaxed">{dest.description}</p>
+              <p className="text-[#78716C] leading-relaxed">{dest.description}</p>
             </div>
 
             {/* Highlights */}
@@ -99,7 +99,7 @@ export default function DestinationDetail() {
               <h2 className="text-xl font-bold text-white mb-4">Top Highlights</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {dest.highlights.map((h, i) => (
-                  <div key={i} className="flex items-center gap-3 bg-[#171E27] rounded-xl p-3 border border-white/[0.06]">
+                  <div key={i} className="flex items-center gap-3 bg-white rounded-xl p-3 border border-[#E8E0D5]">
                     <div className="w-6 h-6 rounded-full bg-[#F4B942]/20 flex items-center justify-center shrink-0">
                       <Check size={13} className="text-[#F4B942]" />
                     </div>
@@ -122,22 +122,22 @@ export default function DestinationDetail() {
 
           {/* Sidebar */}
           <div className="space-y-5">
-            <div className="bg-[#171E27] border border-white/[0.06] rounded-2xl p-5">
-              <h3 className="text-white font-semibold mb-4">Quick Enquiry</h3>
+            <div className="bg-white border border-[#E8E0D5] rounded-2xl p-5">
+              <h3 className="text-[#1C1917] font-semibold mb-4">Quick Enquiry</h3>
               <Link to={`${TRAVEL_BASE}/contact?destination=${dest.id}`}
                 className="block w-full text-center bg-[#F4B942] hover:bg-[#e5ab38] text-[#0D1117] font-semibold py-3 rounded-xl transition-colors text-sm mb-3">
                 Send Enquiry
               </Link>
               <Link to={`${TRAVEL_BASE}/packages?destination=${dest.id}`}
-                className="block w-full text-center border border-white/20 hover:border-white/40 text-white py-3 rounded-xl transition-colors text-sm">
+                className="block w-full text-center border border-[#D6CFC4] hover:border-white/40 text-white py-3 rounded-xl transition-colors text-sm">
                 View All Packages
               </Link>
             </div>
-            <div className="bg-[#171E27] border border-white/[0.06] rounded-2xl p-5">
-              <h3 className="text-white font-semibold mb-2">Travel Tips</h3>
-              <ul className="space-y-2 text-sm text-[#A8B0BA]">
-                <li>• Best time to visit: <strong className="text-white">{dest.bestTime}</strong></li>
-                <li>• Recommended stay: <strong className="text-white">{dest.duration}</strong></li>
+            <div className="bg-white border border-[#E8E0D5] rounded-2xl p-5">
+              <h3 className="text-[#1C1917] font-semibold mb-2">Travel Tips</h3>
+              <ul className="space-y-2 text-sm text-[#78716C]">
+                <li>• Best time to visit: <strong className="text-[#1C1917]">{dest.bestTime}</strong></li>
+                <li>• Recommended stay: <strong className="text-[#1C1917]">{dest.duration}</strong></li>
                 <li>• Book 60+ days ahead for best rates</li>
                 <li>• Free cancellation within 24 hours</li>
               </ul>
@@ -148,7 +148,7 @@ export default function DestinationDetail() {
 
       {/* Related Packages */}
       {relatedPackages.length > 0 && (
-        <section className="bg-[#151B23] py-16">
+        <section className="bg-[#F5F0E8] py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold text-white mb-8">Packages for {dest.name}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">

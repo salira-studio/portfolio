@@ -58,7 +58,7 @@ export default function Register() {
             Join 30,000+<br />
             <span className="text-[#F4B942]">Happy Travellers</span>
           </h2>
-          <p className="text-[#A8B0BA] mb-8 leading-relaxed">
+          <p className="text-[#78716C] mb-8 leading-relaxed">
             Create your free account and unlock personalised travel experiences, exclusive deals, and a world of adventure.
           </p>
           <div className="space-y-3">
@@ -68,7 +68,7 @@ export default function Register() {
                 <div className="w-6 h-6 rounded-full bg-[#F4B942]/20 flex items-center justify-center shrink-0">
                   <CheckCircle size={13} className="text-[#F4B942]" />
                 </div>
-                <span className="text-[#A8B0BA] text-sm">{perk}</span>
+                <span className="text-[#78716C] text-sm">{perk}</span>
               </motion.div>
             ))}
           </div>
@@ -76,46 +76,46 @@ export default function Register() {
 
         {/* Form */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="bg-[#171E27] border border-white/[0.06] rounded-2xl p-6">
+          <div className="bg-white border border-[#E8E0D5] rounded-2xl p-6">
             <h1 className="text-xl font-bold text-white mb-5">Create Account</h1>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="text-xs text-[#A8B0BA] mb-1.5 block">Full Name</label>
+                <label className="text-xs text-[#78716C] mb-1.5 block">Full Name</label>
                 <input required name="name" value={form.name} onChange={handleChange} placeholder="Your full name"
-                  className="w-full bg-[#0D1117] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-[#A8B0BA]/50 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
+                  className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-white placeholder:text-[#78716C]/50 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
               </div>
               <div>
-                <label className="text-xs text-[#A8B0BA] mb-1.5 block">Email</label>
+                <label className="text-xs text-[#78716C] mb-1.5 block">Email</label>
                 <input required type="email" name="email" value={form.email} onChange={handleChange} placeholder="your@email.com"
-                  className="w-full bg-[#0D1117] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-[#A8B0BA]/50 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
+                  className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-white placeholder:text-[#78716C]/50 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
               </div>
               <div>
-                <label className="text-xs text-[#A8B0BA] mb-1.5 block">Phone (optional)</label>
+                <label className="text-xs text-[#78716C] mb-1.5 block">Phone (optional)</label>
                 <input name="phone" value={form.phone} onChange={handleChange} placeholder="+91 98765 43210"
-                  className="w-full bg-[#0D1117] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-[#A8B0BA]/50 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
+                  className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-white placeholder:text-[#78716C]/50 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
               </div>
               <div>
-                <label className="text-xs text-[#A8B0BA] mb-1.5 block">Password</label>
+                <label className="text-xs text-[#78716C] mb-1.5 block">Password</label>
                 <div className="relative">
                   <input required type={showPass ? 'text' : 'password'} name="password" value={form.password} onChange={handleChange} placeholder="Min 8 characters"
-                    className="w-full bg-[#0D1117] border border-white/10 rounded-xl px-4 py-3 pr-10 text-sm text-white focus:outline-none focus:border-[#F4B942]/40 transition-all" />
+                    className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 pr-10 text-sm text-white focus:outline-none focus:border-[#F4B942]/40 transition-all" />
                   <button type="button" onClick={() => setShowPass(!showPass)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#A8B0BA]">
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#78716C]">
                     {showPass ? <EyeOff size={15} /> : <Eye size={15} />}
                   </button>
                 </div>
               </div>
               <div>
-                <label className="text-xs text-[#A8B0BA] mb-1.5 block">Confirm Password</label>
+                <label className="text-xs text-[#78716C] mb-1.5 block">Confirm Password</label>
                 <input required type={showPass ? 'text' : 'password'} name="confirm" value={form.confirm} onChange={handleChange}
-                  className={`w-full bg-[#0D1117] border rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition-all ${form.confirm && form.confirm !== form.password ? 'border-red-500/50' : 'border-white/10 focus:border-[#F4B942]/40'}`} />
+                  className={`w-full bg-[#FDFAF5] border rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition-all ${form.confirm && form.confirm !== form.password ? 'border-red-500/50' : 'border-[#E8E0D5] focus:border-[#F4B942]/40'}`} />
                 {form.confirm && form.confirm !== form.password && (
                   <p className="text-red-400 text-xs mt-1">Passwords don't match</p>
                 )}
               </div>
               <label className="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" checked={agreed} onChange={e => setAgreed(e.target.checked)} className="mt-0.5 accent-[#F4B942]" />
-                <span className="text-xs text-[#A8B0BA]">
+                <span className="text-xs text-[#78716C]">
                   I agree to the <Link to="#" className="text-[#F4B942]">Terms of Service</Link> and <Link to="#" className="text-[#F4B942]">Privacy Policy</Link>
                 </span>
               </label>
@@ -124,7 +124,7 @@ export default function Register() {
                 {loading ? <div className="w-5 h-5 border-2 border-[#0D1117]/30 border-t-[#0D1117] rounded-full animate-spin" /> : <><UserPlus size={16} />Create Account</>}
               </button>
             </form>
-            <p className="text-center text-sm text-[#A8B0BA] mt-4">
+            <p className="text-center text-sm text-[#78716C] mt-4">
               Already have an account? <Link to={`${TRAVEL_BASE}/login`} className="text-[#F4B942] hover:underline">Sign In</Link>
             </p>
           </div>

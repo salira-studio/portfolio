@@ -35,7 +35,7 @@ export default function CustomerApp() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0D1117] text-[#F8FAFC] flex flex-col">
+    <div className="min-h-screen bg-[#FDFAF5] text-[#1C1917] flex flex-col">
       <Navbar user={user} onLogout={handleLogout} />
 
       <main className="flex-1">

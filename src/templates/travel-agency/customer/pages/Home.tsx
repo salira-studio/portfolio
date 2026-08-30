@@ -4,9 +4,8 @@ import { Star, Shield, Clock, Award, ChevronRight, ArrowRight, Globe, Headphones
 import { SearchWidget } from '../components/SearchWidget'
 import { DestinationCard } from '../components/DestinationCard'
 import { PackageCard } from '../components/PackageCard'
-import { destinations } from '../../data/destinations'
-import { packages } from '../../data/packages'
 import { reviews } from '../../data/reviews'
+import { getPackages, getDestinations, useStoreVersion } from '../../data/travelStore'
 
 const TRAVEL_BASE = '/work/travel/customer'
 
@@ -40,15 +39,16 @@ const floatingCards = [
 ]
 
 export default function Home() {
-  const featuredDestinations = destinations.filter(d => d.featured).slice(0, 6)
-  const featuredPackages = packages.filter(p => p.featured).slice(0, 4)
+  useStoreVersion() // re-render when admin changes store
+  const featuredDestinations = getDestinations().filter(d => d.featured).slice(0, 6)
+  const featuredPackages = getPackages().filter(p => p.featured).slice(0, 4)
 
   return (
-    <div className="bg-[#0D1117]">
+    <div className="bg-[#FDFAF5]">
       {/* ── Hero ── */}
       <section className="relative min-h-[92vh] flex items-center overflow-hidden">
         {/* Background gradient landscape */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0D1117] via-[#0f1a2e] to-[#0D1117]">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8EE] via-[#FDFAF5] to-[#FFF3E0]">
           <div className="absolute inset-0 opacity-30" style={{
             backgroundImage: `
               radial-gradient(ellipse 80% 60% at 20% 60%, rgba(244,185,66,0.15) 0%, transparent 60%),
@@ -109,7 +109,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-[#A8B0BA] text-lg mb-8 max-w-lg leading-relaxed"
+              className="text-[#78716C] text-lg mb-8 max-w-lg leading-relaxed"
             >
               Discover 120+ breathtaking destinations with personalised itineraries, expert guides, and memories that last a lifetime.
             </motion.p>
@@ -133,7 +133,7 @@ export default function Home() {
                 { v: '100%', label: 'Secure Payment' },
                 { v: 'Free', label: 'Cancellation (24h)' },
               ].map((item) => (
-                <div key={item.label} className="flex items-center gap-1.5 text-xs text-[#A8B0BA]">
+                <div key={item.label} className="flex items-center gap-1.5 text-xs text-[#78716C]">
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                   <span className="text-white font-medium">{item.v}</span>
                   <span>{item.label}</span>
@@ -155,12 +155,12 @@ export default function Home() {
                 <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 4 + i, repeat: Infinity, ease: 'easeInOut', delay: i * 1.2 }}
-                  className="w-48 bg-[rgba(255,255,255,0.07)] backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl"
+                  className="w-48 bg-white backdrop-blur-xl border border-[#E8E0D5] rounded-2xl overflow-hidden shadow-2xl"
                 >
                   <div className="h-28 bg-cover bg-center" style={{ backgroundImage: `url(${card.image})` }} />
                   <div className="p-3">
-                    <p className="text-white font-semibold text-sm">{card.name}</p>
-                    <p className="text-[#A8B0BA] text-xs">{card.country}</p>
+                    <p className="text-[#1C1917] font-semibold text-sm">{card.name}</p>
+                    <p className="text-[#78716C] text-xs">{card.country}</p>
                     <p className="text-[#F4B942] font-bold text-sm mt-1">{card.price}</p>
                   </div>
                 </motion.div>
@@ -177,7 +177,7 @@ export default function Home() {
             {stats.map((stat, i) => (
               <motion.div key={stat.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
                 <p className="text-3xl font-bold text-[#F4B942]">{stat.value}</p>
-                <p className="text-[#A8B0BA] text-sm mt-1">{stat.label}</p>
+                <p className="text-[#78716C] text-sm mt-1">{stat.label}</p>
               </motion.div>
             ))}
           </div>
@@ -206,7 +206,7 @@ export default function Home() {
       </section>
 
       {/* ── Tour Packages ── */}
-      <section className="py-20 bg-[#151B23]">
+      <section className="py-20 bg-[#F5F0E8]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between mb-10">
             <div>
@@ -232,19 +232,19 @@ export default function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {whyUs.map((item, i) => (
             <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-              className="bg-[#171E27] border border-white/[0.06] rounded-2xl p-6 hover:border-[#F4B942]/20 transition-all group">
+              className="bg-white border border-[#E8E0D5] rounded-2xl p-6 hover:border-[#F4B942]/20 transition-all group">
               <div className="w-12 h-12 rounded-xl bg-[#F4B942]/10 border border-[#F4B942]/20 flex items-center justify-center mb-4 group-hover:bg-[#F4B942]/20 transition-colors">
                 <item.icon size={22} className="text-[#F4B942]" />
               </div>
-              <h3 className="text-white font-semibold mb-2">{item.title}</h3>
-              <p className="text-[#A8B0BA] text-sm leading-relaxed">{item.desc}</p>
+              <h3 className="text-[#1C1917] font-semibold mb-2">{item.title}</h3>
+              <p className="text-[#78716C] text-sm leading-relaxed">{item.desc}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* ── How It Works ── */}
-      <section className="py-20 bg-[#151B23]">
+      <section className="py-20 bg-[#F5F0E8]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <p className="text-[#F4B942] text-sm font-medium uppercase tracking-wider mb-2">Simple Process</p>
@@ -259,8 +259,8 @@ export default function Home() {
                 <div className="w-16 h-16 rounded-2xl bg-[#F4B942]/10 border-2 border-[#F4B942]/30 flex items-center justify-center text-[#F4B942] font-bold text-xl mx-auto mb-4 relative z-10">
                   {step.step}
                 </div>
-                <h3 className="text-white font-semibold mb-2">{step.title}</h3>
-                <p className="text-[#A8B0BA] text-sm leading-relaxed">{step.desc}</p>
+                <h3 className="text-[#1C1917] font-semibold mb-2">{step.title}</h3>
+                <p className="text-[#78716C] text-sm leading-relaxed">{step.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -276,21 +276,21 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {reviews.slice(0, 3).map((review, i) => (
             <motion.div key={review.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-              className="bg-[#171E27] border border-white/[0.06] rounded-2xl p-6">
+              className="bg-white border border-[#E8E0D5] rounded-2xl p-6">
               <div className="flex items-center gap-1 mb-3">
                 {[...Array(5)].map((_, j) => (
                   <Star key={j} size={14} className={j < review.rating ? 'fill-[#F4B942] text-[#F4B942]' : 'text-white/20'} />
                 ))}
               </div>
-              <h4 className="text-white font-semibold text-sm mb-2">"{review.title}"</h4>
-              <p className="text-[#A8B0BA] text-sm leading-relaxed mb-4 line-clamp-3">{review.body}</p>
-              <div className="flex items-center gap-3 pt-4 border-t border-white/[0.06]">
+              <h4 className="text-[#1C1917] font-semibold text-sm mb-2">"{review.title}"</h4>
+              <p className="text-[#78716C] text-sm leading-relaxed mb-4 line-clamp-3">{review.body}</p>
+              <div className="flex items-center gap-3 pt-4 border-t border-[#E8E0D5]">
                 <div className="w-9 h-9 rounded-full bg-[#F4B942]/20 border border-[#F4B942]/30 flex items-center justify-center text-[#F4B942] text-xs font-bold">
                   {review.avatar}
                 </div>
                 <div>
                   <p className="text-white text-sm font-medium">{review.author}</p>
-                  <p className="text-[#A8B0BA] text-xs">{review.city} · {review.destination}</p>
+                  <p className="text-[#78716C] text-xs">{review.city} · {review.destination}</p>
                 </div>
               </div>
             </motion.div>
@@ -299,13 +299,13 @@ export default function Home() {
       </section>
 
       {/* ── CTA Banner ── */}
-      <section className="py-20 bg-[#151B23]">
+      <section className="py-20 bg-[#F5F0E8]">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Ready to Write Your <span className="text-[#F4B942]">Next Chapter?</span>
             </h2>
-            <p className="text-[#A8B0BA] mb-8 leading-relaxed">
+            <p className="text-[#78716C] mb-8 leading-relaxed">
               Join 30,000+ travellers who've discovered the world with VoyageAI. Your dream destination is one click away.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

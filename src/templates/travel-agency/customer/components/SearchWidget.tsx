@@ -29,7 +29,7 @@ export function SearchWidget() {
   }
 
   return (
-    <div className="bg-[rgba(255,255,255,0.07)] backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl w-full max-w-3xl">
+    <div className="bg-[rgba(255,255,255,0.07)] backdrop-blur-xl border border-[#E8E0D5] rounded-2xl p-6 shadow-2xl w-full max-w-3xl">
       {/* Tabs */}
       <div className="flex gap-1 mb-5 bg-[rgba(255,255,255,0.05)] p-1 rounded-xl w-fit">
         {tabs.map((tab) => (
@@ -37,7 +37,7 @@ export function SearchWidget() {
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             className={`relative flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              activeTab === tab.id ? 'text-[#0D1117]' : 'text-[#A8B0BA] hover:text-white'
+              activeTab === tab.id ? 'text-[#0D1117]' : 'text-[#78716C] hover:text-white'
             }`}
           >
             {activeTab === tab.id && (
@@ -57,7 +57,7 @@ export function SearchWidget() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {/* Destination */}
           <div className="sm:col-span-1">
-            <label className="block text-xs text-[#A8B0BA] mb-1.5 font-medium">Destination</label>
+            <label className="block text-xs text-[#78716C] mb-1.5 font-medium">Destination</label>
             <div className="relative">
               <MapPin size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#F4B942]" />
               <input
@@ -65,37 +65,37 @@ export function SearchWidget() {
                 value={destination}
                 onChange={e => setDestination(e.target.value)}
                 placeholder="Where to?"
-                className="w-full bg-[rgba(255,255,255,0.06)] border border-white/10 rounded-xl pl-9 pr-3 py-3 text-sm text-white placeholder:text-[#A8B0BA]/60 focus:outline-none focus:border-[#F4B942]/50 focus:bg-[rgba(255,255,255,0.09)] transition-all"
+                className="w-full bg-[rgba(255,255,255,0.06)] border border-[#E8E0D5] rounded-xl pl-9 pr-3 py-3 text-sm text-white placeholder:text-[#78716C]/60 focus:outline-none focus:border-[#F4B942]/50 focus:bg-[rgba(255,255,255,0.09)] transition-all"
               />
             </div>
           </div>
 
           {/* Date */}
           <div>
-            <label className="block text-xs text-[#A8B0BA] mb-1.5 font-medium">Travel Date</label>
+            <label className="block text-xs text-[#78716C] mb-1.5 font-medium">Travel Date</label>
             <div className="relative">
               <Calendar size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#F4B942]" />
               <input
                 type="date"
                 value={date}
                 onChange={e => setDate(e.target.value)}
-                className="w-full bg-[rgba(255,255,255,0.06)] border border-white/10 rounded-xl pl-9 pr-3 py-3 text-sm text-white placeholder:text-[#A8B0BA]/60 focus:outline-none focus:border-[#F4B942]/50 transition-all [color-scheme:dark]"
+                className="w-full bg-[rgba(255,255,255,0.06)] border border-[#E8E0D5] rounded-xl pl-9 pr-3 py-3 text-sm text-white placeholder:text-[#78716C]/60 focus:outline-none focus:border-[#F4B942]/50 transition-all [color-scheme:dark]"
               />
             </div>
           </div>
 
           {/* Travelers */}
           <div>
-            <label className="block text-xs text-[#A8B0BA] mb-1.5 font-medium">Travelers</label>
+            <label className="block text-xs text-[#78716C] mb-1.5 font-medium">Travelers</label>
             <div className="relative">
               <Users size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#F4B942]" />
               <select
                 value={travelers}
                 onChange={e => setTravelers(e.target.value)}
-                className="w-full bg-[rgba(255,255,255,0.06)] border border-white/10 rounded-xl pl-9 pr-3 py-3 text-sm text-white focus:outline-none focus:border-[#F4B942]/50 transition-all appearance-none cursor-pointer"
+                className="w-full bg-[rgba(255,255,255,0.06)] border border-[#E8E0D5] rounded-xl pl-9 pr-3 py-3 text-sm text-white focus:outline-none focus:border-[#F4B942]/50 transition-all appearance-none cursor-pointer"
               >
                 {[1,2,3,4,5,6,7,8,9,10].map(n => (
-                  <option key={n} value={n} className="bg-[#151B23]">{n} {n === 1 ? 'Person' : 'People'}</option>
+                  <option key={n} value={n} className="bg-[#F5F0E8]">{n} {n === 1 ? 'Person' : 'People'}</option>
                 ))}
               </select>
             </div>

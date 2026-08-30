@@ -15,7 +15,7 @@ export default function PackageDetail() {
 
   if (!pkg) {
     return (
-      <div className="min-h-screen bg-[#0D1117] flex items-center justify-center">
+      <div className="min-h-screen bg-[#FDFAF5] flex items-center justify-center">
         <div className="text-center">
           <p className="text-6xl mb-4">🧳</p>
           <h1 className="text-2xl font-bold text-white mb-2">Package Not Found</h1>
@@ -54,7 +54,7 @@ export default function PackageDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0D1117]">
+    <div className="min-h-screen bg-[#FDFAF5]">
       {/* Hero */}
       <section className="relative h-[50vh] overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${pkg.image})` }} />
@@ -76,7 +76,7 @@ export default function PackageDetail() {
                 <span className="flex items-center gap-1"><Users size={13} />Max {pkg.groupSize}</span>
               </div>
             </div>
-            <WishlistButton itemId={pkg.id} itemType="package" className="w-11 h-11 bg-white/10 backdrop-blur border border-white/20" size={20} />
+            <WishlistButton itemId={pkg.id} itemType="package" className="w-11 h-11 bg-[#EDE8E0] backdrop-blur border border-[#D6CFC4]" size={20} />
           </div>
         </div>
       </section>
@@ -88,17 +88,17 @@ export default function PackageDetail() {
           <div className="lg:col-span-2 space-y-10">
             {/* Rating + Tags */}
             <div className="flex flex-wrap items-center gap-4">
-              <div className="flex items-center gap-2 bg-[#171E27] rounded-xl px-4 py-2.5 border border-white/[0.06]">
+              <div className="flex items-center gap-2 bg-white rounded-xl px-4 py-2.5 border border-[#E8E0D5]">
                 <Star size={16} className="fill-[#F4B942] text-[#F4B942]" />
-                <span className="text-white font-bold">{pkg.rating}</span>
-                <span className="text-[#A8B0BA] text-sm">({pkg.reviewCount} reviews)</span>
+                <span className="text-[#1C1917] font-bold">{pkg.rating}</span>
+                <span className="text-[#78716C] text-sm">({pkg.reviewCount} reviews)</span>
               </div>
-              <div className="flex items-center gap-2 bg-[#171E27] rounded-xl px-4 py-2.5 border border-white/[0.06]">
+              <div className="flex items-center gap-2 bg-white rounded-xl px-4 py-2.5 border border-[#E8E0D5]">
                 <span className={`w-2 h-2 rounded-full ${pkg.difficulty === 'Easy' ? 'bg-emerald-400' : pkg.difficulty === 'Moderate' ? 'bg-yellow-400' : 'bg-red-400'}`} />
-                <span className="text-[#A8B0BA] text-sm">{pkg.difficulty}</span>
+                <span className="text-[#78716C] text-sm">{pkg.difficulty}</span>
               </div>
               {pkg.tags.map(tag => (
-                <span key={tag} className="bg-white/5 border border-white/10 text-[#A8B0BA] px-3 py-1.5 rounded-full text-xs">{tag}</span>
+                <span key={tag} className="bg-[#F5F0E8] border border-[#E8E0D5] text-[#78716C] px-3 py-1.5 rounded-full text-xs">{tag}</span>
               ))}
             </div>
 
@@ -107,7 +107,7 @@ export default function PackageDetail() {
               <h2 className="text-xl font-bold text-white mb-4">Package Highlights</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {pkg.highlights.map((h, i) => (
-                  <div key={i} className="flex items-center gap-3 bg-[#171E27] rounded-xl p-3 border border-white/[0.06]">
+                  <div key={i} className="flex items-center gap-3 bg-white rounded-xl p-3 border border-[#E8E0D5]">
                     <div className="w-6 h-6 rounded-full bg-[#F4B942]/20 flex items-center justify-center shrink-0">
                       <Check size={13} className="text-[#F4B942]" />
                     </div>
@@ -119,21 +119,21 @@ export default function PackageDetail() {
 
             {/* Inclusions & Exclusions */}
             <div className="grid sm:grid-cols-2 gap-5">
-              <div className="bg-[#171E27] rounded-2xl p-5 border border-white/[0.06]">
-                <h3 className="text-white font-semibold mb-3 flex items-center gap-2"><Check size={16} className="text-emerald-400" />Inclusions</h3>
+              <div className="bg-white rounded-2xl p-5 border border-[#E8E0D5]">
+                <h3 className="text-[#1C1917] font-semibold mb-3 flex items-center gap-2"><Check size={16} className="text-emerald-400" />Inclusions</h3>
                 <ul className="space-y-2">
                   {pkg.inclusions.map((inc, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm text-[#A8B0BA]">
+                    <li key={i} className="flex items-center gap-2 text-sm text-[#78716C]">
                       <Check size={13} className="text-emerald-400 shrink-0" />{inc}
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="bg-[#171E27] rounded-2xl p-5 border border-white/[0.06]">
-                <h3 className="text-white font-semibold mb-3 flex items-center gap-2"><X size={16} className="text-red-400" />Exclusions</h3>
+              <div className="bg-white rounded-2xl p-5 border border-[#E8E0D5]">
+                <h3 className="text-[#1C1917] font-semibold mb-3 flex items-center gap-2"><X size={16} className="text-red-400" />Exclusions</h3>
                 <ul className="space-y-2">
                   {pkg.exclusions.map((exc, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm text-[#A8B0BA]">
+                    <li key={i} className="flex items-center gap-2 text-sm text-[#78716C]">
                       <X size={13} className="text-red-400 shrink-0" />{exc}
                     </li>
                   ))}
@@ -146,19 +146,19 @@ export default function PackageDetail() {
               <h2 className="text-xl font-bold text-white mb-4">Day-by-Day Itinerary</h2>
               <div className="space-y-3">
                 {pkg.itinerary.map((day) => (
-                  <div key={day.day} className="bg-[#171E27] border border-white/[0.06] rounded-xl overflow-hidden">
+                  <div key={day.day} className="bg-white border border-[#E8E0D5] rounded-xl overflow-hidden">
                     <button className="w-full flex items-center justify-between p-4 text-left"
                       onClick={() => setExpandedDay(expandedDay === day.day ? null : day.day)}>
                       <div className="flex items-center gap-3">
                         <span className="w-8 h-8 rounded-full bg-[#F4B942]/20 border border-[#F4B942]/30 flex items-center justify-center text-[#F4B942] text-xs font-bold shrink-0">
                           {day.day}
                         </span>
-                        <span className="text-white font-medium text-sm">Day {day.day}: {day.title}</span>
+                        <span className="text-[#1C1917] font-medium text-sm">Day {day.day}: {day.title}</span>
                       </div>
-                      {expandedDay === day.day ? <ChevronUp size={16} className="text-[#A8B0BA]" /> : <ChevronDown size={16} className="text-[#A8B0BA]" />}
+                      {expandedDay === day.day ? <ChevronUp size={16} className="text-[#78716C]" /> : <ChevronDown size={16} className="text-[#78716C]" />}
                     </button>
                     {expandedDay === day.day && (
-                      <div className="px-4 pb-4 text-sm text-[#A8B0BA] border-t border-white/[0.06] pt-3">{day.description}</div>
+                      <div className="px-4 pb-4 text-sm text-[#78716C] border-t border-[#E8E0D5] pt-3">{day.description}</div>
                     )}
                   </div>
                 ))}
@@ -168,27 +168,27 @@ export default function PackageDetail() {
 
           {/* Booking Sidebar */}
           <div className="space-y-5">
-            <div className="bg-[#171E27] border border-white/[0.06] rounded-2xl p-5 sticky top-24">
+            <div className="bg-white border border-[#E8E0D5] rounded-2xl p-5 sticky top-24">
               <div className="mb-4">
-                <p className="text-[#A8B0BA] text-xs line-through">₹{pkg.originalPrice.toLocaleString('en-IN')} <span className="text-red-400">({pkg.discount}% off)</span></p>
+                <p className="text-[#78716C] text-xs line-through">₹{pkg.originalPrice.toLocaleString('en-IN')} <span className="text-red-400">({pkg.discount}% off)</span></p>
                 <p className="text-[#F4B942] text-3xl font-bold">₹{pkg.price.toLocaleString('en-IN')}</p>
-                <p className="text-[#A8B0BA] text-xs">per person</p>
+                <p className="text-[#78716C] text-xs">per person</p>
               </div>
               <div className="mb-4">
-                <label className="text-xs text-[#A8B0BA] mb-1.5 block">Number of Travelers</label>
+                <label className="text-xs text-[#78716C] mb-1.5 block">Number of Travelers</label>
                 <div className="flex items-center gap-3">
-                  <button onClick={() => setTravelers(Math.max(1, travelers - 1))} className="w-8 h-8 rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors flex items-center justify-center text-lg">−</button>
-                  <span className="text-white font-semibold text-lg w-8 text-center">{travelers}</span>
-                  <button onClick={() => setTravelers(travelers + 1)} className="w-8 h-8 rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors flex items-center justify-center text-lg">+</button>
+                  <button onClick={() => setTravelers(Math.max(1, travelers - 1))} className="w-8 h-8 rounded-full bg-[#F5F0E8] border border-[#E8E0D5] text-white hover:bg-[#EDE8E0] transition-colors flex items-center justify-center text-lg">−</button>
+                  <span className="text-[#1C1917] font-semibold text-lg w-8 text-center">{travelers}</span>
+                  <button onClick={() => setTravelers(travelers + 1)} className="w-8 h-8 rounded-full bg-[#F5F0E8] border border-[#E8E0D5] text-white hover:bg-[#EDE8E0] transition-colors flex items-center justify-center text-lg">+</button>
                 </div>
               </div>
               <div className="bg-[#F4B942]/5 border border-[#F4B942]/10 rounded-xl p-3 mb-4">
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-[#A8B0BA]">₹{pkg.price.toLocaleString('en-IN')} × {travelers}</span>
-                  <span className="text-white">₹{(pkg.price * travelers).toLocaleString('en-IN')}</span>
+                  <span className="text-[#78716C]">₹{pkg.price.toLocaleString('en-IN')} × {travelers}</span>
+                  <span className="text-[#1C1917]">₹{(pkg.price * travelers).toLocaleString('en-IN')}</span>
                 </div>
                 <div className="flex justify-between font-bold">
-                  <span className="text-white">Total</span>
+                  <span className="text-[#1C1917]">Total</span>
                   <span className="text-[#F4B942]">₹{totalPrice.toLocaleString('en-IN')}</span>
                 </div>
               </div>
@@ -197,10 +197,10 @@ export default function PackageDetail() {
                 Book This Package
               </button>
               <Link to={`${TRAVEL_BASE}/contact?package=${pkg.id}`}
-                className="block w-full text-center border border-white/20 hover:border-white/40 text-white py-3 rounded-xl transition-colors text-sm">
+                className="block w-full text-center border border-[#D6CFC4] hover:border-white/40 text-white py-3 rounded-xl transition-colors text-sm">
                 Send Enquiry
               </Link>
-              <p className="text-[#A8B0BA] text-xs text-center mt-3">Free cancellation within 24 hours</p>
+              <p className="text-[#78716C] text-xs text-center mt-3">Free cancellation within 24 hours</p>
             </div>
           </div>
         </div>

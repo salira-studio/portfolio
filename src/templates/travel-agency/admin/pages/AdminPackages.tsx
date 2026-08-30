@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Plus, Search, Pencil, Trash2, X, Check, Star, TrendingUp } from 'lucide-react'
-import { packages as initialPackages, type TourPackage } from '../../data/packages'
+import { type TourPackage } from '../../data/packages'
+import { savePackages, getPackages } from '../../data/travelStore'
 
 const categoryColors: Record<string, string> = {
   luxury: 'bg-yellow-500/20 text-yellow-300', adventure: 'bg-emerald-500/20 text-emerald-300',
@@ -10,11 +11,17 @@ const categoryColors: Record<string, string> = {
 }
 
 export default function AdminPackages() {
-  const [pkgs, setPkgs] = useState<TourPackage[]>(initialPackages)
+  const [pkgs, setPkgs] = useState<TourPackage[]>(() => getPackages())
   const [query, setQuery] = useState('')
   const [editId, setEditId] = useState<string | null>(null)
   const [deleteId, setDeleteId] = useState<string | null>(null)
   const [editForm, setEditForm] = useState<Partial<TourPackage>>({})
+
+  // Persist every change to shared store so customer site picks it up
+  function update(next: TourPackage[]) {
+    setPkgs(next)
+    savePackages(next)
+  }
 
   const filtered = pkgs.filter(p =>
     p.title.toLowerCase().includes(query.toLowerCase()) ||
@@ -27,21 +34,21 @@ export default function AdminPackages() {
   }
 
   const saveEdit = () => {
-    setPkgs(prev => prev.map(p => p.id === editId ? { ...p, ...editForm } : p))
+    update(pkgs.map(p => p.id === editId ? { ...p, ...editForm } : p))
     setEditId(null)
   }
 
   const confirmDelete = () => {
-    setPkgs(prev => prev.filter(p => p.id !== deleteId))
+    update(pkgs.filter(p => p.id !== deleteId))
     setDeleteId(null)
   }
 
   const toggleFeatured = (id: string) => {
-    setPkgs(prev => prev.map(p => p.id === id ? { ...p, featured: !p.featured } : p))
+    update(pkgs.map(p => p.id === id ? { ...p, featured: !p.featured } : p))
   }
 
   const toggleTrending = (id: string) => {
-    setPkgs(prev => prev.map(p => p.id === id ? { ...p, trending: !p.trending } : p))
+    update(pkgs.map(p => p.id === id ? { ...p, trending: !p.trending } : p))
   }
 
   return (

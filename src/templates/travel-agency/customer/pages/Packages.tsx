@@ -2,8 +2,8 @@ import { useState, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { Search, X, SlidersHorizontal } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { packages } from '../../data/packages'
 import { PackageCard } from '../components/PackageCard'
+import { getPackages, useStoreVersion } from '../../data/travelStore'
 
 const categories = ['All', 'luxury', 'adventure', 'family', 'honeymoon', 'budget', 'cultural']
 const durations = ['All', '1–4 days', '5–7 days', '8–12 days', '13+ days']
@@ -28,6 +28,7 @@ function inPriceRange(price: number, range: string) {
 }
 
 export default function Packages() {
+  useStoreVersion() // re-render when admin updates packages
   const [searchParams] = useSearchParams()
   const initialCat = searchParams.get('category') || 'All'
   const [query, setQuery] = useState('')
@@ -38,7 +39,7 @@ export default function Packages() {
   const [filtersOpen, setFiltersOpen] = useState(false)
 
   const filtered = useMemo(() => {
-    let list = [...packages]
+    let list = [...getPackages()]
     if (query) list = list.filter(p =>
       p.title.toLowerCase().includes(query.toLowerCase()) ||
       p.destination.toLowerCase().includes(query.toLowerCase()) ||
@@ -60,50 +61,50 @@ export default function Packages() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0D1117]">
+    <div className="min-h-screen bg-[#FDFAF5]">
       {/* Header */}
-      <section className="bg-[#151B23] border-b border-white/[0.06] py-14">
+      <section className="bg-[#F5F0E8] border-b border-[#E8E0D5] py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <p className="text-[#F4B942] text-sm font-medium uppercase tracking-wider mb-2">Curated For You</p>
             <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">Tour Packages</h1>
-            <p className="text-[#A8B0BA]">{filtered.length} packages available</p>
+            <p className="text-[#78716C]">{filtered.length} packages available</p>
           </motion.div>
         </div>
       </section>
 
       {/* Sticky Filter Bar */}
-      <section className="sticky top-16 z-30 bg-[#0D1117]/95 backdrop-blur-xl border-b border-white/[0.06] py-4">
+      <section className="sticky top-16 z-30 bg-[#FDFAF5]/95 backdrop-blur-xl border-b border-[#E8E0D5] py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center gap-3">
           <div className="relative flex-1 min-w-48 max-w-xs">
-            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#A8B0BA]" />
+            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#78716C]" />
             <input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search packages..."
-              className="w-full bg-[#171E27] border border-white/10 rounded-xl pl-8 pr-8 py-2.5 text-sm text-white placeholder:text-[#A8B0BA]/60 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
-            {query && <button onClick={() => setQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#A8B0BA]"><X size={13} /></button>}
+              className="w-full bg-white border border-[#E8E0D5] rounded-xl pl-8 pr-8 py-2.5 text-sm text-white placeholder:text-[#78716C]/60 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
+            {query && <button onClick={() => setQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#78716C]"><X size={13} /></button>}
           </div>
 
           {/* Category pills */}
           <div className="flex items-center gap-1.5 flex-wrap">
             {categories.map(c => (
               <button key={c} onClick={() => setCategory(c)}
-                className={`px-3 py-2 rounded-xl text-xs font-medium capitalize transition-colors ${category === c ? 'bg-[#F4B942] text-[#0D1117]' : 'bg-[#171E27] text-[#A8B0BA] hover:text-white border border-white/10'}`}>
+                className={`px-3 py-2 rounded-xl text-xs font-medium capitalize transition-colors ${category === c ? 'bg-[#F4B942] text-[#0D1117]' : 'bg-white text-[#78716C] hover:text-white border border-[#E8E0D5]'}`}>
                 {categoryLabels[c]}
               </button>
             ))}
           </div>
 
           <button onClick={() => setFiltersOpen(!filtersOpen)}
-            className={`flex items-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-medium transition-colors ${filtersOpen ? 'bg-[#F4B942]/20 text-[#F4B942] border border-[#F4B942]/30' : 'bg-[#171E27] text-[#A8B0BA] border border-white/10'}`}>
+            className={`flex items-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-medium transition-colors ${filtersOpen ? 'bg-[#F4B942]/20 text-[#F4B942] border border-[#F4B942]/30' : 'bg-white text-[#78716C] border border-[#E8E0D5]'}`}>
             <SlidersHorizontal size={13} />
             Filters
           </button>
 
           <select value={sortBy} onChange={e => setSortBy(e.target.value as typeof sortBy)}
-            className="bg-[#171E27] border border-white/10 text-[#A8B0BA] text-xs rounded-xl px-3 py-2.5 focus:outline-none cursor-pointer ml-auto">
-            <option value="rating" className="bg-[#151B23]">Top Rated</option>
-            <option value="price_asc" className="bg-[#151B23]">Price: Low–High</option>
-            <option value="price_desc" className="bg-[#151B23]">Price: High–Low</option>
-            <option value="name" className="bg-[#151B23]">Name A–Z</option>
+            className="bg-white border border-[#E8E0D5] text-[#78716C] text-xs rounded-xl px-3 py-2.5 focus:outline-none cursor-pointer ml-auto">
+            <option value="rating" className="bg-[#F5F0E8]">Top Rated</option>
+            <option value="price_asc" className="bg-[#F5F0E8]">Price: Low–High</option>
+            <option value="price_desc" className="bg-[#F5F0E8]">Price: High–Low</option>
+            <option value="name" className="bg-[#F5F0E8]">Name A–Z</option>
           </select>
         </div>
 
@@ -111,25 +112,25 @@ export default function Packages() {
         <AnimatePresence>
           {filtersOpen && (
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}
-              className="border-t border-white/[0.06] mt-3">
+              className="border-t border-[#E8E0D5] mt-3">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-wrap gap-6">
                 <div>
-                  <p className="text-xs text-[#A8B0BA] mb-2 font-medium">Duration</p>
+                  <p className="text-xs text-[#78716C] mb-2 font-medium">Duration</p>
                   <div className="flex flex-wrap gap-2">
                     {durations.map(d => (
                       <button key={d} onClick={() => setDurationFilter(d)}
-                        className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${durationFilter === d ? 'bg-[#F4B942] text-[#0D1117] font-medium' : 'bg-[#171E27] text-[#A8B0BA] border border-white/10'}`}>
+                        className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${durationFilter === d ? 'bg-[#F4B942] text-[#0D1117] font-medium' : 'bg-white text-[#78716C] border border-[#E8E0D5]'}`}>
                         {d}
                       </button>
                     ))}
                   </div>
                 </div>
                 <div>
-                  <p className="text-xs text-[#A8B0BA] mb-2 font-medium">Budget</p>
+                  <p className="text-xs text-[#78716C] mb-2 font-medium">Budget</p>
                   <div className="flex flex-wrap gap-2">
                     {priceRanges.map(p => (
                       <button key={p} onClick={() => setPriceFilter(p)}
-                        className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${priceFilter === p ? 'bg-[#F4B942] text-[#0D1117] font-medium' : 'bg-[#171E27] text-[#A8B0BA] border border-white/10'}`}>
+                        className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${priceFilter === p ? 'bg-[#F4B942] text-[#0D1117] font-medium' : 'bg-white text-[#78716C] border border-[#E8E0D5]'}`}>
                         {p}
                       </button>
                     ))}
@@ -146,8 +147,8 @@ export default function Packages() {
         {filtered.length === 0 ? (
           <div className="text-center py-24">
             <p className="text-5xl mb-4">🧳</p>
-            <p className="text-white font-semibold text-xl mb-2">No packages match your filters</p>
-            <p className="text-[#A8B0BA]">Try adjusting your search or filters</p>
+            <p className="text-[#1C1917] font-semibold text-xl mb-2">No packages match your filters</p>
+            <p className="text-[#78716C]">Try adjusting your search or filters</p>
             <button onClick={() => { setQuery(''); setCategory('All'); setDurationFilter('All'); setPriceFilter('All') }}
               className="mt-4 text-[#F4B942] text-sm hover:underline">Reset All Filters</button>
           </div>

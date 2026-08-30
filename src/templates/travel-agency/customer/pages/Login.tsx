@@ -57,10 +57,10 @@ export default function Login() {
               <span className="font-bold text-white text-2xl">Voyage<span className="text-[#F4B942]">AI</span></span>
             </Link>
             <h1 className="text-2xl font-bold text-white">Welcome Back</h1>
-            <p className="text-[#A8B0BA] text-sm mt-1">Sign in to access your bookings and wishlist</p>
+            <p className="text-[#78716C] text-sm mt-1">Sign in to access your bookings and wishlist</p>
           </div>
 
-          <div className="bg-[#171E27] border border-white/[0.06] rounded-2xl p-6">
+          <div className="bg-white border border-[#E8E0D5] rounded-2xl p-6">
             {error && (
               <div className="flex items-center gap-2.5 bg-red-500/10 border border-red-500/20 rounded-xl p-3 mb-4 text-sm text-red-400">
                 <AlertCircle size={16} className="shrink-0" />
@@ -70,17 +70,17 @@ export default function Login() {
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="text-xs text-[#A8B0BA] mb-1.5 block">Email</label>
+                <label className="text-xs text-[#78716C] mb-1.5 block">Email</label>
                 <input type="email" value={email} onChange={e => setEmail(e.target.value)} required
-                  className="w-full bg-[#0D1117] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F4B942]/40 transition-all" />
+                  className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F4B942]/40 transition-all" />
               </div>
               <div>
-                <label className="text-xs text-[#A8B0BA] mb-1.5 block">Password</label>
+                <label className="text-xs text-[#78716C] mb-1.5 block">Password</label>
                 <div className="relative">
                   <input type={showPass ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)} required
-                    className="w-full bg-[#0D1117] border border-white/10 rounded-xl px-4 py-3 pr-10 text-sm text-white focus:outline-none focus:border-[#F4B942]/40 transition-all" />
+                    className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 pr-10 text-sm text-white focus:outline-none focus:border-[#F4B942]/40 transition-all" />
                   <button type="button" onClick={() => setShowPass(!showPass)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#A8B0BA] hover:text-white">
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#78716C] hover:text-white">
                     {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
                   </button>
                 </div>
@@ -91,15 +91,15 @@ export default function Login() {
               </button>
             </form>
 
-            <div className="mt-5 pt-5 border-t border-white/[0.06]">
-              <p className="text-xs text-[#A8B0BA] text-center mb-3">Demo Credentials</p>
-              <div className="bg-[#0D1117] rounded-xl p-3 text-xs font-mono text-[#A8B0BA] space-y-1">
+            <div className="mt-5 pt-5 border-t border-[#E8E0D5]">
+              <p className="text-xs text-[#78716C] text-center mb-3">Demo Credentials</p>
+              <div className="bg-[#FDFAF5] rounded-xl p-3 text-xs font-mono text-[#78716C] space-y-1">
                 <p>Email: <span className="text-[#F4B942]">customer@travel.com</span></p>
                 <p>Pass: <span className="text-[#F4B942]">password123</span></p>
               </div>
             </div>
 
-            <p className="text-center text-sm text-[#A8B0BA] mt-4">
+            <p className="text-center text-sm text-[#78716C] mt-4">
               Don't have an account?{' '}
               <Link to={`${TRAVEL_BASE}/register`} className="text-[#F4B942] hover:underline">Sign Up</Link>
             </p>

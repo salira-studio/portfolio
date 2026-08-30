@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Search } from 'lucide-react'
-import { mockBookings, type Booking } from '../../data/bookings'
+import { type Booking } from '../../data/bookings'
+import { getBookings, saveBookings } from '../../data/travelStore'
 
 type Status = 'all' | 'confirmed' | 'pending' | 'cancelled' | 'completed'
 
@@ -19,7 +20,7 @@ const paymentColors: Record<string, string> = {
 }
 
 export default function AdminBookings() {
-  const [bookings, setBookings] = useState<Booking[]>(mockBookings)
+  const [bookings, setBookings] = useState<Booking[]>(() => getBookings())
   const [query, setQuery] = useState('')
   const [statusFilter, setStatusFilter] = useState<Status>('all')
 
@@ -32,7 +33,9 @@ export default function AdminBookings() {
   })
 
   const updateStatus = (id: string, status: Booking['status']) => {
-    setBookings(prev => prev.map(b => b.id === id ? { ...b, status } : b))
+    const next = bookings.map(b => b.id === id ? { ...b, status } : b)
+    setBookings(next)
+    saveBookings(next)
   }
 
   return (

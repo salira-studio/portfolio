@@ -23,7 +23,7 @@ export function DestinationCard({ destination, index = 0, variant = 'default' }:
       transition={{ delay: index * 0.1, duration: 0.5 }}
     >
       <Link to={`${TRAVEL_BASE}/destinations/${destination.id}`} className="block group">
-        <div className={`relative overflow-hidden rounded-2xl bg-[#171E27] border border-white/[0.06] hover:border-[#F4B942]/30 transition-all duration-300 ${isLarge ? 'h-72' : 'h-60'}`}>
+        <div className={`relative overflow-hidden rounded-2xl bg-white border border-[#E8E0D5] hover:border-[#F4B942]/30 transition-all duration-300 ${isLarge ? 'h-72' : 'h-60'}`}>
           {/* Background Image */}
           <div
             className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
@@ -42,7 +42,7 @@ export function DestinationCard({ destination, index = 0, variant = 'default' }:
               </span>
             )}
             {destination.featured && !destination.trending && (
-              <span className="bg-white/10 backdrop-blur text-white text-xs font-medium px-2.5 py-1 rounded-full border border-white/20">
+              <span className="bg-[#EDE8E0] backdrop-blur text-white text-xs font-medium px-2.5 py-1 rounded-full border border-[#D6CFC4]">
                 Featured
               </span>
             )}
@@ -64,7 +64,7 @@ export function DestinationCard({ destination, index = 0, variant = 'default' }:
               <MapPin size={12} />
               <span>{destination.country}</span>
             </div>
-            <h3 className="text-white font-bold text-lg leading-tight mb-1">{destination.name}</h3>
+            <h3 className="text-[#1C1917] font-bold text-lg leading-tight mb-1">{destination.name}</h3>
             <p className="text-white/70 text-xs mb-3 line-clamp-1">{destination.tagline}</p>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
