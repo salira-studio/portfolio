@@ -184,6 +184,10 @@ const PRICE_FACTORS = [
     title: 'Locations',
     description: 'Is it for one business/location or multiple branches?',
   },
+  {
+    title: 'Timeline',
+    description: 'Standard delivery or accelerated? Rush timelines require more focused resource allocation.',
+  },
 ]
 
 const PRICING_STEPS = [
@@ -242,6 +246,10 @@ const PROJECT_FEE_COVERS = [
   {
     title: 'Handover',
     description: 'Giving the client the completed software and required project assets.',
+  },
+  {
+    title: 'Documentation',
+    description: 'Clear guides for using, managing and maintaining the delivered software.',
   },
 ]
 
@@ -366,106 +374,231 @@ function ExpandableCard({
   )
 }
 
+/* ── Color theme per pricing tier ── */
+const CARD_THEMES: Record<string, {
+  gradient: string
+  accent: string
+  accentSoft: string
+  accentText: string
+  dotColor: string
+  badge: string
+  badgeText: string
+  ctaBg: string
+  ctaHover: string
+  ctaText: string
+  glow: string
+}> = {
+  website: {
+    gradient: 'from-[#3A7EFF]/8 via-white to-white',
+    accent: '#3A7EFF',
+    accentSoft: 'rgba(58,126,255,0.1)',
+    accentText: '#2563EB',
+    dotColor: 'bg-blue-400',
+    badge: 'bg-blue-50 border-blue-200',
+    badgeText: 'text-blue-700',
+    ctaBg: 'bg-blue-600 hover:bg-blue-700',
+    ctaHover: 'hover:bg-blue-50',
+    ctaText: 'text-white',
+    glow: 'rgba(58,126,255,0.15)',
+  },
+  ecommerce: {
+    gradient: 'from-[#7C5CFC]/8 via-white to-white',
+    accent: '#7C5CFC',
+    accentSoft: 'rgba(124,92,252,0.1)',
+    accentText: '#6D28D9',
+    dotColor: 'bg-violet-400',
+    badge: 'bg-violet-50 border-violet-200',
+    badgeText: 'text-violet-700',
+    ctaBg: 'bg-violet-600 hover:bg-violet-700',
+    ctaHover: 'hover:bg-violet-50',
+    ctaText: 'text-white',
+    glow: 'rgba(124,92,252,0.15)',
+  },
+  mobile: {
+    gradient: 'from-[#00BFFF]/8 via-white to-white',
+    accent: '#00BFFF',
+    accentSoft: 'rgba(0,191,255,0.1)',
+    accentText: '#0284C7',
+    dotColor: 'bg-cyan-400',
+    badge: 'bg-cyan-50 border-cyan-200',
+    badgeText: 'text-cyan-700',
+    ctaBg: 'bg-cyan-500 hover:bg-cyan-600',
+    ctaHover: 'hover:bg-cyan-50',
+    ctaText: 'text-white',
+    glow: 'rgba(0,191,255,0.15)',
+  },
+  software: {
+    gradient: 'from-[#14161C] via-[#1e2130] to-[#14161C]',
+    accent: '#D9A441',
+    accentSoft: 'rgba(217,164,65,0.15)',
+    accentText: '#D9A441',
+    dotColor: 'bg-amber-400',
+    badge: 'bg-amber-400 border-amber-400',
+    badgeText: 'text-black',
+    ctaBg: 'bg-[#D9A441] hover:bg-amber-400',
+    ctaHover: '',
+    ctaText: 'text-black',
+    glow: 'rgba(217,164,65,0.25)',
+  },
+  platform: {
+    gradient: 'from-[#C6472B]/8 via-white to-white',
+    accent: '#C6472B',
+    accentSoft: 'rgba(198,71,43,0.1)',
+    accentText: '#B91C1C',
+    dotColor: 'bg-red-400',
+    badge: 'bg-red-50 border-red-200',
+    badgeText: 'text-red-700',
+    ctaBg: 'bg-[#C6472B] hover:bg-red-700',
+    ctaHover: 'hover:bg-red-50',
+    ctaText: 'text-white',
+    glow: 'rgba(198,71,43,0.15)',
+  },
+}
+
 /* ── Pricing Category Card ── */
 
 function PricingCard({ category, reduced }: { category: PricingCategory; reduced: boolean }) {
   const [showDetails, setShowDetails] = useState(false)
   const whatsappUrl = `https://wa.me/917397430568?text=${encodeURIComponent(`Hi SaLira Studio, I'm interested in discussing a ${category.name.toLowerCase()} project.`)}`
+  const theme = CARD_THEMES[category.id] ?? CARD_THEMES.website
+  const isDark = category.id === 'software'
 
   return (
     <motion.div
       initial={reduced ? {} : { opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className={`relative flex flex-col rounded-2xl border bg-white p-6 sm:p-7 transition-all duration-300 ${
-        category.featured
-          ? 'border-[var(--sl-ink)] shadow-lg'
-          : 'border-[var(--sl-line)] shadow-sm hover:border-[var(--sl-line-dark)] hover:shadow-md'
+      className={`group relative flex flex-col rounded-2xl overflow-hidden transition-all duration-300 ${
+        isDark
+          ? 'bg-gradient-to-br from-[#14161C] via-[#1e2130] to-[#14161C] border border-[rgba(217,164,65,0.3)] shadow-[0_8px_32px_rgba(0,0,0,0.25)]'
+          : 'bg-white border border-[var(--sl-line)] shadow-sm'
       }`}
+      whileHover={reduced ? {} : {
+        y: -6,
+        boxShadow: `0 20px 48px ${theme.glow}, 0 4px 12px rgba(0,0,0,0.06)`,
+        transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
+      }}
     >
-      {category.featured && (
-        <div className="absolute -top-3 left-6">
-          <span className="inline-flex items-center rounded-full bg-[var(--sl-ink)] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
-            Core Offering
-          </span>
-        </div>
-      )}
+      {/* Animated gradient top bar */}
+      <div
+        className="h-[3px] w-full transition-all duration-500"
+        style={{
+          background: isDark
+            ? `linear-gradient(90deg, transparent, ${theme.accent}, transparent)`
+            : `linear-gradient(90deg, transparent, ${theme.accent} 50%, transparent)`,
+          opacity: isDark ? 1 : 0,
+        }}
+        ref={(el) => {
+          if (el?.parentElement) {
+            const parent = el.parentElement as HTMLElement
+            parent.addEventListener('mouseenter', () => { el.style.opacity = '1' })
+            parent.addEventListener('mouseleave', () => { el.style.opacity = isDark ? '1' : '0' })
+          }
+        }}
+      />
 
-      <div>
-        <h3 className="font-display text-lg font-bold tracking-tight text-[var(--sl-ink)]">
-          {category.name}
-        </h3>
-        <div className="mt-2 flex items-baseline gap-2">
-          <span className="font-display text-2xl font-bold text-[var(--sl-ink)]">
-            {category.price}
-          </span>
-        </div>
-        <p className="mt-2 text-xs text-[var(--sl-charcoal)] leading-relaxed">
-          {category.tagline}
-        </p>
-      </div>
+      <div className="flex flex-col flex-1 p-6 sm:p-7">
+        {/* Badge */}
+        {category.featured && (
+          <div className="mb-4 self-start">
+            <span className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-wider ${theme.badge} ${theme.badgeText}`}>
+              <span className="h-1.5 w-1.5 rounded-full bg-current animate-pulse" />
+              Core Offering
+            </span>
+          </div>
+        )}
 
-      <div className="my-4 h-px bg-[var(--sl-line-light)]" />
-
-      <div className="flex-1">
-        <p className="text-[11px] font-bold uppercase tracking-wider text-[var(--sl-charcoal)] mb-2">
-          Examples
-        </p>
-        <div className="space-y-1">
-          {category.examples.map((example) => (
-            <div key={example} className="flex items-start gap-2 text-xs text-[var(--sl-ink-soft)]">
-              <span className="mt-1 h-1 w-1 rounded-full bg-[var(--sl-charcoal)]/30 shrink-0" />
-              <span>{example}</span>
-            </div>
-          ))}
-        </div>
-
-        <button
-          type="button"
-          onClick={() => setShowDetails(!showDetails)}
-          className="mt-4 text-xs font-medium text-[var(--sl-ink)] underline underline-offset-2 hover:text-[var(--sl-charcoal)] transition-colors cursor-pointer"
-        >
-          {showDetails ? 'Hide typical work' : 'Show typical work'}
-        </button>
-
-        <AnimatePresence>
-          {showDetails && (
-            <motion.div
-              initial={reduced ? {} : { height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={reduced ? {} : { height: 0, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="overflow-hidden"
+        {/* Name + price */}
+        <div>
+          <h3 className={`font-display text-lg font-bold tracking-tight ${isDark ? 'text-white' : 'text-[var(--sl-ink)]'}`}>
+            {category.name}
+          </h3>
+          <div className="mt-2 flex items-baseline gap-2">
+            <span
+              className="font-display text-2xl font-bold"
+              style={{ color: isDark ? theme.accent : theme.accent }}
             >
-              <div className="mt-3 space-y-1">
-                {category.typicalWork.map((work) => (
-                  <div key={work} className="flex items-start gap-2 text-xs text-[var(--sl-ink-soft)]">
-                    <span className="mt-1 h-1 w-1 rounded-full bg-[var(--sl-charcoal)]/30 shrink-0" />
-                    <span>{work}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+              {category.price}
+            </span>
+          </div>
+          <p className={`mt-2 text-xs leading-relaxed ${isDark ? 'text-[rgba(255,255,255,0.6)]' : 'text-[var(--sl-charcoal)]'}`}>
+            {category.tagline}
+          </p>
+        </div>
 
-      <div className="mt-5 pt-4 border-t border-[var(--sl-line-light)]">
-        <MagneticButton strength={0.15} className="w-full">
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-all ${
-              category.featured
-                ? 'bg-[var(--sl-ink)] text-white hover:bg-black'
-                : 'border border-[var(--sl-line)] bg-[#F8F8F8] text-[var(--sl-ink)] hover:bg-[var(--sl-sand-deep)]'
-            }`}
+        {/* Divider */}
+        <div
+          className="my-4 h-px"
+          style={{ background: isDark ? 'rgba(255,255,255,0.08)' : `linear-gradient(90deg, ${theme.accent}30, transparent)` }}
+        />
+
+        {/* Examples */}
+        <div className="flex-1">
+          <p
+            className="text-[10px] font-bold uppercase tracking-widest mb-2"
+            style={{ color: isDark ? 'rgba(255,255,255,0.4)' : theme.accentText }}
           >
-            <span>{category.cta}</span>
-            <ArrowRight size={14} />
-          </a>
-        </MagneticButton>
+            Examples
+          </p>
+          <div className="space-y-1.5">
+            {category.examples.map((example) => (
+              <div key={example} className="flex items-start gap-2 text-xs">
+                <span
+                  className="mt-[5px] h-1.5 w-1.5 rounded-full shrink-0"
+                  style={{ backgroundColor: theme.accent, opacity: 0.7 }}
+                />
+                <span className={isDark ? 'text-[rgba(255,255,255,0.72)]' : 'text-[var(--sl-ink-soft)]'}>
+                  {example}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setShowDetails(!showDetails)}
+            className={`mt-4 text-xs font-semibold underline underline-offset-2 transition-colors cursor-pointer`}
+            style={{ color: theme.accentText }}
+          >
+            {showDetails ? 'Hide typical work' : 'Show typical work'}
+          </button>
+
+          <AnimatePresence>
+            {showDetails && (
+              <motion.div
+                initial={reduced ? {} : { height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={reduced ? {} : { height: 0, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="overflow-hidden"
+              >
+                <div className="mt-3 space-y-1.5">
+                  {category.typicalWork.map((work) => (
+                    <div key={work} className="flex items-start gap-2 text-xs">
+                      <span className="mt-[5px] h-1.5 w-1.5 rounded-full shrink-0" style={{ backgroundColor: theme.accent, opacity: 0.5 }} />
+                      <span className={isDark ? 'text-[rgba(255,255,255,0.65)]' : 'text-[var(--sl-ink-soft)]'}>{work}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* CTA */}
+        <div className="mt-5 pt-4" style={{ borderTop: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid var(--sl-line-light)' }}>
+          <MagneticButton strength={0.15} className="w-full">
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold transition-all duration-200 ${theme.ctaBg} ${theme.ctaText}`}
+            >
+              <span>{category.cta}</span>
+              <ArrowRight size={14} />
+            </a>
+          </MagneticButton>
+        </div>
       </div>
     </motion.div>
   )
@@ -507,23 +640,96 @@ export function PricingTiers() {
           </p>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {PRICE_FACTORS.map((factor, idx) => (
-            <motion.div
-              key={factor.title}
-              initial={reduced ? {} : { opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
-              className="rounded-xl border border-[var(--sl-line)] bg-[#F8F8F8] p-5 shadow-sm transition-all duration-200 hover:border-[rgba(20,22,28,0.15)] hover:shadow-md hover:bg-white"
-            >
-              <h3 className="text-sm font-semibold text-[var(--sl-ink)]">
-                {factor.title}
-              </h3>
-              <p className="mt-1.5 text-xs text-[var(--sl-ink-soft)] leading-relaxed">
-                {factor.description}
-              </p>
-            </motion.div>
-          ))}
+        {/* Bento grid — 7 factors, 4+3 layout with shared borders */}
+        <div className="border border-[var(--sl-line)] rounded-2xl overflow-hidden shadow-sm">
+          {/* Row 1 — 4 cards */}
+          <div className="grid grid-cols-2 lg:grid-cols-4">
+            {[
+              { emoji: '⚙️', color: '#3A7EFF', soft: 'rgba(58,126,255,0.07)', hover: 'rgba(58,126,255,0.04)' },
+              { emoji: '👥', color: '#7C5CFC', soft: 'rgba(124,92,252,0.07)', hover: 'rgba(124,92,252,0.04)' },
+              { emoji: '📱', color: '#00BFFF', soft: 'rgba(0,191,255,0.07)', hover: 'rgba(0,191,255,0.04)' },
+              { emoji: '🔗', color: '#D9A441', soft: 'rgba(217,164,65,0.07)', hover: 'rgba(217,164,65,0.04)' },
+            ].map((theme, idx) => {
+              const factor = PRICE_FACTORS[idx]
+              return (
+                <motion.div
+                  key={factor.title}
+                  initial={reduced ? {} : { opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.45, delay: idx * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                  className="group relative bg-white p-6 cursor-default transition-all duration-300 border-b border-r border-[var(--sl-line)] last:border-r-0 lg:[&:nth-child(4)]:border-r-0"
+                  style={{ backgroundColor: 'white' }}
+                  whileHover={reduced ? {} : { backgroundColor: theme.hover, transition: { duration: 0.2 } }}
+                >
+                  {/* Top accent bar */}
+                  <div
+                    className="absolute top-0 left-0 right-0 h-[2px] scale-x-0 group-hover:scale-x-100 transition-transform duration-400 origin-left"
+                    style={{ background: `linear-gradient(90deg, ${theme.color}, transparent)` }}
+                  />
+                  <div
+                    className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl text-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-[-6deg]"
+                    style={{ background: theme.soft }}
+                  >
+                    {theme.emoji}
+                  </div>
+                  <h3 className="text-sm font-bold text-[var(--sl-ink)] group-hover:translate-x-0.5 transition-transform duration-200">
+                    {factor.title}
+                  </h3>
+                  <p className="mt-1.5 text-xs text-[var(--sl-ink-soft)] leading-relaxed">
+                    {factor.description}
+                  </p>
+                  {/* Corner number */}
+                  <span className="absolute bottom-3 right-4 font-mono text-[10px] font-bold text-[var(--sl-line)] select-none">
+                    0{idx + 1}
+                  </span>
+                </motion.div>
+              )
+            })}
+          </div>
+          {/* Row 2 — 4 cards filling the grid evenly */}
+          <div className="grid grid-cols-2 lg:grid-cols-4">
+            {[
+              { emoji: '🧩', color: '#C6472B', soft: 'rgba(198,71,43,0.07)', hover: 'rgba(198,71,43,0.04)' },
+              { emoji: '🗄️', color: '#2E6F5E', soft: 'rgba(46,111,94,0.07)', hover: 'rgba(46,111,94,0.04)' },
+              { emoji: '📍', color: '#7C5CFC', soft: 'rgba(124,92,252,0.07)', hover: 'rgba(124,92,252,0.04)' },
+              { emoji: '⏱️', color: '#D9A441', soft: 'rgba(217,164,65,0.07)', hover: 'rgba(217,164,65,0.04)' },
+            ].map((theme, idx) => {
+              const factor = PRICE_FACTORS[idx + 4]
+              return (
+                <motion.div
+                  key={factor.title}
+                  initial={reduced ? {} : { opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.45, delay: idx * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                  className="group relative bg-white p-6 cursor-default transition-all duration-300 border-r border-[var(--sl-line)] last:border-r-0"
+                  style={{ backgroundColor: 'white' }}
+                  whileHover={reduced ? {} : { backgroundColor: theme.hover, transition: { duration: 0.2 } }}
+                >
+                  <div
+                    className="absolute top-0 left-0 right-0 h-[2px] scale-x-0 group-hover:scale-x-100 transition-transform duration-400 origin-left"
+                    style={{ background: `linear-gradient(90deg, ${theme.color}, transparent)` }}
+                  />
+                  <div
+                    className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl text-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-[-6deg]"
+                    style={{ background: theme.soft }}
+                  >
+                    {theme.emoji}
+                  </div>
+                  <h3 className="text-sm font-bold text-[var(--sl-ink)] group-hover:translate-x-0.5 transition-transform duration-200">
+                    {factor.title}
+                  </h3>
+                  <p className="mt-1.5 text-xs text-[var(--sl-ink-soft)] leading-relaxed">
+                    {factor.description}
+                  </p>
+                  <span className="absolute bottom-3 right-4 font-mono text-[10px] font-bold text-[var(--sl-line)] select-none">
+                    0{idx + 5}
+                  </span>
+                </motion.div>
+              )
+            })}
+          </div>
         </div>
       </div>
 
@@ -579,24 +785,74 @@ export function PricingTiers() {
           </p>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {PROJECT_FEE_COVERS.map((item, idx) => (
-            <motion.div
-              key={item.title}
-              initial={reduced ? {} : { opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
-              className="rounded-xl border border-[var(--sl-line)] bg-[#F8F8F8] p-5 shadow-sm transition-all duration-200 hover:border-[rgba(20,22,28,0.15)] hover:shadow-md hover:bg-white"
-            >
-              <h3 className="text-sm font-semibold text-[var(--sl-ink)]">
-                {item.title}
-              </h3>
-              <p className="mt-1.5 text-xs text-[var(--sl-ink-soft)] leading-relaxed">
-                {item.description}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+        {/* Bento 4×2 grid — shared borders, color-coded per phase */}
+        {(() => {
+          const themes = [
+            { emoji: '🗺️', color: '#3A7EFF', soft: 'rgba(58,126,255,0.07)',  hover: 'rgba(58,126,255,0.04)'  },
+            { emoji: '🎨', color: '#7C5CFC', soft: 'rgba(124,92,252,0.07)', hover: 'rgba(124,92,252,0.04)' },
+            { emoji: '💻', color: '#00BFFF', soft: 'rgba(0,191,255,0.07)',   hover: 'rgba(0,191,255,0.04)'   },
+            { emoji: '🔗', color: '#D9A441', soft: 'rgba(217,164,65,0.07)',  hover: 'rgba(217,164,65,0.04)'  },
+            { emoji: '🧪', color: '#C6472B', soft: 'rgba(198,71,43,0.07)',   hover: 'rgba(198,71,43,0.04)'   },
+            { emoji: '🚀', color: '#2E6F5E', soft: 'rgba(46,111,94,0.07)',   hover: 'rgba(46,111,94,0.04)'   },
+            { emoji: '📦', color: '#7C5CFC', soft: 'rgba(124,92,252,0.07)', hover: 'rgba(124,92,252,0.04)' },
+            { emoji: '📄', color: '#3A7EFF', soft: 'rgba(58,126,255,0.07)',  hover: 'rgba(58,126,255,0.04)'  },
+          ]
+          const rows = [themes.slice(0, 4), themes.slice(4, 8)]
+          return (
+            <div className="border border-[var(--sl-line)] rounded-2xl overflow-hidden shadow-sm">
+              {rows.map((rowThemes, rowIdx) => (
+                <div key={rowIdx} className={`grid grid-cols-2 lg:grid-cols-4 ${rowIdx === 0 ? 'border-b border-[var(--sl-line)]' : ''}`}>
+                  {rowThemes.map((theme, colIdx) => {
+                    const item = PROJECT_FEE_COVERS[rowIdx * 4 + colIdx]
+                    const globalIdx = rowIdx * 4 + colIdx
+                    return (
+                      <motion.div
+                        key={item.title}
+                        initial={reduced ? {} : { opacity: 0, y: 12 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-40px' }}
+                        transition={{ duration: 0.45, delay: globalIdx * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                        className={`group relative bg-white p-6 cursor-default transition-all duration-300
+                          ${colIdx < 3 ? 'border-r border-[var(--sl-line)]' : ''}
+                          ${colIdx < 2 ? 'border-b lg:border-b-0 border-[var(--sl-line)]' : ''}
+                        `}
+                        style={{ backgroundColor: 'white' }}
+                        whileHover={reduced ? {} : { backgroundColor: theme.hover, transition: { duration: 0.2 } }}
+                      >
+                        {/* Top accent sweep */}
+                        <div
+                          className="absolute top-0 left-0 right-0 h-[2px] scale-x-0 group-hover:scale-x-100 transition-transform duration-400 origin-left"
+                          style={{ background: `linear-gradient(90deg, ${theme.color}, transparent)` }}
+                        />
+                        {/* Icon */}
+                        <div
+                          className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl text-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-[-6deg]"
+                          style={{ background: theme.soft }}
+                        >
+                          {theme.emoji}
+                        </div>
+                        {/* Phase label */}
+                        <h3
+                          className="text-sm font-bold text-[var(--sl-ink)] transition-colors duration-200 group-hover:translate-x-0.5"
+                          style={{ transition: 'color 0.2s, transform 0.2s' }}
+                        >
+                          {item.title}
+                        </h3>
+                        <p className="mt-1.5 text-xs text-[var(--sl-ink-soft)] leading-relaxed">
+                          {item.description}
+                        </p>
+                        {/* Step number watermark */}
+                        <span className="absolute bottom-3 right-4 font-mono text-[10px] font-bold text-[var(--sl-line)] select-none">
+                          0{globalIdx + 1}
+                        </span>
+                      </motion.div>
+                    )
+                  })}
+                </div>
+              ))}
+            </div>
+          )
+        })()}
       </div>
 
       {/* ── Project Fee vs. Third-Party Services ── */}

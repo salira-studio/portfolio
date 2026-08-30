@@ -19,7 +19,7 @@ import { motion, useMotionValue, useSpring, useScroll, useTransform } from 'fram
 import { HeroShowcaseClean } from '../components/HeroShowcaseClean'
 import { PricingTiers } from '../components/PricingTiers'
 import { MagneticButton } from '../components/MagneticButton'
-import { FadeUp, ScaleIn } from '../components/ScrollReveal'
+import { FadeUp, StaggerContainer, StaggerItem, SlideIn } from '../components/ScrollReveal'
 import { EvenMesh } from '../components/EvenMesh'
 import { usePrefersReducedMotion } from '../lib/usePrefersReducedMotion'
 
@@ -262,9 +262,12 @@ export default function Home() {
             </div>
           </FadeUp>
 
-          <div className="grid gap-6 sm:grid-cols-3">
-            <ScaleIn delay={0.08}>
-              <div className="sl-shine group flex h-full flex-col justify-between rounded-2xl border border-[rgba(217,164,65,0.2)] bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(217,164,65,0.45)] hover:shadow-[0_20px_60px_rgba(217,164,65,0.12)]">
+          {/* ── Bento grid — shared borders, no gap ── */}
+          <div className="mt-2 grid grid-cols-1 sm:grid-cols-3 border border-[var(--sl-line)] rounded-2xl overflow-hidden shadow-sm">
+            <StaggerItem>
+              <div className="group relative flex h-full flex-col justify-between bg-white p-7 transition-all duration-300 hover:bg-[rgba(217,164,65,0.03)] border-b sm:border-b-0 sm:border-r border-[var(--sl-line)] cursor-default">
+                {/* Animated top accent */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[var(--sl-gold)] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
                 <div>
                   <span className="sl-icon-bounce flex h-11 w-11 items-center justify-center rounded-2xl bg-[rgba(217,164,65,0.1)] text-[var(--sl-gold)]">
                     <Globe size={22} />
@@ -276,17 +279,18 @@ export default function Home() {
                     From clean 1-page landing sites to comprehensive business platforms with CMS, blog, lead routing, and Google SEO setup.
                   </p>
                 </div>
-                <div className="mt-6 flex items-center justify-between border-t border-[rgba(217,164,65,0.15)] pt-4">
+                <div className="mt-6 flex items-center justify-between border-t border-[var(--sl-line)] pt-4">
                   <span className="font-mono text-xs font-semibold text-[var(--sl-charcoal)]">From ₹15,000</span>
                   <a href="#pricing" className="sl-arrow-hover text-xs font-bold text-[var(--sl-gold)] transition-colors hover:text-[var(--sl-oxblood)]">
                     View Options <span className="sl-arrow">→</span>
                   </a>
                 </div>
               </div>
-            </ScaleIn>
+            </StaggerItem>
 
-            <ScaleIn delay={0.16}>
-              <div className="sl-shine group flex h-full flex-col justify-between rounded-2xl border border-[rgba(198,71,43,0.15)] bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(198,71,43,0.35)] hover:shadow-[0_20px_60px_rgba(198,71,43,0.1)]">
+            <StaggerItem>
+              <div className="group relative flex h-full flex-col justify-between bg-white p-7 transition-all duration-300 hover:bg-[rgba(198,71,43,0.025)] border-b sm:border-b-0 sm:border-r border-[var(--sl-line)] cursor-default">
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[var(--sl-oxblood)] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
                 <div>
                   <span className="sl-icon-bounce flex h-11 w-11 items-center justify-center rounded-2xl bg-[rgba(198,71,43,0.08)] text-[var(--sl-oxblood)]">
                     <Smartphone size={22} />
@@ -298,17 +302,18 @@ export default function Home() {
                     Native-feel mobile apps published to Google Play Store and Apple App Store with push notifications, location tracking, and payments.
                   </p>
                 </div>
-                <div className="mt-6 flex items-center justify-between border-t border-[rgba(198,71,43,0.12)] pt-4">
+                <div className="mt-6 flex items-center justify-between border-t border-[var(--sl-line)] pt-4">
                   <span className="font-mono text-xs font-semibold text-[var(--sl-charcoal)]">From ₹1,00,000</span>
                   <a href="#pricing" className="sl-arrow-hover text-xs font-bold text-[var(--sl-oxblood)] transition-colors hover:text-[var(--sl-gold)]">
                     View Options <span className="sl-arrow">→</span>
                   </a>
                 </div>
               </div>
-            </ScaleIn>
+            </StaggerItem>
 
-            <ScaleIn delay={0.24}>
-              <div className="sl-shine group flex h-full flex-col justify-between rounded-2xl border border-[rgba(46,111,94,0.15)] bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(46,111,94,0.35)] hover:shadow-[0_20px_60px_rgba(46,111,94,0.1)]">
+            <StaggerItem>
+              <div className="group relative flex h-full flex-col justify-between bg-white p-7 transition-all duration-300 hover:bg-[rgba(46,111,94,0.025)] cursor-default">
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[var(--sl-teal-deep)] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
                 <div>
                   <span className="sl-icon-bounce flex h-11 w-11 items-center justify-center rounded-2xl bg-[rgba(46,111,94,0.08)] text-[var(--sl-teal-deep)]">
                     <LayoutDashboard size={22} />
@@ -320,14 +325,14 @@ export default function Home() {
                     Complete multi-device system with shared backend and admin dashboard. Save ₹1L+ by building website and apps together.
                   </p>
                 </div>
-                <div className="mt-6 flex items-center justify-between border-t border-[rgba(46,111,94,0.12)] pt-4">
+                <div className="mt-6 flex items-center justify-between border-t border-[var(--sl-line)] pt-4">
                   <span className="font-mono text-xs font-semibold text-[var(--sl-charcoal)]">From ₹2,50,000</span>
                   <a href="#pricing" className="sl-arrow-hover text-xs font-bold text-[var(--sl-teal-deep)] transition-colors hover:text-[var(--sl-oxblood)]">
                     View Options <span className="sl-arrow">→</span>
                   </a>
                 </div>
               </div>
-            </ScaleIn>
+            </StaggerItem>
           </div>
         </div>
       </section>
@@ -375,33 +380,32 @@ export default function Home() {
             </div>
           </FadeUp>
 
-          <div className="sl-process-rail mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {/* ── Bento grid — 4 steps, shared borders ── */}
+          <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border border-[var(--sl-line)] rounded-2xl overflow-hidden shadow-sm">
             {studioPillars.map((item, idx) => (
-              <ScaleIn key={item.n} delay={idx * 0.08}>
-                <motion.div
-                  className="group relative flex h-full flex-col justify-between rounded-2xl border border-[var(--sl-line)] bg-white p-6 shadow-sm cursor-default overflow-hidden"
-                  whileHover={reduced ? {} : { y: -5, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
-                >
-                  {/* Gradient top bar */}
-                  <div className="absolute top-0 left-0 right-0 h-[3px] rounded-t-xl bg-gradient-to-r from-[var(--sl-teal-deep)] via-[var(--sl-gold)] to-[var(--sl-oxblood)] scale-x-0 group-hover:scale-x-100 transition-transform duration-400 origin-left" />
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <span className="font-display text-3xl font-bold text-[var(--sl-teal-deep)] transition-colors duration-300 group-hover:text-[var(--sl-oxblood)]">
-                        {item.n}
-                      </span>
-                      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[rgba(46,111,94,0.07)] border border-[rgba(46,111,94,0.12)] transition-all duration-300 group-hover:bg-[rgba(198,71,43,0.07)] group-hover:border-[rgba(198,71,43,0.15)] group-hover:scale-110">
-                        <item.icon size={16} className="text-[var(--sl-teal-deep)] transition-colors duration-300 group-hover:text-[var(--sl-oxblood)]" />
-                      </span>
-                    </div>
-                    <h3 className="mt-5 font-display text-lg font-semibold text-[var(--sl-ink)]">
-                      {item.t}
-                    </h3>
-                    <p className="mt-2 text-xs leading-relaxed text-[var(--sl-ink-soft)]">
-                      {item.d}
-                    </p>
-                  </div>
-                </motion.div>
-              </ScaleIn>
+              <motion.div
+                key={item.n}
+                className={`group relative flex flex-col bg-white p-6 cursor-default overflow-hidden transition-all duration-300 hover:bg-[rgba(46,111,94,0.025)]
+                  ${idx < 3 ? 'border-b lg:border-b-0 lg:border-r' : ''}
+                  ${idx === 1 ? 'sm:border-b lg:border-b-0' : ''}
+                  ${idx === 2 ? 'sm:border-r-0 lg:border-r border-b sm:border-b lg:border-b-0' : ''}
+                  border-[var(--sl-line)]`}
+                whileHover={reduced ? {} : { y: -3, transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] } }}
+              >
+                {/* Animated accent bar */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[var(--sl-teal-deep)] via-[var(--sl-gold)] to-[var(--sl-oxblood)] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                {/* Step number + icon row */}
+                <div className="flex items-center justify-between mb-5">
+                  <span className="font-display text-3xl font-bold text-[var(--sl-teal-deep)] group-hover:text-[var(--sl-oxblood)] transition-colors duration-300">
+                    {item.n}
+                  </span>
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[rgba(46,111,94,0.07)] border border-[rgba(46,111,94,0.12)] group-hover:bg-[rgba(198,71,43,0.07)] group-hover:border-[rgba(198,71,43,0.15)] group-hover:scale-110 transition-all duration-300">
+                    <item.icon size={16} className="text-[var(--sl-teal-deep)] group-hover:text-[var(--sl-oxblood)] transition-colors duration-300" />
+                  </span>
+                </div>
+                <h3 className="font-display text-lg font-semibold text-[var(--sl-ink)]">{item.t}</h3>
+                <p className="mt-2 text-xs leading-relaxed text-[var(--sl-ink-soft)]">{item.d}</p>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -420,86 +424,82 @@ export default function Home() {
             </div>
           </FadeUp>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {/* ── Bento grid — 6 cells, 3 cols × 2 rows, shared borders ── */}
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 border border-[var(--sl-line)] rounded-2xl overflow-hidden shadow-sm" staggerDelay={0.07}>
             {[
               {
                 icon: Handshake,
                 title: 'Business-first approach',
                 desc: 'We start by understanding your process and goals, then build the software that fits. No useless tech bloat.',
-                accent: 'rgba(198,71,43,0.07)',
-                border: 'rgba(198,71,43,0.12)',
-                hoverBorder: 'rgba(198,71,43,0.3)',
                 color: '#C6472B',
-                shadow: '0 20px 50px rgba(198,71,43,0.09)',
+                accent: 'rgba(198,71,43,0.07)',
+                hoverBg: 'rgba(198,71,43,0.025)',
+                bar: 'from-[var(--sl-oxblood)]',
               },
               {
                 icon: Lock,
                 title: '100% Code ownership',
                 desc: 'Every line of code belongs to you. No monthly platform rent, no proprietary lock-in. Hire any developer later.',
-                accent: 'rgba(217,164,65,0.08)',
-                border: 'rgba(217,164,65,0.15)',
-                hoverBorder: 'rgba(217,164,65,0.35)',
                 color: '#D9A441',
-                shadow: '0 20px 50px rgba(217,164,65,0.09)',
+                accent: 'rgba(217,164,65,0.08)',
+                hoverBg: 'rgba(217,164,65,0.03)',
+                bar: 'from-[var(--sl-gold)]',
               },
               {
                 icon: Shield,
                 title: 'Transparent fixed pricing',
                 desc: 'You know the exact cost before we start. Milestone-based billing with zero surprise invoices.',
-                accent: 'rgba(46,111,94,0.07)',
-                border: 'rgba(46,111,94,0.12)',
-                hoverBorder: 'rgba(46,111,94,0.3)',
                 color: '#2E6F5E',
-                shadow: '0 20px 50px rgba(46,111,94,0.09)',
+                accent: 'rgba(46,111,94,0.07)',
+                hoverBg: 'rgba(46,111,94,0.025)',
+                bar: 'from-[var(--sl-teal-deep)]',
               },
               {
                 icon: Code2,
                 title: 'Tech matched to the problem',
-                desc: "React, Flutter, Node.js, Python — we select what fits your business needs, not what fits our resume.",
-                accent: 'rgba(198,71,43,0.07)',
-                border: 'rgba(198,71,43,0.12)',
-                hoverBorder: 'rgba(198,71,43,0.3)',
+                desc: 'React, Flutter, Node.js, Python — we select what fits your business needs, not what fits our resume.',
                 color: '#C6472B',
-                shadow: '0 20px 50px rgba(198,71,43,0.09)',
+                accent: 'rgba(198,71,43,0.07)',
+                hoverBg: 'rgba(198,71,43,0.025)',
+                bar: 'from-[var(--sl-oxblood)]',
               },
               {
                 icon: Zap,
                 title: 'Fast & mobile-first',
                 desc: 'Every site and app loads in under 2.5 seconds, optimized for high Google rankings and smooth mobile browsing.',
-                accent: 'rgba(217,164,65,0.08)',
-                border: 'rgba(217,164,65,0.15)',
-                hoverBorder: 'rgba(217,164,65,0.35)',
                 color: '#D9A441',
-                shadow: '0 20px 50px rgba(217,164,65,0.09)',
+                accent: 'rgba(217,164,65,0.08)',
+                hoverBg: 'rgba(217,164,65,0.03)',
+                bar: 'from-[var(--sl-gold)]',
               },
               {
                 icon: CheckCircle2,
                 title: 'Post-launch warranty',
                 desc: 'Free support and bug fixes for 30 to 90 days after launch so you can run your business with total confidence.',
-                accent: 'rgba(46,111,94,0.07)',
-                border: 'rgba(46,111,94,0.12)',
-                hoverBorder: 'rgba(46,111,94,0.3)',
                 color: '#2E6F5E',
-                shadow: '0 20px 50px rgba(46,111,94,0.09)',
+                accent: 'rgba(46,111,94,0.07)',
+                hoverBg: 'rgba(46,111,94,0.025)',
+                bar: 'from-[var(--sl-teal-deep)]',
               },
             ].map((item, idx) => (
-              <ScaleIn key={item.title} delay={idx * 0.07}>
+              <StaggerItem key={item.title}>
                 <motion.div
-                  className="group relative h-full overflow-hidden rounded-2xl border bg-white p-6 cursor-default transition-shadow duration-300"
-                  style={{ borderColor: item.border }}
+                  className={`group relative h-full overflow-hidden bg-white p-6 cursor-default transition-all duration-300
+                    ${idx < 3 ? 'border-b' : ''}
+                    ${idx % 3 !== 2 ? 'sm:border-r' : ''}
+                    border-[var(--sl-line)]`}
+                  style={{ backgroundColor: 'white' }}
                   whileHover={reduced ? {} : {
-                    y: -5,
-                    boxShadow: item.shadow,
-                    borderColor: item.hoverBorder,
-                    transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] }
+                    backgroundColor: item.hoverBg,
+                    transition: { duration: 0.25 }
                   }}
                 >
-                  {/* Corner glow on hover */}
-                  <div
-                    className="pointer-events-none absolute -top-6 -right-6 w-20 h-20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{ background: `radial-gradient(circle, ${item.accent.replace('0.07', '0.5').replace('0.08', '0.5')}, transparent 70%)`, filter: 'blur(14px)' }}
-                    aria-hidden="true"
-                  />
+                  {/* Top accent bar slides in on hover */}
+                  <div className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r ${item.bar} via-transparent to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`} />
+                  {/* Corner number watermark */}
+                  <span className="absolute top-4 right-5 font-mono text-[10px] font-bold tracking-widest text-[var(--sl-line)] select-none">
+                    0{idx + 1}
+                  </span>
                   <span
                     className="flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110 group-hover:rotate-[-5deg]"
                     style={{ background: item.accent, color: item.color }}
@@ -513,9 +513,9 @@ export default function Home() {
                     {item.desc}
                   </p>
                 </motion.div>
-              </ScaleIn>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
@@ -523,7 +523,7 @@ export default function Home() {
       <section id="contact" className="sl-section-contact relative scroll-mt-16 overflow-hidden py-20 sm:py-28">
         <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-            <FadeUp>
+            <SlideIn from="left" delay={0}>
               <div>
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--sl-line)] bg-white/80 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-[var(--sl-oxblood)] shadow-xs">
                   <Sparkles size={13} />
@@ -554,9 +554,9 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </FadeUp>
+            </SlideIn>
 
-            <FadeUp delay={0.12}>
+            <SlideIn from="right" delay={0.1}>
               <div className="sl-panel p-6 shadow-[0_20px_60px_rgba(20,22,28,0.08)] sm:p-8">
                 <form
                   onSubmit={(e) => {
@@ -637,7 +637,7 @@ export default function Home() {
                   </p>
                 </form>
               </div>
-            </FadeUp>
+            </SlideIn>
           </div>
         </div>
       </section>
