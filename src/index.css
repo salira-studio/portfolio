@@ -33,8 +33,8 @@
   --color-line: #E7DCC8;
   --color-line-light: #F0E8D8;
 
-  --font-display: 'Fraunces', Georgia, serif;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', 'Fraunces', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
 
@@ -1308,6 +1308,60 @@
     opacity: 0.55;
   }
 }
+
+/* ── Interactive Spotlight Grid Effects ── */
+.sl-grid-spotlight {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sl-grid-spotlight > * {
+  position: relative;
+  z-index: 10;
+}
+
+.sl-grid-spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-size: 24px 24px;
+  background-image:
+    linear-gradient(to right, rgba(20, 22, 28, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(20, 22, 28, 0.035) 1px, transparent 1px);
+  z-index: 1;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.sl-grid-spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    var(--spotlight-color, rgba(198, 71, 43, 0.08)),
+    transparent 80%
+  );
+  opacity: 0;
+  z-index: 0;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sl-grid-spotlight:hover::after {
+  opacity: 1;
+}
+
+/* Slightly enhance grid opacity on hover */
+.sl-grid-spotlight:hover::before {
+  opacity: 1;
+  background-image:
+    linear-gradient(to right, rgba(20, 22, 28, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(20, 22, 28, 0.05) 1px, transparent 1px);
+}
+
 
 
 

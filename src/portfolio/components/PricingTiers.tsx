@@ -8,6 +8,11 @@ import {
   Info,
   SlidersHorizontal,
   Terminal,
+  Globe,
+  ShoppingBag,
+  Smartphone,
+  LayoutDashboard,
+  Cpu,
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MagneticButton } from './MagneticButton'
@@ -21,14 +26,15 @@ interface ServiceNavOption {
   code: string
   label: string
   specSummary: string
+  icon: React.ComponentType<{ size?: number; className?: string }>
 }
 
 const SERVICE_NAV: ServiceNavOption[] = [
-  { id: 'website', code: 'SRV-01', label: 'Custom Website', specSummary: 'Marketing, corporate & portal builds' },
-  { id: 'ecommerce', code: 'SRV-02', label: 'E-Commerce', specSummary: 'Product catalog & transactional carts' },
-  { id: 'mobile', code: 'SRV-03', label: 'Mobile App', specSummary: 'iOS & Android native/cross-platform' },
-  { id: 'software', code: 'SRV-04', label: 'Business Software', specSummary: 'Internal ops portals & data tools' },
-  { id: 'platform', code: 'SRV-05', label: 'Custom Platform', specSummary: 'Multi-sided distributed systems' },
+  { id: 'website', code: 'SRV-01', label: 'Custom Website', specSummary: 'Marketing, corporate & portal builds', icon: Globe },
+  { id: 'ecommerce', code: 'SRV-02', label: 'E-Commerce', specSummary: 'Product catalog & transactional carts', icon: ShoppingBag },
+  { id: 'mobile', code: 'SRV-03', label: 'Mobile App', specSummary: 'iOS & Android native/cross-platform', icon: Smartphone },
+  { id: 'software', code: 'SRV-04', label: 'Business Software', specSummary: 'Internal ops portals & data tools', icon: LayoutDashboard },
+  { id: 'platform', code: 'SRV-05', label: 'Custom Platform', specSummary: 'Multi-sided distributed systems', icon: Cpu },
 ]
 
 /* ── Common Tier Interface for 3-Tier Views ── */
@@ -620,6 +626,65 @@ const ENGAGEMENT_MODELS = [
 ]
 
 /* ── Technical Datasheet Tier Card Component ── */
+/* ── Spotlight Helpers ── */
+const handleSpotlightMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const { currentTarget, clientX, clientY } = e
+  const rect = currentTarget.getBoundingClientRect()
+  const x = clientX - rect.left
+  const y = clientY - rect.top
+  currentTarget.style.setProperty('--mouse-x', `${x}px`)
+  currentTarget.style.setProperty('--mouse-y', `${y}px`)
+}
+
+const getSpotlightColor = (id: string) => {
+  const lower = id.toLowerCase()
+  if (lower.includes('starter')) return 'rgba(46, 111, 94, 0.12)'
+  if (lower.includes('standard')) return 'rgba(217, 164, 65, 0.15)'
+  if (lower.includes('advanced')) return 'rgba(198, 71, 43, 0.15)'
+  return 'rgba(198, 71, 43, 0.12)'
+}
+
+const getTopBorderClass = (id: string) => {
+  const lower = id.toLowerCase()
+  if (lower.includes('starter')) return 'border-t-teal-600'
+  if (lower.includes('standard')) return 'border-t-amber-500'
+  if (lower.includes('advanced')) return 'border-t-rose-600'
+  return 'border-t-rose-600'
+}
+
+const getHoverBorderClass = (id: string) => {
+  const lower = id.toLowerCase()
+  if (lower.includes('starter')) return 'hover:border-teal-600/30 hover:shadow-[0_8px_30px_rgba(46,111,94,0.08)]'
+  if (lower.includes('standard')) return 'hover:border-amber-500/30 hover:shadow-[0_8px_30px_rgba(217,164,65,0.08)]'
+  if (lower.includes('advanced')) return 'hover:border-rose-600/30 hover:shadow-[0_8px_30px_rgba(198,71,43,0.08)]'
+  return 'hover:border-rose-600/30 hover:shadow-[0_8px_30px_rgba(198,71,43,0.08)]'
+}
+
+const getDotColor = (id: string) => {
+  const lower = id.toLowerCase()
+  if (lower.includes('starter')) return 'bg-teal-500'
+  if (lower.includes('standard')) return 'bg-amber-500'
+  if (lower.includes('advanced')) return 'bg-rose-500'
+  return 'bg-rose-500'
+}
+
+const getCtaButtonClass = (id: string) => {
+  const lower = id.toLowerCase()
+  if (lower.includes('starter')) return 'bg-[#133026] hover:bg-[#1a4033] hover:shadow-[0_6px_20px_rgba(19,48,38,0.25)]'
+  if (lower.includes('standard')) return 'bg-[#3a270f] hover:bg-[#4d3414] hover:shadow-[0_6px_20px_rgba(58,39,15,0.25)]'
+  if (lower.includes('advanced')) return 'bg-[#38110b] hover:bg-[#4c170f] hover:shadow-[0_6px_20px_rgba(56,17,11,0.25)]'
+  return 'bg-slate-900 hover:bg-slate-950 shadow-md'
+}
+
+const getPriceBoxClass = (id: string) => {
+  const lower = id.toLowerCase()
+  if (lower.includes('starter')) return 'from-teal-50/30 to-teal-500/5 border-teal-100/40'
+  if (lower.includes('standard')) return 'from-amber-50/30 to-amber-500/5 border-amber-100/40'
+  if (lower.includes('advanced')) return 'from-rose-50/30 to-rose-500/5 border-rose-100/40'
+  return 'from-slate-50 to-slate-100 border-slate-200'
+}
+
+/* ── Technical Datasheet Tier Card Component ── */
 function TechnicalDatasheetCard({
   tier,
   reduced,
@@ -631,20 +696,28 @@ function TechnicalDatasheetCard({
   const whatsappUrl = `https://wa.me/917397430568?text=${encodeURIComponent(tier.ctaMessage)}`
 
   return (
-    <div className="flex flex-col justify-between bg-white p-6 sm:p-7 transition-colors duration-200">
+    <div
+      onMouseMove={handleSpotlightMouseMove}
+      style={{
+        '--spotlight-color': getSpotlightColor(tier.id),
+      } as React.CSSProperties}
+      className={`flex flex-col justify-between bg-white p-6 sm:p-7 border-t-[6px] border-x border-b border-slate-200/80 rounded-2xl shadow-xs transition-all duration-300 sl-grid-spotlight ${getTopBorderClass(
+        tier.id
+      )} ${getHoverBorderClass(tier.id)}`}
+    >
       <div>
         {/* Top Meta Bar */}
         <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-          <span className="text-slate-400 font-mono text-[10px] tracking-wider font-medium">{tier.tierCode}</span>
+          <span className="text-slate-400 font-mono text-[10px] tracking-wider font-semibold">{tier.tierCode}</span>
           <div className="flex items-center gap-1.5 font-sans text-xs text-slate-500">
-            <span className="text-[11px]">Complexity:</span>
-            <div className="flex gap-0.5" aria-label={`Scope complexity: Level ${tier.complexityBars} of 3`}>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Complexity</span>
+            <div className="flex gap-1" aria-label={`Scope complexity: Level ${tier.complexityBars} of 3`}>
               {[1, 2, 3].map((bar) => (
                 <span
                   key={bar}
-                  className={`h-2 w-2 rounded-xs ${
+                  className={`h-2 w-4 rounded-full transition-all duration-300 ${
                     bar <= tier.complexityBars
-                      ? 'bg-slate-900'
+                      ? getDotColor(tier.id)
                       : 'bg-slate-200'
                   }`}
                 />
@@ -656,10 +729,10 @@ function TechnicalDatasheetCard({
         {/* Tier Header */}
         <div className="mt-4">
           <div className="flex items-baseline justify-between">
-            <h4 className="text-xl font-bold font-sans tracking-tight text-slate-950">
+            <h4 className="text-2xl font-extrabold font-display tracking-tight text-slate-900">
               {tier.name}
             </h4>
-            <span className="font-sans text-xs font-medium text-slate-600">
+            <span className="font-mono text-[10px] uppercase tracking-wider font-bold text-slate-400">
               {tier.buildType}
             </span>
           </div>
@@ -669,26 +742,26 @@ function TechnicalDatasheetCard({
         </div>
 
         {/* Price Specification (Anchor Element) */}
-        <div className="mt-5 border-y border-slate-200 bg-slate-50/70 py-4 px-4 -mx-1">
-          <div className="font-sans text-xs font-medium text-slate-500 uppercase tracking-wider">
+        <div className={`mt-5 py-5 px-5 -mx-1 rounded-xl shadow-xs border bg-gradient-to-br ${getPriceBoxClass(tier.id)}`}>
+          <div className="font-sans text-[9px] font-bold text-slate-400 uppercase tracking-widest">
             Fixed-scope price range
           </div>
-          <div className="mt-1 font-mono text-2xl sm:text-3xl font-bold tracking-tight text-slate-950">
+          <div className="mt-1 font-display text-2.5xl sm:text-3xl font-extrabold tracking-tight text-slate-950">
             {tier.priceRange}
           </div>
-          <div className="mt-0.5 font-sans text-xs text-slate-500">
+          <div className="mt-1 font-mono text-[9px] text-slate-500 uppercase tracking-wider font-semibold">
             {tier.priceUnit} · 100% code ownership
           </div>
         </div>
 
         {/* Key Quantitative Data Grid */}
-        <div className="mt-5 grid grid-cols-2 gap-px bg-slate-200 border border-slate-200 rounded-xs overflow-hidden text-xs">
+        <div className="mt-6 grid grid-cols-2 gap-3 text-xs">
           {tier.keySpecs.map((spec) => (
-            <div key={spec.label} className="bg-white p-2.5">
-              <span className="font-sans text-[11px] font-medium text-slate-500 block">
+            <div key={spec.label} className="bg-slate-50/70 border border-slate-200/50 rounded-xl p-3 hover:bg-slate-100/50 transition-colors duration-200">
+              <span className="font-sans text-[9px] font-bold text-slate-400 uppercase tracking-widest block">
                 {spec.label}
               </span>
-              <span className="font-mono font-semibold text-slate-900 text-xs block mt-0.5">
+              <span className="font-display font-bold text-slate-900 text-[13px] block mt-1">
                 {spec.value}
               </span>
             </div>
@@ -702,7 +775,9 @@ function TechnicalDatasheetCard({
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex w-full items-center justify-center gap-2 bg-slate-900 hover:bg-black text-white font-sans text-xs font-bold py-3 px-4 rounded-xs transition-colors"
+              className={`flex w-full items-center justify-center gap-2 text-white font-sans text-xs font-bold py-3.5 px-4 rounded-xl transition-all duration-300 shadow-sm ${getCtaButtonClass(
+                tier.id
+              )}`}
             >
               <span>{tier.ctaText}</span>
               <ArrowRight size={13} />
@@ -813,8 +888,8 @@ export function PricingTiers() {
     <div className="w-full font-sans text-slate-900">
       {/* ── Persistent Studio Notice (Engineering Positioning) ── */}
       <div className="mx-auto max-w-3xl mb-8">
-        <div className="flex items-center justify-center gap-2 border border-slate-300 bg-slate-50 px-4 py-2.5 text-center font-sans text-xs text-slate-600">
-          <Info size={14} className="text-slate-500 shrink-0" />
+        <div className="flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-5 py-2.5 text-center font-sans text-xs text-slate-500 shadow-xs max-w-max mx-auto">
+          <Info size={14} className="text-slate-400 shrink-0" />
           <span>
             We're a technical studio, not a growth agency — pricing reflects build scope only, not business outcomes.
           </span>
@@ -822,23 +897,24 @@ export function PricingTiers() {
       </div>
 
       {/* ── Service Selector Matrix ── */}
-      <div className="mb-10">
+      <div className="mb-12">
         <div className="flex items-center justify-center">
-          <div className="inline-flex max-w-full flex-wrap justify-center border border-slate-300 bg-slate-100 p-1">
+          <div className="inline-flex max-w-full flex-wrap justify-center gap-1.5 rounded-full border border-slate-200 bg-slate-100/80 p-1.5 shadow-sm backdrop-blur-md">
             {SERVICE_NAV.map((service) => {
               const isActive = activeService === service.id
+              const Icon = service.icon
               return (
                 <button
                   key={service.id}
                   type="button"
                   onClick={() => setActiveService(service.id)}
-                  className={`relative flex items-center gap-2 px-3.5 py-2 font-sans text-xs transition-colors cursor-pointer ${
+                  className={`relative flex items-center gap-2 px-4 py-2.5 rounded-full font-sans text-xs transition-all duration-300 cursor-pointer ${
                     isActive
-                      ? 'bg-slate-900 text-white font-semibold shadow-xs'
-                      : 'text-slate-600 hover:text-slate-950 hover:bg-slate-200/60'
+                      ? 'bg-slate-900 text-white font-bold shadow-sm scale-[1.02]'
+                      : 'text-slate-600 hover:text-slate-950 hover:bg-slate-200/50'
                   }`}
                 >
-                  <span className="font-mono text-[10px] opacity-60">{service.code}</span>
+                  <Icon size={14} className={isActive ? 'text-teal-400' : 'text-slate-400'} />
                   <span>{service.label}</span>
                 </button>
               )
@@ -851,7 +927,7 @@ export function PricingTiers() {
       {activeService === 'website' && (
         <div className="space-y-6">
           <div className="text-center max-w-2xl mx-auto mb-2">
-            <h3 className="text-2xl font-bold font-sans tracking-tight text-slate-950">
+            <h3 className="text-3xl font-extrabold font-display tracking-tight text-slate-950">
               Website Development Scope &amp; Pricing
             </h3>
             <p className="mt-1.5 font-sans text-xs text-slate-600">
@@ -859,7 +935,7 @@ export function PricingTiers() {
             </p>
           </div>
 
-          <div className="border border-slate-300 bg-slate-200 grid gap-px grid-cols-1 lg:grid-cols-3 shadow-xs">
+          <div className="grid gap-6 grid-cols-1 lg:grid-cols-3">
             {WEBSITE_TIERS.map((tier) => (
               <TechnicalDatasheetCard key={tier.id} tier={tier} reduced={reduced} />
             ))}
@@ -900,7 +976,7 @@ export function PricingTiers() {
       {activeService === 'ecommerce' && (
         <div className="space-y-6">
           <div className="text-center max-w-2xl mx-auto mb-2">
-            <h3 className="text-2xl font-bold font-sans tracking-tight text-slate-950">
+            <h3 className="text-3xl font-extrabold font-display tracking-tight text-slate-950">
               E-Commerce Development Scope &amp; Pricing
             </h3>
             <p className="mt-1.5 font-sans text-xs text-slate-600">
@@ -908,7 +984,7 @@ export function PricingTiers() {
             </p>
           </div>
 
-          <div className="border border-slate-300 bg-slate-200 grid gap-px grid-cols-1 lg:grid-cols-3 shadow-xs">
+          <div className="grid gap-6 grid-cols-1 lg:grid-cols-3">
             {ECOMMERCE_TIERS.map((tier) => (
               <TechnicalDatasheetCard key={tier.id} tier={tier} reduced={reduced} />
             ))}
@@ -958,7 +1034,7 @@ export function PricingTiers() {
       {activeService === 'mobile' && (
         <div className="space-y-6">
           <div className="text-center max-w-2xl mx-auto mb-2">
-            <h3 className="text-2xl font-bold font-sans tracking-tight text-slate-950">
+            <h3 className="text-3xl font-extrabold font-display tracking-tight text-slate-950">
               Mobile App Development Scope &amp; Pricing
             </h3>
             <p className="mt-1.5 font-sans text-xs text-slate-600">
@@ -966,7 +1042,7 @@ export function PricingTiers() {
             </p>
           </div>
 
-          <div className="border border-slate-300 bg-slate-200 grid gap-px grid-cols-1 lg:grid-cols-3 shadow-xs">
+          <div className="grid gap-6 grid-cols-1 lg:grid-cols-3">
             {MOBILE_TIERS.map((tier) => (
               <TechnicalDatasheetCard key={tier.id} tier={tier} reduced={reduced} />
             ))}
@@ -1007,7 +1083,7 @@ export function PricingTiers() {
       {activeService === 'software' && (
         <div className="space-y-6">
           <div className="text-center max-w-2xl mx-auto mb-2">
-            <h3 className="text-2xl font-bold font-sans tracking-tight text-slate-950">
+            <h3 className="text-3xl font-extrabold font-display tracking-tight text-slate-950">
               Business Software &amp; Ops Portals Scope &amp; Pricing
             </h3>
             <p className="mt-1.5 font-sans text-xs text-slate-600">
@@ -1015,7 +1091,7 @@ export function PricingTiers() {
             </p>
           </div>
 
-          <div className="border border-slate-300 bg-slate-200 grid gap-px grid-cols-1 lg:grid-cols-3 shadow-xs">
+          <div className="grid gap-6 grid-cols-1 lg:grid-cols-3">
             {SOFTWARE_TIERS.map((tier) => (
               <TechnicalDatasheetCard key={tier.id} tier={tier} reduced={reduced} />
             ))}
@@ -1056,7 +1132,7 @@ export function PricingTiers() {
       {activeService === 'platform' && (
         <div className="space-y-6">
           <div className="text-center max-w-2xl mx-auto mb-2">
-            <h3 className="text-2xl font-bold font-sans tracking-tight text-slate-950">
+            <h3 className="text-3xl font-extrabold font-display tracking-tight text-slate-950">
               Custom Platform &amp; Multi-Sided Systems Scope &amp; Pricing
             </h3>
             <p className="mt-1.5 font-sans text-xs text-slate-600">
@@ -1064,7 +1140,7 @@ export function PricingTiers() {
             </p>
           </div>
 
-          <div className="border border-slate-300 bg-slate-200 grid gap-px grid-cols-1 lg:grid-cols-3 shadow-xs">
+          <div className="grid gap-6 grid-cols-1 lg:grid-cols-3">
             {PLATFORM_TIERS.map((tier) => (
               <TechnicalDatasheetCard key={tier.id} tier={tier} reduced={reduced} />
             ))}
@@ -1104,7 +1180,7 @@ export function PricingTiers() {
       {/* ── Why Does the Price Change? (Technical Studio Perspective) ── */}
       <div className="mt-20 sm:mt-24">
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-          <h3 className="text-2xl sm:text-3xl font-bold font-sans tracking-tight text-slate-950">
+          <h3 className="text-3xl sm:text-4xl font-extrabold font-display tracking-tight text-slate-950">
             Why does software pricing vary?
           </h3>
           <p className="mt-2 font-mono text-xs text-slate-600 leading-relaxed">
@@ -1112,11 +1188,13 @@ export function PricingTiers() {
           </p>
         </div>
 
-        <div className="border border-slate-300 bg-slate-200 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px shadow-xs">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {PRICE_FACTORS.map((factor) => (
             <div
               key={factor.code}
-              className="bg-white p-5 sm:p-6 transition-colors hover:bg-slate-50"
+              onMouseMove={handleSpotlightMouseMove}
+              style={{ '--spotlight-color': 'rgba(217, 164, 65, 0.12)' } as React.CSSProperties}
+              className="bg-white p-5 sm:p-6 border border-slate-200/80 rounded-2xl shadow-xs transition-all duration-300 sl-grid-spotlight hover:border-amber-500/20 hover:shadow-md"
             >
               <div className="flex items-center justify-between mb-3 font-mono text-xs">
                 <span className="font-bold text-slate-400">FACTOR-{factor.code}</span>
@@ -1256,7 +1334,22 @@ export function PricingTiers() {
           {ENGAGEMENT_MODELS.map((model) => (
             <div
               key={model.code}
-              className="border border-slate-300 bg-white p-6 shadow-xs flex flex-col justify-between"
+              onMouseMove={handleSpotlightMouseMove}
+              style={{
+                '--spotlight-color':
+                  model.code === 'MOD-01'
+                    ? 'rgba(46, 111, 94, 0.12)'
+                    : model.code === 'MOD-02'
+                    ? 'rgba(217, 164, 65, 0.12)'
+                    : 'rgba(198, 71, 43, 0.12)',
+              } as React.CSSProperties}
+              className={`bg-white p-6 border border-slate-200/80 rounded-2xl shadow-xs flex flex-col justify-between transition-all duration-300 sl-grid-spotlight ${
+                model.code === 'MOD-01'
+                  ? 'hover:border-teal-600/30'
+                  : model.code === 'MOD-02'
+                  ? 'hover:border-amber-500/30'
+                  : 'hover:border-rose-600/30'
+              }`}
             >
               <div>
                 <div className="font-mono text-[10px] font-bold text-slate-400">
