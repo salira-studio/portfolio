@@ -750,7 +750,7 @@ function TechnicalDatasheetCard({
             {tier.priceRange}
           </div>
           <div className="mt-1 font-mono text-[9px] text-slate-500 uppercase tracking-wider font-semibold">
-            {tier.priceUnit} · 100% code ownership
+            Development fee · Fixed scope · 100% code ownership
           </div>
         </div>
 
@@ -879,6 +879,196 @@ function TechnicalDatasheetCard({
   )
 }
 
+/* ── Maintenance & Support Inline Component ── */
+const MAINTENANCE_PLANS = [
+  {
+    title: 'Essential Care',
+    monthly: '₹1,500',
+    annual: '₹15,000',
+    bestFor: 'Static websites, landing pages and low-maintenance sites.',
+    dotColor: 'bg-teal-500',
+    borderColor: 'border-t-teal-500',
+    recommendedFor: ['website'],
+    includes: [
+      'Security & dependency updates',
+      'Backup monitoring',
+      'Uptime monitoring',
+      'Minor bug fixes',
+      'Basic technical support',
+    ],
+  },
+  {
+    title: 'Business Care',
+    monthly: '₹3,500',
+    annual: '₹35,000',
+    bestFor: 'Dynamic business websites, CMS sites and sites with regular updates.',
+    dotColor: 'bg-amber-500',
+    borderColor: 'border-t-amber-500',
+    recommendedFor: ['website', 'ecommerce'],
+    includes: [
+      'Security updates',
+      'Backup monitoring',
+      'Performance monitoring',
+      'Content & technical updates',
+      'Minor bug fixes',
+      'Priority support',
+    ],
+  },
+  {
+    title: 'Advanced Care',
+    monthly: '₹7,500',
+    annual: '₹75,000',
+    bestFor: 'Portals, API-integrated sites and feature-rich applications.',
+    dotColor: 'bg-rose-500',
+    borderColor: 'border-t-rose-500',
+    recommendedFor: ['ecommerce', 'mobile', 'software'],
+    includes: [
+      'Security monitoring',
+      'Database maintenance',
+      'API monitoring',
+      'Performance optimization',
+      'Backup & recovery support',
+      'Priority technical support',
+      'Minor technical improvements',
+    ],
+  },
+  {
+    title: 'Enterprise Care',
+    monthly: 'Custom pricing',
+    annual: 'Custom pricing',
+    bestFor: 'High-traffic platforms, SaaS, complex applications and mission-critical systems.',
+    dotColor: 'bg-slate-700',
+    borderColor: 'border-t-slate-700',
+    recommendedFor: ['platform', 'software'],
+    includes: ['Custom SLA & support plan tailored to your platform needs'],
+  },
+]
+
+const SERVICE_MAINTENANCE_NOTES: Record<ServiceCategory, { label: string; plans: string; note: string }> = {
+  website: {
+    label: 'Custom Website',
+    plans: 'Essential Care or Business Care',
+    note: 'Static and brochure sites typically need minimal maintenance. Dynamic CMS websites benefit from Business Care for content updates and security patches.',
+  },
+  ecommerce: {
+    label: 'E-Commerce',
+    plans: 'Business Care or Advanced Care',
+    note: 'Active stores need regular security updates, plugin/theme maintenance, payment gateway version checks, and performance monitoring to protect transactions.',
+  },
+  mobile: {
+    label: 'Mobile App',
+    plans: 'Advanced Care',
+    note: 'Mobile apps require OS compatibility updates, push notification monitoring, API health checks, and App Store / Play Store version management.',
+  },
+  software: {
+    label: 'Business Software',
+    plans: 'Advanced Care or Enterprise Care',
+    note: 'Ops portals and business software need database maintenance, API reliability monitoring, dependency updates, and role/permission audits to stay operational.',
+  },
+  platform: {
+    label: 'Custom Platform',
+    plans: 'Enterprise Care',
+    note: 'Multi-sided platforms and SaaS systems require dedicated monitoring, automated failover checks, security incident response, and a custom SLA.',
+  },
+}
+
+function MaintenanceSectionInline() {
+  const [isAnnual, setIsAnnual] = useState(false)
+
+  return (
+    <div className="mt-20 sm:mt-24">
+      {/* Header */}
+      <div className="text-center max-w-2xl mx-auto mb-8">
+        <h3 className="text-2xl sm:text-3xl font-bold font-sans tracking-tight text-slate-950">
+          Maintenance &amp; Support
+        </h3>
+        <p className="mt-2 text-xs text-slate-500 leading-relaxed font-sans max-w-xl mx-auto">
+          Optional ongoing support for projects that require continuous technical care.
+          Not every project requires a maintenance plan — static websites may need little or none,
+          while e-commerce stores, mobile apps, API-heavy systems and business software benefit significantly.
+        </p>
+      </div>
+
+      {/* Toggle */}
+      <div className="flex justify-center mb-8">
+        <div className="inline-flex items-center rounded-full border border-slate-200 bg-slate-100/80 p-1 gap-1 shadow-sm">
+          <button
+            type="button"
+            onClick={() => setIsAnnual(false)}
+            className={`px-5 py-2 rounded-full font-sans text-xs font-semibold transition-all duration-200 cursor-pointer ${
+              !isAnnual
+                ? 'bg-slate-900 text-white shadow-sm'
+                : 'text-slate-500 hover:text-slate-800'
+            }`}
+          >
+            Monthly
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsAnnual(true)}
+            className={`px-5 py-2 rounded-full font-sans text-xs font-semibold transition-all duration-200 cursor-pointer ${
+              isAnnual
+                ? 'bg-slate-900 text-white shadow-sm'
+                : 'text-slate-500 hover:text-slate-800'
+            }`}
+          >
+            Annual — Save
+          </button>
+        </div>
+      </div>
+
+      {isAnnual && (
+        <p className="text-center text-[10px] font-mono text-teal-700 uppercase tracking-wider mb-6">
+          Annual plans offer savings compared with monthly billing.
+        </p>
+      )}
+
+      {/* Plan Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {MAINTENANCE_PLANS.map((plan) => (
+          <div
+            key={plan.title}
+            className={`bg-white border-x border-b border-slate-200/80 border-t-4 ${plan.borderColor} rounded-2xl p-5 shadow-xs flex flex-col gap-3 hover:shadow-md transition-all duration-200`}
+          >
+            <div>
+              <h4 className="font-sans text-sm font-bold text-slate-900">{plan.title}</h4>
+              <p className="mt-1 font-sans text-[10px] text-slate-500 leading-snug">{plan.bestFor}</p>
+            </div>
+
+            <div>
+              <span className="font-display text-xl font-extrabold text-slate-950 tracking-tight">
+                {isAnnual ? plan.annual : plan.monthly}
+              </span>
+              <span className="font-mono text-[9px] text-slate-400 ml-1.5 uppercase tracking-wider">
+                {plan.annual === 'Custom pricing' ? '' : isAnnual ? '/ year' : '/ month'}
+              </span>
+            </div>
+
+            <ul className="space-y-1.5 flex-1">
+              {plan.includes.map((item) => (
+                <li key={item} className="flex items-start gap-1.5 text-[10px] text-slate-600 font-sans leading-snug">
+                  <Check size={11} className="text-teal-600 shrink-0 mt-0.5" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={`https://wa.me/917397430568?text=${encodeURIComponent(`Hi SaLira Studio, I'm interested in the ${plan.title} maintenance plan.`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-auto inline-flex items-center justify-center gap-1.5 bg-slate-900 hover:bg-black text-white font-sans text-[10px] font-bold py-2.5 px-3 rounded-xl transition-colors duration-200 shadow-sm"
+            >
+              <span>Enquire</span>
+              <ArrowRight size={10} />
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 /* ── Main PricingTiers Component ── */
 export function PricingTiers() {
   const [activeService, setActiveService] = useState<ServiceCategory>('website')
@@ -941,16 +1131,19 @@ export function PricingTiers() {
             ))}
           </div>
 
-          <div className="border border-slate-300 bg-slate-50 p-4 font-sans text-xs text-slate-600">
+          {/* Infrastructure note */}
+          <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4 font-sans text-xs text-slate-600">
             <div className="flex items-start gap-2.5">
-              <span className="text-slate-500 font-semibold shrink-0">Not included in project fee:</span>
-              <p className="leading-relaxed text-slate-700">
-                domain (₹800–₹2,000/yr), hosting (₹3,000–₹30,000/yr), third-party integration fees. We guide setup, but accounts are billed directly by the respective providers.
+              <Info size={13} className="text-slate-400 shrink-0 mt-0.5" />
+              <p className="leading-relaxed text-slate-600">
+                <span className="font-semibold text-slate-700">Additional infrastructure — billed separately at provider rates:</span>{' '}
+                Domain registration, web hosting, SSL, and any third-party integrations are billed directly by the respective providers. We assist with setup and configuration; accounts remain under your ownership.
+                <span className="ml-1.5 font-mono text-[9px] text-teal-700 uppercase tracking-wider">No markups.</span>
               </p>
             </div>
           </div>
 
-          <div className="border border-slate-300 bg-white p-4 font-sans text-xs text-slate-800">
+          <div className="border border-slate-200 bg-white p-4 font-sans text-xs text-slate-800 rounded-xl">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div>
                 <span className="text-slate-500 font-semibold mr-2">Payment terms:</span>
@@ -990,25 +1183,24 @@ export function PricingTiers() {
             ))}
           </div>
 
-          <div className="border border-slate-300 bg-amber-50/50 p-4 font-sans text-xs text-slate-700">
+          {/* Infrastructure note */}
+          <div className="rounded-xl border border-amber-100 bg-amber-50/40 p-4 font-sans text-xs text-slate-700">
             <div className="flex items-start gap-2.5">
-              <span className="text-slate-900 font-semibold shrink-0">Platform costs (ongoing, separate from build fee):</span>
-              <p className="leading-relaxed">
-                Shopify — ₹1,499–₹2,400/month (Basic plan) + 2% transaction fee if using a third-party gateway (removed on ₹6,600/month plans and above). WooCommerce — no platform fee, but ₹2,000–₹15,000/year hosting + plugin renewals. Most stores also add 3–8 paid apps (reviews, email, cart recovery) at ₹3,000–₹15,000/month combined.
-              </p>
+              <Info size={13} className="text-amber-500 shrink-0 mt-0.5" />
+              <div className="leading-relaxed space-y-1.5">
+                <p>
+                  <span className="font-semibold text-slate-800">Platform subscription — billed directly by Shopify or WordPress.com:</span>{' '}
+                  Shopify Basic starts at ₹1,499/month; WooCommerce hosting typically ₹2,000–₹15,000/year. Payment gateway transaction fees and app subscriptions are charged directly by those providers.
+                </p>
+                <p className="text-slate-500">
+                  Domain, hosting, payment gateway, and third-party tools are set up under your ownership with zero vendor lock-in.
+                  <span className="ml-1.5 font-mono text-[9px] text-teal-700 uppercase tracking-wider">No markups.</span>
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="border border-slate-300 bg-slate-50 p-4 font-sans text-xs text-slate-600">
-            <div className="flex items-start gap-2.5">
-              <span className="text-slate-500 font-semibold shrink-0">Not included in project fee:</span>
-              <p className="leading-relaxed text-slate-700">
-                domain (₹800–₹2,000/yr), payment gateway transaction fees (per transaction), and third-party app subscriptions. We guide configuration, but accounts belong directly to your business.
-              </p>
-            </div>
-          </div>
-
-          <div className="border border-slate-300 bg-white p-4 font-sans text-xs text-slate-800">
+          <div className="border border-slate-200 bg-white p-4 font-sans text-xs text-slate-800 rounded-xl">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div>
                 <span className="text-slate-500 font-semibold mr-2">Payment terms:</span>
@@ -1048,16 +1240,19 @@ export function PricingTiers() {
             ))}
           </div>
 
-          <div className="border border-slate-300 bg-slate-50 p-4 font-sans text-xs text-slate-600">
+          {/* Infrastructure note */}
+          <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4 font-sans text-xs text-slate-600">
             <div className="flex items-start gap-2.5">
-              <span className="text-slate-500 font-semibold shrink-0">Not included in project fee:</span>
-              <p className="leading-relaxed text-slate-700">
-                Apple Developer account ($99/yr paid to Apple), Google Play Developer account ($25 one-time paid to Google), cloud backend servers (AWS/GCP/DigitalOcean), and paid third-party API consumption.
+              <Info size={13} className="text-slate-400 shrink-0 mt-0.5" />
+              <p className="leading-relaxed text-slate-600">
+                <span className="font-semibold text-slate-700">Additional infrastructure — billed directly by providers:</span>{' '}
+                Apple Developer Program ($99/yr to Apple), Google Play Developer ($25 one-time to Google), cloud backend servers (AWS / GCP / DigitalOcean) and paid API usage are billed to accounts registered in your name.
+                <span className="ml-1.5 font-mono text-[9px] text-teal-700 uppercase tracking-wider">No markups.</span>
               </p>
             </div>
           </div>
 
-          <div className="border border-slate-300 bg-white p-4 font-sans text-xs text-slate-800">
+          <div className="border border-slate-200 bg-white p-4 font-sans text-xs text-slate-800 rounded-xl">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div>
                 <span className="text-slate-500 font-semibold mr-2">Payment terms:</span>
@@ -1097,16 +1292,19 @@ export function PricingTiers() {
             ))}
           </div>
 
-          <div className="border border-slate-300 bg-slate-50 p-4 font-sans text-xs text-slate-600">
+          {/* Infrastructure note */}
+          <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4 font-sans text-xs text-slate-600">
             <div className="flex items-start gap-2.5">
-              <span className="text-slate-500 font-semibold shrink-0">Not included in project fee:</span>
-              <p className="leading-relaxed text-slate-700">
-                Cloud infrastructure servers (AWS / GCP / DigitalOcean / Supabase), third-party transactional email / WhatsApp API usage, and corporate SaaS tool subscriptions. We set up accounts in your name with 100% direct client ownership.
+              <Info size={13} className="text-slate-400 shrink-0 mt-0.5" />
+              <p className="leading-relaxed text-slate-600">
+                <span className="font-semibold text-slate-700">Additional infrastructure — billed directly by providers:</span>{' '}
+                Cloud infrastructure (AWS / GCP / DigitalOcean / Supabase), transactional email, WhatsApp Business API usage, and corporate SaaS subscriptions are charged by the respective providers to accounts set up in your name.
+                <span className="ml-1.5 font-mono text-[9px] text-teal-700 uppercase tracking-wider">No markups.</span>
               </p>
             </div>
           </div>
 
-          <div className="border border-slate-300 bg-white p-4 font-sans text-xs text-slate-800">
+          <div className="border border-slate-200 bg-white p-4 font-sans text-xs text-slate-800 rounded-xl">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div>
                 <span className="text-slate-500 font-semibold mr-2">Payment terms:</span>
@@ -1146,16 +1344,19 @@ export function PricingTiers() {
             ))}
           </div>
 
-          <div className="border border-slate-300 bg-slate-50 p-4 font-sans text-xs text-slate-600">
+          {/* Infrastructure note */}
+          <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4 font-sans text-xs text-slate-600">
             <div className="flex items-start gap-2.5">
-              <span className="text-slate-500 font-semibold shrink-0">Not included in project fee:</span>
-              <p className="leading-relaxed text-slate-700">
-                Scalable cloud hosting infrastructure (AWS / GCP / Cloudflare / database clusters), third-party verification/KYC APIs, and payment gateway escrow/split processing fees. All accounts are configured under 100% direct client custody.
+              <Info size={13} className="text-slate-400 shrink-0 mt-0.5" />
+              <p className="leading-relaxed text-slate-600">
+                <span className="font-semibold text-slate-700">Additional infrastructure — billed directly by providers:</span>{' '}
+                Scalable cloud hosting (AWS / GCP / Cloudflare), database clusters, KYC / verification APIs, and payment gateway escrow/split processing fees are charged at provider rates. All infrastructure accounts are configured under your direct ownership.
+                <span className="ml-1.5 font-mono text-[9px] text-teal-700 uppercase tracking-wider">No markups.</span>
               </p>
             </div>
           </div>
 
-          <div className="border border-slate-300 bg-white p-4 font-sans text-xs text-slate-800">
+          <div className="border border-slate-200 bg-white p-4 font-sans text-xs text-slate-800 rounded-xl">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div>
                 <span className="text-slate-500 font-semibold mr-2">Payment terms:</span>
@@ -1387,7 +1588,52 @@ export function PricingTiers() {
         </div>
       </div>
 
+
+      {/* ── Additional Infrastructure Section ── */}
+      <div className="mt-20 sm:mt-24">
+        <div className="text-center max-w-2xl mx-auto mb-8">
+          <h3 className="text-2xl sm:text-3xl font-bold font-sans tracking-tight text-slate-950">
+            Additional Infrastructure
+          </h3>
+          <p className="mt-2 text-xs text-slate-500 leading-relaxed font-sans max-w-xl mx-auto">
+            Third‑party infrastructure is billed separately based on your project's actual requirements.
+            Domain, server/cloud hosting, paid APIs and other third‑party services are billed at actual
+            provider rates. We assist with setup and integration, while the accounts remain under your ownership.
+          </p>
+          <p className="mt-1 text-[10px] font-mono font-semibold text-teal-700 uppercase tracking-wider">
+            No hidden infrastructure markups.
+          </p>
+        </div>
+
+        <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            { label: 'Domain', note: 'Paid separately at registrar rates' },
+            { label: 'Server / Cloud Hosting', note: 'Based on project requirements' },
+            { label: 'Database / Storage', note: 'Based on usage & provider' },
+            { label: 'APIs & Third‑Party Services', note: 'Based on provider and usage' },
+            { label: 'Payment Gateway', note: 'Provider transaction charges apply' },
+            { label: 'Email / SMS / Other Services', note: 'Based on usage' },
+          ].map((item) => (
+            <div
+              key={item.label}
+              className="bg-white border border-slate-200/70 rounded-xl p-4 flex flex-col gap-1 shadow-xs hover:border-slate-300 transition-colors duration-200"
+            >
+              <span className="font-sans text-[11px] font-bold text-slate-900">{item.label}</span>
+              <span className="font-sans text-[10px] text-slate-500">{item.note}</span>
+            </div>
+          ))}
+        </div>
+
+        <p className="text-center mt-4 text-[10px] font-mono text-slate-400">
+          Actual infrastructure costs vary by provider, traffic, storage, API usage and project requirements.
+        </p>
+      </div>
+
+      {/* ── Maintenance & Support Section ── */}
+      <MaintenanceSectionInline />
+
       {/* ── Final Discussion CTA ── */}
+
       <div className="mt-20 sm:mt-24 text-center border border-slate-300 bg-slate-50 p-8 sm:p-12">
         <div className="font-sans text-xs text-slate-500 font-semibold mb-2">
           Direct engineering inquiry
