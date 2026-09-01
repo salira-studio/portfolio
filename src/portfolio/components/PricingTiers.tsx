@@ -46,7 +46,10 @@ interface TierData {
   complexityBars: number
   bestFor: string
   priceRange: string
+  typicalRange?: string
   priceUnit: string
+  isHighlighted?: boolean
+  badgeText?: string
   keySpecs: { label: string; value: string }[]
   functionality: string[]
   revisions: string
@@ -69,7 +72,8 @@ const WEBSITE_TIERS: TierData[] = [
     buildType: 'Template-based',
     complexityBars: 1,
     bestFor: 'Single-location businesses, consultants, or professional practices requiring an authoritative web presence.',
-    priceRange: '₹25,000 – ₹45,000',
+    priceRange: 'Starting at ₹25,000',
+    typicalRange: 'Typical projects: ₹30,000 – ₹40,000',
     priceUnit: 'Fixed scope quote',
     keySpecs: [
       { label: 'Pages included', value: 'Up to 5 pages' },
@@ -92,7 +96,7 @@ const WEBSITE_TIERS: TierData[] = [
     ownership: 'Full source code and account ownership transferred at completion.',
     techStack: 'Clean modern HTML/Tailwind or lightweight WordPress',
     ctaText: 'Start with Starter',
-    ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter Website project (₹25,000 – ₹45,000 scope).',
+    ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter Website project (Starting at ₹25,000 scope).',
   },
   {
     id: 'standard',
@@ -100,8 +104,11 @@ const WEBSITE_TIERS: TierData[] = [
     name: 'Standard',
     buildType: 'Semi-custom',
     complexityBars: 2,
+    isHighlighted: true,
+    badgeText: 'Most Chosen',
     bestFor: 'Growing service firms, B2B companies, or established businesses requiring bespoke UI design and dynamic content.',
-    priceRange: '₹55,000 – ₹1,10,000',
+    priceRange: 'Starting at ₹55,000',
+    typicalRange: 'Typical projects: ₹65,000 – ₹85,000',
     priceUnit: 'Fixed scope quote',
     keySpecs: [
       { label: 'Pages included', value: '6 to 12 pages' },
@@ -124,7 +131,7 @@ const WEBSITE_TIERS: TierData[] = [
     ownership: 'Full source code and account ownership transferred at completion.',
     techStack: 'WordPress with custom lightweight theme or Vite + React / Astro',
     ctaText: 'Start with Standard',
-    ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard Website project (₹55,000 – ₹1,10,000 scope).',
+    ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard Website project (Starting at ₹55,000 scope).',
   },
   {
     id: 'advanced',
@@ -133,7 +140,8 @@ const WEBSITE_TIERS: TierData[] = [
     buildType: 'Fully custom',
     complexityBars: 3,
     bestFor: 'Organizations with specialized workflows, client portals, high-traffic portals, API integrations, or multi-user needs.',
-    priceRange: '₹1,30,000 – ₹2,80,000+',
+    priceRange: 'Starting at ₹1,30,000',
+    typicalRange: 'Typical projects: ₹1,50,000 – ₹2,20,000+',
     priceUnit: 'Milestone billing quote',
     keySpecs: [
       { label: 'Pages included', value: '12 to 25+ pages' },
@@ -156,7 +164,7 @@ const WEBSITE_TIERS: TierData[] = [
     ownership: 'Full source code and account ownership transferred at completion.',
     techStack: 'Custom-coded (React / Next.js / TypeScript, Node.js or serverless backend, Headless CMS)',
     ctaText: 'Start with Advanced',
-    ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced Website project (₹1,30,000 – ₹2,80,000+ scope).',
+    ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced Website project (Starting at ₹1,30,000 scope).',
   },
 ]
 
@@ -169,7 +177,8 @@ const ECOMMERCE_TIERS: TierData[] = [
     buildType: 'Templated Shopify/WooCommerce store',
     complexityBars: 1,
     bestFor: 'First online store, simple catalog',
-    priceRange: '₹50,000 – ₹1,50,000',
+    priceRange: 'Starting at ₹50,000',
+    typicalRange: 'Typical projects: ₹65,000 – ₹95,000',
     priceUnit: 'Fixed scope quote',
     keySpecs: [
       { label: 'Catalog setup', value: 'Up to 50 products' },
@@ -191,7 +200,7 @@ const ECOMMERCE_TIERS: TierData[] = [
     ownership: 'Full store ownership, themes & account credentials transferred at completion.',
     techStack: 'Shopify or WooCommerce (standard theme)',
     ctaText: 'Start with Starter',
-    ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter E-Commerce project (₹50,000 – ₹1,50,000 scope).',
+    ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter E-Commerce project (Starting at ₹50,000 scope).',
   },
   {
     id: 'standard-ecom',
@@ -199,8 +208,11 @@ const ECOMMERCE_TIERS: TierData[] = [
     name: 'Standard',
     buildType: 'Semi-custom design on Shopify/WooCommerce',
     complexityBars: 2,
+    isHighlighted: true,
+    badgeText: 'Most Chosen',
     bestFor: 'Growing brand needing custom design + integrations',
-    priceRange: '₹1,50,000 – ₹5,00,000',
+    priceRange: 'Starting at ₹1,50,000',
+    typicalRange: 'Typical projects: ₹2,00,000 – ₹3,20,000',
     priceUnit: 'Fixed scope quote',
     keySpecs: [
       { label: 'Catalog setup', value: 'Up to 500 products' },
@@ -223,7 +235,7 @@ const ECOMMERCE_TIERS: TierData[] = [
     ownership: 'Full store ownership, custom theme codebase & integration credentials transferred.',
     techStack: 'WooCommerce / Shopify with custom theme',
     ctaText: 'Start with Standard',
-    ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard E-Commerce project (₹1,50,000 – ₹5,00,000 scope).',
+    ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard E-Commerce project (Starting at ₹1,50,000 scope).',
   },
   {
     id: 'advanced-ecom',
@@ -232,7 +244,8 @@ const ECOMMERCE_TIERS: TierData[] = [
     buildType: 'Fully custom / multi-vendor architecture',
     complexityBars: 3,
     bestFor: 'Multi-vendor marketplace, ERP/CRM sync, high-traffic scale',
-    priceRange: '₹5,00,000 – ₹20,00,000+',
+    priceRange: 'Starting at ₹5,00,000',
+    typicalRange: 'Typical projects: ₹6,50,000 – ₹12,00,000+',
     priceUnit: 'Milestone billing quote',
     keySpecs: [
       { label: 'Catalog setup', value: '500+ products (modular)' },
@@ -255,7 +268,7 @@ const ECOMMERCE_TIERS: TierData[] = [
     ownership: '100% source code, custom API microservices & store ownership handed over.',
     techStack: 'Custom-coded (Next.js/Node) or headless commerce',
     ctaText: 'Start with Advanced',
-    ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced E-Commerce project (₹5,00,000 – ₹20,00,000+ scope).',
+    ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced E-Commerce project (Starting at ₹5,00,000+ scope).',
   },
 ]
 
@@ -268,7 +281,8 @@ const MOBILE_TIERS: TierData[] = [
     buildType: 'Cross-platform, single codebase',
     complexityBars: 1,
     bestFor: 'Testing an idea, simple customer-facing app',
-    priceRange: '₹1,50,000 – ₹3,00,000',
+    priceRange: 'Starting at ₹1,50,000',
+    typicalRange: 'Typical projects: ₹1,80,000 – ₹2,40,000',
     priceUnit: 'Fixed scope quote',
     keySpecs: [
       { label: 'Screens included', value: 'Up to 8 screens' },
@@ -289,7 +303,7 @@ const MOBILE_TIERS: TierData[] = [
     ownership: 'Full source code, build configuration & repository transfer at completion.',
     techStack: 'Flutter / React Native',
     ctaText: 'Start with Starter',
-    ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter Mobile App project (₹1,50,000 – ₹3,00,000 scope).',
+    ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter Mobile App project (Starting at ₹1,50,000 scope).',
   },
   {
     id: 'standard-mobile',
@@ -297,8 +311,11 @@ const MOBILE_TIERS: TierData[] = [
     name: 'Standard',
     buildType: 'Cross-platform + custom backend',
     complexityBars: 2,
+    isHighlighted: true,
+    badgeText: 'Most Chosen',
     bestFor: 'Business app needing accounts, payments, admin',
-    priceRange: '₹3,00,000 – ₹7,00,000',
+    priceRange: 'Starting at ₹3,00,000',
+    typicalRange: 'Typical projects: ₹3,80,000 – ₹5,20,000',
     priceUnit: 'Fixed scope quote',
     keySpecs: [
       { label: 'Screens included', value: '8–20 screens' },
@@ -320,7 +337,7 @@ const MOBILE_TIERS: TierData[] = [
     ownership: 'Full source code, custom backend API & database architecture handed over.',
     techStack: 'Flutter / React Native + Node.js backend',
     ctaText: 'Start with Standard',
-    ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard Mobile App project (₹3,00,000 – ₹7,00,000 scope).',
+    ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard Mobile App project (Starting at ₹3,00,000 scope).',
   },
   {
     id: 'advanced-mobile',
@@ -329,7 +346,8 @@ const MOBILE_TIERS: TierData[] = [
     buildType: 'Fully custom, complex architecture',
     complexityBars: 3,
     bestFor: 'Multi-role platforms, real-time data, scale needs',
-    priceRange: '₹8,00,000 – ₹20,00,000+',
+    priceRange: 'Starting at ₹8,00,000',
+    typicalRange: 'Typical projects: ₹9,50,000 – ₹15,00,000+',
     priceUnit: 'Milestone billing quote',
     keySpecs: [
       { label: 'Screens included', value: '20+ screens, modular' },
@@ -351,7 +369,7 @@ const MOBILE_TIERS: TierData[] = [
     ownership: '100% source code, microservice deployment keys & store assets transferred at completion.',
     techStack: 'Native (Swift/Kotlin) or React Native + custom microservices',
     ctaText: 'Start with Advanced',
-    ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced Mobile App project (₹8,00,000 – ₹20,00,000+ scope).',
+    ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced Mobile App project (Starting at ₹8,00,000+ scope).',
   },
 ]
 
@@ -364,7 +382,8 @@ const SOFTWARE_TIERS: TierData[] = [
     buildType: 'Single-workflow internal tool',
     complexityBars: 1,
     bestFor: 'Automating one specific process (e.g. leave management, simple CRM)',
-    priceRange: '₹2,50,000 – ₹6,00,000',
+    priceRange: 'Starting at ₹2,50,000',
+    typicalRange: 'Typical projects: ₹3,00,000 – ₹4,50,000',
     priceUnit: 'Fixed scope quote',
     keySpecs: [
       { label: 'User roles', value: '1–2 roles' },
@@ -385,7 +404,7 @@ const SOFTWARE_TIERS: TierData[] = [
     ownership: '100% source code, database architecture & deployment keys handed over.',
     techStack: 'React / Next.js frontend + lightweight backend',
     ctaText: 'Start with Starter',
-    ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter Business Software project (₹2,50,000 – ₹6,00,000 scope).',
+    ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter Business Software project (Starting at ₹2,50,000 scope).',
   },
   {
     id: 'standard-software',
@@ -393,8 +412,11 @@ const SOFTWARE_TIERS: TierData[] = [
     name: 'Standard',
     buildType: 'Multi-role business application',
     complexityBars: 2,
+    isHighlighted: true,
+    badgeText: 'Most Chosen',
     bestFor: 'Businesses needing role-based access, payments, integrations',
-    priceRange: '₹6,00,000 – ₹18,00,000',
+    priceRange: 'Starting at ₹6,00,000',
+    typicalRange: 'Typical projects: ₹7,50,000 – ₹12,00,000',
     priceUnit: 'Fixed scope quote',
     keySpecs: [
       { label: 'User roles', value: '3–4 roles (tiered)' },
@@ -416,7 +438,7 @@ const SOFTWARE_TIERS: TierData[] = [
     ownership: '100% source code, database schema & server infrastructure transferred.',
     techStack: 'React / Next.js + Node.js/Python backend, PostgreSQL/MySQL',
     ctaText: 'Start with Standard',
-    ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard Business Software project (₹6,00,000 – ₹18,00,000 scope).',
+    ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard Business Software project (Starting at ₹6,00,000 scope).',
   },
   {
     id: 'advanced-software',
@@ -425,7 +447,8 @@ const SOFTWARE_TIERS: TierData[] = [
     buildType: 'Enterprise operations platform',
     complexityBars: 3,
     bestFor: 'Complex operations needing ERP integration, compliance tracking',
-    priceRange: '₹18,00,000 – ₹50,00,000+',
+    priceRange: 'Starting at ₹18,00,000',
+    typicalRange: 'Typical projects: ₹22,00,000 – ₹35,00,000+',
     priceUnit: 'Milestone billing quote',
     keySpecs: [
       { label: 'User roles', value: '5+ roles (granular)' },
@@ -447,7 +470,7 @@ const SOFTWARE_TIERS: TierData[] = [
     ownership: '100% intellectual property, full code repository & cloud architecture ownership.',
     techStack: 'Custom microservices, cloud-native infra, dedicated database architecture',
     ctaText: 'Start with Advanced',
-    ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced Business Software project (₹18,00,000 – ₹50,00,000+ scope).',
+    ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced Business Software project (Starting at ₹18,00,000+ scope).',
   },
 ]
 
@@ -460,7 +483,8 @@ const PLATFORM_TIERS: TierData[] = [
     buildType: 'MVP multi-sided architecture',
     complexityBars: 1,
     bestFor: 'Validating a marketplace/platform idea with core roles',
-    priceRange: '₹6,00,000 – ₹15,00,000',
+    priceRange: 'Starting at ₹6,00,000',
+    typicalRange: 'Typical projects: ₹7,50,000 – ₹10,50,000',
     priceUnit: 'Fixed scope quote',
     keySpecs: [
       { label: 'User roles', value: '2–3 roles (Buyer, Vendor, Admin)' },
@@ -481,7 +505,7 @@ const PLATFORM_TIERS: TierData[] = [
     ownership: 'Full source code, backend APIs & cloud hosting configs transferred at completion.',
     techStack: 'React / Next.js + Node.js, managed cloud hosting',
     ctaText: 'Start with Starter',
-    ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter Custom Platform project (₹6,00,000 – ₹15,00,000 scope).',
+    ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter Custom Platform project (Starting at ₹6,00,000 scope).',
   },
   {
     id: 'standard-platform',
@@ -489,8 +513,11 @@ const PLATFORM_TIERS: TierData[] = [
     name: 'Standard',
     buildType: 'Production-grade multi-vendor/multi-location system',
     complexityBars: 2,
+    isHighlighted: true,
+    badgeText: 'Most Chosen',
     bestFor: 'A live platform ready to scale operations',
-    priceRange: '₹15,00,000 – ₹35,00,000',
+    priceRange: 'Starting at ₹15,00,000',
+    typicalRange: 'Typical projects: ₹18,00,000 – ₹26,00,000',
     priceUnit: 'Milestone billing quote',
     keySpecs: [
       { label: 'User roles', value: '3–5 roles (granular)' },
@@ -512,7 +539,7 @@ const PLATFORM_TIERS: TierData[] = [
     ownership: '100% intellectual property, custom microservices & database clusters handed over.',
     techStack: 'Custom backend + scalable cloud infra (AWS/GCP)',
     ctaText: 'Start with Standard',
-    ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard Custom Platform project (₹15,00,000 – ₹35,00,000 scope).',
+    ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard Custom Platform project (Starting at ₹15,00,000 scope).',
   },
   {
     id: 'advanced-platform',
@@ -521,7 +548,8 @@ const PLATFORM_TIERS: TierData[] = [
     buildType: 'Enterprise-grade distributed platform',
     complexityBars: 3,
     bestFor: 'Large-scale marketplaces, ERP-integrated, multi-tenant SaaS',
-    priceRange: '₹35,00,000 – ₹80,00,000+',
+    priceRange: 'Starting at ₹35,00,000',
+    typicalRange: 'Typical projects: ₹42,00,000 – ₹60,00,000+',
     priceUnit: 'Milestone billing quote',
     keySpecs: [
       { label: 'User roles', value: 'Modular / Unlimited' },
@@ -543,7 +571,7 @@ const PLATFORM_TIERS: TierData[] = [
     ownership: '100% intellectual property, full code repository & cloud architecture ownership.',
     techStack: 'Distributed microservices, message queues, dedicated cloud architecture',
     ctaText: 'Start with Advanced',
-    ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced Custom Platform project (₹35,00,000 – ₹80,00,000+ scope).',
+    ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced Custom Platform project (Starting at ₹35,00,000+ scope).',
   },
 ]
 
@@ -694,6 +722,7 @@ function TechnicalDatasheetCard({
 }) {
   const [isExpanded, setIsExpanded] = useState(false)
   const whatsappUrl = `https://wa.me/917397430568?text=${encodeURIComponent(tier.ctaMessage)}`
+  const isHighlighted = tier.isHighlighted || tier.id.includes('standard')
 
   return (
     <div
@@ -701,11 +730,25 @@ function TechnicalDatasheetCard({
       style={{
         '--spotlight-color': getSpotlightColor(tier.id),
       } as React.CSSProperties}
-      className={`flex flex-col justify-between bg-white p-6 sm:p-7 border-t-[6px] border-x border-b border-slate-200/80 rounded-2xl shadow-xs transition-all duration-300 sl-grid-spotlight ${getTopBorderClass(
+      className={`relative flex flex-col bg-white p-6 sm:p-7 border-t-[6px] border-x border-b border-slate-200/80 rounded-2xl shadow-xs transition-all duration-300 sl-grid-spotlight ${getTopBorderClass(
         tier.id
-      )} ${getHoverBorderClass(tier.id)}`}
+      )} ${getHoverBorderClass(tier.id)} ${
+        isHighlighted
+          ? 'ring-2 ring-amber-400/40 shadow-lg'
+          : ''
+      }`}
     >
-      <div>
+      {tier.badgeText && (
+        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10 pointer-events-none">
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-sans text-[10px] font-extrabold uppercase tracking-wider shadow-sm ring-2 ring-white">
+            <span className="h-1.5 w-1.5 rounded-full bg-slate-950 animate-pulse" />
+            {tier.badgeText}
+          </span>
+        </div>
+      )}
+
+      {/* Main Card Content */}
+      <div className="flex-1 flex flex-col">
         {/* Top Meta Bar */}
         <div className="flex items-center justify-between border-b border-slate-200 pb-3">
           <span className="text-slate-400 font-mono text-[10px] tracking-wider font-semibold">{tier.tierCode}</span>
@@ -728,28 +771,37 @@ function TechnicalDatasheetCard({
 
         {/* Tier Header */}
         <div className="mt-4">
-          <div className="flex items-baseline justify-between">
-            <h4 className="text-2xl font-extrabold font-display tracking-tight text-slate-900">
-              {tier.name}
-            </h4>
-            <span className="font-mono text-[10px] uppercase tracking-wider font-bold text-slate-400">
-              {tier.buildType}
-            </span>
-          </div>
+          <h4 className="text-2xl font-extrabold font-display tracking-tight text-slate-900">
+            {tier.name}
+          </h4>
+          <span className="block mt-1 font-mono text-[10px] uppercase tracking-wider font-bold text-slate-400">
+            {tier.buildType}
+          </span>
           <p className="mt-2 text-xs text-slate-600 leading-relaxed min-h-[3rem] font-sans">
             {tier.bestFor}
           </p>
         </div>
 
         {/* Price Specification (Anchor Element) */}
-        <div className={`mt-5 py-5 px-5 -mx-1 rounded-xl shadow-xs border bg-gradient-to-br ${getPriceBoxClass(tier.id)}`}>
-          <div className="font-sans text-[9px] font-bold text-slate-400 uppercase tracking-widest">
-            Fixed-scope price range
+        <div className={`mt-6 py-5 px-5.5 rounded-2xl shadow-xs border bg-gradient-to-br ${getPriceBoxClass(tier.id)}`}>
+          <div className="flex items-center justify-between">
+            <div className="font-sans text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+              Fixed-scope pricing
+            </div>
+            <div className="font-mono text-[9.5px] text-slate-400 uppercase font-semibold">
+              {tier.priceUnit}
+            </div>
           </div>
-          <div className="mt-1 font-display text-2.5xl sm:text-3xl font-extrabold tracking-tight text-slate-950">
+          <div className="mt-2 font-display text-2.5xl sm:text-3xl font-extrabold tracking-tight text-slate-950 leading-tight">
             {tier.priceRange}
           </div>
-          <div className="mt-1 font-mono text-[9px] text-slate-500 uppercase tracking-wider font-semibold">
+          {tier.typicalRange && (
+            <div className="mt-3 inline-flex items-center gap-1.5 font-sans text-xs font-semibold text-slate-800 bg-white/90 py-1.5 px-3 rounded-lg border border-slate-200/70 shadow-2xs">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-500 shrink-0" />
+              <span>{tier.typicalRange}</span>
+            </div>
+          )}
+          <div className="mt-3 pt-2.5 border-t border-slate-200/50 font-mono text-[9.5px] text-slate-500 uppercase tracking-wider font-semibold">
             Development fee · Fixed scope · 100% code ownership
           </div>
         </div>
@@ -848,26 +900,52 @@ function TechnicalDatasheetCard({
                   </ul>
                 </div>
 
-                {/* 3. Revisions, Warranty & Content */}
-                <div className="pt-2 border-t border-slate-100 space-y-1.5 text-xs">
-                  <div className="flex justify-between text-slate-600">
-                    <span className="font-medium">Revision rounds:</span>
-                    <span className="text-slate-900 font-mono font-semibold">{tier.revisions}</span>
+                {/* 3. Revisions, Warranty & Delivery Terms */}
+                <div className="pt-3 border-t border-slate-100 space-y-3">
+                  <div className="space-y-2 text-xs">
+                    <div className="grid grid-cols-[115px_1fr] items-baseline gap-2">
+                      <span className="text-slate-500 font-medium text-[11px] whitespace-nowrap">
+                        Revision rounds:
+                      </span>
+                      <span className="text-slate-900 font-mono font-semibold text-xs">
+                        {tier.revisions}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-[115px_1fr] items-baseline gap-2">
+                      <span className="text-slate-500 font-medium text-[11px] whitespace-nowrap">
+                        Delivery timeline:
+                      </span>
+                      <span className="text-slate-900 font-mono font-semibold text-xs">
+                        {tier.timeline}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-[115px_1fr] items-baseline gap-2">
+                      <span className="text-slate-500 font-medium text-[11px] whitespace-nowrap">
+                        Bug-fix support:
+                      </span>
+                      <span className="text-slate-900 font-mono font-semibold text-xs leading-snug">
+                        {tier.postLaunchSupport}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex justify-between text-slate-600">
-                    <span className="font-medium">Delivery timeline:</span>
-                    <span className="text-slate-900 font-mono font-semibold">{tier.timeline}</span>
-                  </div>
-                  <div className="flex justify-between text-slate-600">
-                    <span className="font-medium">Bug-fix support:</span>
-                    <span className="text-slate-900 font-mono font-semibold">{tier.postLaunchSupport}</span>
-                  </div>
-                  <div className="pt-1 text-xs text-slate-500 leading-normal">
-                    <strong className="text-slate-700 font-medium">Scope &amp; operations terms:</strong> {tier.contentResponsibility}
-                  </div>
-                  <div className="text-xs text-slate-800 font-medium flex items-center gap-1">
-                    <KeyRound size={12} className="text-teal-600 shrink-0" />
-                    <span>{tier.ownership}</span>
+
+                  {/* Full-width Scope & Ownership rows */}
+                  <div className="pt-2 border-t border-slate-100 space-y-2.5">
+                    <div>
+                      <span className="text-[11px] font-semibold text-slate-500 block mb-0.5">
+                        Scope &amp; operations terms:
+                      </span>
+                      <p className="text-xs text-slate-600 leading-relaxed font-sans">
+                        {tier.contentResponsibility}
+                      </p>
+                    </div>
+
+                    <div className="rounded-lg bg-slate-50/80 p-2.5 border border-slate-200/60 flex items-start gap-2 text-xs text-slate-800 font-medium">
+                      <KeyRound size={13} className="text-teal-600 shrink-0 mt-0.5" />
+                      <span className="leading-snug">{tier.ownership}</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -972,8 +1050,9 @@ const SERVICE_MAINTENANCE_NOTES: Record<ServiceCategory, { label: string; plans:
   },
 }
 
-function MaintenanceSectionInline() {
+function MaintenanceSectionInline({ activeService }: { activeService: ServiceCategory }) {
   const [isAnnual, setIsAnnual] = useState(false)
+  const activeNote = SERVICE_MAINTENANCE_NOTES[activeService]
 
   return (
     <div className="mt-20 sm:mt-24">
@@ -988,6 +1067,18 @@ function MaintenanceSectionInline() {
           while e-commerce stores, mobile apps, API-heavy systems and business software benefit significantly.
         </p>
       </div>
+
+      {/* Dynamic Recommendation for Active Service */}
+      {activeNote && (
+        <div className="mb-8 rounded-xl border border-slate-200 bg-slate-50/80 p-4 font-sans text-xs text-slate-700 max-w-2xl mx-auto flex items-start gap-2.5 shadow-2xs">
+          <Info size={14} className="text-slate-400 shrink-0 mt-0.5" />
+          <p className="leading-relaxed">
+            <span className="font-semibold text-slate-900">Recommended for {activeNote.label}:</span>{' '}
+            {activeNote.note}{' '}
+            <span className="font-semibold text-teal-700">({activeNote.plans})</span>
+          </p>
+        </div>
+      )}
 
       {/* Toggle */}
       <div className="flex justify-center mb-8">
@@ -1125,7 +1216,7 @@ export function PricingTiers() {
             </p>
           </div>
 
-          <div className="grid gap-6 grid-cols-1 lg:grid-cols-3">
+          <div className="grid gap-6 grid-cols-1 lg:grid-cols-3 pt-3 items-stretch">
             {WEBSITE_TIERS.map((tier) => (
               <TechnicalDatasheetCard key={tier.id} tier={tier} reduced={reduced} />
             ))}
@@ -1177,7 +1268,7 @@ export function PricingTiers() {
             </p>
           </div>
 
-          <div className="grid gap-6 grid-cols-1 lg:grid-cols-3">
+          <div className="grid gap-6 grid-cols-1 lg:grid-cols-3 pt-3 items-stretch">
             {ECOMMERCE_TIERS.map((tier) => (
               <TechnicalDatasheetCard key={tier.id} tier={tier} reduced={reduced} />
             ))}
@@ -1234,7 +1325,7 @@ export function PricingTiers() {
             </p>
           </div>
 
-          <div className="grid gap-6 grid-cols-1 lg:grid-cols-3">
+          <div className="grid gap-6 grid-cols-1 lg:grid-cols-3 pt-3 items-stretch">
             {MOBILE_TIERS.map((tier) => (
               <TechnicalDatasheetCard key={tier.id} tier={tier} reduced={reduced} />
             ))}
@@ -1286,7 +1377,7 @@ export function PricingTiers() {
             </p>
           </div>
 
-          <div className="grid gap-6 grid-cols-1 lg:grid-cols-3">
+          <div className="grid gap-6 grid-cols-1 lg:grid-cols-3 pt-3 items-stretch">
             {SOFTWARE_TIERS.map((tier) => (
               <TechnicalDatasheetCard key={tier.id} tier={tier} reduced={reduced} />
             ))}
@@ -1338,7 +1429,7 @@ export function PricingTiers() {
             </p>
           </div>
 
-          <div className="grid gap-6 grid-cols-1 lg:grid-cols-3">
+          <div className="grid gap-6 grid-cols-1 lg:grid-cols-3 pt-3 items-stretch">
             {PLATFORM_TIERS.map((tier) => (
               <TechnicalDatasheetCard key={tier.id} tier={tier} reduced={reduced} />
             ))}
@@ -1630,7 +1721,7 @@ export function PricingTiers() {
       </div>
 
       {/* ── Maintenance & Support Section ── */}
-      <MaintenanceSectionInline />
+      <MaintenanceSectionInline activeService={activeService} />
 
       {/* ── Final Discussion CTA ── */}
 
