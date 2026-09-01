@@ -67,6 +67,11 @@ export const HeroAntigravity: React.FC = () => {
     const canvas = canvasRef.current
     if (!canvas) return
 
+    // Device capability guard: skip heavy animation on low-powered devices
+    const cores = navigator.hardwareConcurrency || 2
+    const memory = (navigator as any).deviceMemory || 4
+    if (cores <= 2 || memory <= 2) return
+
     const ctx = canvas.getContext('2d', { alpha: true })
     if (!ctx) return
 

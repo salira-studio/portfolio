@@ -70,16 +70,17 @@ export default function Login() {
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="text-xs text-[#78716C] mb-1.5 block">Email</label>
-                <input type="email" value={email} onChange={e => setEmail(e.target.value)} required
+                <label htmlFor="tl-email" className="text-xs text-[#78716C] mb-1.5 block">Email</label>
+                <input type="email" id="tl-email" value={email} onChange={e => setEmail(e.target.value)} required
                   className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-[#1C1917] focus:outline-none focus:border-[#F4B942]/40 transition-all" />
               </div>
               <div>
-                <label className="text-xs text-[#78716C] mb-1.5 block">Password</label>
+                <label htmlFor="tl-password" className="text-xs text-[#78716C] mb-1.5 block">Password</label>
                 <div className="relative">
-                  <input type={showPass ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)} required
+                  <input type={showPass ? 'text' : 'password'} id="tl-password" value={password} onChange={e => setPassword(e.target.value)} required
                     className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 pr-10 text-sm text-[#1C1917] focus:outline-none focus:border-[#F4B942]/40 transition-all" />
                   <button type="button" onClick={() => setShowPass(!showPass)}
+                    aria-label={showPass ? 'Hide password' : 'Show password'}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-[#78716C] hover:text-[#92400E]">
                     {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
                   </button>

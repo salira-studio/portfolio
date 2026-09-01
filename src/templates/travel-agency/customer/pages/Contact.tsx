@@ -89,37 +89,37 @@ export default function Contact() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-xs text-[#78716C] mb-1.5 block">Full Name *</label>
-                      <input required name="name" value={form.name} onChange={handleChange}
+                      <label htmlFor="tc-name" className="text-xs text-[#78716C] mb-1.5 block">Full Name *</label>
+                      <input required id="tc-name" name="name" value={form.name} onChange={handleChange}
                         placeholder="Your name"
                         className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-[#1C1917] placeholder:text-[#78716C]/50 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
                     </div>
                     <div>
-                      <label className="text-xs text-[#78716C] mb-1.5 block">Email *</label>
-                      <input required name="email" type="email" value={form.email} onChange={handleChange}
+                      <label htmlFor="tc-email" className="text-xs text-[#78716C] mb-1.5 block">Email *</label>
+                      <input required id="tc-email" name="email" type="email" value={form.email} onChange={handleChange}
                         placeholder="your@email.com"
                         className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-[#1C1917] placeholder:text-[#78716C]/50 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
                     </div>
                     <div>
-                      <label className="text-xs text-[#78716C] mb-1.5 block">Phone</label>
-                      <input name="phone" value={form.phone} onChange={handleChange}
+                      <label htmlFor="tc-phone" className="text-xs text-[#78716C] mb-1.5 block">Phone</label>
+                      <input id="tc-phone" name="phone" value={form.phone} onChange={handleChange}
                         placeholder="+91 98765 43210"
                         className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-[#1C1917] placeholder:text-[#78716C]/50 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
                     </div>
                     <div>
-                      <label className="text-xs text-[#78716C] mb-1.5 block">Destination</label>
-                      <input name="destination" value={form.destination} onChange={handleChange}
+                      <label htmlFor="tc-destination" className="text-xs text-[#78716C] mb-1.5 block">Destination</label>
+                      <input id="tc-destination" name="destination" value={form.destination} onChange={handleChange}
                         placeholder="Where would you like to go?"
                         className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-[#1C1917] placeholder:text-[#78716C]/50 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
                     </div>
                     <div>
-                      <label className="text-xs text-[#78716C] mb-1.5 block">Travel Date</label>
-                      <input type="date" name="travelDate" value={form.travelDate} onChange={handleChange}
+                      <label htmlFor="tc-date" className="text-xs text-[#78716C] mb-1.5 block">Travel Date</label>
+                      <input type="date" id="tc-date" name="travelDate" value={form.travelDate} onChange={handleChange}
                         className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-[#1C1917] focus:outline-none focus:border-[#F4B942]/40 transition-all [color-scheme:dark]" />
                     </div>
                     <div>
-                      <label className="text-xs text-[#78716C] mb-1.5 block">Budget Range</label>
-                      <select name="budget" value={form.budget} onChange={handleChange}
+                      <label htmlFor="tc-budget" className="text-xs text-[#78716C] mb-1.5 block">Budget Range</label>
+                      <select id="tc-budget" name="budget" value={form.budget} onChange={handleChange}
                         className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-[#1C1917] focus:outline-none focus:border-[#F4B942]/40 transition-all cursor-pointer">
                         <option value="" className="bg-[#F5F0E8]">Select budget</option>
                         {['Under ₹30,000', '₹30,000–₹75,000', '₹75,000–₹1,50,000', 'Above ₹1,50,000'].map(b => (
@@ -129,8 +129,8 @@ export default function Contact() {
                     </div>
                   </div>
                   <div>
-                    <label className="text-xs text-[#78716C] mb-1.5 block">Message</label>
-                    <textarea name="message" value={form.message} onChange={handleChange} rows={4}
+                    <label htmlFor="tc-message" className="text-xs text-[#78716C] mb-1.5 block">Message</label>
+                    <textarea id="tc-message" name="message" value={form.message} onChange={handleChange} rows={4}
                       placeholder="Tell us about your dream trip, special requests, or any questions..."
                       className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-[#1C1917] placeholder:text-[#78716C]/50 focus:outline-none focus:border-[#F4B942]/40 transition-all resize-none" />
                   </div>

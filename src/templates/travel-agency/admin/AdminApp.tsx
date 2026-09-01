@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Outlet, Navigate, useLocation } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { AdminSidebar } from './components/AdminSidebar'
 import { AdminHeader } from './components/AdminHeader'
 
@@ -33,7 +34,11 @@ export default function AdminApp() {
   }
 
   return (
-    <div className="flex h-screen bg-[#FDFAF5] text-[#1C1917] overflow-hidden">
+    <div data-theme="travel" className="flex h-screen bg-[#FDFAF5] text-[#1C1917] overflow-hidden">
+      <Helmet>
+        <title>Wanderlux — Admin Dashboard</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <AdminSidebar
         open={sidebarOpen}
         onClose={() => setSidebarOpen(false)}

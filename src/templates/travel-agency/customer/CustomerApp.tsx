@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Navbar } from './components/Navbar'
 import { Footer } from './components/Footer'
@@ -35,7 +36,17 @@ export default function CustomerApp() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FDFAF5] text-[#1C1917] flex flex-col">
+    <div data-theme="travel" className="min-h-screen bg-[#FDFAF5] text-[#1C1917] flex flex-col">
+      <Helmet>
+        <title>Wanderlux — Curated Travel Experiences</title>
+        <meta name="description" content="Discover handcrafted travel packages, exclusive destinations, and personalized journey planning with Wanderlux." />
+        <meta property="og:title" content="Wanderlux — Curated Travel Experiences" />
+        <meta property="og:description" content="Discover handcrafted travel packages, exclusive destinations, and personalized journey planning." />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Wanderlux — Curated Travel Experiences" />
+        <meta name="twitter:description" content="Discover handcrafted travel packages, exclusive destinations, and personalized journey planning." />
+      </Helmet>
       <Navbar user={user} onLogout={handleLogout} />
 
       <main className="flex-1">

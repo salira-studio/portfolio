@@ -51,6 +51,12 @@ export function EvenMesh({ fixed = false }: { fixed?: boolean }) {
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas || reduced) return
+
+    // Device capability guard: skip heavy animation on low-powered devices
+    const cores = navigator.hardwareConcurrency || 2
+    const memory = (navigator as any).deviceMemory || 4
+    if (cores <= 2 || memory <= 2) return
+
     const ctx = canvas.getContext('2d')!
     if (!ctx) return
     // Stable non-null refs for use inside closures
@@ -382,7 +388,7 @@ export function EvenMesh({ fixed = false }: { fixed?: boolean }) {
         top: 0,
         left: 0,
         width: '100vw',
-        height: '100vh',
+        height: '100dvh',
         display: 'block',
         zIndex: 1,
         pointerEvents: 'none',

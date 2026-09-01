@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
-import { ArrowUpRight, Sparkles, Phone } from 'lucide-react'
+import { ArrowUpRight, Phone } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Helmet } from 'react-helmet-async'
+import { DraftCursor } from './components/DraftCursor'
+import { MobileDraftNav } from './components/MobileDraftNav'
 import { MagneticButton } from './components/MagneticButton'
 import { WhatsAppButton } from './components/WhatsAppButton'
 import { usePrefersReducedMotion } from './lib/usePrefersReducedMotion'
@@ -12,56 +15,84 @@ export function PortfolioLayout() {
   const [hoveredNav, setHoveredNav] = useState<string | null>(null)
 
   const navItems = [
-    { label: 'Work', to: '/work', isRoute: true },
-    { label: 'Services', to: '/#services', isRoute: false },
-    { label: 'Pricing', to: '/#pricing', isRoute: false },
-    { label: 'Contact', to: '/#contact', isRoute: false },
+    { label: 'Work', to: '/work', isRoute: true, code: '01' },
+    { label: 'Services', to: '/#services', isRoute: false, code: '02' },
+    { label: 'How We Work', to: '/#how-we-work', isRoute: false, code: '03' },
+    { label: 'Pricing', to: '/#pricing', isRoute: false, code: '04' },
+    { label: 'Contact', to: '/#contact', isRoute: false, code: '05' },
   ]
 
   return (
-    <div className="salira min-h-screen flex flex-col selection:bg-[var(--sl-accent)] selection:text-white">
-      {/* ── Header ── */}
+    <div className="salira-draft min-h-screen flex flex-col bg-[var(--salira-paper)] text-[var(--salira-graphite)] font-sans antialiased selection:bg-[var(--salira-redpen)] selection:text-white">
+      <Helmet>
+        <title>SaLira Studio — Custom Software Development</title>
+        <meta name="description" content="SaLira Studio builds custom websites, e-commerce platforms, mobile apps, and business software. 100% code ownership, zero vendor lock-in." />
+        <meta property="og:title" content="SaLira Studio — Custom Software Development" />
+        <meta property="og:description" content="Custom websites, e-commerce, mobile apps, and business software. 100% code ownership, zero vendor lock-in." />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="SaLira Studio — Custom Software Development" />
+        <meta name="twitter:description" content="Custom websites, e-commerce, mobile apps, and business software. 100% code ownership, zero vendor lock-in." />
+        <link rel="canonical" href="https://salira.studio" />
+      </Helmet>
+      {/* ── Signature Precision Measurement & Crosshair Cursor ── */}
+      <DraftCursor />
+
+      {/* ── Top Blueprint Status Header ── */}
       <motion.header
         initial={reduced ? {} : { y: -16, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        className="sl-header-glass sticky top-0 z-40"
+        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+        className="sticky top-0 z-40 border-b border-[var(--salira-border-draft)] bg-[var(--salira-paper)]/90 backdrop-blur-md"
       >
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-8">
+          {/* Logo & Drawing Identification */}
           <Link
             to="/"
-            className="group flex items-center gap-2.5 outline-none"
-            data-cursor="view"
-            data-cursor-text="Home"
+            className="group flex items-center gap-3 outline-none"
+            data-draft-target="SaLira Logo"
           >
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--sl-oxblood)] to-[var(--sl-gold)] text-white shadow-sm transition-transform duration-300 group-hover:scale-105">
-              <span className="font-display text-sm font-bold leading-none tracking-tight">S</span>
+            <div className="flex h-8 w-8 items-center justify-center rounded border border-[var(--salira-blueprint)] bg-[var(--salira-blueprint)] text-white shadow-xs transition-transform duration-200 group-hover:scale-105">
+              <span className="font-mono text-xs font-bold leading-none">SL</span>
             </div>
-            <div className="flex items-baseline gap-1.5">
-              <span className="font-display text-xl font-bold tracking-tight text-[var(--sl-ink)]">
-                SaLira
-              </span>
-              <span className="hidden sm:inline text-[9px] font-semibold uppercase tracking-[0.24em] text-[var(--sl-charcoal)]">
-                Studio
+            <div className="flex flex-col">
+              <div className="flex items-center gap-2">
+                <span className="font-display text-lg font-bold tracking-tight text-[var(--salira-blueprint)]">
+                  SaLira
+                </span>
+                <span className="rounded border border-[var(--salira-border-draft)] px-1.5 py-0.2 font-mono text-[8px] uppercase tracking-widest text-[var(--salira-graphite-muted)]">
+                  STUDIO
+                </span>
+              </div>
+              <span className="hidden sm:inline font-mono text-[8px] uppercase tracking-wider text-[var(--salira-graphite-muted)]">
+                THE WORKING DRAFT · 2026.09
               </span>
             </div>
           </Link>
 
-          <div className="hidden lg:flex items-center gap-2 rounded-full border border-[var(--sl-line)] bg-white/70 px-3 py-1 text-[11px] font-mono text-[var(--sl-ink-soft)] shadow-xs">
-            <span className="h-1.5 w-1.5 rounded-full bg-[var(--sl-teal-deep)] animate-pulse" />
-            <span>Studio: Available for Q3 Builds</span>
+          {/* Blueprint Engineering Status Widget */}
+          <div className="hidden lg:flex items-center gap-2 rounded border border-[var(--salira-border-draft)] bg-white/70 px-3 py-1 font-mono text-[10px] text-[var(--salira-blueprint)] shadow-2xs">
+            <span className="h-1.5 w-1.5 rounded-full bg-[var(--salira-redpen)] animate-pulse" />
+            <span className="font-medium">STATUS: READY FOR CLIENT BUILDS</span>
+            <span className="text-[var(--salira-border-draft)]">|</span>
+            <span className="text-[var(--salira-graphite-muted)]">100% CODE OWNERSHIP</span>
           </div>
 
-          <div className="flex items-center gap-3 sm:gap-5">
+          {/* Navigation & Direct Dispatch */}
+          <div className="flex items-center gap-3 sm:gap-6">
             <a
               href="tel:+917397430568"
-              className="hidden sm:inline-flex items-center gap-1.5 text-xs font-medium text-[var(--sl-ink-soft)] transition-colors hover:text-[var(--sl-ink)]"
+              className="hidden sm:inline-flex items-center gap-1.5 font-mono text-xs text-[var(--salira-graphite-soft)] transition-colors hover:text-[var(--salira-blueprint)]"
+              data-draft-target="Direct Call"
             >
-              <Phone size={12} />
+              <Phone size={12} className="text-[var(--salira-blueprint)]" />
               <span>+91 73974 30568</span>
             </a>
+
+            {/* Desktop Navigation */}
             <nav
-              className="flex items-center gap-1 sm:gap-2 text-sm font-medium"
+              aria-label="Main navigation"
+              className="hidden md:flex items-center gap-1 font-mono text-xs"
               onMouseLeave={() => setHoveredNav(null)}
             >
               {navItems.map((item) => {
@@ -72,146 +103,163 @@ export function PortfolioLayout() {
                       <NavLink
                         to={item.to}
                         onMouseEnter={() => setHoveredNav(item.label)}
+                        data-draft-target={`Nav ${item.label}`}
                         className={({ isActive }) =>
-                          `relative z-10 block rounded-lg px-3.5 py-1.5 transition-colors ${
+                          `relative z-10 block rounded px-3 py-1.5 transition-colors uppercase tracking-wider ${
                             isActive
-                              ? 'font-semibold text-[var(--sl-ink)]'
-                              : 'text-[var(--sl-ink-soft)] hover:text-[var(--sl-ink)]'
+                              ? 'font-bold text-[var(--salira-redpen)]'
+                              : 'text-[var(--salira-graphite-soft)] hover:text-[var(--salira-blueprint)]'
                           }`
                         }
                       >
+                        <span className="text-[9px] text-[var(--salira-graphite-muted)] mr-1">
+                          {item.code}.
+                        </span>
                         {item.label}
                       </NavLink>
                     ) : (
                       <a
                         href={item.to}
                         onMouseEnter={() => setHoveredNav(item.label)}
-                        className="relative z-10 block rounded-lg px-3.5 py-1.5 text-[var(--sl-ink-soft)] transition-colors hover:text-[var(--sl-ink)]"
+                        data-draft-target={`Nav ${item.label}`}
+                        className="relative z-10 block rounded px-3 py-1.5 uppercase tracking-wider text-[var(--salira-graphite-soft)] transition-colors hover:text-[var(--salira-blueprint)]"
                       >
+                        <span className="text-[9px] text-[var(--salira-graphite-muted)] mr-1">
+                          {item.code}.
+                        </span>
                         {item.label}
                       </a>
                     )}
 
                     {!reduced && (hoveredNav === item.label || (!hoveredNav && isWorkActive)) && (
                       <motion.div
-                        layoutId="navPill"
-                        transition={{ type: 'spring', bounce: 0.18, duration: 0.35 }}
-                        className="pointer-events-none absolute inset-0 z-0 rounded-lg bg-[rgba(198,71,43,0.08)] ring-1 ring-[rgba(198,71,43,0.12)]"
+                        layoutId="draftNavPill"
+                        transition={{ type: 'spring', bounce: 0.15, duration: 0.3 }}
+                        className="pointer-events-none absolute inset-0 z-0 rounded border border-[var(--salira-border-draft-strong)] bg-white/80"
                       />
                     )}
                   </div>
                 )
               })}
             </nav>
+
+            {/* Mobile Navigation Drawer */}
+            <MobileDraftNav />
           </div>
         </div>
       </motion.header>
 
+      {/* ── Main Viewport Outlet ── */}
       <main className="relative z-10 flex-1">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
-            initial={reduced ? {} : { opacity: 0, y: 10 }}
+            initial={reduced ? {} : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={reduced ? {} : { opacity: 0, y: -6 }}
-            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+            exit={reduced ? {} : { opacity: 0, y: -8 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           >
             <Outlet />
           </motion.div>
         </AnimatePresence>
       </main>
 
-      <footer className="sl-footer-glass relative z-10 overflow-hidden border-t border-[var(--sl-line)]">
-        <div className="relative mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
-          <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-8">
+      {/* ── Blueprint Specification Footer ── */}
+      <footer className="relative z-10 border-t border-[var(--salira-border-draft)] bg-[var(--salira-paper-lifted)]">
+        <div className="relative mx-auto max-w-6xl px-4 py-12 sm:px-8 sm:py-16">
+          <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-8">
+            {/* Engineering Drawing Block */}
             <div className="space-y-4 lg:col-span-5">
               <div className="flex items-center gap-2.5">
-                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--sl-oxblood)] to-[var(--sl-gold)] text-white shadow-sm">
-                  <span className="font-display text-base font-bold">S</span>
+                <div className="flex h-7 w-7 items-center justify-center rounded border border-[var(--salira-blueprint)] bg-[var(--salira-blueprint)] text-white shadow-xs">
+                  <span className="font-mono text-xs font-bold">SL</span>
                 </div>
-                <p className="font-display text-2xl font-bold tracking-tight text-[var(--sl-ink)]">
-                  SaLira Studio
+                <p className="font-display text-xl font-bold tracking-tight text-[var(--salira-blueprint)]">
+                  SaLira Software Studio
                 </p>
               </div>
-              <p className="max-w-sm text-sm leading-relaxed text-[var(--sl-ink-soft)]">
-                We build custom software for web, mobile, and desktop. We understand how your business works, then build the software that fits.
+              <p className="max-w-sm text-xs leading-relaxed text-[var(--salira-graphite-soft)]">
+                We build bespoke software around how your business actually operates. No monthly rent, no platform lock-in, and 100% full source code handover upon completion.
               </p>
-              <div className="flex items-center gap-2 pt-2 text-xs text-[var(--sl-charcoal)]">
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--sl-teal-deep)] animate-pulse" />
-                <span>Available for Q3/Q4 studio engagements</span>
+              <div className="flex items-center gap-2 pt-1 font-mono text-[10px] text-[var(--salira-graphite-muted)]">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--salira-redpen)] animate-pulse" />
+                <span>ARCHITECTURAL DRAWING · SALIRA-PORTFOLIO-2026</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-8 text-sm lg:col-span-4">
+            {/* Navigation & Case Studies Index */}
+            <div className="grid grid-cols-2 gap-8 text-xs font-mono lg:col-span-4">
               <div>
-                <p className="mb-3.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--sl-charcoal)]">
-                  Exploration
+                <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--salira-blueprint)]">
+                  CASE STUDIES
                 </p>
-                <ul className="space-y-2.5 text-[var(--sl-ink-soft)]">
+                <ul className="space-y-2 text-[var(--salira-graphite-soft)]">
                   <li>
-                    <Link to="/work" className="transition-colors hover:text-[var(--sl-oxblood)]">
-                      All Case Studies
+                    <Link to="/work" className="transition-colors hover:text-[var(--salira-redpen)]">
+                      01. All Case Studies
                     </Link>
                   </li>
                   <li>
-                    <Link to="/work/restaurants" className="transition-colors hover:text-[var(--sl-oxblood)]">
-                      AURA Restaurant
+                    <Link to="/work/restaurants" className="transition-colors hover:text-[var(--salira-redpen)]">
+                      02. AURA Restaurant PWA
                     </Link>
                   </li>
                   <li>
-                    <a href="/#services" className="transition-colors hover:text-[var(--sl-oxblood)]">
-                      Studio Principles
-                    </a>
+                    <Link to="/work/travel" className="transition-colors hover:text-[var(--salira-redpen)]">
+                      03. VoyageAI Platform
+                    </Link>
                   </li>
                 </ul>
               </div>
               <div>
-                <p className="mb-3.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--sl-charcoal)]">
-                  Direct
+                <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--salira-blueprint)]">
+                  STUDIO DISPATCH
                 </p>
-                <ul className="space-y-2.5 text-[var(--sl-ink-soft)]">
+                <ul className="space-y-2 text-[var(--salira-graphite-soft)]">
                   <li>
                     <a
                       href="tel:+917397430568"
-                      className="inline-flex items-center gap-1 transition-colors hover:text-[var(--sl-oxblood)]"
+                      className="inline-flex items-center gap-1 transition-colors hover:text-[var(--salira-redpen)]"
                     >
                       +91 73974 30568
-                      <ArrowUpRight size={13} />
+                      <ArrowUpRight size={12} />
                     </a>
                   </li>
                   <li>
                     <a
                       href="mailto:hello@salira.studio"
-                      className="inline-flex items-center gap-1 transition-colors hover:text-[var(--sl-oxblood)]"
+                      className="inline-flex items-center gap-1 transition-colors hover:text-[var(--salira-redpen)]"
                     >
                       hello@salira.studio
-                      <ArrowUpRight size={13} />
+                      <ArrowUpRight size={12} />
                     </a>
                   </li>
                   <li>
-                    <span className="font-mono text-xs text-[var(--sl-charcoal)]">
-                      India · Remote Studio
+                    <span className="text-[10px] text-[var(--salira-graphite-muted)]">
+                      Remote · Global Delivery
                     </span>
                   </li>
                 </ul>
               </div>
             </div>
 
-            <div className="rounded-2xl border border-[var(--sl-line)] bg-white/80 p-6 shadow-xs backdrop-blur-sm lg:col-span-3">
-              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--sl-oxblood)]">
-                <Sparkles size={14} />
-                <span>Start a Project</span>
+            {/* Direct Project Consultation Block */}
+            <div className="rounded-xl border border-[var(--salira-border-draft)] bg-white p-5 shadow-2xs lg:col-span-3">
+              <div className="flex items-center justify-between font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--salira-redpen)]">
+                <span>✎ INITIATE SCOPE</span>
+                <span>FIXED PRICE</span>
               </div>
-              <p className="mt-2 text-xs leading-relaxed text-[var(--sl-ink-soft)]">
-                Let's build working software for your business operations.
+              <p className="mt-2 text-xs leading-relaxed text-[var(--salira-graphite-soft)]">
+                Have a software blueprint to engineer? Let's discuss requirements and fixed milestone sprints.
               </p>
               <div className="mt-4">
-                <MagneticButton className="w-full" strength={0.18}>
+                <MagneticButton className="w-full" strength={0.16}>
                   <a
                     href="mailto:hello@salira.studio"
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--sl-ink)] px-4 py-2.5 text-xs font-semibold text-white transition-all hover:bg-[var(--sl-oxblood)]"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded bg-[var(--salira-blueprint)] px-3.5 py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-[var(--salira-redpen)]"
+                    data-draft-target="Footer Dispatch"
                   >
-                    Initiate conversation
+                    Start Working Draft
                     <ArrowUpRight size={13} />
                   </a>
                 </MagneticButton>
@@ -219,17 +267,17 @@ export function PortfolioLayout() {
             </div>
           </div>
 
-          <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-[var(--sl-line)] pt-6 text-xs text-[var(--sl-charcoal)] sm:flex-row">
-            <p>
-              © {new Date().getFullYear()} SaLira Studio. All rights reserved.
-            </p>
-            <p className="text-center sm:text-right">
-              All demonstrations are live, two-sided client instances running locally in your browser.
+          {/* Bottom Specification Stamp */}
+          <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-[var(--salira-border-draft)] pt-4 font-mono text-[9px] uppercase tracking-wider text-[var(--salira-graphite-muted)] sm:flex-row">
+            <p>© {new Date().getFullYear()} SALIRA STUDIO · ALL RIGHTS RESERVED.</p>
+            <p className="text-center sm:text-right text-[var(--salira-blueprint)]">
+              NO COOKIES · ZERO TRACKERS · 100% BROWSER-NATIVE CLIENTS
             </p>
           </div>
         </div>
       </footer>
 
+      {/* Direct WhatsApp Contact Button */}
       <WhatsAppButton />
     </div>
   )

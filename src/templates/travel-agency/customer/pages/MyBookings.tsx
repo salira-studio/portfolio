@@ -25,9 +25,9 @@ type FilterStatus = 'all' | 'confirmed' | 'pending' | 'cancelled' | 'completed'
 
 export default function MyBookings() {
   const ctx = useOutletContext<AuthContext>()
-  if (!ctx.user) return <Navigate to={`${TRAVEL_BASE}/login`} replace />
-
   const [filter, setFilter] = useState<FilterStatus>('all')
+
+  if (!ctx.user) return <Navigate to={`${TRAVEL_BASE}/login`} replace />
 
   const bookings = filter === 'all' ? mockBookings : mockBookings.filter(b => b.status === filter)
 

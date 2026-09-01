@@ -80,34 +80,35 @@ export default function Register() {
             <h1 className="text-xl font-bold text-[#1C1917] mb-5">Create Account</h1>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="text-xs text-[#78716C] mb-1.5 block">Full Name</label>
-                <input required name="name" value={form.name} onChange={handleChange} placeholder="Your full name"
+                <label htmlFor="tr-name" className="text-xs text-[#78716C] mb-1.5 block">Full Name</label>
+                <input required id="tr-name" name="name" value={form.name} onChange={handleChange} placeholder="Your full name"
                   className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-[#1C1917] placeholder:text-[#78716C]/50 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
               </div>
               <div>
-                <label className="text-xs text-[#78716C] mb-1.5 block">Email</label>
-                <input required type="email" name="email" value={form.email} onChange={handleChange} placeholder="your@email.com"
+                <label htmlFor="tr-email" className="text-xs text-[#78716C] mb-1.5 block">Email</label>
+                <input required type="email" id="tr-email" name="email" value={form.email} onChange={handleChange} placeholder="your@email.com"
                   className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-[#1C1917] placeholder:text-[#78716C]/50 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
               </div>
               <div>
-                <label className="text-xs text-[#78716C] mb-1.5 block">Phone (optional)</label>
-                <input name="phone" value={form.phone} onChange={handleChange} placeholder="+91 98765 43210"
+                <label htmlFor="tr-phone" className="text-xs text-[#78716C] mb-1.5 block">Phone (optional)</label>
+                <input id="tr-phone" name="phone" value={form.phone} onChange={handleChange} placeholder="+91 98765 43210"
                   className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 text-sm text-[#1C1917] placeholder:text-[#78716C]/50 focus:outline-none focus:border-[#F4B942]/40 transition-all" />
               </div>
               <div>
-                <label className="text-xs text-[#78716C] mb-1.5 block">Password</label>
+                <label htmlFor="tr-password" className="text-xs text-[#78716C] mb-1.5 block">Password</label>
                 <div className="relative">
-                  <input required type={showPass ? 'text' : 'password'} name="password" value={form.password} onChange={handleChange} placeholder="Min 8 characters"
+                  <input required type={showPass ? 'text' : 'password'} id="tr-password" name="password" value={form.password} onChange={handleChange} placeholder="Min 8 characters"
                     className="w-full bg-[#FDFAF5] border border-[#E8E0D5] rounded-xl px-4 py-3 pr-10 text-sm text-[#1C1917] focus:outline-none focus:border-[#F4B942]/40 transition-all" />
                   <button type="button" onClick={() => setShowPass(!showPass)}
+                    aria-label={showPass ? 'Hide password' : 'Show password'}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-[#78716C]">
                     {showPass ? <EyeOff size={15} /> : <Eye size={15} />}
                   </button>
                 </div>
               </div>
               <div>
-                <label className="text-xs text-[#78716C] mb-1.5 block">Confirm Password</label>
-                <input required type={showPass ? 'text' : 'password'} name="confirm" value={form.confirm} onChange={handleChange}
+                <label htmlFor="tr-confirm" className="text-xs text-[#78716C] mb-1.5 block">Confirm Password</label>
+                <input required type={showPass ? 'text' : 'password'} id="tr-confirm" name="confirm" value={form.confirm} onChange={handleChange}
                   className={`w-full bg-[#FDFAF5] border rounded-xl px-4 py-3 text-sm text-[#1C1917] focus:outline-none transition-all ${form.confirm && form.confirm !== form.password ? 'border-red-500/50' : 'border-[#E8E0D5] focus:border-[#F4B942]/40'}`} />
                 {form.confirm && form.confirm !== form.password && (
                   <p className="text-red-400 text-xs mt-1">Passwords don't match</p>

@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import {
   LayoutDashboard,
   ClipboardList,
@@ -32,7 +33,12 @@ export default function ConsoleLayout() {
   const activeCount = useActiveOrders()
 
   return (
-    <div className="min-h-screen bg-[var(--color-ivory-50)]">
+    <div data-theme="restaurant" className="min-h-screen bg-[var(--color-ivory-50)]">
+      <Helmet>
+        <title>AURA Kitchen — Restaurant Console</title>
+        <meta name="description" content="Manage orders, menu, and analytics for AURA Kitchen restaurant operations." />
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <aside className="fixed left-0 top-0 z-40 flex h-screen w-[64px] flex-col border-r border-[var(--color-line-light)] bg-white md:w-[240px]">
         <div className="flex h-16 items-center justify-center gap-2.5 border-b border-[var(--color-line-light)] px-4 md:justify-start md:px-5">
           <svg viewBox="0 0 24 24" className="h-7 w-7 shrink-0" aria-hidden="true">

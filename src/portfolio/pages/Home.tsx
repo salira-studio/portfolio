@@ -1,657 +1,922 @@
-import { useEffect } from 'react'
-import type { CSSProperties } from 'react'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   ArrowRight,
-  Sparkles,
+  ArrowUpRight,
+  UtensilsCrossed,
+  Plane,
+  Terminal,
   Layers,
-  Zap,
-  Shield,
-  Phone,
-  Code2,
-  Lock,
+  ShieldCheck,
   CheckCircle2,
-  Globe,
-  Smartphone,
-  LayoutDashboard,
-  Handshake,
+  Phone,
+  Mail,
+  FileCode2,
+  Database,
 } from 'lucide-react'
-import { motion, useMotionValue, useSpring, useScroll, useTransform } from 'framer-motion'
-import { HeroShowcaseClean } from '../components/HeroShowcaseClean'
-import { PricingTiers } from '../components/PricingTiers'
+import { motion } from 'framer-motion'
+import { DraftSheet } from '../components/DraftSheet'
+import { RedPenAnnotation } from '../components/RedPenAnnotation'
 import { MagneticButton } from '../components/MagneticButton'
-import { FadeUp, StaggerContainer, StaggerItem, SlideIn } from '../components/ScrollReveal'
-import { EvenMesh } from '../components/EvenMesh'
 import { usePrefersReducedMotion } from '../lib/usePrefersReducedMotion'
-
-/** Masked word-by-word rise-in for hero display type */
-function RevealWords({
-  text,
-  delay,
-  reduced,
-  className,
-}: {
-  text: string
-  delay: number
-  reduced: boolean
-  className?: string
-}) {
-  return (
-    <span className={className}>
-      {text.split(' ').map((word, i) => (
-        <span key={`${word}-${i}`} className="inline-block overflow-hidden pb-[0.08em] -mb-[0.08em] align-bottom">
-          <motion.span
-            className="inline-block"
-            initial={reduced ? {} : { y: '112%' }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.65, delay: delay + i * 0.055, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {word}
-            {i < text.split(' ').length - 1 ? '\u00A0' : ''}
-          </motion.span>
-        </span>
-      ))}
-    </span>
-  )
-}
-
-const studioPillars = [
-  {
-    n: '01',
-    t: 'Tell Us Your Business',
-    d: 'We start by understanding what your business does, your daily process, and what you want to automate. 30-minute discovery call with zero sales pressure.',
-    icon: Handshake,
-  },
-  {
-    n: '02',
-    t: 'Clear Scope & Fixed Quote',
-    d: 'No technical jargon. We explain exactly what to build, what you do not need, timeline in weeks, and a transparent fixed price with milestone billing.',
-    icon: Layers,
-  },
-  {
-    n: '03',
-    t: 'We Build in Sprints',
-    d: 'You see and test working builds as we deliver. Regular updates every milestone so you are always in control of your product.',
-    icon: Zap,
-  },
-  {
-    n: '04',
-    t: 'Launch & 100% Code Ownership',
-    d: 'We deploy your software live, configure SSL, Google indexing, and hand over every line of source code. No lock-in, no monthly platform rent.',
-    icon: Shield,
-  },
-]
 
 export default function Home() {
   const reduced = usePrefersReducedMotion()
+  const [activeSpecTab, setActiveSpecTab] = useState<'architecture' | 'ownership' | 'performance'>('architecture')
+  const [contactSubmitted, setContactSubmitted] = useState(false)
+  const [contactForm, setContactForm] = useState({ name: '', email: '', projectScope: '' })
 
-  const spotX = useMotionValue('72%')
-  const spotY = useMotionValue('38%')
-  const smoothSpotX = useSpring(spotX, { stiffness: 55, damping: 20 })
-  const smoothSpotY = useSpring(spotY, { stiffness: 55, damping: 20 })
-
-  // Page-level scroll progress bar
-  const { scrollYProgress } = useScroll()
-  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 })
-
-  // Hero parallax — text moves slightly slower than scroll
-  const heroY = useTransform(scrollYProgress, [0, 0.25], [0, -40])
-
-  useEffect(() => {
-    if (reduced) return
-    if (window.matchMedia('(pointer: coarse)').matches) return
-    const hero = document.getElementById('hero')
-    if (!hero) return
-    const onMove = (e: MouseEvent) => {
-      const rect = hero.getBoundingClientRect()
-      spotX.set(`${((e.clientX - rect.left) / rect.width) * 100}%`)
-      spotY.set(`${((e.clientY - rect.top) / rect.height) * 100}%`)
-    }
-    hero.addEventListener('mousemove', onMove)
-    return () => hero.removeEventListener('mousemove', onMove)
-  }, [reduced, spotX, spotY])
-
-  useEffect(() => {
-    const hash = window.location.hash
-    if (hash) {
-      const el = document.querySelector(hash)
-      if (el) el.scrollIntoView({ behavior: 'smooth' })
-    }
-  }, [])
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setContactSubmitted(true)
+  }
 
   return (
-    <div className="relative overflow-hidden bg-[var(--sl-paper-lifted)] text-[var(--sl-ink)]">
-      {/* ── Scroll progress bar ── */}
-      {!reduced && (
-        <motion.div
-          className="fixed top-0 left-0 right-0 z-50 h-[2.5px] bg-gradient-to-r from-[var(--sl-oxblood)] via-[var(--sl-gold)] to-[var(--sl-teal-sage)] origin-left"
-          style={{ scaleX }}
-          aria-hidden="true"
-        />
-      )}
-
-      {/* ── 1. Hero ── */}
-      <section id="hero" className="sl-hero-vivid relative flex min-h-[88vh] items-center overflow-hidden">
-        <div className="sl-hero-hue" aria-hidden="true" />
-
-        <motion.div
-          className="sl-spotlight"
-          aria-hidden="true"
-          style={{ '--spot-x': smoothSpotX, '--spot-y': smoothSpotY } as CSSProperties}
-        />
-
-        <div className="relative z-10 mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
-          <motion.div
-            style={reduced ? undefined : { y: heroY }}
-            className="grid items-center gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-14"
-          >
-            <div>
-              <motion.div
-                initial={reduced ? {} : { opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <div className="inline-flex items-center gap-2 rounded-full border border-[var(--sl-line)] bg-white/75 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--sl-oxblood)] shadow-xs backdrop-blur-sm">
-                  <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--sl-oxblood)] opacity-50" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--sl-oxblood)]" />
-                  </span>
-                  SaLira Software Studio
-                </div>
-              </motion.div>
-
-              <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-balance text-[var(--sl-ink)] sm:text-6xl lg:text-[4.05rem]">
-                <RevealWords
-                  text="We build custom software around"
-                  delay={0.18}
-                  reduced={reduced}
-                  className="block"
-                />
-                <RevealWords
-                  text="how your business"
-                  delay={0.4}
-                  reduced={reduced}
-                  className="sl-text-iris italic font-normal block pr-2"
-                />
-                <RevealWords text="actually works." delay={0.55} reduced={reduced} className="block" />
-              </h1>
-
-              <motion.p
-                className="mt-6 max-w-xl text-base leading-relaxed text-[var(--sl-ink-soft)] sm:text-lg"
-                initial={reduced ? {} : { opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: 0.58, ease: [0.22, 1, 0.36, 1] }}
-              >
-                Websites, mobile apps, and business software engineered to fit your exact operations. Fixed-price quotes, milestone delivery, and 100% source code ownership.
-              </motion.p>
-
-              <motion.div
-                className="mt-9 flex flex-wrap items-center gap-4 sm:gap-6"
-                initial={reduced ? {} : { opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.72, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <MagneticButton strength={0.22}>
-                  <a
-                    href="#pricing"
-                    className="sl-halo-gold inline-flex items-center gap-2.5 rounded-xl bg-[var(--sl-gold)] px-6 py-3.5 text-sm font-bold text-black transition-all hover:bg-[#e0ab3b] active:scale-98"
-                  >
-                    Explore Pricing &amp; Scope
-                    <ArrowRight size={16} />
-                  </a>
-                </MagneticButton>
-                <MagneticButton strength={0.12}>
-                  <a
-                    href="https://wa.me/917397430568"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-1.5 rounded-xl border border-[var(--sl-line)] bg-white/70 px-4 py-3 text-sm font-medium text-[var(--sl-ink-soft)] shadow-xs backdrop-blur-sm transition-all hover:border-[var(--sl-oxblood)]/30 hover:text-[var(--sl-ink)]"
-                  >
-                    <span>Talk on WhatsApp</span>
-                    <ArrowRight
-                      size={14}
-                      className="text-[var(--sl-charcoal)] transition-transform duration-200 group-hover:translate-x-1 group-hover:text-[var(--sl-oxblood)]"
-                    />
-                  </a>
-                </MagneticButton>
-              </motion.div>
-
-              <motion.div
-                className="mt-12 flex flex-wrap items-center gap-6 border-t border-[var(--sl-line)] pt-6 sm:gap-8"
-                initial={reduced ? {} : { opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <div className="font-mono text-xs uppercase tracking-wider text-[var(--sl-charcoal)]">
-                  What we build
-                </div>
-                <div className="flex flex-wrap items-center gap-4 text-xs font-medium text-[var(--sl-ink-soft)]">
-                  <span>Custom Websites</span>
-                  <span className="h-1 w-1 rounded-full bg-[var(--sl-taupe)]" />
-                  <span>Mobile Apps (Android &amp; iOS)</span>
-                  <span className="h-1 w-1 rounded-full bg-[var(--sl-taupe)]" />
-                  <span>Business Platforms</span>
-                </div>
-              </motion.div>
-            </div>
-
-            <motion.div
-              initial={reduced ? {} : { opacity: 0, scale: 0.96, y: 12 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="flex justify-center lg:justify-end"
-            >
-              <HeroShowcaseClean />
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── 2. Services ── */}
-      <section id="services" className="sl-white-section relative z-10 overflow-hidden py-20 sm:py-28">
-        <EvenMesh />
-        <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
-          <FadeUp>
-            <div className="mx-auto mb-14 max-w-2xl text-center">
-              <p className="sl-label text-[var(--sl-oxblood)]">Core Capabilities</p>
-              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-[var(--sl-ink)] sm:text-5xl">
-                Software built around your business.
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-[var(--sl-ink-soft)] sm:text-base">
-                We build tailor-made solutions so you never have to force your operations into restrictive templates.
-              </p>
-            </div>
-          </FadeUp>
-
-          {/* ── Bento grid — shared borders, no gap ── */}
-          <div className="mt-2 grid grid-cols-1 sm:grid-cols-3 border border-[var(--sl-line)] rounded-2xl overflow-hidden shadow-sm">
-            <StaggerItem>
-              <div className="group relative flex h-full flex-col justify-between bg-white p-7 transition-all duration-300 hover:bg-[rgba(217,164,65,0.03)] border-b sm:border-b-0 sm:border-r border-[var(--sl-line)] cursor-default">
-                {/* Animated top accent */}
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[var(--sl-gold)] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
-                <div>
-                  <span className="sl-icon-bounce flex h-11 w-11 items-center justify-center rounded-2xl bg-[rgba(217,164,65,0.1)] text-[var(--sl-gold)]">
-                    <Globe size={22} />
-                  </span>
-                  <h3 className="mt-6 font-display text-xl font-bold tracking-tight text-[var(--sl-ink)]">
-                    Websites &amp; Portals
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[var(--sl-ink-soft)]">
-                    From structured marketing websites to dynamic CMS portals with custom interactive components and Google SEO setup.
-                  </p>
-                </div>
-                <div className="mt-6 flex items-center justify-between border-t border-[var(--sl-line)] pt-4">
-                  <span className="font-mono text-xs font-semibold text-[var(--sl-charcoal)]">₹25k – ₹1.1L+</span>
-                  <a href="#pricing" className="sl-arrow-hover text-xs font-bold text-[var(--sl-gold)] transition-colors hover:text-[var(--sl-oxblood)]">
-                    View Scope <span className="sl-arrow">→</span>
-                  </a>
-                </div>
-              </div>
-            </StaggerItem>
-
-            <StaggerItem>
-              <div className="group relative flex h-full flex-col justify-between bg-white p-7 transition-all duration-300 hover:bg-[rgba(198,71,43,0.025)] border-b sm:border-b-0 sm:border-r border-[var(--sl-line)] cursor-default">
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[var(--sl-oxblood)] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
-                <div>
-                  <span className="sl-icon-bounce flex h-11 w-11 items-center justify-center rounded-2xl bg-[rgba(198,71,43,0.08)] text-[var(--sl-oxblood)]">
-                    <Smartphone size={22} />
-                  </span>
-                  <h3 className="mt-6 font-display text-xl font-bold tracking-tight text-[var(--sl-ink)]">
-                    Mobile Apps (iOS + Android)
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[var(--sl-ink-soft)]">
-                    Native-feel mobile apps published to Google Play Store and Apple App Store with push notifications, location tracking, and payments.
-                  </p>
-                </div>
-                <div className="mt-6 flex items-center justify-between border-t border-[var(--sl-line)] pt-4">
-                  <span className="font-mono text-xs font-semibold text-[var(--sl-charcoal)]">₹2L – ₹4.8L</span>
-                  <a href="#pricing" className="sl-arrow-hover text-xs font-bold text-[var(--sl-oxblood)] transition-colors hover:text-[var(--sl-gold)]">
-                    View Scope <span className="sl-arrow">→</span>
-                  </a>
-                </div>
-              </div>
-            </StaggerItem>
-
-            <StaggerItem>
-              <div className="group relative flex h-full flex-col justify-between bg-white p-7 transition-all duration-300 hover:bg-[rgba(46,111,94,0.025)] cursor-default">
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[var(--sl-teal-deep)] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
-                <div>
-                  <span className="sl-icon-bounce flex h-11 w-11 items-center justify-center rounded-2xl bg-[rgba(46,111,94,0.08)] text-[var(--sl-teal-deep)]">
-                    <LayoutDashboard size={22} />
-                  </span>
-                  <h3 className="mt-6 font-display text-xl font-bold tracking-tight text-[var(--sl-ink)]">
-                    Business Software &amp; Portals
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[var(--sl-ink-soft)]">
-                    Custom operational software, staff management portals, and multi-sided platforms built around your real workflows.
-                  </p>
-                </div>
-                <div className="mt-6 flex items-center justify-between border-t border-[var(--sl-line)] pt-4">
-                  <span className="font-mono text-xs font-semibold text-[var(--sl-charcoal)]">₹3L – ₹7.5L+</span>
-                  <a href="#pricing" className="sl-arrow-hover text-xs font-bold text-[var(--sl-teal-deep)] transition-colors hover:text-[var(--sl-oxblood)]">
-                    View Scope <span className="sl-arrow">→</span>
-                  </a>
-                </div>
-              </div>
-            </StaggerItem>
+    <div className="salira-draft-grid min-h-screen py-6 sm:py-10">
+      {/* ─────────────────────────────────────────────────────────────
+          SHEET 01: HERO / PRIMARY ARCHITECTURAL STATEMENT
+          ───────────────────────────────────────────────────────────── */}
+      <DraftSheet
+        id="hero"
+        sheetNumber="SHEET 01/06"
+        title="PRIMARY ARCHITECTURAL STATEMENT"
+        revision="REV 2026.09"
+        coordinates="13.0827° N, 80.2707° E"
+        classification="UNRESTRICTED DRAFT"
+        marginAnnotation={
+          <div className="flex flex-wrap items-center justify-between gap-2 font-mono text-[10px] text-[var(--salira-graphite-muted)]">
+            <span className="flex items-center gap-1 text-[var(--salira-redpen)] font-bold">
+              ✎ NOTE: ALL BUILDS ARE PRODUCTION INSTANCES TESTABLE LOCALLY IN YOUR BROWSER.
+            </span>
+            <span>SYSTEM SPEC: REACT 19 · TYPESCRIPT · TAILWINDCSS V4</span>
           </div>
-        </div>
-      </section>
-
-      {/* ── 3. Pricing ── */}
-      <section
-        id="pricing"
-        className="sl-white-section relative z-10 scroll-mt-16 overflow-hidden py-20 sm:py-32"
+        }
       >
-        <EvenMesh />
-        <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
-          <FadeUp>
-            <div className="mx-auto mb-10 max-w-2xl text-center">
-              <p className="sl-label text-[var(--sl-charcoal)]">Transparent Scope &amp; Pricing</p>
-              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-[var(--sl-ink)] sm:text-5xl">
-                Fixed-scope engineering. Zero surprises.
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-[var(--sl-ink-soft)] sm:text-base">
-                Scope-first pricing with firm page bounds, explicit add-on rates, clear timelines, and full code ownership.
-              </p>
+        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-8">
+          {/* Left Column: The Working Draft Thesis */}
+          <div className="space-y-6 lg:col-span-7">
+            <div className="inline-flex items-center gap-2 rounded border border-[var(--salira-border-draft)] bg-white px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--salira-blueprint)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[var(--salira-redpen)] animate-pulse" />
+              <span>THE WORKING DRAFT · BESPOKE SOFTWARE STUDIO</span>
             </div>
-          </FadeUp>
 
-          <FadeUp delay={0.12}>
-            <PricingTiers />
-          </FadeUp>
-        </div>
-      </section>
-
-      {/* ── 4. How We Work ── */}
-      <section className="sl-white-section relative z-10 overflow-hidden py-20 sm:py-28">
-        <EvenMesh />
-        <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
-          <FadeUp>
-            <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-              <div>
-                <p className="sl-label text-[var(--sl-teal-deep)]">How We Work</p>
-                <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-[var(--sl-ink)] sm:text-4xl">
-                  Simple 4-step execution process.
-                </h2>
-              </div>
-              <p className="max-w-md text-sm leading-relaxed text-[var(--sl-ink-soft)]">
-                Clear milestones, bi-weekly progress updates, and zero tech jargon.
-              </p>
-            </div>
-          </FadeUp>
-
-          {/* ── Bento grid — 4 steps, shared borders ── */}
-          <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border border-[var(--sl-line)] rounded-2xl overflow-hidden shadow-sm">
-            {studioPillars.map((item, idx) => (
-              <motion.div
-                key={item.n}
-                className={`group relative flex flex-col bg-white p-6 cursor-default overflow-hidden transition-all duration-300 hover:bg-[rgba(46,111,94,0.025)]
-                  ${idx < 3 ? 'border-b lg:border-b-0 lg:border-r' : ''}
-                  ${idx === 1 ? 'sm:border-b lg:border-b-0' : ''}
-                  ${idx === 2 ? 'sm:border-r-0 lg:border-r border-b sm:border-b lg:border-b-0' : ''}
-                  border-[var(--sl-line)]`}
-                whileHover={reduced ? {} : { y: -3, transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] } }}
+            <h1 className="font-display text-4xl font-bold leading-[1.2] tracking-tight text-[var(--salira-graphite)] sm:text-6xl lg:text-[4rem]">
+              We build custom software around how your business{' '}
+              <RedPenAnnotation
+                type="circle"
+                note="EXACT FIT ONLY"
+                notePosition="right"
+                alwaysVisible
+                className="text-[var(--salira-blueprint)]"
               >
-                {/* Animated accent bar */}
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[var(--sl-teal-deep)] via-[var(--sl-gold)] to-[var(--sl-oxblood)] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-                {/* Step number + icon row */}
-                <div className="flex items-center justify-between mb-5">
-                  <span className="font-display text-3xl font-bold text-[var(--sl-teal-deep)] group-hover:text-[var(--sl-oxblood)] transition-colors duration-300">
-                    {item.n}
-                  </span>
-                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[rgba(46,111,94,0.07)] border border-[rgba(46,111,94,0.12)] group-hover:bg-[rgba(198,71,43,0.07)] group-hover:border-[rgba(198,71,43,0.15)] group-hover:scale-110 transition-all duration-300">
-                    <item.icon size={16} className="text-[var(--sl-teal-deep)] group-hover:text-[var(--sl-oxblood)] transition-colors duration-300" />
-                  </span>
+                actually works.
+              </RedPenAnnotation>
+            </h1>
+
+            <p className="max-w-xl text-base leading-relaxed text-[var(--salira-graphite-soft)] sm:text-lg">
+              No bloated SaaS templates, no monthly platform rent, and zero locked repositories. We engineer bespoke web apps, mobile portals, and operational backoffices with fixed milestone pricing and 100% source code ownership.
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <MagneticButton strength={0.2}>
+                <a
+                  href="#case-studies"
+                  className="inline-flex items-center gap-2 rounded bg-[var(--salira-redpen)] px-5 py-3 font-mono text-xs font-bold uppercase tracking-wider text-white shadow-xs transition-all hover:bg-[#E02E24] active:scale-98"
+                  data-draft-target="Case Studies CTA"
+                >
+                  <span>Review Case Studies</span>
+                  <ArrowRight size={14} />
+                </a>
+              </MagneticButton>
+
+              <MagneticButton strength={0.15}>
+                <a
+                  href="#pricing"
+                  className="inline-flex items-center gap-2 rounded border border-[var(--salira-border-draft-strong)] bg-white px-5 py-3 font-mono text-xs font-bold uppercase tracking-wider text-[var(--salira-graphite)] transition-all hover:border-[var(--salira-blueprint)] hover:text-[var(--salira-blueprint)]"
+                  data-draft-target="Scope & Pricing CTA"
+                >
+                  <span>Scope &amp; Pricing</span>
+                  <ArrowUpRight size={14} />
+                </a>
+              </MagneticButton>
+            </div>
+
+            {/* Engineering Highlights */}
+            <div className="grid grid-cols-3 gap-3 border-t border-[var(--salira-border-draft)] pt-6 font-mono text-xs">
+              <div className="rounded border border-[var(--salira-border-draft)] bg-white/70 p-2.5">
+                <span className="block text-[9px] uppercase tracking-wider text-[var(--salira-graphite-muted)]">
+                  CODE FREEDOM
+                </span>
+                <span className="mt-0.5 block font-bold text-[var(--salira-blueprint)]">
+                  100% Ownership
+                </span>
+              </div>
+              <div className="rounded border border-[var(--salira-border-draft)] bg-white/70 p-2.5">
+                <span className="block text-[9px] uppercase tracking-wider text-[var(--salira-graphite-muted)]">
+                  LATENCY GOAL
+                </span>
+                <span className="mt-0.5 block font-bold text-[var(--salira-blueprint)]">
+                  &lt; 50ms State Sync
+                </span>
+              </div>
+              <div className="rounded border border-[var(--salira-border-draft)] bg-white/70 p-2.5">
+                <span className="block text-[9px] uppercase tracking-wider text-[var(--salira-graphite-muted)]">
+                  CONTRACT MODEL
+                </span>
+                <span className="mt-0.5 block font-bold text-[var(--salira-redpen)]">
+                  Fixed Milestone
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Exposed Engineering Spec Box */}
+          <div className="lg:col-span-5">
+            <div className="relative rounded-lg border border-[var(--salira-border-draft)] bg-white p-5 shadow-sm">
+              {/* Box Header */}
+              <div className="mb-4 flex items-center justify-between border-b border-[var(--salira-border-draft)] pb-3">
+                <div className="flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--salira-blueprint)]">
+                  <Terminal size={14} />
+                  <span>STUDIO BLUEPRINT CONSOLE</span>
                 </div>
-                <h3 className="font-display text-lg font-semibold text-[var(--sl-ink)]">{item.t}</h3>
-                <p className="mt-2 text-xs leading-relaxed text-[var(--sl-ink-soft)]">{item.d}</p>
-              </motion.div>
-            ))}
+                <span className="rounded bg-[var(--salira-redpen-bg)] px-2 py-0.5 font-mono text-[9px] font-bold text-[var(--salira-redpen)]">
+                  LIVE DRAFT
+                </span>
+              </div>
+
+              {/* Spec Switcher Tabs */}
+              <div className="grid grid-cols-3 gap-1 rounded border border-[var(--salira-border-draft)] bg-[var(--salira-paper)] p-1 font-mono text-[10px]">
+                {(['architecture', 'ownership', 'performance'] as const).map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveSpecTab(tab)}
+                    className={`rounded py-1 text-center font-bold uppercase transition-all ${
+                      activeSpecTab === tab
+                        ? 'bg-[var(--salira-blueprint)] text-white shadow-2xs'
+                        : 'text-[var(--salira-graphite-muted)] hover:text-[var(--salira-graphite)]'
+                    }`}
+                    data-draft-target={`Tab ${tab}`}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
+
+              {/* Tab Contents */}
+              <div className="mt-4 min-h-[160px] space-y-3 font-mono text-xs">
+                {activeSpecTab === 'architecture' && (
+                  <motion.div
+                    initial={reduced ? {} : { opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="space-y-2 text-[var(--salira-graphite-soft)]"
+                  >
+                    <div className="flex items-center justify-between rounded bg-[var(--salira-paper-lifted)] p-2">
+                      <span className="text-[10px] text-[var(--salira-graphite-muted)]">STACK:</span>
+                      <span className="font-bold text-[var(--salira-blueprint)]">React 19 + TypeScript + Vite</span>
+                    </div>
+                    <div className="flex items-center justify-between rounded bg-[var(--salira-paper-lifted)] p-2">
+                      <span className="text-[10px] text-[var(--salira-graphite-muted)]">DATABASE:</span>
+                      <span className="font-bold text-[var(--salira-graphite)]">Tailored Schema / No ORM Bloat</span>
+                    </div>
+                    <div className="flex items-center justify-between rounded bg-[var(--salira-paper-lifted)] p-2">
+                      <span className="text-[10px] text-[var(--salira-graphite-muted)]">DISPATCH:</span>
+                      <span className="font-bold text-[var(--salira-redpen)]">Cross-Tab Reactive Sync Engine</span>
+                    </div>
+                  </motion.div>
+                )}
+
+                {activeSpecTab === 'ownership' && (
+                  <motion.div
+                    initial={reduced ? {} : { opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="space-y-2 text-[var(--salira-graphite-soft)]"
+                  >
+                    <div className="flex items-center justify-between rounded bg-[var(--salira-paper-lifted)] p-2">
+                      <span className="text-[10px] text-[var(--salira-graphite-muted)]">SOURCE CODE:</span>
+                      <span className="font-bold text-[var(--salira-blueprint)]">Full Git Repo Transferred</span>
+                    </div>
+                    <div className="flex items-center justify-between rounded bg-[var(--salira-paper-lifted)] p-2">
+                      <span className="text-[10px] text-[var(--salira-graphite-muted)]">MONTHLY RENT:</span>
+                      <span className="font-bold text-[var(--salira-redpen)]">₹0 / Month ($0 SaaS Lock-in)</span>
+                    </div>
+                    <div className="flex items-center justify-between rounded bg-[var(--salira-paper-lifted)] p-2">
+                      <span className="text-[10px] text-[var(--salira-graphite-muted)]">HOSTING:</span>
+                      <span className="font-bold text-[var(--salira-graphite)]">Your Cloud / Cloudflare / Vercel</span>
+                    </div>
+                  </motion.div>
+                )}
+
+                {activeSpecTab === 'performance' && (
+                  <motion.div
+                    initial={reduced ? {} : { opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="space-y-2 text-[var(--salira-graphite-soft)]"
+                  >
+                    <div className="flex items-center justify-between rounded bg-[var(--salira-paper-lifted)] p-2">
+                      <span className="text-[10px] text-[var(--salira-graphite-muted)]">LIGHTHOUSE SCORE:</span>
+                      <span className="font-bold text-[var(--salira-blueprint)]">98–100 Performance</span>
+                    </div>
+                    <div className="flex items-center justify-between rounded bg-[var(--salira-paper-lifted)] p-2">
+                      <span className="text-[10px] text-[var(--salira-graphite-muted)]">FIRST CONTENTFUL:</span>
+                      <span className="font-bold text-[var(--salira-graphite)]">&lt; 0.6s on 4G Mobile</span>
+                    </div>
+                    <div className="flex items-center justify-between rounded bg-[var(--salira-paper-lifted)] p-2">
+                      <span className="text-[10px] text-[var(--salira-graphite-muted)]">ACCESSIBILITY:</span>
+                      <span className="font-bold text-[var(--salira-redpen)]">WCAG AAA / AA Tested</span>
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+
+              {/* Box Footer Stamp */}
+              <div className="mt-4 border-t border-[var(--salira-border-draft)] pt-3 font-mono text-[9px] text-[var(--salira-graphite-muted)] flex items-center justify-between">
+                <span>VERIFIED BUILD SPEC</span>
+                <span className="text-[var(--salira-blueprint)]">NO EXTERNAL DEPENDENCIES</span>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
+      </DraftSheet>
 
-      {/* ── 5. Why SaLira ── */}
-      <section className="sl-white-section relative z-10 overflow-hidden py-20 sm:py-28">
-        <EvenMesh />
-        <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
-          <FadeUp>
-            <div className="mx-auto mb-14 max-w-2xl text-center">
-              <p className="sl-label text-[var(--sl-charcoal)]">Why SaLira</p>
-              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-[var(--sl-ink)] sm:text-4xl">
-                The smart choice for custom software.
-              </h2>
-            </div>
-          </FadeUp>
+      {/* ─────────────────────────────────────────────────────────────
+          SHEET 02: CASE STUDIES (PROOF BEFORE PITCH)
+          ───────────────────────────────────────────────────────────── */}
+      <DraftSheet
+        id="case-studies"
+        sheetNumber="SHEET 02/06"
+        title="PROVABLE WORKING SYSTEMS · CASE STUDIES"
+        revision="REV 2026.09"
+        coordinates="13.0827° N, 80.2707° E"
+        classification="TESTABLE CLIENT INSTANCES"
+        marginAnnotation={
+          <div className="font-mono text-[10px] text-[var(--salira-graphite-muted)]">
+            <span>✎ HONEST CASE STUDY DISCLOSURE: WE CONTRAST THE INITIAL WRONG DRAFT AGAINST THE FINAL ARCHITECTURE.</span>
+          </div>
+        }
+      >
+        <div className="space-y-4">
+          <div className="max-w-2xl">
+            <h2 className="font-display text-3xl font-bold tracking-tight text-[var(--salira-graphite)] sm:text-4xl">
+              Working software, engineered per industry.
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--salira-graphite-soft)] sm:text-base">
+              Both systems below are fully working two-sided applications running in your browser. Open them directly to test live interactions.
+            </p>
+          </div>
 
-          {/* ── Bento grid — 6 cells, 3 cols × 2 rows, shared borders ── */}
-          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 border border-[var(--sl-line)] rounded-2xl overflow-hidden shadow-sm" staggerDelay={0.07}>
-            {[
-              {
-                icon: Handshake,
-                title: 'Business-first approach',
-                desc: 'We start by understanding your process and goals, then build the software that fits. No useless tech bloat.',
-                color: '#C6472B',
-                accent: 'rgba(198,71,43,0.07)',
-                hoverBg: 'rgba(198,71,43,0.025)',
-                bar: 'from-[var(--sl-oxblood)]',
-              },
-              {
-                icon: Lock,
-                title: '100% Code ownership',
-                desc: 'Every line of code belongs to you. No monthly platform rent, no proprietary lock-in. Hire any developer later.',
-                color: '#D9A441',
-                accent: 'rgba(217,164,65,0.08)',
-                hoverBg: 'rgba(217,164,65,0.03)',
-                bar: 'from-[var(--sl-gold)]',
-              },
-              {
-                icon: Shield,
-                title: 'Transparent fixed pricing',
-                desc: 'You know the exact cost before we start. Milestone-based billing with zero surprise invoices.',
-                color: '#2E6F5E',
-                accent: 'rgba(46,111,94,0.07)',
-                hoverBg: 'rgba(46,111,94,0.025)',
-                bar: 'from-[var(--sl-teal-deep)]',
-              },
-              {
-                icon: Code2,
-                title: 'Tech matched to the problem',
-                desc: 'React, Flutter, Node.js, Python — we select what fits your business needs, not what fits our resume.',
-                color: '#C6472B',
-                accent: 'rgba(198,71,43,0.07)',
-                hoverBg: 'rgba(198,71,43,0.025)',
-                bar: 'from-[var(--sl-oxblood)]',
-              },
-              {
-                icon: Zap,
-                title: 'Fast & mobile-first',
-                desc: 'Every site and app loads in under 2.5 seconds, optimized for high Google rankings and smooth mobile browsing.',
-                color: '#D9A441',
-                accent: 'rgba(217,164,65,0.08)',
-                hoverBg: 'rgba(217,164,65,0.03)',
-                bar: 'from-[var(--sl-gold)]',
-              },
-              {
-                icon: CheckCircle2,
-                title: 'Post-launch warranty',
-                desc: 'Free support and bug fixes for 30 to 90 days after launch so you can run your business with total confidence.',
-                color: '#2E6F5E',
-                accent: 'rgba(46,111,94,0.07)',
-                hoverBg: 'rgba(46,111,94,0.025)',
-                bar: 'from-[var(--sl-teal-deep)]',
-              },
-            ].map((item, idx) => (
-              <StaggerItem key={item.title}>
-                <motion.div
-                  className={`group relative h-full overflow-hidden bg-white p-6 cursor-default transition-all duration-300
-                    ${idx < 3 ? 'border-b' : ''}
-                    ${idx % 3 !== 2 ? 'sm:border-r' : ''}
-                    border-[var(--sl-line)]`}
-                  style={{ backgroundColor: 'white' }}
-                  whileHover={reduced ? {} : {
-                    backgroundColor: item.hoverBg,
-                    transition: { duration: 0.25 }
-                  }}
-                >
-                  {/* Top accent bar slides in on hover */}
-                  <div className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r ${item.bar} via-transparent to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`} />
-                  {/* Corner number watermark */}
-                  <span className="absolute top-4 right-5 font-mono text-[10px] font-bold tracking-widest text-[var(--sl-line)] select-none">
-                    0{idx + 1}
-                  </span>
-                  <span
-                    className="flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110 group-hover:rotate-[-5deg]"
-                    style={{ background: item.accent, color: item.color }}
-                  >
-                    <item.icon size={18} />
-                  </span>
-                  <h3 className="mt-4 font-display text-base font-bold text-[var(--sl-ink)]">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[var(--sl-ink-soft)]">
-                    {item.desc}
-                  </p>
-                </motion.div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </section>
-
-      {/* ── 6. Contact ── */}
-      <section id="contact" className="sl-section-contact relative scroll-mt-16 overflow-hidden py-20 sm:py-28">
-        <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-            <SlideIn from="left" delay={0}>
+          <div className="mt-8 grid gap-8 lg:grid-cols-2">
+            {/* Case Study 01: AURA Restaurant Ecosystem */}
+            <div className="flex flex-col justify-between rounded-lg border border-[var(--salira-border-draft)] bg-white p-6 shadow-xs transition-all hover:border-[var(--salira-blueprint)]">
               <div>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--sl-line)] bg-white/80 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-[var(--sl-oxblood)] shadow-xs">
-                  <Sparkles size={13} />
-                  Get in Touch
-                </span>
-                <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-[var(--sl-ink)] sm:text-5xl">
-                  Ready to build something that fits?
-                </h2>
-                <p className="mt-4 text-sm leading-relaxed text-[var(--sl-ink-soft)] sm:text-base">
-                  Tell us about your business and what you want to build. We'll figure out what you need — and what you don't.
+                <div className="flex items-center justify-between border-b border-[var(--salira-border-draft)] pb-3">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-7 w-7 items-center justify-center rounded bg-[var(--salira-paper)] text-[var(--salira-blueprint)]">
+                      <UtensilsCrossed size={16} />
+                    </span>
+                    <span className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--salira-blueprint)]">
+                      01 · AURA Restaurant Ecosystem
+                    </span>
+                  </div>
+                  <span className="rounded bg-[var(--salira-paper-lifted)] px-2 py-0.5 font-mono text-[9px] font-bold text-[var(--salira-blueprint)]">
+                    TWO-SIDED PWA
+                  </span>
+                </div>
+
+                <h3 className="mt-4 font-display text-2xl font-bold text-[var(--salira-graphite)]">
+                  Direct Guest Ordering &amp; Kitchen Operations Console
+                </h3>
+                <p className="mt-2 text-xs leading-relaxed text-[var(--salira-graphite-soft)]">
+                  Modern South Indian Kitchen in Chennai. Replaced a 30% commission food delivery aggregator with a zero-rent custom PWA and spatial table management.
                 </p>
 
-                <div className="mt-8 space-y-4">
-                  <div className="flex items-center gap-3 text-sm text-[var(--sl-ink-soft)]">
-                    <Phone size={16} className="shrink-0 text-[var(--sl-oxblood)]" />
-                    <a href="tel:+917397430568" className="font-medium transition-colors hover:text-[var(--sl-ink)]">
-                      +91 73974 30568
-                    </a>
+                {/* Honest Engineering Framework */}
+                <div className="mt-5 space-y-2 font-mono text-xs">
+                  <div className="rounded border border-[var(--salira-border-draft)] bg-[var(--salira-paper)] p-2.5">
+                    <span className="block text-[9px] font-bold text-[var(--salira-redpen)] uppercase">
+                      THE ASK:
+                    </span>
+                    <span className="text-[11px] text-[var(--salira-graphite)]">
+                      Eliminate ₹45,000/mo marketplace commissions and streamline kitchen ticket chaos.
+                    </span>
                   </div>
-                  <div className="flex items-center gap-3 text-sm text-[var(--sl-ink-soft)]">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 shrink-0 text-[var(--sl-oxblood)]">
-                      <rect x="2" y="4" width="20" height="16" rx="2" />
-                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                    </svg>
-                    <a href="mailto:hello@salira.studio" className="transition-colors hover:text-[var(--sl-ink)]">
-                      hello@salira.studio
-                    </a>
+
+                  <div className="rounded border border-dashed border-[var(--salira-redpen-border)] bg-[var(--salira-redpen-bg)] p-2.5">
+                    <span className="block text-[9px] font-bold text-[var(--salira-redpen)] uppercase">
+                      THE WRONG FIRST DRAFT:
+                    </span>
+                    <span className="text-[11px] salira-strikethrough text-[var(--salira-graphite-muted)]">
+                      Off-the-shelf WordPress/Shopify ordering plugin. Too slow on 4G, rigid modifier groups, no kitchen dispatch screen.
+                    </span>
+                  </div>
+
+                  <div className="rounded border border-[var(--salira-border-draft)] bg-white p-2.5">
+                    <span className="block text-[9px] font-bold text-[var(--salira-blueprint)] uppercase">
+                      THE SYSTEM WE BUILT:
+                    </span>
+                    <span className="text-[11px] text-[var(--salira-graphite)]">
+                      Custom React PWA with live cross-tab WebSocket dispatch to a tablet-optimized kitchen display console.
+                    </span>
                   </div>
                 </div>
               </div>
-            </SlideIn>
 
-            <SlideIn from="right" delay={0.1}>
-              <div className="sl-panel p-6 shadow-[0_20px_60px_rgba(20,22,28,0.08)] sm:p-8">
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault()
-                    const form = e.target as HTMLFormElement
-                    const data = new FormData(form)
-                    const name = data.get('name')
-                    const phone = data.get('phone')
-                    const type = data.get('type')
-                    const message = data.get('message')
-                    const text = `Hi SaLira Studio, I'm ${name} (Phone: ${phone}). Project Type: ${type}. Brief: ${message}`
-                    window.open(`https://wa.me/917397430568?text=${encodeURIComponent(text)}`, '_blank')
-                  }}
-                  className="space-y-4"
+              {/* Action Buttons */}
+              <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-[var(--salira-border-draft)] pt-4">
+                <Link
+                  to="/work/restaurants"
+                  className="inline-flex items-center gap-1.5 rounded bg-[var(--salira-blueprint)] px-3.5 py-2 font-mono text-xs font-bold uppercase text-white hover:bg-[var(--salira-redpen)] transition-colors"
+                  data-draft-target="AURA Case Study"
                 >
+                  <span>Read Case Study</span>
+                  <ArrowRight size={13} />
+                </Link>
+                <Link
+                  to="/work/restaurants/customer"
+                  className="inline-flex items-center gap-1.5 rounded border border-[var(--salira-border-draft)] bg-white px-3.5 py-2 font-mono text-xs font-bold uppercase text-[var(--salira-graphite)] hover:border-[var(--salira-blueprint)] transition-colors"
+                  data-draft-target="Launch AURA App"
+                >
+                  <span>Launch Guest App</span>
+                  <ArrowUpRight size={13} />
+                </Link>
+              </div>
+            </div>
+
+            {/* Case Study 02: VoyageAI Travel Agency */}
+            <div className="flex flex-col justify-between rounded-lg border border-[var(--salira-border-draft)] bg-white p-6 shadow-xs transition-all hover:border-[var(--salira-blueprint)]">
+              <div>
+                <div className="flex items-center justify-between border-b border-[var(--salira-border-draft)] pb-3">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-7 w-7 items-center justify-center rounded bg-[var(--salira-paper)] text-[var(--salira-blueprint)]">
+                      <Plane size={16} />
+                    </span>
+                    <span className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--salira-blueprint)]">
+                      02 · VoyageAI Travel Platform
+                    </span>
+                  </div>
+                  <span className="rounded bg-[var(--salira-paper-lifted)] px-2 py-0.5 font-mono text-[9px] font-bold text-[var(--salira-blueprint)]">
+                    PORTAL + BACKOFFICE
+                  </span>
+                </div>
+
+                <h3 className="mt-4 font-display text-2xl font-bold text-[var(--salira-graphite)]">
+                  Luxury Client Destination Explorer &amp; Agency Admin Console
+                </h3>
+                <p className="mt-2 text-xs leading-relaxed text-[var(--salira-graphite-soft)]">
+                  High-end luxury bespoke travel consultancy. Replaced static PDF itineraries with an interactive destination builder and instant agent quote engine.
+                </p>
+
+                {/* Honest Engineering Framework */}
+                <div className="mt-5 space-y-2 font-mono text-xs">
+                  <div className="rounded border border-[var(--salira-border-draft)] bg-[var(--salira-paper)] p-2.5">
+                    <span className="block text-[9px] font-bold text-[var(--salira-redpen)] uppercase">
+                      THE ASK:
+                    </span>
+                    <span className="text-[11px] text-[var(--salira-graphite)]">
+                      High drop-off rate on generic enquiry contact forms and lost customer leads across WhatsApp.
+                    </span>
+                  </div>
+
+                  <div className="rounded border border-dashed border-[var(--salira-redpen-border)] bg-[var(--salira-redpen-bg)] p-2.5">
+                    <span className="block text-[9px] font-bold text-[var(--salira-redpen)] uppercase">
+                      THE WRONG FIRST DRAFT:
+                    </span>
+                    <span className="text-[11px] salira-strikethrough text-[var(--salira-graphite-muted)]">
+                      Standard generic multi-step lead capture modal that felt like a sales funnel rather than a luxury travel consultation.
+                    </span>
+                  </div>
+
+                  <div className="rounded border border-[var(--salira-border-draft)] bg-white p-2.5">
+                    <span className="block text-[9px] font-bold text-[var(--salira-blueprint)] uppercase">
+                      THE SYSTEM WE BUILT:
+                    </span>
+                    <span className="text-[11px] text-[var(--salira-graphite)]">
+                      Curated dark-mode destination portal with live itinerary wishlist linked to an agency dashboard for one-click proposal generation.
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-[var(--salira-border-draft)] pt-4">
+                <Link
+                  to="/work/travel"
+                  className="inline-flex items-center gap-1.5 rounded bg-[var(--salira-blueprint)] px-3.5 py-2 font-mono text-xs font-bold uppercase text-white hover:bg-[var(--salira-redpen)] transition-colors"
+                  data-draft-target="VoyageAI Case Study"
+                >
+                  <span>Read Case Study</span>
+                  <ArrowRight size={13} />
+                </Link>
+                <Link
+                  to="/work/travel/customer"
+                  className="inline-flex items-center gap-1.5 rounded border border-[var(--salira-border-draft)] bg-white px-3.5 py-2 font-mono text-xs font-bold uppercase text-[var(--salira-graphite)] hover:border-[var(--salira-blueprint)] transition-colors"
+                  data-draft-target="Launch VoyageAI Portal"
+                >
+                  <span>Launch Portal</span>
+                  <ArrowUpRight size={13} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </DraftSheet>
+
+      {/* ─────────────────────────────────────────────────────────────
+          SHEET 03: SERVICES / ENGINEERING SPECIFICATIONS
+          ───────────────────────────────────────────────────────────── */}
+      <DraftSheet
+        id="services"
+        sheetNumber="SHEET 03/06"
+        title="CORE ENGINEERING SPECIFICATIONS · SERVICES"
+        revision="REV 2026.09"
+        coordinates="13.0827° N, 80.2707° E"
+        classification="PRODUCTION CAPABILITIES"
+        marginAnnotation={
+          <div className="font-mono text-[10px] text-[var(--salira-graphite-muted)]">
+            <span>✎ ALL DELIVERABLES INCLUDE COMPLETE CI/CD, CLEAN SOURCE CODE, AND PRODUCTION CLOUD DEPLOYMENT.</span>
+          </div>
+        }
+      >
+        <div className="space-y-6">
+          <div className="max-w-2xl">
+            <h2 className="font-display text-3xl font-bold tracking-tight text-[var(--salira-graphite)] sm:text-4xl">
+              Software engineered for real business operations.
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--salira-graphite-soft)] sm:text-base">
+              We specialize in custom systems where off-the-shelf software fails due to rigid constraints, recurring monthly rent, or poor usability.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {/* Spec 01 */}
+            <div className="rounded-lg border border-[var(--salira-border-draft)] bg-white p-5 shadow-2xs">
+              <span className="font-mono text-[10px] font-bold text-[var(--salira-redpen)]">
+                SPEC 01
+              </span>
+              <div className="my-2 flex h-8 w-8 items-center justify-center rounded bg-[var(--salira-paper)] text-[var(--salira-blueprint)]">
+                <FileCode2 size={18} />
+              </div>
+              <h3 className="font-display text-lg font-bold text-[var(--salira-graphite)]">
+                High-Conversion Web &amp; PWAs
+              </h3>
+              <p className="mt-2 text-xs leading-relaxed text-[var(--salira-graphite-soft)]">
+                Ultra-fast customer-facing interfaces engineered with zero framework bloat. Instant loading on mobile networks with offline caching.
+              </p>
+            </div>
+
+            {/* Spec 02 */}
+            <div className="rounded-lg border border-[var(--salira-border-draft)] bg-white p-5 shadow-2xs">
+              <span className="font-mono text-[10px] font-bold text-[var(--salira-redpen)]">
+                SPEC 02
+              </span>
+              <div className="my-2 flex h-8 w-8 items-center justify-center rounded bg-[var(--salira-paper)] text-[var(--salira-blueprint)]">
+                <Layers size={18} />
+              </div>
+              <h3 className="font-display text-lg font-bold text-[var(--salira-graphite)]">
+                Operations &amp; Admin Consoles
+              </h3>
+              <p className="mt-2 text-xs leading-relaxed text-[var(--salira-graphite-soft)]">
+                Two-sided dashboards for order dispatch, customer management, spatial table plans, and real-time operations visibility.
+              </p>
+            </div>
+
+            {/* Spec 03 */}
+            <div className="rounded-lg border border-[var(--salira-border-draft)] bg-white p-5 shadow-2xs">
+              <span className="font-mono text-[10px] font-bold text-[var(--salira-redpen)]">
+                SPEC 03
+              </span>
+              <div className="my-2 flex h-8 w-8 items-center justify-center rounded bg-[var(--salira-paper)] text-[var(--salira-blueprint)]">
+                <Database size={18} />
+              </div>
+              <h3 className="font-display text-lg font-bold text-[var(--salira-graphite)]">
+                Custom Data &amp; State Sync
+              </h3>
+              <p className="mt-2 text-xs leading-relaxed text-[var(--salira-graphite-soft)]">
+                Purpose-built relational schemas and state synchronization engines tailored to your actual operational rules and transactions.
+              </p>
+            </div>
+
+            {/* Spec 04 */}
+            <div className="rounded-lg border border-[var(--salira-border-draft)] bg-white p-5 shadow-2xs">
+              <span className="font-mono text-[10px] font-bold text-[var(--salira-redpen)]">
+                SPEC 04
+              </span>
+              <div className="my-2 flex h-8 w-8 items-center justify-center rounded bg-[var(--salira-paper)] text-[var(--salira-blueprint)]">
+                <ShieldCheck size={18} />
+              </div>
+              <h3 className="font-display text-lg font-bold text-[var(--salira-graphite)]">
+                Turnkey Code Ownership
+              </h3>
+              <p className="mt-2 text-xs leading-relaxed text-[var(--salira-graphite-soft)]">
+                100% of the git repositories, production build configurations, and domain DNS setup are transferred directly to your organization.
+              </p>
+            </div>
+          </div>
+        </div>
+      </DraftSheet>
+
+      {/* ─────────────────────────────────────────────────────────────
+          SHEET 04: HOW WE WORK (THE DRAFTING PROTOCOL)
+          ───────────────────────────────────────────────────────────── */}
+      <DraftSheet
+        id="how-we-work"
+        sheetNumber="SHEET 04/06"
+        title="THE DRAFTING PROTOCOL · HOW WE WORK"
+        revision="REV 2026.09"
+        coordinates="13.0827° N, 80.2707° E"
+        classification="SPRINT LIFECYCLE"
+        marginAnnotation={
+          <div className="font-mono text-[10px] text-[var(--salira-graphite-muted)]">
+            <span>✎ TRANSPARENT REPUTATION: MILESTONE BILLING WITH NO HIDDEN FEES OR COST CREEP.</span>
+          </div>
+        }
+      >
+        <div className="space-y-6">
+          <div className="max-w-2xl">
+            <h2 className="font-display text-3xl font-bold tracking-tight text-[var(--salira-graphite)] sm:text-4xl">
+              From initial draft to production release.
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--salira-graphite-soft)] sm:text-base">
+              A disciplined, technical engineering protocol that keeps you in complete control at every milestone.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                step: '01',
+                title: 'Discovery Blueprint',
+                desc: 'We map your physical daily operations, bottlenecks, and user roles into a clear technical scope document with a fixed quote.',
+              },
+              {
+                step: '02',
+                title: 'Working Prototype',
+                desc: 'We deliver an interactive working draft you can click and test in your browser within 10–14 days. No static wireframe mockups.',
+              },
+              {
+                step: '03',
+                title: 'Engineering Sprints',
+                desc: 'We build out full business logic, database integrations, responsive styling, and cross-device performance budgets.',
+              },
+              {
+                step: '04',
+                title: 'Production Handover',
+                desc: 'We deploy your system live, configure custom domains and SSL certificates, and transfer 100% source code ownership.',
+              },
+            ].map((p) => (
+              <div
+                key={p.step}
+                className="relative rounded-lg border border-[var(--salira-border-draft)] bg-white p-5 shadow-2xs"
+              >
+                <span className="font-mono text-xs font-bold text-[var(--salira-blueprint)]">
+                  PHASE {p.step}
+                </span>
+                <h3 className="mt-2 font-display text-lg font-bold text-[var(--salira-graphite)]">
+                  {p.title}
+                </h3>
+                <p className="mt-2 text-xs leading-relaxed text-[var(--salira-graphite-soft)]">
+                  {p.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </DraftSheet>
+
+      {/* ─────────────────────────────────────────────────────────────
+          SHEET 05: TRANSPARENT PRICING & SCOPE
+          ───────────────────────────────────────────────────────────── */}
+      <DraftSheet
+        id="pricing"
+        sheetNumber="SHEET 05/06"
+        title="FIXED-PRICE ENGINEERING ESTIMATES · PRICING & SCOPE"
+        revision="REV 2026.09"
+        coordinates="13.0827° N, 80.2707° E"
+        classification="COMMERCIAL TERMS"
+        marginAnnotation={
+          <div className="flex flex-wrap items-center justify-between gap-2 font-mono text-[10px] text-[var(--salira-graphite-muted)]">
+            <span className="text-[var(--salira-redpen)] font-bold">
+              ✎ ALL TIERS INCLUDE 100% SOURCE CODE HANDOVER AND ZERO MONTHLY SAAS FEES.
+            </span>
+            <span>CUSTOM SCOPES QUOTED WITHIN 24 HOURS</span>
+          </div>
+        }
+      >
+        <div className="space-y-6">
+          <div className="max-w-2xl">
+            <h2 className="font-display text-3xl font-bold tracking-tight text-[var(--salira-graphite)] sm:text-4xl">
+              Transparent, fixed-price specifications.
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--salira-graphite-soft)] sm:text-base">
+              Clear milestone pricing with no subscription fees, platform commissions, or hidden surprises.
+            </p>
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-3">
+            {/* Tier 01: Foundation Web Tier */}
+            <div className="flex flex-col justify-between rounded-lg border border-[var(--salira-border-draft)] bg-white p-6 shadow-xs">
+              <div>
+                <div className="flex items-center justify-between border-b border-[var(--salira-border-draft)] pb-3">
+                  <span className="font-mono text-xs font-bold uppercase text-[var(--salira-blueprint)]">
+                    TIER 01 · FOUNDATION
+                  </span>
+                  <span className="rounded bg-[var(--salira-paper)] px-2 py-0.5 font-mono text-[9px] font-bold text-[var(--salira-graphite-muted)]">
+                    1–2 WEEKS
+                  </span>
+                </div>
+                <div className="mt-4">
+                  <span className="font-display text-3xl font-bold text-[var(--salira-graphite)]">
+                    ₹15,000
+                  </span>
+                  <span className="font-mono text-xs text-[var(--salira-graphite-muted)]"> / $200 fixed</span>
+                </div>
+                <p className="mt-2 text-xs leading-relaxed text-[var(--salira-graphite-soft)]">
+                  High-conversion brand presence engineered with sub-100ms loading and Google SEO optimization.
+                </p>
+
+                <ul className="mt-5 space-y-2 font-mono text-xs text-[var(--salira-graphite)]">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 size={13} className="text-[var(--salira-blueprint)] shrink-0" />
+                    <span>Custom High-Converting Web Architecture</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 size={13} className="text-[var(--salira-blueprint)] shrink-0" />
+                    <span>Mobile Responsive &amp; Touch Optimized</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 size={13} className="text-[var(--salira-blueprint)] shrink-0" />
+                    <span>Instant WhatsApp &amp; Contact Dispatch</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 size={13} className="text-[var(--salira-blueprint)] shrink-0" />
+                    <span>100% Full Source Code Transfer</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="mt-6 border-t border-[var(--salira-border-draft)] pt-4">
+                <a
+                  href="#contact"
+                  className="inline-flex w-full items-center justify-center gap-1.5 rounded border-2 border-[var(--salira-blueprint)] bg-white py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-[var(--salira-blueprint)] shadow-2xs transition-all duration-180 hover:bg-[var(--salira-blueprint)] hover:text-white active:scale-98"
+                  data-draft-target="Select Tier 01"
+                >
+                  <span>Select Specification</span>
+                  <ArrowUpRight size={13} />
+                </a>
+              </div>
+            </div>
+
+            {/* Tier 02: Custom Business App (Highlighted) */}
+            <div className="flex flex-col justify-between rounded-lg border-2 border-[var(--salira-blueprint)] bg-white p-6 shadow-md relative">
+              <span className="absolute -top-3 left-6 rounded bg-[var(--salira-redpen)] px-2.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider text-white shadow-2xs">
+                MOST POPULAR BLUEPRINT
+              </span>
+              <div>
+                <div className="flex items-center justify-between border-b border-[var(--salira-border-draft)] pb-3">
+                  <span className="font-mono text-xs font-bold uppercase text-[var(--salira-blueprint)]">
+                    TIER 02 · CUSTOM APP
+                  </span>
+                  <span className="rounded bg-[var(--salira-paper)] px-2 py-0.5 font-mono text-[9px] font-bold text-[var(--salira-blueprint)]">
+                    2–3 WEEKS
+                  </span>
+                </div>
+                <div className="mt-4">
+                  <span className="font-display text-3xl font-bold text-[var(--salira-graphite)]">
+                    ₹35,000
+                  </span>
+                  <span className="font-mono text-xs text-[var(--salira-graphite-muted)]"> / $450 fixed</span>
+                </div>
+                <p className="mt-2 text-xs leading-relaxed text-[var(--salira-graphite-soft)]">
+                  Complete two-sided application with customer booking/ordering portal + operations admin console.
+                </p>
+
+                <ul className="mt-5 space-y-2 font-mono text-xs text-[var(--salira-graphite)]">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 size={13} className="text-[var(--salira-redpen)] shrink-0" />
+                    <span>Two-Sided Architecture (Client + Admin)</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 size={13} className="text-[var(--salira-redpen)] shrink-0" />
+                    <span>Real-Time State &amp; Notification Sync</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 size={13} className="text-[var(--salira-redpen)] shrink-0" />
+                    <span>Custom Workflow Logic &amp; Cart/Booking</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 size={13} className="text-[var(--salira-redpen)] shrink-0" />
+                    <span>Zero Monthly SaaS Platform Fees</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="mt-6 border-t border-[var(--salira-border-draft)] pt-4">
+                <a
+                  href="#contact"
+                  className="inline-flex w-full items-center justify-center gap-1.5 rounded bg-[var(--salira-blueprint)] py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-white shadow-xs transition-all duration-180 hover:bg-[var(--salira-redpen)] active:scale-98"
+                  data-draft-target="Select Tier 02"
+                >
+                  <span>Initiate Custom Build</span>
+                  <ArrowRight size={13} />
+                </a>
+              </div>
+            </div>
+
+            {/* Tier 03: Full Ecosystem */}
+            <div className="flex flex-col justify-between rounded-lg border border-[var(--salira-border-draft)] bg-white p-6 shadow-xs">
+              <div>
+                <div className="flex items-center justify-between border-b border-[var(--salira-border-draft)] pb-3">
+                  <span className="font-mono text-xs font-bold uppercase text-[var(--salira-blueprint)]">
+                    TIER 03 · FULL ECOSYSTEM
+                  </span>
+                  <span className="rounded bg-[var(--salira-paper)] px-2 py-0.5 font-mono text-[9px] font-bold text-[var(--salira-graphite-muted)]">
+                    3–4 WEEKS
+                  </span>
+                </div>
+                <div className="mt-4">
+                  <span className="font-display text-3xl font-bold text-[var(--salira-graphite)]">
+                    ₹65,000
+                  </span>
+                  <span className="font-mono text-xs text-[var(--salira-graphite-muted)]"> / $850 fixed</span>
+                </div>
+                <p className="mt-2 text-xs leading-relaxed text-[var(--salira-graphite-soft)]">
+                  Enterprise-grade multi-role operational platform with database automations and full analytics.
+                </p>
+
+                <ul className="mt-5 space-y-2 font-mono text-xs text-[var(--salira-graphite)]">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 size={13} className="text-[var(--salira-blueprint)] shrink-0" />
+                    <span>Multi-Role Access (Customer, Staff, Manager)</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 size={13} className="text-[var(--salira-blueprint)] shrink-0" />
+                    <span>Custom Schema &amp; Cloud Database Deployment</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 size={13} className="text-[var(--salira-blueprint)] shrink-0" />
+                    <span>Export, Invoicing &amp; Operations Analytics</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 size={13} className="text-[var(--salira-blueprint)] shrink-0" />
+                    <span>30-Day Post-Launch SLA &amp; Support</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="mt-6 border-t border-[var(--salira-border-draft)] pt-4">
+                <a
+                  href="#contact"
+                  className="inline-flex w-full items-center justify-center gap-1.5 rounded border-2 border-[var(--salira-blueprint)] bg-white py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-[var(--salira-blueprint)] shadow-2xs transition-all duration-180 hover:bg-[var(--salira-blueprint)] hover:text-white active:scale-98"
+                  data-draft-target="Select Tier 03"
+                >
+                  <span>Select Specification</span>
+                  <ArrowUpRight size={13} />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </DraftSheet>
+
+      {/* ─────────────────────────────────────────────────────────────
+          SHEET 06: STUDIO DISPATCH / CONTACT
+          ───────────────────────────────────────────────────────────── */}
+      <DraftSheet
+        id="contact"
+        sheetNumber="SHEET 06/06"
+        title="STUDIO DISPATCH · INITIATE WORKING DRAFT"
+        revision="REV 2026.09"
+        coordinates="13.0827° N, 80.2707° E"
+        classification="DIRECT COMMUNICATION"
+        marginAnnotation={
+          <div className="font-mono text-[10px] text-[var(--salira-graphite-muted)]">
+            <span>✎ ALL INQUIRIES RECEIVE A DIRECT TECHNICAL AUDIT FROM AN ENGINEER, NOT A SALES REP.</span>
+          </div>
+        }
+      >
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
+          {/* Left: Contact Info */}
+          <div className="space-y-5 lg:col-span-5">
+            <h2 className="font-display text-3xl font-bold tracking-tight text-[var(--salira-graphite)] sm:text-4xl">
+              Let's engineer your software.
+            </h2>
+            <p className="text-xs leading-relaxed text-[var(--salira-graphite-soft)] sm:text-sm">
+              Send us your operational requirements or current process headaches. We'll respond with a clear architectural outline and fixed estimate within 24 hours.
+            </p>
+
+            <div className="space-y-3 font-mono text-xs pt-2">
+              <a
+                href="tel:+917397430568"
+                className="flex items-center gap-3 rounded border border-[var(--salira-border-draft)] bg-white p-3 text-[var(--salira-graphite)] hover:border-[var(--salira-blueprint)] transition-colors"
+                data-draft-target="Direct Call Contact"
+              >
+                <span className="flex h-8 w-8 items-center justify-center rounded bg-[var(--salira-paper)] text-[var(--salira-blueprint)]">
+                  <Phone size={15} />
+                </span>
+                <div>
+                  <span className="block text-[9px] text-[var(--salira-graphite-muted)] uppercase">
+                    DIRECT CALL / TELEPHONE
+                  </span>
+                  <span className="font-bold">+91 73974 30568</span>
+                </div>
+              </a>
+
+              <a
+                href="mailto:hello@salira.studio"
+                className="flex items-center gap-3 rounded border border-[var(--salira-border-draft)] bg-white p-3 text-[var(--salira-graphite)] hover:border-[var(--salira-blueprint)] transition-colors"
+                data-draft-target="Direct Email Contact"
+              >
+                <span className="flex h-8 w-8 items-center justify-center rounded bg-[var(--salira-paper)] text-[var(--salira-blueprint)]">
+                  <Mail size={15} />
+                </span>
+                <div>
+                  <span className="block text-[9px] text-[var(--salira-graphite-muted)] uppercase">
+                    DIRECT EMAIL
+                  </span>
+                  <span className="font-bold">hello@salira.studio</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          {/* Right: Working Draft Intake Form */}
+          <div className="lg:col-span-7">
+            <div className="rounded-lg border border-[var(--salira-border-draft)] bg-white p-6 shadow-xs">
+              <div className="mb-4 flex items-center justify-between border-b border-[var(--salira-border-draft)] pb-3 font-mono text-[10px] uppercase tracking-wider text-[var(--salira-graphite-muted)]">
+                <span className="text-[var(--salira-blueprint)] font-bold">DRAFT INTAKE FORM</span>
+                <span>NO SALES SPAM</span>
+              </div>
+
+              {contactSubmitted ? (
+                <div className="rounded border border-[var(--salira-blueprint)] bg-[var(--salira-paper-lifted)] p-6 text-center">
+                  <CheckCircle2 size={32} className="mx-auto text-[var(--salira-blueprint)]" />
+                  <h3 className="mt-3 font-display text-xl font-bold text-[var(--salira-graphite)]">
+                    Blueprint Intake Received
+                  </h3>
+                  <p className="mt-2 font-mono text-xs text-[var(--salira-graphite-soft)]">
+                    Thank you, {contactForm.name || 'there'}. We have queued your requirement for engineering review and will get back to you within 24 hours.
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleContactSubmit} className="space-y-4">
                   <div>
-                    <label htmlFor="name" className="mb-1 block text-xs font-semibold text-[var(--sl-ink-soft)]">
-                      Your Name
+                    <label className="block font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--salira-graphite-muted)]">
+                      YOUR NAME / ORGANIZATION
                     </label>
                     <input
                       type="text"
-                      id="name"
-                      name="name"
                       required
-                      placeholder="e.g. Rahul Sharma"
-                      className="w-full rounded-xl border border-[var(--sl-line)] bg-white/90 px-4 py-2.5 text-sm text-[var(--sl-ink)] outline-none transition-colors placeholder:text-[var(--sl-taupe)] focus:border-[var(--sl-gold)] focus:ring-1 focus:ring-[var(--sl-gold)]"
+                      value={contactForm.name}
+                      onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
+                      placeholder="e.g. Ramesh / Aura Hospitality"
+                      className="mt-1 w-full rounded border border-[var(--salira-border-draft)] bg-[var(--salira-paper)] px-3 py-2 font-sans text-xs text-[var(--salira-graphite)] outline-none focus:border-[var(--salira-blueprint)]"
+                      data-draft-target="Input Name"
                     />
                   </div>
+
                   <div>
-                    <label htmlFor="phone" className="mb-1 block text-xs font-semibold text-[var(--sl-ink-soft)]">
-                      Phone Number
+                    <label className="block font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--salira-graphite-muted)]">
+                      EMAIL OR PHONE NUMBER
                     </label>
                     <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
+                      type="text"
                       required
-                      placeholder="+91 XXXXX XXXXX"
-                      className="w-full rounded-xl border border-[var(--sl-line)] bg-white/90 px-4 py-2.5 text-sm text-[var(--sl-ink)] outline-none transition-colors placeholder:text-[var(--sl-taupe)] focus:border-[var(--sl-gold)] focus:ring-1 focus:ring-[var(--sl-gold)]"
+                      value={contactForm.email}
+                      onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                      placeholder="e.g. ramesh@aurarestaurant.in or +91 98765..."
+                      className="mt-1 w-full rounded border border-[var(--salira-border-draft)] bg-[var(--salira-paper)] px-3 py-2 font-sans text-xs text-[var(--salira-graphite)] outline-none focus:border-[var(--salira-blueprint)]"
+                      data-draft-target="Input Email"
                     />
                   </div>
+
                   <div>
-                    <label htmlFor="type" className="mb-1 block text-xs font-semibold text-[var(--sl-ink-soft)]">
-                      What are you looking to build?
-                    </label>
-                    <select
-                      id="type"
-                      name="type"
-                      className="w-full rounded-xl border border-[var(--sl-line)] bg-white/90 px-4 py-2.5 text-sm text-[var(--sl-ink)] outline-none transition-colors focus:border-[var(--sl-gold)] focus:ring-1 focus:ring-[var(--sl-gold)]"
-                    >
-                      <option value="Starter Website (₹15k–₹25k)">Starter Website (₹15k–₹25k)</option>
-                      <option value="Professional Business Website (₹60k+)">Professional Business Website (₹60k+)</option>
-                      <option value="Mobile App (iOS + Android)">Mobile App (iOS + Android)</option>
-                      <option value="Website + App Bundle">Website + App Bundle</option>
-                      <option value="Not sure — need advice">Not sure — need advice</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label htmlFor="message" className="mb-1 block text-xs font-semibold text-[var(--sl-ink-soft)]">
-                      Tell us about your business
+                    <label className="block font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--salira-graphite-muted)]">
+                      BRIEF SYSTEM REQUIREMENTS / WHAT TO AUTOMATE
                     </label>
                     <textarea
-                      id="message"
-                      name="message"
                       rows={3}
-                      placeholder="What does your business do? What are you looking to achieve?"
-                      className="w-full resize-none rounded-xl border border-[var(--sl-line)] bg-white/90 px-4 py-2.5 text-sm text-[var(--sl-ink)] outline-none transition-colors placeholder:text-[var(--sl-taupe)] focus:border-[var(--sl-gold)] focus:ring-1 focus:ring-[var(--sl-gold)]"
+                      required
+                      value={contactForm.projectScope}
+                      onChange={(e) => setContactForm({ ...contactForm, projectScope: e.target.value })}
+                      placeholder="e.g. We need a two-sided ordering portal for our 2 restaurant locations to avoid Zomato/Swiggy commissions..."
+                      className="mt-1 w-full rounded border border-[var(--salira-border-draft)] bg-[var(--salira-paper)] px-3 py-2 font-sans text-xs text-[var(--salira-graphite)] outline-none focus:border-[var(--salira-blueprint)]"
+                      data-draft-target="Input Scope"
                     />
                   </div>
+
                   <button
                     type="submit"
-                    className="sl-halo-gold w-full cursor-pointer rounded-xl bg-[var(--sl-gold)] px-4 py-3 text-sm font-bold text-black transition-all hover:bg-[#c49535] active:scale-98"
+                    className="w-full rounded bg-[var(--salira-redpen)] py-3 font-mono text-xs font-bold uppercase tracking-wider text-white hover:bg-[#E02E24] transition-colors"
+                    data-draft-target="Submit Blueprint Button"
                   >
-                    Send via WhatsApp
+                    Submit Requirements for Architectural Estimate
                   </button>
-                  <p className="text-center text-[10px] text-[var(--sl-charcoal)]">
-                    Opens WhatsApp with your details. Free 30-minute consultation.
-                  </p>
                 </form>
-              </div>
-            </SlideIn>
+              )}
+            </div>
           </div>
         </div>
-      </section>
+      </DraftSheet>
     </div>
   )
 }
-
-
-
-
-
-
-
-
-
-
-

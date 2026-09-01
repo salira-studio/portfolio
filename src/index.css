@@ -225,75 +225,192 @@
 }
 
 /* ────────────────────────────────────────────────────────────────
-   SaLira Studio — Global Multi-Section Palette Design Tokens
-   Strictly adheres to: Ink, Deep Pine, Oxblood, Gold, Deep Teal,
-   Sage Teal, Warm Taupe, Charcoal-Gray, Warm Paper, Lifted White, Deeper Sand.
+   THE WORKING DRAFT — TWO-TIER DESIGN TOKEN ARCHITECTURE
+   Layer 1: Umbrella Tokens (--salira-*) governing portfolio shell
+   Layer 2: Scoped Template Tokens (--rest-*, --travel-*)
    ──────────────────────────────────────────────────────────────── */
 :root,
-.salira {
-  /* ── Core Neutrals & Atmosphere (soft warm light studio) ── */
-  --sl-ink: #14161C;
-  --sl-ink-soft: #4A5160;
-  --sl-ink-faint: #6B7280;
-  --sl-paper: #FDF8F5;
-  --sl-paper-lifted: #FDF8F5;
-  --sl-sand-deep: #F7E8E1;
-  --sl-warm-mist: #F0F4F7;
-  --sl-warm-peach: #F5E2DB;
-  --sl-pine-deep: #1A2F2A;
-  --sl-surface: #FFFFFF;
-  --sl-surface-glass: rgba(255, 255, 255, 0.78);
+.salira,
+.salira-draft {
+  /* ── 1. Umbrella Base Palette (The Working Draft) ── */
+  --salira-blueprint: #0A3D62;           /* Primary base — engineering precision */
+  --salira-paper: #F5F0E6;               /* Drafting surface — tactile, warm paper */
+  --salira-paper-lifted: #FAF6ED;        /* Lifted sheet elevation */
+  --salira-paper-card: #FFFFFF;          /* Pure sheet card surface */
+  --salira-redpen: #FF3B30;              /* Single accent — annotations, corrections, primary CTAs */
+  --salira-redpen-bg: rgba(255, 59, 48, 0.08);
+  --salira-redpen-border: rgba(255, 59, 48, 0.32);
+  --salira-graphite: #1C1C1C;            /* Text — high contrast drafting charcoal */
+  --salira-graphite-soft: #44403C;       /* Secondary technical copy */
+  --salira-graphite-muted: #78716C;      /* Sheet metadata & coordinates */
+  --salira-graphite-faint: #A8A29E;      /* Grid ticks & minor registration */
 
-  /* ── Lines & Hairline Borders ── */
-  --sl-line: rgba(20, 22, 28, 0.08);
-  --sl-line-light: rgba(20, 22, 28, 0.045);
-  --sl-line-dark: rgba(255, 255, 255, 0.14);
+  /* ── Blueprint Grid & Drafting Construction Lines ── */
+  --salira-grid: rgba(10, 61, 98, 0.065);
+  --salira-grid-bold: rgba(10, 61, 98, 0.14);
+  --salira-border-draft: rgba(10, 61, 98, 0.15);
+  --salira-border-draft-strong: rgba(10, 61, 98, 0.28);
+  --salira-line: rgba(10, 61, 98, 0.12);
+  --salira-line-light: rgba(10, 61, 98, 0.06);
 
-  /* ── Primary & Named Accents ── */
-  --sl-oxblood: #C6472B;
-  --sl-gold: #D9A441;
-  --sl-teal-deep: #2E6F5E;
-  --sl-teal-sage: #5BA88F;
-  --sl-taupe: #9AA3B2;
-  --sl-charcoal: #5C6575;
+  /* ── Motion & Timing Curves (Canonical Scale) ── */
+  --salira-ease-draft: cubic-bezier(0.16, 1, 0.3, 1);
+  --salira-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --salira-timing-fast: 160ms;           /* Micro-interactions: buttons, links, toggles */
+  --salira-timing-base: 300ms;           /* State changes: panels, drawers, accordions */
+  --salira-timing-slow: 550ms;           /* Structural transitions: sheet unfurls, page loads */
 
-  /* ── Semantic System Aliases ── */
-  --sl-accent: var(--sl-oxblood);
-  --sl-accent-strong: var(--sl-oxblood);
-  --sl-accent-wash: rgba(198, 71, 43, 0.08);
-  --sl-accent-glow: rgba(198, 71, 43, 0.14);
-  --sl-accent-soft: rgba(198, 71, 43, 0.32);
+  /* ── Spacing Scale & Rhythm ── */
+  --salira-space-xs: 0.25rem;
+  --salira-space-sm: 0.5rem;
+  --salira-space-md: 1rem;
+  --salira-space-lg: 1.5rem;
+  --salira-space-xl: 2.5rem;
+  --salira-space-2xl: 4rem;
 
-  /* ── Living Accent Glows ── */
-  --sl-glow-gold: rgba(217, 164, 65, 0.32);
-  --sl-glow-oxblood: rgba(198, 71, 43, 0.28);
-  --sl-glow-teal: rgba(91, 168, 143, 0.28);
+  /* ── Border Radius Scale ── */
+  --salira-radius-xs: 4px;
+  --salira-radius-sm: 8px;
+  --salira-radius-md: 12px;
+  --salira-radius-lg: 16px;
+  --salira-radius-xl: 24px;
 
-  /* ── Iridescent Gradient (oxblood → gold → teal) ── */
-  --sl-iris: linear-gradient(
-    110deg,
-    #c6472b 0%,
-    #d9a441 32%,
-    #7fbfa6 58%,
-    #d9a441 78%,
-    #c6472b 100%
-  );
+  /* ── Shadows & Elevation ── */
+  --salira-shadow-draft-sm: 0 1px 3px rgba(10, 61, 98, 0.05);
+  --salira-shadow-draft-md: 0 6px 20px rgba(10, 61, 98, 0.08);
+  --salira-shadow-draft-lg: 0 16px 48px rgba(10, 61, 98, 0.12);
 
-  /* ── Section Background Tokens ── */
-  --sl-bg-work: var(--sl-paper-lifted);
-  --sl-bg-about: var(--sl-sand-deep);
-  --sl-bg-process: linear-gradient(160deg, #FDF8F5 0%, #F5F0EC 50%, #EEF5F2 100%);
-  --sl-bg-contact: linear-gradient(180deg, #F0F4F7 0%, #FDFCFB 40%, #F7E8E1 100%);
-  --sl-bg-casestudy: var(--sl-paper-lifted);
+  /* ── Legacy Aliases (to ensure backward-compatibility across components) ── */
+  --sl-ink: var(--salira-graphite);
+  --sl-ink-soft: var(--salira-graphite-soft);
+  --sl-ink-faint: var(--salira-graphite-muted);
+  --sl-paper: var(--salira-paper);
+  --sl-paper-lifted: var(--salira-paper-lifted);
+  --sl-sand-deep: #EDE5D8;
+  --sl-line: var(--salira-border-draft);
+  --sl-line-light: var(--salira-line-light);
+  --sl-oxblood: var(--salira-redpen);
+  --sl-gold: #0A3D62;
+  --sl-teal-deep: var(--salira-blueprint);
+  --sl-teal-sage: #388087;
+  --sl-charcoal: var(--salira-graphite-muted);
+  --sl-accent: var(--salira-redpen);
+  --sl-accent-wash: var(--salira-redpen-bg);
+  --sl-accent-soft: var(--salira-redpen-border);
+
+  /* Font Families */
+  --font-mono-draft: 'JetBrains Mono', 'Space Mono', monospace;
+  --font-display-draft: 'Fraunces', Georgia, serif;
+  --font-sans-draft: 'Inter', 'Plus Jakarta Sans', system-ui, sans-serif;
 
   position: relative;
-  background: #FFFFFF;
-  color: var(--sl-ink);
-  font-family: var(--font-sans);
+  background-color: var(--salira-paper);
+  color: var(--salira-graphite);
+  font-family: var(--font-sans-draft);
 }
 
+/* ── Layer 2: Template Scoped Tokens ── */
+[data-theme="restaurant"] {
+  --rest-primary: #B4532A;
+  --rest-primary-dark: #8B3E1E;
+  --rest-surface: #FBF6EE;
+  --rest-card: #FFFFFF;
+  --rest-text: #231A12;
+  --rest-muted: #7A5F46;
+  --rest-border: #E7DCC8;
+  --rest-accent: #A9834F;
+}
+
+[data-theme="travel"] {
+  --travel-primary: #3A7EFF;
+  --travel-primary-glow: rgba(58, 126, 255, 0.25);
+  --travel-surface: #0B0F19;
+  --travel-card: #131B2E;
+  --travel-text: #F1F5F9;
+  --travel-muted: #94A3B8;
+  --travel-border: rgba(255, 255, 255, 0.1);
+  --travel-gold: #F4B942;
+}
+
+/* ── Blueprint Graph Paper Pattern ── */
+.salira-draft-grid {
+  background-image: 
+    linear-gradient(to right, var(--salira-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--salira-grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.salira-draft-grid-dense {
+  background-image: 
+    linear-gradient(to right, var(--salira-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--salira-grid) 1px, transparent 1px),
+    linear-gradient(to right, var(--salira-grid-bold) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--salira-grid-bold) 1px, transparent 1px);
+  background-size: 16px 16px, 16px 16px, 96px 96px, 96px 96px;
+}
+
+/* ── Red Pen Annotations & Corrections ── */
+.salira-redpen-mark {
+  color: var(--salira-redpen);
+  font-family: var(--font-mono-draft);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.salira-strikethrough {
+  position: relative;
+  text-decoration: line-through;
+  text-decoration-color: var(--salira-redpen);
+  text-decoration-thickness: 2.5px;
+  color: var(--salira-graphite-muted);
+}
+
+.salira-annotation-box {
+  background: var(--salira-redpen-bg);
+  border: 1px dashed var(--salira-redpen-border);
+  color: var(--salira-redpen);
+  font-family: var(--font-mono-draft);
+  padding: 0.35rem 0.65rem;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+}
+
+.salira-sheet-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+}
+
+.salira-sheet-corner::before,
+.salira-sheet-corner::after {
+  content: '';
+  position: absolute;
+  background-color: var(--salira-blueprint);
+}
+
+.salira-corner-tl { top: 0; left: 0; }
+.salira-corner-tl::before { top: 0; left: 0; width: 10px; height: 1px; }
+.salira-corner-tl::after { top: 0; left: 0; width: 1px; height: 10px; }
+
+.salira-corner-tr { top: 0; right: 0; }
+.salira-corner-tr::before { top: 0; right: 0; width: 10px; height: 1px; }
+.salira-corner-tr::after { top: 0; right: 0; width: 1px; height: 10px; }
+
+.salira-corner-bl { bottom: 0; left: 0; }
+.salira-corner-bl::before { bottom: 0; left: 0; width: 10px; height: 1px; }
+.salira-corner-bl::after { bottom: 0; left: 0; width: 1px; height: 10px; }
+
+.salira-corner-br { bottom: 0; right: 0; }
+.salira-corner-br::before { bottom: 0; right: 0; width: 10px; height: 1px; }
+.salira-corner-br::after { bottom: 0; right: 0; width: 1px; height: 10px; }
+
 .salira ::selection {
-  background-color: var(--sl-oxblood);
+  background-color: var(--salira-redpen);
   color: #FFFFFF;
 }
 
@@ -305,6 +422,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   pointer-events: none;
   z-index: 99;
   opacity: 0.018;
@@ -842,16 +960,6 @@
   transition: opacity 0.4s ease;
 }
 
-/* Footer — continues the same warm peach; no hard seam */
-.sl-footer-glass {
-  background:
-    radial-gradient(640px 280px at 70% 0%, rgba(245, 226, 219, 0.5), transparent 55%),
-    linear-gradient(180deg, #F7E8E1 0%, #F5E2DB 55%, #F3DDD5 100%);
-  color: var(--sl-ink);
-  border-top: none;
-  margin-top: -1px;
-}
-
 /* Mini browser chrome for hero device mockups */
 .sl-mock-browser {
   border-radius: 18px;
@@ -968,13 +1076,35 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sl-white-section [aria-hidden] * {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .salira .sl-hero-glow-1,
+  .salira .sl-hero-glow-2,
+  .salira .sl-card-highlight::before,
+  .salira .sl-hero-hue,
+  .salira .sl-showcase-panel::before,
+  .salira .sl-glow-breathe,
+  .salira .sl-glow-breathe-delay,
+  .salira .sl-float-a,
+  .salira .sl-float-b {
     animation: none !important;
   }
-}
-@media (max-width: 640px) {
-  .sl-white-section [aria-hidden] span:nth-child(n+20) {
-    display: none;
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
 }
 
@@ -1233,44 +1363,15 @@
 [data-reveal-delay="4"] { transition-delay: 0.32s; }
 [data-reveal-delay="5"] { transition-delay: 0.40s; }
 
-/* Respect the OS reduced-motion setting across the whole portfolio shell. */
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  .salira *,
-  .salira *::before,
-  .salira *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-
-  .sl-hero-glow-1,
-  .sl-hero-glow-2,
-  .sl-card-highlight::before,
-  .sl-hero-hue,
-  .sl-showcase-panel::before,
-  .sl-glow-breathe,
-  .sl-glow-breathe-delay,
-  .sl-float-a,
-  .sl-float-b {
-    animation: none !important;
-  }
-
-  [data-reveal] {
-    opacity: 1;
-    transform: none;
-    filter: none;
-  }
-}
-
 /* Mobile: simplify background motion, keep the color */
 @media (max-width: 640px) {
   .sl-hero-hue {
     animation: none;
     opacity: 0.55;
+  }
+  .sl-scroll-ambient { display: none; }
+  .sl-white-section [aria-hidden] span:nth-child(n+20) {
+    display: none;
   }
 }
 

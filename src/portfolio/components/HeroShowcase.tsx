@@ -81,13 +81,13 @@ export function HeroShowcase() {
             </div>
 
             {/* CTA */}
-            <button className="group inline-flex items-center gap-2 text-sm font-medium text-white/60 transition-colors hover:text-white">
+            <a href="#services" className="group inline-flex items-center gap-2 text-sm font-medium text-white/60 transition-colors hover:text-white">
               Learn more
               <ArrowRight
                 size={14}
                 className="transition-transform duration-200 group-hover:translate-x-1"
               />
-            </button>
+            </a>
           </motion.div>
         </AnimatePresence>
       </div>
