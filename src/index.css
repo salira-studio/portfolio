@@ -36,6 +36,18 @@
   --font-display: 'Space Grotesk', 'Fraunces', Georgia, serif;
   --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+
+  /* SaLira Studio Manifesto Typography & Colors */
+  --font-special-elite: 'Special Elite', cursive, monospace;
+  --font-courier-prime: 'Courier Prime', Courier, monospace;
+  --font-archivo: 'Archivo', sans-serif;
+
+  --color-vellum: #EDE8DC;
+  --color-ink: #1C1B19;
+  --color-ink-muted: #6B6860;
+  --color-ink-faint: #A39E93;
+  --color-vermilion: #E8452C;
+  --color-vermilion-hover: #C4451C;
 }
 
 @layer base {
@@ -72,6 +84,18 @@
 @layer components {
   .font-display {
     font-family: var(--font-display);
+  }
+
+  .font-typewriter {
+    font-family: var(--font-special-elite), 'Special Elite', Courier, monospace;
+  }
+
+  .font-courier {
+    font-family: var(--font-courier-prime), 'Courier Prime', Courier, monospace;
+  }
+
+  .font-manifesto-sans {
+    font-family: var(--font-archivo), 'Archivo', sans-serif;
   }
 
   .text-balance {

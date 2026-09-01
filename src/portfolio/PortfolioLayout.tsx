@@ -3,7 +3,6 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { ArrowUpRight, Phone } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
-import { DraftCursor } from './components/DraftCursor'
 import { MobileDraftNav } from './components/MobileDraftNav'
 import { MagneticButton } from './components/MagneticButton'
 import { WhatsAppButton } from './components/WhatsAppButton'
@@ -35,48 +34,32 @@ export function PortfolioLayout() {
         <meta name="twitter:description" content="Custom websites, e-commerce, mobile apps, and business software. 100% code ownership, zero vendor lock-in." />
         <link rel="canonical" href="https://salira.studio" />
       </Helmet>
-      {/* ── Signature Precision Measurement & Crosshair Cursor ── */}
-      <DraftCursor />
-
-      {/* ── Top Blueprint Status Header ── */}
+      {/* ── Top Header ── */}
       <motion.header
         initial={reduced ? {} : { y: -16, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-        className="sticky top-0 z-40 border-b border-[var(--salira-border-draft)] bg-[var(--salira-paper)]/90 backdrop-blur-md"
+        className="sticky top-0 z-40 border-b border-[#DCD6C8] bg-[#EDE8DC]/95 backdrop-blur-xs"
       >
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-8">
-          {/* Logo & Drawing Identification */}
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 sm:px-10">
+          {/* Logo & Studio Title */}
           <Link
             to="/"
             className="group flex items-center gap-3 outline-none"
             data-draft-target="SaLira Logo"
           >
-            <div className="flex h-8 w-8 items-center justify-center rounded border border-[var(--salira-blueprint)] bg-[var(--salira-blueprint)] text-white shadow-xs transition-transform duration-200 group-hover:scale-105">
-              <span className="font-mono text-xs font-bold leading-none">SL</span>
+            <div className="flex h-7 w-7 items-center justify-center bg-[#1C1B19] text-white font-manifesto-sans text-xs font-bold leading-none">
+              SL
             </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-2">
-                <span className="font-display text-lg font-bold tracking-tight text-[var(--salira-blueprint)]">
-                  SaLira
-                </span>
-                <span className="rounded border border-[var(--salira-border-draft)] px-1.5 py-0.2 font-mono text-[8px] uppercase tracking-widest text-[var(--salira-graphite-muted)]">
-                  STUDIO
-                </span>
-              </div>
-              <span className="hidden sm:inline font-mono text-[8px] uppercase tracking-wider text-[var(--salira-graphite-muted)]">
-                THE WORKING DRAFT · 2026.09
+            <div className="flex items-center gap-2">
+              <span className="font-manifesto-sans text-base font-bold tracking-tight text-[#1C1B19]">
+                SaLira
+              </span>
+              <span className="text-[10px] uppercase tracking-widest text-[#6B6860] font-manifesto-sans font-medium">
+                STUDIO
               </span>
             </div>
           </Link>
-
-          {/* Blueprint Engineering Status Widget */}
-          <div className="hidden lg:flex items-center gap-2 rounded border border-[var(--salira-border-draft)] bg-white/70 px-3 py-1 font-mono text-[10px] text-[var(--salira-blueprint)] shadow-2xs">
-            <span className="h-1.5 w-1.5 rounded-full bg-[var(--salira-redpen)] animate-pulse" />
-            <span className="font-medium">STATUS: READY FOR CLIENT BUILDS</span>
-            <span className="text-[var(--salira-border-draft)]">|</span>
-            <span className="text-[var(--salira-graphite-muted)]">100% CODE OWNERSHIP</span>
-          </div>
 
           {/* Navigation & Direct Dispatch */}
           <div className="flex items-center gap-3 sm:gap-6">
