@@ -14,9 +14,9 @@ interface AuthContext { user: { name: string; email: string } | null }
 
 export default function Wishlist() {
   const ctx = useOutletContext<AuthContext>()
-  const [wishlist, setWishlistState] = useState<string[]>(getWishlist)
-
   if (!ctx.user) return <Navigate to={`${TRAVEL_BASE}/login`} replace />
+
+  const [wishlist, setWishlistState] = useState<string[]>(getWishlist)
 
   const wishlistDestinations = destinations.filter(d => wishlist.includes(`destination:${d.id}`))
   const wishlistPackages = packages.filter(p => wishlist.includes(`package:${p.id}`))

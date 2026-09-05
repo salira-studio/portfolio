@@ -1,5 +1,4 @@
 import { Link, NavLink, Outlet } from 'react-router-dom'
-import { Helmet } from 'react-helmet-async'
 import {
   Home,
   UtensilsCrossed,
@@ -31,17 +30,7 @@ export function CustomerLayout() {
   const resetDemo = useAppStore((s) => s.resetDemo)
 
   return (
-    <div data-theme="restaurant" className="min-h-screen bg-[var(--color-ivory-50)] text-[var(--color-espresso-900)] flex flex-col selection:bg-[var(--color-clay-500)] selection:text-white">
-      <Helmet>
-        <title>AURA Kitchen — Order Online</title>
-        <meta name="description" content="Order authentic cuisine from AURA Kitchen. Fresh ingredients, fast delivery, and easy online ordering." />
-        <meta property="og:title" content="AURA Kitchen — Order Online" />
-        <meta property="og:description" content="Order authentic cuisine from AURA Kitchen. Fresh ingredients, fast delivery, and easy online ordering." />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="AURA Kitchen — Order Online" />
-        <meta name="twitter:description" content="Order authentic cuisine from AURA Kitchen. Fresh ingredients, fast delivery, and easy online ordering." />
-      </Helmet>
+    <div className="min-h-screen bg-[var(--color-ivory-50)] text-[var(--color-espresso-900)] flex flex-col selection:bg-[var(--color-clay-500)] selection:text-white">
       {/* ── Top Announcement / Live Sync Demo Bar ── */}
       <div className="bg-[var(--color-espresso-900)] text-white/90 text-xs px-4 py-2 flex items-center justify-between border-b border-white/10">
         <div className="max-w-7xl mx-auto w-full flex items-center justify-between gap-4">

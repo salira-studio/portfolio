@@ -24,8 +24,8 @@ interface AdminSidebarProps {
   onLogout: () => void
 }
 
-function SidebarContent({ onClose, onLogout }: { onClose?: () => void; onLogout: () => void }) {
-  return (
+export function AdminSidebar({ open, onClose, onLogout }: AdminSidebarProps) {
+  const SidebarContent = () => (
     <div className="flex flex-col h-full bg-white border-r border-[#E8E0D5]">
       {/* Logo */}
       <div className="flex items-center justify-between p-5 border-b border-[#E8E0D5]">
@@ -38,11 +38,9 @@ function SidebarContent({ onClose, onLogout }: { onClose?: () => void; onLogout:
             <p className="text-[10px] text-[#78716C] -mt-0.5">Admin Console</p>
           </div>
         </Link>
-        {onClose && (
-          <button onClick={onClose} className="md:hidden text-[#78716C] hover:text-[#1C1917] p-1">
-            <X size={18} />
-          </button>
-        )}
+        <button onClick={onClose} className="md:hidden text-[#78716C] hover:text-[#1C1917] p-1">
+          <X size={18} />
+        </button>
       </div>
 
       {/* Nav */}
@@ -51,7 +49,7 @@ function SidebarContent({ onClose, onLogout }: { onClose?: () => void; onLogout:
           <NavLink
             key={item.to}
             to={item.to}
-            onClick={() => onClose && onClose()}
+            onClick={() => onClose()}
             className={({ isActive }) =>
               `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
                 isActive
@@ -81,14 +79,12 @@ function SidebarContent({ onClose, onLogout }: { onClose?: () => void; onLogout:
       </div>
     </div>
   )
-}
 
-export function AdminSidebar({ open, onClose, onLogout }: AdminSidebarProps) {
   return (
     <>
       {/* Desktop sidebar */}
       <div className="hidden md:block w-60 shrink-0 h-screen sticky top-0">
-        <SidebarContent onLogout={onLogout} />
+        <SidebarContent />
       </div>
 
       {/* Mobile drawer */}
@@ -100,7 +96,7 @@ export function AdminSidebar({ open, onClose, onLogout }: AdminSidebarProps) {
             <motion.div initial={{ x: -280 }} animate={{ x: 0 }} exit={{ x: -280 }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
               className="fixed left-0 top-0 h-full w-64 z-50 md:hidden">
-              <SidebarContent onClose={onClose} onLogout={onLogout} />
+              <SidebarContent />
             </motion.div>
           </>
         )}

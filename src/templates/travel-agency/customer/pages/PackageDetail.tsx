@@ -175,7 +175,7 @@ export default function PackageDetail() {
                 <p className="text-[#78716C] text-xs">per person</p>
               </div>
               <div className="mb-4">
-                <label htmlFor="pd-travelers" className="text-xs text-[#78716C] mb-1.5 block">Number of Travelers</label>
+                <label className="text-xs text-[#78716C] mb-1.5 block">Number of Travelers</label>
                 <div className="flex items-center gap-3">
                   <button onClick={() => setTravelers(Math.max(1, travelers - 1))} className="w-8 h-8 rounded-full bg-[#F5F0E8] border border-[#E8E0D5] text-[#1C1917] hover:bg-[#EDE8E0] transition-colors flex items-center justify-center text-lg">−</button>
                   <span className="text-[#1C1917] font-semibold text-lg w-8 text-center">{travelers}</span>
