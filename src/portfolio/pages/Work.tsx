@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import {
-  ArrowRight,
   ArrowUpRight,
   UtensilsCrossed,
   Plane,
@@ -149,19 +148,10 @@ export default function Work() {
                 </div>
 
                 <div className="mt-6 space-y-2 pt-4 border-t border-[var(--salira-border-draft)]">
-                  <Link
-                    to="/work/restaurants"
-                    className="flex w-full items-center justify-center gap-2 rounded bg-[var(--salira-blueprint)] py-2.5 font-mono text-xs font-bold uppercase text-white hover:bg-[var(--salira-redpen)] transition-colors"
-                    data-draft-target="AURA Deep Dive"
-                  >
-                    <span>Read Architectural Deep Dive</span>
-                    <ArrowRight size={13} />
-                  </Link>
-
                   <div className="grid grid-cols-2 gap-2">
                     <Link
                       to="/work/restaurants/customer"
-                      className="flex items-center justify-center gap-1 rounded border border-[var(--salira-border-draft)] bg-white py-2 font-mono text-[11px] font-bold uppercase text-[var(--salira-graphite)] hover:border-[var(--salira-blueprint)] transition-colors"
+                      className="flex items-center justify-center gap-1 rounded bg-[var(--salira-blueprint)] py-2.5 font-mono text-[11px] font-bold uppercase text-white hover:bg-[var(--salira-redpen)] transition-colors"
                       data-draft-target="Launch AURA Customer"
                     >
                       <span>Guest PWA</span>
@@ -169,7 +159,7 @@ export default function Work() {
                     </Link>
                     <Link
                       to="/work/restaurants/console"
-                      className="flex items-center justify-center gap-1 rounded border border-[var(--salira-border-draft)] bg-white py-2 font-mono text-[11px] font-bold uppercase text-[var(--salira-graphite)] hover:border-[var(--salira-blueprint)] transition-colors"
+                      className="flex items-center justify-center gap-1 rounded border border-[var(--salira-border-draft)] bg-white py-2.5 font-mono text-[11px] font-bold uppercase text-[var(--salira-graphite)] hover:border-[var(--salira-blueprint)] transition-colors"
                       data-draft-target="Launch AURA Console"
                     >
                       <span>Kitchen Console</span>
@@ -288,19 +278,10 @@ export default function Work() {
                 </div>
 
                 <div className="mt-6 space-y-2 pt-4 border-t border-[var(--salira-border-draft)]">
-                  <Link
-                    to="/work/travel"
-                    className="flex w-full items-center justify-center gap-2 rounded bg-[var(--salira-blueprint)] py-2.5 font-mono text-xs font-bold uppercase text-white hover:bg-[var(--salira-redpen)] transition-colors"
-                    data-draft-target="VoyageAI Deep Dive"
-                  >
-                    <span>Read Architectural Deep Dive</span>
-                    <ArrowRight size={13} />
-                  </Link>
-
                   <div className="grid grid-cols-2 gap-2">
                     <Link
                       to="/work/travel/customer"
-                      className="flex items-center justify-center gap-1 rounded border border-[var(--salira-border-draft)] bg-white py-2 font-mono text-[11px] font-bold uppercase text-[var(--salira-graphite)] hover:border-[var(--salira-blueprint)] transition-colors"
+                      className="flex items-center justify-center gap-1 rounded bg-[var(--salira-blueprint)] py-2.5 font-mono text-[11px] font-bold uppercase text-white hover:bg-[var(--salira-redpen)] transition-colors"
                       data-draft-target="Launch VoyageAI Customer"
                     >
                       <span>Customer Site</span>
@@ -308,7 +289,7 @@ export default function Work() {
                     </Link>
                     <Link
                       to="/work/travel/admin"
-                      className="flex items-center justify-center gap-1 rounded border border-[var(--salira-border-draft)] bg-white py-2 font-mono text-[11px] font-bold uppercase text-[var(--salira-graphite)] hover:border-[var(--salira-blueprint)] transition-colors"
+                      className="flex items-center justify-center gap-1 rounded border border-[var(--salira-border-draft)] bg-white py-2.5 font-mono text-[11px] font-bold uppercase text-[var(--salira-graphite)] hover:border-[var(--salira-blueprint)] transition-colors"
                       data-draft-target="Launch VoyageAI Admin"
                     >
                       <span>Admin Console</span>
