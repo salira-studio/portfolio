@@ -36,7 +36,7 @@ export default function AdminApp() {
   return (
     <div data-theme="travel" className="flex h-screen bg-[#FDFAF5] text-[#1C1917] overflow-hidden">
       <Helmet>
-        <title>Wanderlux — Admin Dashboard</title>
+        <title>VoyageAI — Admin Dashboard</title>
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
       <AdminSidebar

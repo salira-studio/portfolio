@@ -38,13 +38,13 @@ export default function CustomerApp() {
   return (
     <div data-theme="travel" className="min-h-screen bg-[#FDFAF5] text-[#1C1917] flex flex-col">
       <Helmet>
-        <title>Wanderlux — Curated Travel Experiences</title>
-        <meta name="description" content="Discover handcrafted travel packages, exclusive destinations, and personalized journey planning with Wanderlux." />
-        <meta property="og:title" content="Wanderlux — Curated Travel Experiences" />
+        <title>VoyageAI — Curated Travel Experiences</title>
+        <meta name="description" content="Discover handcrafted travel packages, exclusive destinations, and personalized journey planning with VoyageAI." />
+        <meta property="og:title" content="VoyageAI — Curated Travel Experiences" />
         <meta property="og:description" content="Discover handcrafted travel packages, exclusive destinations, and personalized journey planning." />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Wanderlux — Curated Travel Experiences" />
+        <meta name="twitter:title" content="VoyageAI — Curated Travel Experiences" />
         <meta name="twitter:description" content="Discover handcrafted travel packages, exclusive destinations, and personalized journey planning." />
       </Helmet>
       <Navbar user={user} onLogout={handleLogout} />
