@@ -28,11 +28,6 @@ export default function PackageDetail() {
   const totalPrice = pkg.price * travelers
 
   const handleEnquire = () => {
-    const user = localStorage.getItem('travel_user')
-    if (!user) {
-      navigate(`${TRAVEL_BASE}/login?redirect=/packages/${id}`)
-      return
-    }
     const enquiries = JSON.parse(localStorage.getItem('travel_enquiries') || '[]')
     enquiries.unshift({
       id: Date.now().toString(),

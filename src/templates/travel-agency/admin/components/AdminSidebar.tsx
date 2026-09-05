@@ -2,7 +2,7 @@ import { NavLink, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   LayoutDashboard, Package, Map, Calendar, MessageSquare, Users,
-  BarChart3, Globe, X, LogOut, ExternalLink
+  BarChart3, Globe, X, ExternalLink
 } from 'lucide-react'
 
 const ADMIN_BASE = '/work/travel/admin'
@@ -21,10 +21,9 @@ const navItems = [
 interface AdminSidebarProps {
   open: boolean
   onClose: () => void
-  onLogout: () => void
 }
 
-export function AdminSidebar({ open, onClose, onLogout }: AdminSidebarProps) {
+export function AdminSidebar({ open, onClose }: AdminSidebarProps) {
   const SidebarContent = () => (
     <div className="flex flex-col h-full bg-white border-r border-[#E8E0D5]">
       {/* Logo */}
@@ -65,17 +64,12 @@ export function AdminSidebar({ open, onClose, onLogout }: AdminSidebarProps) {
       </nav>
 
       {/* Footer */}
-      <div className="p-3 border-t border-[#E8E0D5] space-y-0.5">
+      <div className="p-3 border-t border-[#E8E0D5]">
         <a href={CUSTOMER_BASE} target="_blank" rel="noopener noreferrer"
           className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-[#78716C] hover:text-[#1C1917] hover:bg-[#F5F0E8] transition-all">
           <ExternalLink size={15} />
           View Customer Site
         </a>
-        <button onClick={onLogout}
-          className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-red-600 hover:bg-red-50 transition-all w-full">
-          <LogOut size={15} />
-          Sign Out
-        </button>
       </div>
     </div>
   )

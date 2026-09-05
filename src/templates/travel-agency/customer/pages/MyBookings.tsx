@@ -1,12 +1,10 @@
 import { useState } from 'react'
-import { useOutletContext, Link, Navigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { MapPin, Calendar, Users, ArrowLeft } from 'lucide-react'
 import { mockBookings } from '../../data/bookings'
 
 const TRAVEL_BASE = '/work/travel/customer'
-
-interface AuthContext { user: { name: string; email: string } | null }
 
 const statusColors: Record<string, string> = {
   confirmed: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/20',
@@ -24,11 +22,7 @@ const paymentColors: Record<string, string> = {
 type FilterStatus = 'all' | 'confirmed' | 'pending' | 'cancelled' | 'completed'
 
 export default function MyBookings() {
-  const ctx = useOutletContext<AuthContext>()
-  if (!ctx.user) return <Navigate to={`${TRAVEL_BASE}/login`} replace />
-
   const [filter, setFilter] = useState<FilterStatus>('all')
-
   const bookings = filter === 'all' ? mockBookings : mockBookings.filter(b => b.status === filter)
 
   return (
@@ -54,7 +48,6 @@ export default function MyBookings() {
           ))}
         </div>
 
-        {/* Bookings */}
         <div className="space-y-4">
           {bookings.length === 0 ? (
             <div className="text-center py-16 bg-white rounded-2xl border border-[#E8E0D5]">

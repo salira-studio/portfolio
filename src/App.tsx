@@ -41,15 +41,12 @@ const TravelPackages = lazy(() => import('./templates/travel-agency/customer/pag
 const TravelPackageDetail = lazy(() => import('./templates/travel-agency/customer/pages/PackageDetail'))
 const TravelAbout = lazy(() => import('./templates/travel-agency/customer/pages/About'))
 const TravelContact = lazy(() => import('./templates/travel-agency/customer/pages/Contact'))
-const TravelLogin = lazy(() => import('./templates/travel-agency/customer/pages/Login'))
-const TravelRegister = lazy(() => import('./templates/travel-agency/customer/pages/Register'))
 const TravelDashboard = lazy(() => import('./templates/travel-agency/customer/pages/Dashboard'))
 const TravelMyBookings = lazy(() => import('./templates/travel-agency/customer/pages/MyBookings'))
 const TravelWishlist = lazy(() => import('./templates/travel-agency/customer/pages/Wishlist'))
 const TravelNotFound = lazy(() => import('./templates/travel-agency/customer/pages/NotFound'))
 
 /* ── Travel Admin pages (lazy) ── */
-const AdminLogin = lazy(() => import('./templates/travel-agency/admin/pages/AdminLogin'))
 const AdminDashboard = lazy(() => import('./templates/travel-agency/admin/pages/AdminDashboard'))
 const AdminPackages = lazy(() => import('./templates/travel-agency/admin/pages/AdminPackages'))
 const AdminDestinations = lazy(() => import('./templates/travel-agency/admin/pages/AdminDestinations'))
@@ -96,7 +93,7 @@ export default function App() {
             <Route path="settings" element={<ConsoleSettings />} />
           </Route>
 
-          {/* ── Travel Agency · Customer App ── */}
+          {/* ── Travel Agency · Customer App (no login required) ── */}
           <Route path="/work/travel/customer" element={<TravelCustomerApp />}>
             <Route index element={<TravelHome />} />
             <Route path="destinations" element={<TravelDestinations />} />
@@ -105,18 +102,15 @@ export default function App() {
             <Route path="packages/:id" element={<TravelPackageDetail />} />
             <Route path="about" element={<TravelAbout />} />
             <Route path="contact" element={<TravelContact />} />
-            <Route path="login" element={<TravelLogin />} />
-            <Route path="register" element={<TravelRegister />} />
             <Route path="dashboard" element={<TravelDashboard />} />
             <Route path="dashboard/bookings" element={<TravelMyBookings />} />
             <Route path="dashboard/wishlist" element={<TravelWishlist />} />
             <Route path="*" element={<TravelNotFound />} />
           </Route>
 
-          {/* ── Travel Agency · Admin App ── */}
+          {/* ── Travel Agency · Admin App (no login required) ── */}
           <Route path="/work/travel/admin" element={<TravelAdminApp />}>
             <Route index element={<Navigate to="/work/travel/admin/dashboard" replace />} />
-            <Route path="login" element={<AdminLogin />} />
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="packages" element={<AdminPackages />} />
             <Route path="destinations" element={<AdminDestinations />} />

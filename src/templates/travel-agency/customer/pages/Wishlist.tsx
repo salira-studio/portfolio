@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useOutletContext, Link, Navigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Heart, ArrowLeft, Trash2 } from 'lucide-react'
 import { destinations } from '../../data/destinations'
@@ -10,12 +10,7 @@ import { PackageCard } from '../components/PackageCard'
 
 const TRAVEL_BASE = '/work/travel/customer'
 
-interface AuthContext { user: { name: string; email: string } | null }
-
 export default function Wishlist() {
-  const ctx = useOutletContext<AuthContext>()
-  if (!ctx.user) return <Navigate to={`${TRAVEL_BASE}/login`} replace />
-
   const [wishlist, setWishlistState] = useState<string[]>(getWishlist)
 
   const wishlistDestinations = destinations.filter(d => wishlist.includes(`destination:${d.id}`))
