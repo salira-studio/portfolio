@@ -5,15 +5,195 @@ import {
   CheckCircle2,
   Phone,
   Mail,
+  Globe,
+  ShoppingBag,
+  Smartphone,
+  LayoutDashboard,
+  Cpu,
 } from 'lucide-react'
 import { ManifestoHero } from '../components/ManifestoHero'
 import { CaseFilesSection } from '../components/CaseFilesSection'
 import { ServicesSection } from '../components/ServicesSection'
 import { DraftSheet } from '../components/DraftSheet'
 
+/* ── Pricing category data for the homepage grid ── */
+const PRICING_CATEGORIES = [
+  {
+    id: 'website',
+    label: 'Website',
+    icon: Globe,
+    tiers: [
+      {
+        tierCode: 'TIER-WEB-01 · Starter',
+        price: '₹25,000 – ₹45,000',
+        priceNote: 'Fixed scope quote · 100% code ownership',
+        timeline: '1–2 weeks',
+        bestFor: 'Single-location businesses, consultants, or professional practices requiring an authoritative web presence.',
+        specs: ['Up to 5 pages', 'Extra page: ₹3,000–₹4,000 / page', '15-day bug-fix support', 'Mobile-responsive + SEO foundation'],
+        ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter Website project (₹25,000–₹45,000 scope).',
+      },
+      {
+        tierCode: 'TIER-WEB-02 · Standard',
+        price: '₹55,000 – ₹1,10,000',
+        priceNote: 'Fixed scope quote · 100% code ownership',
+        timeline: '3–4 weeks',
+        bestFor: 'Growing service firms, B2B companies, or established businesses requiring bespoke UI design and dynamic content.',
+        specs: ['6 to 12 pages', 'Extra page: ₹4,000–₹6,000 / page', '30-day bug-fix support', 'Custom CMS + analytics setup'],
+        ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard Website project (₹55,000–₹1,10,000 scope).',
+      },
+      {
+        tierCode: 'TIER-WEB-03 · Advanced',
+        price: '₹1,30,000 – ₹2,80,000+',
+        priceNote: 'Milestone billing quote · 100% code ownership',
+        timeline: '5–8 weeks',
+        bestFor: 'Organizations with specialized workflows, client portals, high-traffic portals, API integrations, or multi-user needs.',
+        specs: ['12 to 25+ pages', 'Extra page: ₹6,000–₹8,000 / page', '60-day bug-fix support', 'Auth portals + custom API integrations'],
+        ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced Website project (₹1,30,000–₹2,80,000+ scope).',
+      },
+    ],
+  },
+  {
+    id: 'ecommerce',
+    label: 'E-Commerce',
+    icon: ShoppingBag,
+    tiers: [
+      {
+        tierCode: 'TIER-ECOM-01 · Starter',
+        price: '₹50,000 – ₹1,50,000',
+        priceNote: 'Fixed scope quote · 100% code ownership',
+        timeline: '2–4 weeks',
+        bestFor: 'First online store, simple catalog — templated Shopify / WooCommerce store.',
+        specs: ['Up to 50 products', '1 gateway (Razorpay/UPI) + GST', '15-day bug-fix support', 'Cart, checkout & order notifications'],
+        ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter E-Commerce project (₹50,000–₹1,50,000 scope).',
+      },
+      {
+        tierCode: 'TIER-ECOM-02 · Standard',
+        price: '₹1,50,000 – ₹5,00,000',
+        priceNote: 'Fixed scope quote · 100% code ownership',
+        timeline: '4–8 weeks',
+        bestFor: 'Growing brand needing custom design + integrations — semi-custom on Shopify / WooCommerce.',
+        specs: ['Up to 500 products', 'Multiple gateways + GSTR-1', '30–45-day bug-fix support', 'Abandoned cart recovery + analytics'],
+        ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard E-Commerce project (₹1,50,000–₹5,00,000 scope).',
+      },
+      {
+        tierCode: 'TIER-ECOM-03 · Advanced',
+        price: '₹5,00,000 – ₹20,00,000+',
+        priceNote: 'Milestone billing quote · 100% code ownership',
+        timeline: '12–24 weeks',
+        bestFor: 'Multi-vendor marketplace, ERP/CRM sync, high-traffic scale — fully custom / multi-vendor architecture.',
+        specs: ['500+ products (modular)', 'Full GST/HSN + e-Way Bill', '60–90-day bug-fix support', 'Multi-vendor payouts + ERP integrations'],
+        ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced E-Commerce project (₹5,00,000–₹20,00,000+ scope).',
+      },
+    ],
+  },
+  {
+    id: 'mobile',
+    label: 'Mobile App',
+    icon: Smartphone,
+    tiers: [
+      {
+        tierCode: 'TIER-MOB-01 · Starter',
+        price: '₹1,50,000 – ₹3,00,000',
+        priceNote: 'Fixed scope quote · 100% code ownership',
+        timeline: '4–6 weeks',
+        bestFor: 'Testing an idea, simple customer-facing app — cross-platform, single codebase.',
+        specs: ['Up to 8 screens', 'iOS + Android', '15-day bug-fix support', 'Auth, push notifications, store submission'],
+        ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter Mobile App project (₹1,50,000–₹3,00,000 scope).',
+      },
+      {
+        tierCode: 'TIER-MOB-02 · Standard',
+        price: '₹3,00,000 – ₹7,00,000',
+        priceNote: 'Fixed scope quote · 100% code ownership',
+        timeline: '8–12 weeks',
+        bestFor: 'Business app needing accounts, payments, admin — cross-platform + custom backend.',
+        specs: ['8–20 screens', 'iOS + Android', '30–45-day bug-fix support', 'Payments, admin dashboard, offline sync'],
+        ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard Mobile App project (₹3,00,000–₹7,00,000 scope).',
+      },
+      {
+        tierCode: 'TIER-MOB-03 · Advanced',
+        price: '₹8,00,000 – ₹20,00,000+',
+        priceNote: 'Milestone billing quote · 100% code ownership',
+        timeline: '16–24 weeks',
+        bestFor: 'Multi-role platforms, real-time data, scale needs — fully custom, complex architecture.',
+        specs: ['20+ screens, modular', 'iOS + Android (native opt)', '60–90-day bug-fix support', 'Real-time sync, biometrics, CI/CD'],
+        ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced Mobile App project (₹8,00,000–₹20,00,000+ scope).',
+      },
+    ],
+  },
+  {
+    id: 'software',
+    label: 'Business Software',
+    icon: LayoutDashboard,
+    tiers: [
+      {
+        tierCode: 'TIER-SOFT-01 · Starter',
+        price: '₹2,50,000 – ₹6,00,000',
+        priceNote: 'Fixed scope quote · 100% code ownership',
+        timeline: '4–8 weeks',
+        bestFor: 'Automating one specific process (e.g. leave management, simple CRM) — single-workflow internal tool.',
+        specs: ['1–2 user roles', '2 revision rounds', '30-day bug-fix support', 'Core workflow automation + dashboard'],
+        ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter Business Software project (₹2,50,000–₹6,00,000 scope).',
+      },
+      {
+        tierCode: 'TIER-SOFT-02 · Standard',
+        price: '₹6,00,000 – ₹18,00,000',
+        priceNote: 'Fixed scope quote · 100% code ownership',
+        timeline: '8–14 weeks',
+        bestFor: 'Businesses needing role-based access, payments, integrations — multi-role business application.',
+        specs: ['3–4 roles (tiered)', '3 revision rounds', '45-day bug-fix support', 'Payments, analytics, audit logging'],
+        ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard Business Software project (₹6,00,000–₹18,00,000 scope).',
+      },
+      {
+        tierCode: 'TIER-SOFT-03 · Advanced',
+        price: '₹18,00,000 – ₹50,00,000+',
+        priceNote: 'Milestone billing quote · 100% code ownership',
+        timeline: '14–24 weeks',
+        bestFor: 'Complex operations needing ERP integration, compliance tracking — enterprise operations platform.',
+        specs: ['5+ roles (granular)', '4 revision rounds', '60–90-day bug-fix support', 'ERP/CRM sync, SSO, compliance trails'],
+        ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced Business Software project (₹18,00,000–₹50,00,000+ scope).',
+      },
+    ],
+  },
+  {
+    id: 'platform',
+    label: 'Custom Platform',
+    icon: Cpu,
+    tiers: [
+      {
+        tierCode: 'TIER-PLAT-01 · Starter',
+        price: '₹6,00,000 – ₹15,00,000',
+        priceNote: 'Fixed scope quote · 100% code ownership',
+        timeline: '8–12 weeks',
+        bestFor: 'Validating a marketplace / platform idea with core roles — MVP multi-sided architecture.',
+        specs: ['2–3 roles (Buyer, Vendor, Admin)', '2 revision rounds', '30-day bug-fix support', 'Listings, payments split, admin panel'],
+        ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter Custom Platform project (₹6,00,000–₹15,00,000 scope).',
+      },
+      {
+        tierCode: 'TIER-PLAT-02 · Standard',
+        price: '₹15,00,000 – ₹35,00,000',
+        priceNote: 'Milestone billing quote · 100% code ownership',
+        timeline: '14–20 weeks',
+        bestFor: 'A live platform ready to scale operations — production-grade multi-vendor / multi-location system.',
+        specs: ['3–5 roles (granular)', '3 revision rounds', '60-day bug-fix support', 'Commission engine, analytics, dispute flow'],
+        ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard Custom Platform project (₹15,00,000–₹35,00,000 scope).',
+      },
+      {
+        tierCode: 'TIER-PLAT-03 · Advanced',
+        price: '₹35,00,000 – ₹80,00,000+',
+        priceNote: 'Milestone billing quote · 100% code ownership',
+        timeline: '20–32 weeks',
+        bestFor: 'Large-scale marketplaces, ERP-integrated, multi-tenant SaaS — enterprise-grade distributed platform.',
+        specs: ['Modular / Unlimited roles', '4 revision rounds', '90-day bug-fix support', 'Multi-region, ERP, GraphQL API layer'],
+        ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced Custom Platform project (₹35,00,000–₹80,00,000+ scope).',
+      },
+    ],
+  },
+]
+
 export default function Home() {
   const [contactSubmitted, setContactSubmitted] = useState(false)
   const [contactForm, setContactForm] = useState({ name: '', email: '', projectScope: '' })
+  const [activePricingCategory, setActivePricingCategory] = useState('website')
 
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -120,7 +300,7 @@ export default function Home() {
         marginAnnotation={
           <div className="flex flex-wrap items-center justify-between gap-2 font-mono text-[10px] text-[var(--salira-graphite-muted)]">
             <span className="text-[var(--salira-redpen)] font-bold">
-              ✎ ALL TIERS INCLUDE 100% SOURCE CODE HANDOVER AND ZERO MONTHLY SAAS FEES.
+              ✎ DEVELOPMENT FEE ONLY · DOMAIN, HOSTING &amp; 3RD-PARTY INFRA BILLED SEPARATELY BY PROVIDERS.
             </span>
             <span>CUSTOM SCOPES QUOTED WITHIN 24 HOURS</span>
           </div>
@@ -136,169 +316,178 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-3">
-            {/* Tier 01: Foundation Web Tier */}
-            <div className="flex flex-col justify-between rounded-lg border border-[var(--salira-border-draft)] bg-white p-6 shadow-xs">
-              <div>
-                <div className="flex items-center justify-between border-b border-[var(--salira-border-draft)] pb-3">
-                  <span className="font-mono text-xs font-bold uppercase text-[var(--salira-blueprint)]">
-                    TIER 01 · FOUNDATION
-                  </span>
-                  <span className="rounded bg-[var(--salira-paper)] px-2 py-0.5 font-mono text-[9px] font-bold text-[var(--salira-graphite-muted)]">
-                    1–2 WEEKS
-                  </span>
-                </div>
-                <div className="mt-4">
-                  <span className="font-display text-3xl font-bold text-[var(--salira-graphite)]">
-                    ₹15,000
-                  </span>
-                  <span className="font-mono text-xs text-[var(--salira-graphite-muted)]"> / $200 fixed</span>
-                </div>
-                <p className="mt-2 text-xs leading-relaxed text-[var(--salira-graphite-soft)]">
-                  High-conversion brand presence engineered with sub-100ms loading and Google SEO optimization.
-                </p>
-
-                <ul className="mt-5 space-y-2 font-mono text-xs text-[var(--salira-graphite)]">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={13} className="text-[var(--salira-blueprint)] shrink-0" />
-                    <span>Custom High-Converting Web Architecture</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={13} className="text-[var(--salira-blueprint)] shrink-0" />
-                    <span>Mobile Responsive &amp; Touch Optimized</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={13} className="text-[var(--salira-blueprint)] shrink-0" />
-                    <span>Instant WhatsApp &amp; Contact Dispatch</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={13} className="text-[var(--salira-blueprint)] shrink-0" />
-                    <span>100% Full Source Code Transfer</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="mt-6 border-t border-[var(--salira-border-draft)] pt-4">
-                <a
-                  href="#contact"
-                  className="inline-flex w-full items-center justify-center gap-1.5 rounded border-2 border-[var(--salira-blueprint)] bg-white py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-[var(--salira-blueprint)] shadow-2xs transition-all duration-180 hover:bg-[var(--salira-blueprint)] hover:text-white active:scale-98"
-                  data-draft-target="Select Tier 01"
-                >
-                  <span>Select Specification</span>
-                  <ArrowUpRight size={13} />
-                </a>
-              </div>
-            </div>
-
-            {/* Tier 02: Custom Business App (Highlighted) */}
-            <div className="flex flex-col justify-between rounded-lg border-2 border-[var(--salira-blueprint)] bg-white p-6 shadow-md relative">
-              <span className="absolute -top-3 left-6 rounded bg-[var(--salira-redpen)] px-2.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider text-white shadow-2xs">
-                MOST POPULAR BLUEPRINT
-              </span>
-              <div>
-                <div className="flex items-center justify-between border-b border-[var(--salira-border-draft)] pb-3">
-                  <span className="font-mono text-xs font-bold uppercase text-[var(--salira-blueprint)]">
-                    TIER 02 · CUSTOM APP
-                  </span>
-                  <span className="rounded bg-[var(--salira-paper)] px-2 py-0.5 font-mono text-[9px] font-bold text-[var(--salira-blueprint)]">
-                    2–3 WEEKS
-                  </span>
-                </div>
-                <div className="mt-4">
-                  <span className="font-display text-3xl font-bold text-[var(--salira-graphite)]">
-                    ₹35,000
-                  </span>
-                  <span className="font-mono text-xs text-[var(--salira-graphite-muted)]"> / $450 fixed</span>
-                </div>
-                <p className="mt-2 text-xs leading-relaxed text-[var(--salira-graphite-soft)]">
-                  Complete two-sided application with customer booking/ordering portal + operations admin console.
-                </p>
-
-                <ul className="mt-5 space-y-2 font-mono text-xs text-[var(--salira-graphite)]">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={13} className="text-[var(--salira-redpen)] shrink-0" />
-                    <span>Two-Sided Architecture (Client + Admin)</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={13} className="text-[var(--salira-redpen)] shrink-0" />
-                    <span>Real-Time State &amp; Notification Sync</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={13} className="text-[var(--salira-redpen)] shrink-0" />
-                    <span>Custom Workflow Logic &amp; Cart/Booking</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={13} className="text-[var(--salira-redpen)] shrink-0" />
-                    <span>Zero Monthly SaaS Platform Fees</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="mt-6 border-t border-[var(--salira-border-draft)] pt-4">
-                <a
-                  href="#contact"
-                  className="inline-flex w-full items-center justify-center gap-1.5 rounded bg-[var(--salira-blueprint)] py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-white shadow-xs transition-all duration-180 hover:bg-[var(--salira-redpen)] active:scale-98"
-                  data-draft-target="Select Tier 02"
-                >
-                  <span>Initiate Custom Build</span>
-                  <ArrowRight size={13} />
-                </a>
-              </div>
-            </div>
-
-            {/* Tier 03: Full Ecosystem */}
-            <div className="flex flex-col justify-between rounded-lg border border-[var(--salira-border-draft)] bg-white p-6 shadow-xs">
-              <div>
-                <div className="flex items-center justify-between border-b border-[var(--salira-border-draft)] pb-3">
-                  <span className="font-mono text-xs font-bold uppercase text-[var(--salira-blueprint)]">
-                    TIER 03 · FULL ECOSYSTEM
-                  </span>
-                  <span className="rounded bg-[var(--salira-paper)] px-2 py-0.5 font-mono text-[9px] font-bold text-[var(--salira-graphite-muted)]">
-                    3–4 WEEKS
-                  </span>
-                </div>
-                <div className="mt-4">
-                  <span className="font-display text-3xl font-bold text-[var(--salira-graphite)]">
-                    ₹65,000
-                  </span>
-                  <span className="font-mono text-xs text-[var(--salira-graphite-muted)]"> / $850 fixed</span>
-                </div>
-                <p className="mt-2 text-xs leading-relaxed text-[var(--salira-graphite-soft)]">
-                  Enterprise-grade multi-role operational platform with database automations and full analytics.
-                </p>
-
-                <ul className="mt-5 space-y-2 font-mono text-xs text-[var(--salira-graphite)]">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={13} className="text-[var(--salira-blueprint)] shrink-0" />
-                    <span>Multi-Role Access (Customer, Staff, Manager)</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={13} className="text-[var(--salira-blueprint)] shrink-0" />
-                    <span>Custom Schema &amp; Cloud Database Deployment</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={13} className="text-[var(--salira-blueprint)] shrink-0" />
-                    <span>Export, Invoicing &amp; Operations Analytics</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={13} className="text-[var(--salira-blueprint)] shrink-0" />
-                    <span>30-Day Post-Launch SLA &amp; Support</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="mt-6 border-t border-[var(--salira-border-draft)] pt-4">
-                <a
-                  href="#contact"
-                  className="inline-flex w-full items-center justify-center gap-1.5 rounded border-2 border-[var(--salira-blueprint)] bg-white py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-[var(--salira-blueprint)] shadow-2xs transition-all duration-180 hover:bg-[var(--salira-blueprint)] hover:text-white active:scale-98"
-                  data-draft-target="Select Tier 03"
-                >
-                  <span>Select Specification</span>
-                  <ArrowUpRight size={13} />
-                </a>
-              </div>
+          {/* ── Category Toggle ── */}
+          <div className="flex items-center justify-center">
+            <div className="inline-flex max-w-full flex-wrap justify-center gap-1.5 rounded-full border border-[var(--salira-border-draft)] bg-[var(--salira-paper)] p-1.5 shadow-sm">
+              {PRICING_CATEGORIES.map((cat) => {
+                const Icon = cat.icon
+                return (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => setActivePricingCategory(cat.id)}
+                    className={`flex items-center gap-1.5 px-4 py-2 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                      activePricingCategory === cat.id
+                        ? 'bg-[var(--salira-blueprint)] text-white shadow-sm'
+                        : 'text-[var(--salira-graphite-muted)] hover:text-[var(--salira-graphite)] hover:bg-[var(--salira-paper-lifted)]'
+                    }`}
+                  >
+                    <Icon size={12} />
+                    <span>{cat.label}</span>
+                  </button>
+                )
+              })}
             </div>
           </div>
+
+          {/* ── 3-Tier Grid ── */}
+          {PRICING_CATEGORIES.map((cat) =>
+            activePricingCategory === cat.id ? (
+              <div key={cat.id} className="grid gap-6 lg:grid-cols-3">
+
+                {/* Tier 01 — Starter */}
+                <div className="flex flex-col justify-between rounded-lg border border-[var(--salira-border-draft)] bg-white p-6 shadow-xs">
+                  <div>
+                    <div className="flex items-center justify-between border-b border-[var(--salira-border-draft)] pb-3">
+                      <span className="font-mono text-xs font-bold uppercase text-[var(--salira-blueprint)]">
+                        {cat.tiers[0].tierCode}
+                      </span>
+                      <span className="rounded bg-[var(--salira-paper)] px-2 py-0.5 font-mono text-[9px] font-bold text-[var(--salira-graphite-muted)]">
+                        {cat.tiers[0].timeline}
+                      </span>
+                    </div>
+                    <div className="mt-4">
+                      <span className="font-display text-2xl font-bold text-[var(--salira-graphite)]">
+                        {cat.tiers[0].price}
+                      </span>
+                    </div>
+                    <p className="mt-1 font-mono text-[9px] text-[var(--salira-graphite-muted)] uppercase tracking-wider">
+                      {cat.tiers[0].priceNote}
+                    </p>
+                    <p className="mt-3 text-xs leading-relaxed text-[var(--salira-graphite-soft)]">
+                      {cat.tiers[0].bestFor}
+                    </p>
+                    <ul className="mt-5 space-y-2 font-mono text-xs text-[var(--salira-graphite)]">
+                      {cat.tiers[0].specs.map((s) => (
+                        <li key={s} className="flex items-start gap-2">
+                          <CheckCircle2 size={13} className="text-[var(--salira-blueprint)] shrink-0 mt-0.5" />
+                          <span>{s}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="mt-6 border-t border-[var(--salira-border-draft)] pt-4">
+                    <a
+                      href={`https://wa.me/917397430568?text=${encodeURIComponent(cat.tiers[0].ctaMessage)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex w-full items-center justify-center gap-1.5 rounded border-2 border-[var(--salira-blueprint)] bg-white py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-[var(--salira-blueprint)] shadow-2xs transition-all duration-180 hover:bg-[var(--salira-blueprint)] hover:text-white active:scale-98"
+                    >
+                      <span>Start with Starter</span>
+                      <ArrowUpRight size={13} />
+                    </a>
+                  </div>
+                </div>
+
+                {/* Tier 02 — Standard (Highlighted) */}
+                <div className="flex flex-col justify-between rounded-lg border-2 border-[var(--salira-blueprint)] bg-white p-6 shadow-md relative">
+                  <span className="absolute -top-3 left-6 rounded bg-[var(--salira-redpen)] px-2.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider text-white shadow-2xs">
+                    MOST POPULAR
+                  </span>
+                  <div>
+                    <div className="flex items-center justify-between border-b border-[var(--salira-border-draft)] pb-3">
+                      <span className="font-mono text-xs font-bold uppercase text-[var(--salira-blueprint)]">
+                        {cat.tiers[1].tierCode}
+                      </span>
+                      <span className="rounded bg-[var(--salira-paper)] px-2 py-0.5 font-mono text-[9px] font-bold text-[var(--salira-blueprint)]">
+                        {cat.tiers[1].timeline}
+                      </span>
+                    </div>
+                    <div className="mt-4">
+                      <span className="font-display text-2xl font-bold text-[var(--salira-graphite)]">
+                        {cat.tiers[1].price}
+                      </span>
+                    </div>
+                    <p className="mt-1 font-mono text-[9px] text-[var(--salira-graphite-muted)] uppercase tracking-wider">
+                      {cat.tiers[1].priceNote}
+                    </p>
+                    <p className="mt-3 text-xs leading-relaxed text-[var(--salira-graphite-soft)]">
+                      {cat.tiers[1].bestFor}
+                    </p>
+                    <ul className="mt-5 space-y-2 font-mono text-xs text-[var(--salira-graphite)]">
+                      {cat.tiers[1].specs.map((s) => (
+                        <li key={s} className="flex items-start gap-2">
+                          <CheckCircle2 size={13} className="text-[var(--salira-redpen)] shrink-0 mt-0.5" />
+                          <span>{s}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="mt-6 border-t border-[var(--salira-border-draft)] pt-4">
+                    <a
+                      href={`https://wa.me/917397430568?text=${encodeURIComponent(cat.tiers[1].ctaMessage)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex w-full items-center justify-center gap-1.5 rounded bg-[var(--salira-blueprint)] py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-white shadow-xs transition-all duration-180 hover:bg-[var(--salira-redpen)] active:scale-98"
+                    >
+                      <span>Start with Standard</span>
+                      <ArrowRight size={13} />
+                    </a>
+                  </div>
+                </div>
+
+                {/* Tier 03 — Advanced */}
+                <div className="flex flex-col justify-between rounded-lg border border-[var(--salira-border-draft)] bg-white p-6 shadow-xs">
+                  <div>
+                    <div className="flex items-center justify-between border-b border-[var(--salira-border-draft)] pb-3">
+                      <span className="font-mono text-xs font-bold uppercase text-[var(--salira-blueprint)]">
+                        {cat.tiers[2].tierCode}
+                      </span>
+                      <span className="rounded bg-[var(--salira-paper)] px-2 py-0.5 font-mono text-[9px] font-bold text-[var(--salira-graphite-muted)]">
+                        {cat.tiers[2].timeline}
+                      </span>
+                    </div>
+                    <div className="mt-4">
+                      <span className="font-display text-2xl font-bold text-[var(--salira-graphite)]">
+                        {cat.tiers[2].price}
+                      </span>
+                    </div>
+                    <p className="mt-1 font-mono text-[9px] text-[var(--salira-graphite-muted)] uppercase tracking-wider">
+                      {cat.tiers[2].priceNote}
+                    </p>
+                    <p className="mt-3 text-xs leading-relaxed text-[var(--salira-graphite-soft)]">
+                      {cat.tiers[2].bestFor}
+                    </p>
+                    <ul className="mt-5 space-y-2 font-mono text-xs text-[var(--salira-graphite)]">
+                      {cat.tiers[2].specs.map((s) => (
+                        <li key={s} className="flex items-start gap-2">
+                          <CheckCircle2 size={13} className="text-[var(--salira-blueprint)] shrink-0 mt-0.5" />
+                          <span>{s}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="mt-6 border-t border-[var(--salira-border-draft)] pt-4">
+                    <a
+                      href={`https://wa.me/917397430568?text=${encodeURIComponent(cat.tiers[2].ctaMessage)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex w-full items-center justify-center gap-1.5 rounded border-2 border-[var(--salira-blueprint)] bg-white py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-[var(--salira-blueprint)] shadow-2xs transition-all duration-180 hover:bg-[var(--salira-blueprint)] hover:text-white active:scale-98"
+                    >
+                      <span>Start with Advanced</span>
+                      <ArrowUpRight size={13} />
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+            ) : null
+          )}
+
+          {/* ── Infrastructure note ── */}
+          <p className="font-mono text-[10px] text-[var(--salira-graphite-muted)] text-center pt-2">
+            ✎ Development fee only. Domain, hosting, servers &amp; all 3rd-party infrastructure (payment gateways, SMS, email, App Store accounts) are billed directly by their respective providers — not included above.
+          </p>
         </div>
       </DraftSheet>
 
