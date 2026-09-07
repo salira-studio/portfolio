@@ -25,30 +25,30 @@ const PRICING_CATEGORIES = [
     tiers: [
       {
         tierCode: 'TIER-WEB-01 · Starter',
-        price: '₹25,000 – ₹45,000',
+        price: '₹25,000+',
         priceNote: 'Fixed scope quote · 100% code ownership',
         timeline: '1–2 weeks',
         bestFor: 'Single-location businesses, consultants, or professional practices requiring an authoritative web presence.',
         specs: ['Up to 5 pages', 'Extra page: ₹3,000–₹4,000 / page', '15-day bug-fix support', 'Mobile-responsive + SEO foundation'],
-        ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter Website project (₹25,000–₹45,000 scope).',
+        ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter Website project (₹25,000+ scope).',
       },
       {
         tierCode: 'TIER-WEB-02 · Standard',
-        price: '₹55,000 – ₹1,10,000',
+        price: '₹55,000+',
         priceNote: 'Fixed scope quote · 100% code ownership',
         timeline: '3–4 weeks',
         bestFor: 'Growing service firms, B2B companies, or established businesses requiring bespoke UI design and dynamic content.',
         specs: ['6 to 12 pages', 'Extra page: ₹4,000–₹6,000 / page', '30-day bug-fix support', 'Custom CMS + analytics setup'],
-        ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard Website project (₹55,000–₹1,10,000 scope).',
+        ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard Website project (₹55,000+ scope).',
       },
       {
         tierCode: 'TIER-WEB-03 · Advanced',
-        price: '₹1,30,000 – ₹2,80,000+',
+        price: '₹1,30,000+',
         priceNote: 'Milestone billing quote · 100% code ownership',
         timeline: '5–8 weeks',
         bestFor: 'Organizations with specialized workflows, client portals, high-traffic portals, API integrations, or multi-user needs.',
         specs: ['12 to 25+ pages', 'Extra page: ₹6,000–₹8,000 / page', '60-day bug-fix support', 'Auth portals + custom API integrations'],
-        ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced Website project (₹1,30,000–₹2,80,000+ scope).',
+        ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced Website project (₹1,30,000+ scope).',
       },
     ],
   },
@@ -59,30 +59,30 @@ const PRICING_CATEGORIES = [
     tiers: [
       {
         tierCode: 'TIER-ECOM-01 · Starter',
-        price: '₹50,000 – ₹1,50,000',
+        price: '₹50,000+',
         priceNote: 'Fixed scope quote · 100% code ownership',
         timeline: '2–4 weeks',
         bestFor: 'First online store, simple catalog — templated Shopify / WooCommerce store.',
         specs: ['Up to 50 products', '1 gateway (Razorpay/UPI) + GST', '15-day bug-fix support', 'Cart, checkout & order notifications'],
-        ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter E-Commerce project (₹50,000–₹1,50,000 scope).',
+        ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter E-Commerce project (₹50,000+ scope).',
       },
       {
         tierCode: 'TIER-ECOM-02 · Standard',
-        price: '₹1,50,000 – ₹5,00,000',
+        price: '₹1,50,000+',
         priceNote: 'Fixed scope quote · 100% code ownership',
         timeline: '4–8 weeks',
         bestFor: 'Growing brand needing custom design + integrations — semi-custom on Shopify / WooCommerce.',
         specs: ['Up to 500 products', 'Multiple gateways + GSTR-1', '30–45-day bug-fix support', 'Abandoned cart recovery + analytics'],
-        ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard E-Commerce project (₹1,50,000–₹5,00,000 scope).',
+        ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard E-Commerce project (₹1,50,000+ scope).',
       },
       {
         tierCode: 'TIER-ECOM-03 · Advanced',
-        price: '₹5,00,000 – ₹20,00,000+',
+        price: '₹5,00,000+',
         priceNote: 'Milestone billing quote · 100% code ownership',
         timeline: '12–24 weeks',
         bestFor: 'Multi-vendor marketplace, ERP/CRM sync, high-traffic scale — fully custom / multi-vendor architecture.',
         specs: ['500+ products (modular)', 'Full GST/HSN + e-Way Bill', '60–90-day bug-fix support', 'Multi-vendor payouts + ERP integrations'],
-        ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced E-Commerce project (₹5,00,000–₹20,00,000+ scope).',
+        ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced E-Commerce project (₹5,00,000+ scope).',
       },
     ],
   },
@@ -93,30 +93,30 @@ const PRICING_CATEGORIES = [
     tiers: [
       {
         tierCode: 'TIER-MOB-01 · Starter',
-        price: '₹1,50,000 – ₹3,00,000',
+        price: '₹1,50,000+',
         priceNote: 'Fixed scope quote · 100% code ownership',
         timeline: '4–6 weeks',
         bestFor: 'Testing an idea, simple customer-facing app — cross-platform, single codebase.',
         specs: ['Up to 8 screens', 'iOS + Android', '15-day bug-fix support', 'Auth, push notifications, store submission'],
-        ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter Mobile App project (₹1,50,000–₹3,00,000 scope).',
+        ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter Mobile App project (₹1,50,000+ scope).',
       },
       {
         tierCode: 'TIER-MOB-02 · Standard',
-        price: '₹3,00,000 – ₹7,00,000',
+        price: '₹3,00,000+',
         priceNote: 'Fixed scope quote · 100% code ownership',
         timeline: '8–12 weeks',
         bestFor: 'Business app needing accounts, payments, admin — cross-platform + custom backend.',
         specs: ['8–20 screens', 'iOS + Android', '30–45-day bug-fix support', 'Payments, admin dashboard, offline sync'],
-        ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard Mobile App project (₹3,00,000–₹7,00,000 scope).',
+        ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard Mobile App project (₹3,00,000+ scope).',
       },
       {
         tierCode: 'TIER-MOB-03 · Advanced',
-        price: '₹8,00,000 – ₹20,00,000+',
+        price: '₹8,00,000+',
         priceNote: 'Milestone billing quote · 100% code ownership',
         timeline: '16–24 weeks',
         bestFor: 'Multi-role platforms, real-time data, scale needs — fully custom, complex architecture.',
         specs: ['20+ screens, modular', 'iOS + Android (native opt)', '60–90-day bug-fix support', 'Real-time sync, biometrics, CI/CD'],
-        ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced Mobile App project (₹8,00,000–₹20,00,000+ scope).',
+        ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced Mobile App project (₹8,00,000+ scope).',
       },
     ],
   },
@@ -127,30 +127,30 @@ const PRICING_CATEGORIES = [
     tiers: [
       {
         tierCode: 'TIER-SOFT-01 · Starter',
-        price: '₹2,50,000 – ₹6,00,000',
+        price: '₹2,50,000+',
         priceNote: 'Fixed scope quote · 100% code ownership',
         timeline: '4–8 weeks',
         bestFor: 'Automating one specific process (e.g. leave management, simple CRM) — single-workflow internal tool.',
         specs: ['1–2 user roles', '2 revision rounds', '30-day bug-fix support', 'Core workflow automation + dashboard'],
-        ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter Business Software project (₹2,50,000–₹6,00,000 scope).',
+        ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter Business Software project (₹2,50,000+ scope).',
       },
       {
         tierCode: 'TIER-SOFT-02 · Standard',
-        price: '₹6,00,000 – ₹18,00,000',
+        price: '₹6,00,000+',
         priceNote: 'Fixed scope quote · 100% code ownership',
         timeline: '8–14 weeks',
         bestFor: 'Businesses needing role-based access, payments, integrations — multi-role business application.',
         specs: ['3–4 roles (tiered)', '3 revision rounds', '45-day bug-fix support', 'Payments, analytics, audit logging'],
-        ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard Business Software project (₹6,00,000–₹18,00,000 scope).',
+        ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard Business Software project (₹6,00,000+ scope).',
       },
       {
         tierCode: 'TIER-SOFT-03 · Advanced',
-        price: '₹18,00,000 – ₹50,00,000+',
+        price: '₹18,00,000+',
         priceNote: 'Milestone billing quote · 100% code ownership',
         timeline: '14–24 weeks',
         bestFor: 'Complex operations needing ERP integration, compliance tracking — enterprise operations platform.',
         specs: ['5+ roles (granular)', '4 revision rounds', '60–90-day bug-fix support', 'ERP/CRM sync, SSO, compliance trails'],
-        ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced Business Software project (₹18,00,000–₹50,00,000+ scope).',
+        ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced Business Software project (₹18,00,000+ scope).',
       },
     ],
   },
@@ -161,39 +161,48 @@ const PRICING_CATEGORIES = [
     tiers: [
       {
         tierCode: 'TIER-PLAT-01 · Starter',
-        price: '₹6,00,000 – ₹15,00,000',
+        price: '₹6,00,000+',
         priceNote: 'Fixed scope quote · 100% code ownership',
         timeline: '8–12 weeks',
         bestFor: 'Validating a marketplace / platform idea with core roles — MVP multi-sided architecture.',
         specs: ['2–3 roles (Buyer, Vendor, Admin)', '2 revision rounds', '30-day bug-fix support', 'Listings, payments split, admin panel'],
-        ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter Custom Platform project (₹6,00,000–₹15,00,000 scope).',
+        ctaMessage: 'Hi SaLira Studio, I want to discuss a Starter Custom Platform project (₹6,00,000+ scope).',
       },
       {
         tierCode: 'TIER-PLAT-02 · Standard',
-        price: '₹15,00,000 – ₹35,00,000',
+        price: '₹15,00,000+',
         priceNote: 'Milestone billing quote · 100% code ownership',
         timeline: '14–20 weeks',
         bestFor: 'A live platform ready to scale operations — production-grade multi-vendor / multi-location system.',
         specs: ['3–5 roles (granular)', '3 revision rounds', '60-day bug-fix support', 'Commission engine, analytics, dispute flow'],
-        ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard Custom Platform project (₹15,00,000–₹35,00,000 scope).',
+        ctaMessage: 'Hi SaLira Studio, I want to discuss a Standard Custom Platform project (₹15,00,000+ scope).',
       },
       {
         tierCode: 'TIER-PLAT-03 · Advanced',
-        price: '₹35,00,000 – ₹80,00,000+',
+        price: '₹35,00,000+',
         priceNote: 'Milestone billing quote · 100% code ownership',
         timeline: '20–32 weeks',
         bestFor: 'Large-scale marketplaces, ERP-integrated, multi-tenant SaaS — enterprise-grade distributed platform.',
         specs: ['Modular / Unlimited roles', '4 revision rounds', '90-day bug-fix support', 'Multi-region, ERP, GraphQL API layer'],
-        ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced Custom Platform project (₹35,00,000–₹80,00,000+ scope).',
+        ctaMessage: 'Hi SaLira Studio, I want to discuss an Advanced Custom Platform project (₹35,00,000+ scope).',
       },
     ],
   },
+]
+
+const MAINTENANCE_PLANS = [
+  { plan: 'Basic Care',       monthly: '₹1,500',    annual: '₹15,000'   },
+  { plan: 'Business Care',    monthly: '₹3,500',    annual: '₹35,000'   },
+  { plan: 'Commerce Care',    monthly: '₹7,500',    annual: '₹75,000'   },
+  { plan: 'Application Care', monthly: '₹12,000+',  annual: '₹1,20,000+'},
+  { plan: 'Enterprise',       monthly: 'Custom',    annual: 'Custom'    },
 ]
 
 export default function Home() {
   const [contactSubmitted, setContactSubmitted] = useState(false)
   const [contactForm, setContactForm] = useState({ name: '', email: '', projectScope: '' })
   const [activePricingCategory, setActivePricingCategory] = useState('website')
+  const [maintenanceBilling, setMaintenanceBilling] = useState<'monthly' | 'annual'>('monthly')
 
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -488,6 +497,84 @@ export default function Home() {
           <p className="font-mono text-[10px] text-[var(--salira-graphite-muted)] text-center pt-2">
             ✎ Development fee only. Domain, hosting, servers &amp; all 3rd-party infrastructure (payment gateways, SMS, email, App Store accounts) are billed directly by their respective providers — not included above.
           </p>
+
+          {/* ── Maintenance & Retainer Plans ── */}
+          <div className="mt-4 rounded-lg border border-[var(--salira-border-draft)] bg-white p-6 shadow-xs">
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+              <div>
+                <h3 className="font-display text-lg font-bold text-[var(--salira-graphite)]">
+                  Maintenance &amp; Support Plans
+                </h3>
+                <p className="mt-0.5 font-mono text-[10px] text-[var(--salira-graphite-muted)] uppercase tracking-wider">
+                  Optional ongoing care after launch — not required for every project
+                </p>
+              </div>
+              {/* Monthly / Annual Toggle */}
+              <div className="inline-flex items-center rounded-full border border-[var(--salira-border-draft)] bg-[var(--salira-paper)] p-1 gap-1">
+                <button
+                  type="button"
+                  onClick={() => setMaintenanceBilling('monthly')}
+                  className={`px-4 py-1.5 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                    maintenanceBilling === 'monthly'
+                      ? 'bg-[var(--salira-blueprint)] text-white shadow-sm'
+                      : 'text-[var(--salira-graphite-muted)] hover:text-[var(--salira-graphite)]'
+                  }`}
+                >
+                  Monthly
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMaintenanceBilling('annual')}
+                  className={`px-4 py-1.5 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                    maintenanceBilling === 'annual'
+                      ? 'bg-[var(--salira-blueprint)] text-white shadow-sm'
+                      : 'text-[var(--salira-graphite-muted)] hover:text-[var(--salira-graphite)]'
+                  }`}
+                >
+                  Annual
+                </button>
+              </div>
+            </div>
+
+            {/* Table */}
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-[var(--salira-border-draft)]">
+                    <th className="text-left font-mono text-xs font-bold text-[var(--salira-graphite)] pb-3 pr-4">Plan</th>
+                    <th className="text-right font-mono text-xs font-bold text-[var(--salira-graphite)] pb-3 px-4">
+                      {maintenanceBilling === 'monthly' ? 'Monthly' : 'Annual'}
+                    </th>
+                    <th className="text-right font-mono text-xs font-bold text-[var(--salira-graphite-muted)] pb-3 pl-4">
+                      {maintenanceBilling === 'monthly' ? 'Annual (save ~17%)' : 'Monthly equiv.'}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {MAINTENANCE_PLANS.map((row, i) => (
+                    <tr
+                      key={row.plan}
+                      className={`border-b border-[var(--salira-border-draft)] last:border-0 ${i % 2 === 0 ? 'bg-[var(--salira-paper)]/40' : ''}`}
+                    >
+                      <td className="py-3.5 pr-4 font-sans text-sm font-medium text-[var(--salira-graphite)]">
+                        {row.plan}
+                      </td>
+                      <td className="py-3.5 px-4 text-right font-mono text-sm font-bold text-[var(--salira-graphite)]">
+                        {maintenanceBilling === 'monthly' ? row.monthly : row.annual}
+                      </td>
+                      <td className="py-3.5 pl-4 text-right font-mono text-sm text-[var(--salira-graphite-muted)]">
+                        {maintenanceBilling === 'monthly' ? row.annual : row.monthly}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <p className="mt-4 font-mono text-[10px] text-[var(--salira-graphite-muted)]">
+              ✎ Maintenance plans cover bug fixes, security patches, content updates &amp; uptime monitoring. Scoped separately after project delivery.
+            </p>
+          </div>
         </div>
       </DraftSheet>
 
