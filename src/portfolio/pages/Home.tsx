@@ -499,22 +499,23 @@ export default function Home() {
           </p>
 
           {/* ── Maintenance & Retainer Plans ── */}
-          <div className="mt-4 rounded-lg border border-[var(--salira-border-draft)] bg-white p-6 shadow-xs">
-            <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+          <div className="mt-8 pt-8 border-t border-[var(--salira-border-draft)]">
+            {/* Header row */}
+            <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
               <div>
-                <h3 className="font-display text-lg font-bold text-[var(--salira-graphite)]">
+                <h3 className="font-display text-xl font-bold text-[var(--salira-graphite)]">
                   Maintenance &amp; Support Plans
                 </h3>
-                <p className="mt-0.5 font-mono text-[10px] text-[var(--salira-graphite-muted)] uppercase tracking-wider">
+                <p className="mt-1 font-mono text-[10px] text-[var(--salira-graphite-muted)] uppercase tracking-wider">
                   Optional ongoing care after launch — not required for every project
                 </p>
               </div>
               {/* Monthly / Annual Toggle */}
-              <div className="inline-flex items-center rounded-full border border-[var(--salira-border-draft)] bg-[var(--salira-paper)] p-1 gap-1">
+              <div className="inline-flex items-center rounded-full border border-[var(--salira-border-draft)] bg-[var(--salira-paper)] p-1 gap-1 shrink-0">
                 <button
                   type="button"
                   onClick={() => setMaintenanceBilling('monthly')}
-                  className={`px-4 py-1.5 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                  className={`px-5 py-2 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
                     maintenanceBilling === 'monthly'
                       ? 'bg-[var(--salira-blueprint)] text-white shadow-sm'
                       : 'text-[var(--salira-graphite-muted)] hover:text-[var(--salira-graphite)]'
@@ -525,7 +526,7 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => setMaintenanceBilling('annual')}
-                  className={`px-4 py-1.5 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                  className={`px-5 py-2 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
                     maintenanceBilling === 'annual'
                       ? 'bg-[var(--salira-blueprint)] text-white shadow-sm'
                       : 'text-[var(--salira-graphite-muted)] hover:text-[var(--salira-graphite)]'
@@ -536,42 +537,34 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Table */}
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-[var(--salira-border-draft)]">
-                    <th className="text-left font-mono text-xs font-bold text-[var(--salira-graphite)] pb-3 pr-4">Plan</th>
-                    <th className="text-right font-mono text-xs font-bold text-[var(--salira-graphite)] pb-3 px-4">
-                      {maintenanceBilling === 'monthly' ? 'Monthly' : 'Annual'}
-                    </th>
-                    <th className="text-right font-mono text-xs font-bold text-[var(--salira-graphite-muted)] pb-3 pl-4">
-                      {maintenanceBilling === 'monthly' ? 'Annual (save ~17%)' : 'Monthly equiv.'}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {MAINTENANCE_PLANS.map((row, i) => (
-                    <tr
-                      key={row.plan}
-                      className={`border-b border-[var(--salira-border-draft)] last:border-0 ${i % 2 === 0 ? 'bg-[var(--salira-paper)]/40' : ''}`}
-                    >
-                      <td className="py-3.5 pr-4 font-sans text-sm font-medium text-[var(--salira-graphite)]">
-                        {row.plan}
-                      </td>
-                      <td className="py-3.5 px-4 text-right font-mono text-sm font-bold text-[var(--salira-graphite)]">
-                        {maintenanceBilling === 'monthly' ? row.monthly : row.annual}
-                      </td>
-                      <td className="py-3.5 pl-4 text-right font-mono text-sm text-[var(--salira-graphite-muted)]">
-                        {maintenanceBilling === 'monthly' ? row.annual : row.monthly}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            {/* Cards grid — 2 cols on sm, 3 on md, 5 on lg */}
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+              {MAINTENANCE_PLANS.map((row) => (
+                <div
+                  key={row.plan}
+                  className="flex flex-col gap-3 rounded-lg border border-[var(--salira-border-draft)] bg-white p-5 shadow-xs hover:shadow-sm hover:border-[var(--salira-blueprint)]/30 transition-all duration-200"
+                >
+                  <span className="font-sans text-sm font-semibold text-[var(--salira-graphite)]">
+                    {row.plan}
+                  </span>
+                  <div>
+                    <span className="font-display text-2xl font-bold text-[var(--salira-graphite)]">
+                      {maintenanceBilling === 'monthly' ? row.monthly : row.annual}
+                    </span>
+                    <span className="ml-1 font-mono text-[10px] text-[var(--salira-graphite-muted)] uppercase">
+                      {row.monthly === 'Custom' ? '' : maintenanceBilling === 'monthly' ? '/ mo' : '/ yr'}
+                    </span>
+                  </div>
+                  <p className="font-mono text-[9px] text-[var(--salira-graphite-muted)] uppercase tracking-wider">
+                    {maintenanceBilling === 'monthly'
+                      ? (row.annual === 'Custom' ? 'Custom annual' : `Annual: ${row.annual}`)
+                      : (row.monthly === 'Custom' ? 'Custom monthly' : `Monthly: ${row.monthly}`)}
+                  </p>
+                </div>
+              ))}
             </div>
 
-            <p className="mt-4 font-mono text-[10px] text-[var(--salira-graphite-muted)]">
+            <p className="mt-5 font-mono text-[10px] text-[var(--salira-graphite-muted)]">
               ✎ Maintenance plans cover bug fixes, security patches, content updates &amp; uptime monitoring. Scoped separately after project delivery.
             </p>
           </div>
