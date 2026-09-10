@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import {
   LayoutDashboard,
   ClipboardList,
@@ -34,8 +35,8 @@ export default function ConsoleLayout() {
   return (
     <div data-theme="restaurant" className="min-h-screen bg-[var(--color-ivory-50)]">
       <Helmet>
-        <title>AURA Kitchen — Restaurant Console</title>
-        <meta name="description" content="Manage orders, menu, and analytics for AURA Kitchen restaurant operations." />
+        <title>Annachis — Restaurant Console | Karunya Nagar</title>
+        <meta name="description" content="Manage orders, menu, expenses, and analytics for Annachis restaurant operations." />
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
       <aside className="fixed left-0 top-0 z-40 flex h-screen w-[64px] flex-col border-r border-[var(--color-line-light)] bg-white md:w-[240px]">
