@@ -4,7 +4,6 @@ import { motion, useInView } from 'framer-motion'
 import {
   UtensilsCrossed,
   Plane,
-  ArrowRight,
   ArrowUpRight,
   Lock,
   Sparkles,
@@ -21,7 +20,7 @@ interface DemoCardProps {
   theScenario: string
   theApproach: string
   techStack: string[]
-  primaryDemoUrl: string
+  primaryDemoUrl?: string
   customerAppUrl: string
   adminAppUrl?: string
   adminAppLabel?: string
@@ -38,7 +37,6 @@ function DemoCard({
   theScenario,
   theApproach,
   techStack,
-  primaryDemoUrl,
   customerAppUrl,
   adminAppUrl,
   adminAppLabel,
@@ -254,14 +252,7 @@ function DemoCard({
           className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-[#E7E2D6] pt-4"
         >
           {/* Primary CTA: Reserved Solid Vermilion Button */}
-          <Link
-            to={primaryDemoUrl}
-            className="inline-flex items-center gap-2 bg-[#E8452C] hover:bg-[#C4451C] active:bg-[#B03B15] text-white px-4 py-2.5 font-mono text-xs font-bold uppercase tracking-wider transition-colors duration-150 rounded-none select-none cursor-pointer"
-            data-draft-target={`${title} Demo Overview`}
-          >
-            <span>Try the demo</span>
-            <ArrowRight size={13} />
-          </Link>
+          {/* Removed: Try the Demo button */}
 
           {/* Secondary Direct Demo Links */}
           <div className="flex items-center gap-2">
@@ -362,7 +353,7 @@ export function CaseFilesSection() {
             techStack={['React 19', 'TypeScript', 'Cross-Tab Sync', 'Tailwind CSS']}
             primaryDemoUrl="/work/restaurants"
             customerAppUrl="/work/restaurants/customer"
-            adminAppUrl="/work/restaurants/kitchen"
+            adminAppUrl="/work/restaurants/console"
             adminAppLabel="Kitchen Display"
             tiltDirection={-1}
           />
@@ -380,7 +371,7 @@ export function CaseFilesSection() {
             techStack={['React 19', 'TypeScript', 'Itinerary State', 'Dark Mode UI']}
             primaryDemoUrl="/work/travel"
             customerAppUrl="/work/travel/customer"
-            adminAppUrl="/work/travel/agent"
+            adminAppUrl="/work/travel/admin"
             adminAppLabel="Agency View"
             tiltDirection={1}
           />

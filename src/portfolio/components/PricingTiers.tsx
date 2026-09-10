@@ -196,7 +196,7 @@ function TechnicalDatasheetCard({
             </div>
           )}
           <div className="mt-3 pt-2.5 border-t border-slate-200/50 font-mono text-[9.5px] text-slate-500 uppercase tracking-wider font-semibold">
-            Development fee · Fixed scope · 100% code ownership
+            Development fee only · Domain, hosting &amp; 3rd-party infra billed separately
           </div>
         </div>
 
@@ -474,7 +474,7 @@ export function PricingTiers() {
         <div className="flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-5 py-2.5 text-center font-sans text-xs text-slate-500 shadow-xs max-w-max mx-auto">
           <Info size={14} className="text-slate-400 shrink-0" />
           <span>
-            We're a technical studio, not a growth agency — pricing reflects build scope only, not business outcomes.
+            Development fee only — domain, hosting, servers &amp; 3rd-party infrastructure are billed directly by their providers, not included here.
           </span>
         </div>
       </div>

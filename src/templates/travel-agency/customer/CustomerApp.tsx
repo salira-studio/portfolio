@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import { Helmet } from 'react-helmet-async'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Navbar } from './components/Navbar'
 import { Footer } from './components/Footer'
@@ -12,17 +11,11 @@ export interface AuthUser {
   email: string
 }
 
-function getStoredUser(): AuthUser | null {
-  try {
-    const raw = localStorage.getItem('travel_user')
-    return raw ? JSON.parse(raw) : null
-  } catch {
-    return null
-  }
-}
+// Guest user — no sign-in required
+const GUEST_USER: AuthUser = { name: 'Guest', email: 'guest@voyageai.travel' }
 
 export default function CustomerApp() {
-  const [user, setUser] = useState<AuthUser | null>(getStoredUser)
+  const user = GUEST_USER
   const { toasts, removeToast } = useToast()
   const location = useLocation()
 
@@ -30,24 +23,9 @@ export default function CustomerApp() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [location.pathname])
 
-  const handleLogout = () => {
-    localStorage.removeItem('travel_user')
-    setUser(null)
-  }
-
   return (
-    <div data-theme="travel" className="min-h-screen bg-[#FDFAF5] text-[#1C1917] flex flex-col">
-      <Helmet>
-        <title>Wanderlux — Curated Travel Experiences</title>
-        <meta name="description" content="Discover handcrafted travel packages, exclusive destinations, and personalized journey planning with Wanderlux." />
-        <meta property="og:title" content="Wanderlux — Curated Travel Experiences" />
-        <meta property="og:description" content="Discover handcrafted travel packages, exclusive destinations, and personalized journey planning." />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Wanderlux — Curated Travel Experiences" />
-        <meta name="twitter:description" content="Discover handcrafted travel packages, exclusive destinations, and personalized journey planning." />
-      </Helmet>
-      <Navbar user={user} onLogout={handleLogout} />
+    <div className="min-h-screen bg-[#FDFAF5] text-[#1C1917] flex flex-col">
+      <Navbar user={user} onLogout={() => {}} />
 
       <main className="flex-1">
         <AnimatePresence mode="wait">
@@ -58,7 +36,7 @@ export default function CustomerApp() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
           >
-            <Outlet context={{ user, setUser } satisfies { user: AuthUser | null; setUser: (u: AuthUser | null) => void }} />
+            <Outlet context={{ user, setUser: () => {} } satisfies { user: AuthUser | null; setUser: (u: AuthUser | null) => void }} />
           </motion.div>
         </AnimatePresence>
       </main>
@@ -69,5 +47,4 @@ export default function CustomerApp() {
   )
 }
 
-// Export context type and hook for pages to use
 export type { AuthUser as TravelUser }

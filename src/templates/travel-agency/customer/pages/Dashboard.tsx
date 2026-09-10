@@ -1,13 +1,9 @@
-import { useOutletContext, Link, Navigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { LayoutDashboard, Calendar, Heart, MapPin, TrendingUp, Clock } from 'lucide-react'
 import { mockBookings } from '../../data/bookings'
 
 const TRAVEL_BASE = '/work/travel/customer'
-
-interface AuthContext {
-  user: { name: string; email: string } | null
-}
 
 const statusColors: Record<string, string> = {
   confirmed: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/20',
@@ -17,9 +13,6 @@ const statusColors: Record<string, string> = {
 }
 
 export default function Dashboard() {
-  const ctx = useOutletContext<AuthContext>()
-  if (!ctx.user) return <Navigate to={`${TRAVEL_BASE}/login`} replace />
-
   const userBookings = mockBookings.slice(0, 3)
   const wishlistRaw = JSON.parse(localStorage.getItem('travel_wishlist') || '[]')
   const wishlistCount = wishlistRaw.length
@@ -29,8 +22,8 @@ export default function Dashboard() {
       <section className="bg-[#F5F0E8] border-b border-[#E8E0D5] py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <p className="text-[#78716C] text-sm mb-1">Welcome back,</p>
-            <h1 className="text-3xl font-bold text-[#1C1917]">{ctx.user.name} 👋</h1>
+            <p className="text-[#78716C] text-sm mb-1">Welcome,</p>
+            <h1 className="text-3xl font-bold text-[#1C1917]">Your Travel Dashboard 👋</h1>
           </motion.div>
         </div>
       </section>
@@ -106,7 +99,6 @@ export default function Dashboard() {
               <div className="text-center py-12 bg-white rounded-2xl border border-[#E8E0D5]">
                 <p className="text-4xl mb-3">✈️</p>
                 <p className="text-[#1C1917] font-semibold">No bookings yet</p>
-                <p className="text-[#78716C] text-sm mt-1">Start your journey today</p>
                 <Link to={`${TRAVEL_BASE}/packages`} className="inline-block mt-4 text-[#F4B942] text-sm hover:underline">Explore Packages</Link>
               </div>
             )}

@@ -1,5 +1,4 @@
 import { NavLink, Outlet } from 'react-router-dom'
-import { Helmet } from 'react-helmet-async'
 import {
   LayoutDashboard,
   ClipboardList,
@@ -35,8 +34,8 @@ export default function ConsoleLayout() {
   return (
     <div data-theme="restaurant" className="min-h-screen bg-[var(--color-ivory-50)]">
       <Helmet>
-        <title>Annachis — Restaurant Console | Karunya Nagar</title>
-        <meta name="description" content="Manage orders, menu, expenses, and analytics for Annachis restaurant operations." />
+        <title>AURA Kitchen — Restaurant Console</title>
+        <meta name="description" content="Manage orders, menu, and analytics for AURA Kitchen restaurant operations." />
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
       <aside className="fixed left-0 top-0 z-40 flex h-screen w-[64px] flex-col border-r border-[var(--color-line-light)] bg-white md:w-[240px]">
@@ -62,10 +61,9 @@ export default function ConsoleLayout() {
               end={item.end}
               title={item.label}
               className={({ isActive }) =>
-                `relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
-                  isActive
-                    ? 'bg-[var(--color-ivory-100)] text-[var(--color-espresso-900)]'
-                    : 'text-[var(--color-cocoa-400)] hover:bg-[var(--color-ivory-100)] hover:text-[var(--color-espresso-900)]'
+                `relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${isActive
+                  ? 'bg-[var(--color-ivory-100)] text-[var(--color-espresso-900)]'
+                  : 'text-[var(--color-cocoa-400)] hover:bg-[var(--color-ivory-100)] hover:text-[var(--color-espresso-900)]'
                 }`
               }
             >

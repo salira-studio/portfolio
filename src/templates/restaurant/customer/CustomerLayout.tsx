@@ -1,5 +1,4 @@
 import { Link, NavLink, Outlet } from 'react-router-dom'
-import { Helmet } from 'react-helmet-async'
 import {
   Home,
   UtensilsCrossed,
