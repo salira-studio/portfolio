@@ -56,7 +56,14 @@ export function CustomerLayout() {
             </span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
+            <Link
+              to="/"
+              className="text-white/60 hover:text-white text-[11px] transition-colors"
+            >
+              ← Portfolio
+            </Link>
+            <span className="text-white/30">|</span>
             <Link
               to={`${CONSOLE_BASE}/orders`}
               target="_blank"
@@ -75,7 +82,7 @@ export function CustomerLayout() {
       <header className="sticky top-0 z-40 bg-[var(--color-ivory-50)]/95 backdrop-blur-md border-b border-[var(--color-line-light)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between gap-4">
           {/* Logo & Identity */}
-          <Link to="/" className="flex items-center gap-3 group">
+          <Link to={CUSTOMER_BASE} className="flex items-center gap-3 group">
             <div className="w-10 h-10 rounded-xl bg-[var(--color-espresso-900)] text-[var(--color-ivory-50)] flex items-center justify-center font-display font-bold text-xl tracking-tighter shadow-sm group-hover:bg-[var(--color-clay-500)] transition-colors">
               A
             </div>
@@ -299,8 +306,12 @@ export function CustomerLayout() {
             <p className="flex items-center gap-2">
               <span>Authentic Kongu & Tamil Nadu Flavours</span>
               <span>·</span>
-              <Link to="/console" className="text-white/60 hover:text-white underline">
+              <Link to={CONSOLE_BASE} className="text-white/60 hover:text-white underline">
                 Owner Console
+              </Link>
+              <span>·</span>
+              <Link to="/" className="text-white/60 hover:text-white underline">
+                SaLira Portfolio
               </Link>
             </p>
           </div>

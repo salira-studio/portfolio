@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { Link, NavLink, Outlet } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import {
   LayoutDashboard,
@@ -10,7 +10,7 @@ import {
   ExternalLink,
 } from 'lucide-react'
 import { useAppStore } from '../store/useAppStore'
-import { CONSOLE_BASE } from '../routes'
+import { CONSOLE_BASE, CUSTOMER_BASE } from '../routes'
 
 function useNewOrders() {
   return useAppStore((s) => s.orders.filter((o) => o.status === 'NEW').length)
@@ -40,7 +40,10 @@ export default function ConsoleLayout() {
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
       <aside className="fixed left-0 top-0 z-40 flex h-screen w-[64px] flex-col border-r border-[var(--color-line-light)] bg-white md:w-[240px]">
-        <div className="flex h-16 items-center justify-center gap-2.5 border-b border-[var(--color-line-light)] px-4 md:justify-start md:px-5">
+        <Link
+          to={CONSOLE_BASE}
+          className="flex h-16 items-center justify-center gap-2.5 border-b border-[var(--color-line-light)] px-4 md:justify-start md:px-5 hover:opacity-90 transition-opacity"
+        >
           <svg viewBox="0 0 24 24" className="h-7 w-7 shrink-0" aria-hidden="true">
             <circle cx="12" cy="13.4" r="8.6" fill="none" stroke="#A9834F" strokeWidth="1.6" />
             <circle cx="12" cy="13.4" r="5.4" fill="#F5ECE0" />
@@ -52,7 +55,7 @@ export default function ConsoleLayout() {
           <span className="hidden font-display text-lg font-bold tracking-[0.14em] text-[var(--color-espresso-900)] md:inline">
             ANNACHIS
           </span>
-        </div>
+        </Link>
 
         <nav className="mt-4 flex flex-1 flex-col gap-1 px-2 md:px-3">
           {navItems.map((item) => (
@@ -86,16 +89,23 @@ export default function ConsoleLayout() {
           ))}
         </nav>
 
-        <div className="border-t border-[var(--color-line-light)] p-2 md:p-3">
+        <div className="border-t border-[var(--color-line-light)] p-2 md:p-3 space-y-1">
           <NavLink
-            to="/"
+            to={CUSTOMER_BASE}
             title="Open customer app"
-            className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-[var(--color-cocoa-400)] transition-colors hover:bg-[var(--color-ivory-100)] hover:text-[var(--color-espresso-900)]"
+            className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-cocoa-400)] transition-colors hover:bg-[var(--color-ivory-100)] hover:text-[var(--color-espresso-900)]"
           >
             <ExternalLink className="h-5 w-5 shrink-0" strokeWidth={1.8} />
             <span className="hidden md:inline">Customer view</span>
           </NavLink>
-          <p className="hidden items-center gap-2 px-3 pt-3 pb-1 text-[11px] text-[var(--color-cocoa-300)] md:flex">
+          <NavLink
+            to="/"
+            title="Return to SaLira Portfolio"
+            className="hidden md:flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs text-[var(--color-cocoa-400)] transition-colors hover:text-[var(--color-espresso-900)] font-mono"
+          >
+            <span>← SaLira Portfolio</span>
+          </NavLink>
+          <p className="hidden items-center gap-2 px-3 pt-2 pb-1 text-[11px] text-[var(--color-cocoa-300)] md:flex">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--color-leaf-500)]" />
             {activeCount} active order{activeCount === 1 ? '' : 's'}
           </p>
