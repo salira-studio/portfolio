@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { CONSOLE_BASE } from '../../routes'
 import { motion } from 'framer-motion'
-import { ArrowLeft, Bike, ShoppingBag } from 'lucide-react'
+import { ArrowLeft, Bike, ShoppingBag, UtensilsCrossed } from 'lucide-react'
 import { useAppStore } from '../../store/useAppStore'
 import { StatusPill } from '../../../../shared/components/ui/StatusPill'
 import { formatPrice, formatTime, timeAgo } from '../../../../shared/lib/format'
@@ -74,13 +74,17 @@ export default function OrderDetail() {
             {order.orderNumber}
           </h1>
           <p className="mt-1 flex items-center gap-2 text-sm text-[var(--color-cocoa-400)]">
-            {order.fulfilment === 'delivery' ? (
+            {order.fulfilment === 'dine-in' ? (
               <>
-                <Bike size={15} /> Delivery · {order.address || 'No address'}
+                <UtensilsCrossed size={15} className="text-amber-700" /> Dine-In · {order.tableNumber || 'Table 01'} (Annachis Dining Hall)
+              </>
+            ) : order.fulfilment === 'takeaway' ? (
+              <>
+                <ShoppingBag size={15} className="text-emerald-700" /> Express Takeaway (Parcel)
               </>
             ) : (
               <>
-                <ShoppingBag size={15} /> Pickup at counter
+                <Bike size={15} className="text-blue-700" /> Delivery · {order.address || 'Karunya Nagar'}
               </>
             )}
           </p>
@@ -121,6 +125,9 @@ export default function OrderDetail() {
             {order.deliveryFee > 0 && (
               <div className="flex justify-between text-[var(--color-cocoa-400)]"><dt>Delivery</dt><dd>{formatPrice(order.deliveryFee)}</dd></div>
             )}
+            {order.parcelPackCharge && order.parcelPackCharge > 0 ? (
+              <div className="flex justify-between text-[var(--color-cocoa-400)]"><dt>Parcel Packaging</dt><dd>{formatPrice(order.parcelPackCharge)}</dd></div>
+            ) : null}
             <div className="flex justify-between text-[var(--color-cocoa-400)]"><dt>GST</dt><dd>{formatPrice(order.tax)}</dd></div>
             <div className="flex justify-between pt-1.5 font-display text-base font-bold text-[var(--color-espresso-900)]">
               <dt>Total</dt><dd className="tabular-nums">{formatPrice(order.total)}</dd>

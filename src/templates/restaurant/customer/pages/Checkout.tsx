@@ -10,20 +10,25 @@ import {
   Store,
   ShieldCheck,
   Sparkles,
+  UtensilsCrossed,
 } from 'lucide-react'
 import { CUSTOMER_BASE } from '../../routes'
 import { useAppStore } from '../../store/useAppStore'
 import { FoodImage } from '../../../../shared/components/ui/FoodImage'
 import { formatPrice } from '../../../../shared/lib/format'
 
+const TABLES = Array.from({ length: 20 }, (_, i) => `Table ${String(i + 1).padStart(2, '0')}`)
+
 export default function Checkout() {
   const navigate = useNavigate()
   const cart = useAppStore((s) => s.cart)
   const fulfilment = useAppStore((s) => s.cartFulfilment)
+  const tableNumber = useAppStore((s) => s.cartTableNumber)
   const address = useAppStore((s) => s.cartAddress)
   const contact = useAppStore((s) => s.cartContact)
   const paymentMethod = useAppStore((s) => s.cartPaymentMethod)
   const setFulfilment = useAppStore((s) => s.setCartFulfilment)
+  const setTableNumber = useAppStore((s) => s.setCartTableNumber)
   const setAddress = useAppStore((s) => s.setCartAddress)
   const setContact = useAppStore((s) => s.setCartContact)
   const setPaymentMethod = useAppStore((s) => s.setCartPaymentMethod)
@@ -43,12 +48,13 @@ export default function Checkout() {
 
   const subtotal = cart.reduce((sum, c) => sum + c.price * c.quantity, 0)
   const deliveryFee = fulfilment === 'delivery' ? restaurant.deliveryFee : 0
+  const parcelPackCharge = fulfilment === 'takeaway' ? 20 : 0
   const tax = Math.round(subtotal * restaurant.taxRate)
-  const total = subtotal + deliveryFee + tax
+  const total = subtotal + deliveryFee + parcelPackCharge + tax
 
   function handlePlaceOrder() {
     if (fulfilment === 'delivery' && !address.trim()) {
-      setErrorMsg('Please enter your delivery address to proceed.')
+      setErrorMsg('Please enter your delivery address in Karunya Nagar / Coimbatore to proceed.')
       return
     }
 
@@ -108,44 +114,101 @@ export default function Checkout() {
                   <span className="w-6 h-6 rounded-full bg-[var(--color-clay-500)] text-white text-xs flex items-center justify-center font-sans font-bold">
                     1
                   </span>
-                  <span>Fulfilment Method</span>
+                  <span>Dining & Service Mode</span>
                 </h2>
                 <span className="text-xs text-[var(--color-cocoa-400)]">
-                  {fulfilment === 'delivery' ? 'Delivered to Door' : 'Pickup at Kitchen'}
+                  {fulfilment === 'dine-in'
+                    ? `Dine-In (${tableNumber || 'Table 01'})`
+                    : fulfilment === 'takeaway'
+                    ? 'Express Parcel Pickup'
+                    : 'Doorstep Delivery'}
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 pt-1">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+                <button
+                  type="button"
+                  onClick={() => setFulfilment('dine-in')}
+                  className={`flex items-center justify-center gap-2 py-3 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all border ${
+                    fulfilment === 'dine-in'
+                      ? 'bg-[var(--color-espresso-900)] text-white border-[var(--color-espresso-900)] shadow-sm'
+                      : 'bg-white text-[var(--color-espresso-800)] border-[var(--color-line)] hover:bg-[var(--color-ivory-50)]'
+                  }`}
+                >
+                  <UtensilsCrossed size={16} />
+                  <span>Dine-In</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setFulfilment('takeaway')}
+                  className={`flex items-center justify-center gap-2 py-3 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all border ${
+                    fulfilment === 'takeaway'
+                      ? 'bg-[var(--color-espresso-900)] text-white border-[var(--color-espresso-900)] shadow-sm'
+                      : 'bg-white text-[var(--color-espresso-800)] border-[var(--color-line)] hover:bg-[var(--color-ivory-50)]'
+                  }`}
+                >
+                  <Store size={16} />
+                  <span>Takeaway (+₹20)</span>
+                </button>
                 <button
                   type="button"
                   onClick={() => setFulfilment('delivery')}
-                  className={`flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold transition-all border ${
+                  className={`flex items-center justify-center gap-2 py-3 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all border ${
                     fulfilment === 'delivery'
                       ? 'bg-[var(--color-espresso-900)] text-white border-[var(--color-espresso-900)] shadow-sm'
                       : 'bg-white text-[var(--color-espresso-800)] border-[var(--color-line)] hover:bg-[var(--color-ivory-50)]'
                   }`}
                 >
                   <Truck size={16} />
-                  <span>Delivery (₹40)</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setFulfilment('pickup')}
-                  className={`flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold transition-all border ${
-                    fulfilment === 'pickup'
-                      ? 'bg-[var(--color-espresso-900)] text-white border-[var(--color-espresso-900)] shadow-sm'
-                      : 'bg-white text-[var(--color-espresso-800)] border-[var(--color-line)] hover:bg-[var(--color-ivory-50)]'
-                  }`}
-                >
-                  <Store size={16} />
-                  <span>Pickup (Free)</span>
+                  <span>Delivery (+₹30)</span>
                 </button>
               </div>
 
-              {fulfilment === 'delivery' ? (
+              {fulfilment === 'dine-in' && (
+                <div className="pt-2 border-t border-[var(--color-line-light)]">
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="text-xs font-semibold text-[var(--color-espresso-900)]">
+                      Select Table Number
+                    </label>
+                    <span className="text-xs text-[var(--color-clay-600)] font-medium">
+                      Active: {tableNumber || 'Table 01'}
+                    </span>
+                  </div>
+                  <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+                    {TABLES.map((tbl) => (
+                      <button
+                        key={tbl}
+                        type="button"
+                        onClick={() => setTableNumber(tbl)}
+                        className={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border ${
+                          tableNumber === tbl
+                            ? 'bg-[var(--color-clay-500)] text-white border-[var(--color-clay-500)]'
+                            : 'bg-[var(--color-ivory-50)] text-[var(--color-espresso-800)] border-[var(--color-line)] hover:bg-white'
+                        }`}
+                      >
+                        {tbl}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {fulfilment === 'takeaway' && (
+                <div className="p-4 bg-[var(--color-ivory-100)] rounded-xl border border-[var(--color-line-light)] text-xs text-[var(--color-cocoa-500)] space-y-1">
+                  <p className="font-semibold text-[var(--color-espresso-900)]">
+                    Express Takeaway Counter:
+                  </p>
+                  <p>Siruvani Main Road, Karunya Nagar, Coimbatore, Tamil Nadu 641114</p>
+                  <p className="text-[11px] text-[var(--color-clay-600)] font-medium pt-1">
+                    Hot meals are packed fresh in hygienic banana-leaf lined containers. Ready in ~15 mins.
+                  </p>
+                </div>
+              )}
+
+              {fulfilment === 'delivery' && (
                 <div className="space-y-2 pt-2">
                   <label className="text-xs font-semibold text-[var(--color-espresso-800)] block">
-                    Delivery Address <span className="text-red-500">*</span>
+                    Delivery Address in Karunya Nagar / Coimbatore <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
                     <MapPin
@@ -155,21 +218,11 @@ export default function Checkout() {
                     <textarea
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
-                      placeholder="e.g. Flat 4B, Kalakshetra Heights, Adyar, Chennai 600041"
+                      placeholder="e.g. Faculty Quarters 12A / Bethesda / Hostel Block C, Karunya University, Karunya Nagar, Coimbatore 641114"
                       rows={3}
                       className="w-full pl-10 pr-4 py-2.5 bg-[var(--color-ivory-50)] border border-[var(--color-line)] rounded-xl text-sm placeholder:text-[var(--color-cocoa-300)] focus:outline-none focus:border-[var(--color-clay-500)] resize-none"
                     />
                   </div>
-                </div>
-              ) : (
-                <div className="p-4 bg-[var(--color-ivory-100)] rounded-xl border border-[var(--color-line-light)] text-xs text-[var(--color-cocoa-500)] space-y-1">
-                  <p className="font-semibold text-[var(--color-espresso-900)]">
-                    Kitchen Pickup Address:
-                  </p>
-                  <p>14 Kalakshetra Avenue, Adyar, Chennai 600041</p>
-                  <p className="text-[11px] text-[var(--color-clay-600)] font-medium pt-1">
-                    Your order will be ready at the express takeaway counter in ~15-20 mins.
-                  </p>
                 </div>
               )}
             </section>
@@ -180,7 +233,7 @@ export default function Checkout() {
                 <span className="w-6 h-6 rounded-full bg-[var(--color-clay-500)] text-white text-xs flex items-center justify-center font-sans font-bold">
                   2
                 </span>
-                <span>Contact Details</span>
+                <span>Customer Contact</span>
               </h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -199,7 +252,7 @@ export default function Checkout() {
                       onChange={(e) =>
                         setContact({ ...contact, name: e.target.value })
                       }
-                      placeholder="e.g. Priya Sundaram"
+                      placeholder="e.g. Anand Sivakumar"
                       className="w-full pl-10 pr-4 py-2.5 bg-[var(--color-ivory-50)] border border-[var(--color-line)] rounded-xl text-sm placeholder:text-[var(--color-cocoa-300)] focus:outline-none focus:border-[var(--color-clay-500)]"
                     />
                   </div>
@@ -220,7 +273,7 @@ export default function Checkout() {
                       onChange={(e) =>
                         setContact({ ...contact, phone: e.target.value })
                       }
-                      placeholder="+91 98450 12345"
+                      placeholder="+91 94882 12345"
                       className="w-full pl-10 pr-4 py-2.5 bg-[var(--color-ivory-50)] border border-[var(--color-line)] rounded-xl text-sm placeholder:text-[var(--color-cocoa-300)] focus:outline-none focus:border-[var(--color-clay-500)]"
                     />
                   </div>
@@ -241,7 +294,7 @@ export default function Checkout() {
                       onChange={(e) =>
                         setContact({ ...contact, email: e.target.value })
                       }
-                      placeholder="priya@example.com"
+                      placeholder="anand@karunya.edu"
                       className="w-full pl-10 pr-4 py-2.5 bg-[var(--color-ivory-50)] border border-[var(--color-line)] rounded-xl text-sm placeholder:text-[var(--color-cocoa-300)] focus:outline-none focus:border-[var(--color-clay-500)]"
                     />
                   </div>
@@ -255,14 +308,14 @@ export default function Checkout() {
                 <span className="w-6 h-6 rounded-full bg-[var(--color-clay-500)] text-white text-xs flex items-center justify-center font-sans font-bold">
                   3
                 </span>
-                <span>Payment & Instructions</span>
+                <span>Payment & Kitchen Notes</span>
               </h2>
 
               <div className="space-y-2.5">
                 {[
                   { id: 'UPI', label: 'UPI (GPay / PhonePe / Paytm / QR)', tag: 'Instant' },
-                  { id: 'Card', label: 'Credit or Debit Card', tag: 'Simulated' },
-                  { id: 'Cash on Delivery', label: 'Cash on Delivery / Pay on Pickup', tag: 'COD' },
+                  { id: 'Card', label: 'Credit or Debit Card', tag: 'Fast' },
+                  { id: 'Cash on Delivery', label: 'Cash on Delivery / Pay at Counter', tag: 'COD' },
                 ].map((m) => (
                   <label
                     key={m.id}
@@ -295,13 +348,13 @@ export default function Checkout() {
               {/* Kitchen Note */}
               <div className="pt-3 border-t border-[var(--color-line-light)] space-y-1.5">
                 <label className="text-xs font-semibold text-[var(--color-espresso-800)]">
-                  Notes for the Chef / Delivery
+                  Notes for the Kitchen
                 </label>
                 <input
                   type="text"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  placeholder="e.g. Extra coconut chutney, ring doorbell twice"
+                  placeholder="e.g. Extra coconut chutney, make dosa crispy, less spice"
                   className="w-full px-4 py-2.5 bg-[var(--color-ivory-50)] border border-[var(--color-line)] rounded-xl text-sm placeholder:text-[var(--color-cocoa-300)] focus:outline-none focus:border-[var(--color-clay-500)]"
                 />
               </div>
@@ -312,7 +365,7 @@ export default function Checkout() {
           <div className="lg:col-span-4 sticky top-24 space-y-4">
             <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-[var(--color-line)] shadow-sm space-y-5">
               <h2 className="font-display text-lg font-bold text-[var(--color-espresso-900)]">
-                Order Breakdown
+                Order Summary
               </h2>
 
               {/* Items Compact Preview */}
@@ -345,9 +398,19 @@ export default function Checkout() {
                   </span>
                 </div>
                 <div className="flex justify-between text-[var(--color-cocoa-500)]">
-                  <span>Fulfilment ({fulfilment})</span>
+                  <span>
+                    {fulfilment === 'dine-in'
+                      ? `Dine-In (${tableNumber || 'Table 01'})`
+                      : fulfilment === 'takeaway'
+                      ? 'Parcel Packaging'
+                      : 'Delivery Fee'}
+                  </span>
                   <span className="font-medium text-[var(--color-espresso-900)]">
-                    {deliveryFee > 0 ? formatPrice(deliveryFee) : 'Free'}
+                    {fulfilment === 'delivery'
+                      ? formatPrice(deliveryFee)
+                      : fulfilment === 'takeaway'
+                      ? formatPrice(parcelPackCharge)
+                      : 'Free'}
                   </span>
                 </div>
                 <div className="flex justify-between text-[var(--color-cocoa-500)]">
@@ -378,7 +441,7 @@ export default function Checkout() {
 
               <div className="flex items-center justify-center gap-1.5 text-xs text-[var(--color-cocoa-400)] text-center">
                 <ShieldCheck size={14} className="text-emerald-600 shrink-0" />
-                <span>Instant dispatch to Restaurant Kitchen Console</span>
+                <span>Instant dispatch to Annachis Kitchen Console</span>
               </div>
             </div>
           </div>

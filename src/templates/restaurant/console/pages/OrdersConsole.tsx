@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { CONSOLE_BASE } from '../../routes'
 import { motion } from 'framer-motion'
-import { Bike, ShoppingBag, Timer, Wallet } from 'lucide-react'
+import { Bike, ShoppingBag, Timer, Wallet, UtensilsCrossed } from 'lucide-react'
 import { useAppStore } from '../../store/useAppStore'
 import { StatusPill } from '../../../../shared/components/ui/StatusPill'
 import { formatPrice, timeAgo } from '../../../../shared/lib/format'
@@ -20,7 +20,11 @@ function nextAction(o: Order): { label: string; next: OrderStatus; tone: 'clay' 
     case 'READY':
       return o.fulfilment === 'delivery'
         ? { label: 'Out for delivery', next: 'OUT_FOR_DELIVERY', tone: 'dark' }
-        : { label: 'Complete', next: 'COMPLETED', tone: 'dark' }
+        : {
+            label: o.fulfilment === 'dine-in' ? 'Serve to table' : 'Hand over parcel',
+            next: 'COMPLETED',
+            tone: 'dark',
+          }
     case 'OUT_FOR_DELIVERY':
       return { label: 'Complete', next: 'COMPLETED', tone: 'dark' }
     default:
@@ -81,8 +85,28 @@ function OrderCard({ order, onAction }: { order: Order; onAction: (id: string, s
 
         <div className="mt-2.5 flex items-center justify-between border-t border-dashed border-[var(--color-line-light)] pt-2.5">
           <span className="inline-flex items-center gap-1.5 text-[11px] text-[var(--color-cocoa-400)]">
-            {order.fulfilment === 'delivery' ? <Bike size={13} /> : <ShoppingBag size={13} />}
-            {order.fulfilment === 'delivery' ? 'Delivery' : 'Pickup'}
+            {order.fulfilment === 'dine-in' ? (
+              <>
+                <UtensilsCrossed size={13} className="text-amber-700" />
+                <span className="font-bold text-amber-900 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
+                  {order.tableNumber || 'Table 01'}
+                </span>
+              </>
+            ) : order.fulfilment === 'takeaway' ? (
+              <>
+                <ShoppingBag size={13} className="text-emerald-700" />
+                <span className="font-bold text-emerald-900 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                  Parcel
+                </span>
+              </>
+            ) : (
+              <>
+                <Bike size={13} className="text-blue-700" />
+                <span className="font-bold text-blue-900 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200">
+                  Delivery
+                </span>
+              </>
+            )}
             <span aria-hidden>·</span>
             <Wallet size={13} />
             {order.paymentStatus === 'paid' ? 'Paid' : 'COD'}

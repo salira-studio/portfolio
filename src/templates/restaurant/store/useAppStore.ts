@@ -10,6 +10,7 @@ import type {
   OrderStatus,
   FulfilmentType,
   SelectedOption,
+  Expense,
 } from '../../../shared/types/domain'
 import { menuItems as seedMenu, categories as seedCategories } from '../data/menu'
 import { restaurant as seedRestaurant } from '../data/seed'
@@ -18,11 +19,11 @@ import { restaurant as seedRestaurant } from '../data/seed'
    The customer PWA and restaurant console may run side-by-side in
    separate windows/tabs. Every mutation mirrors through localStorage +
    BroadcastChannel so both surfaces stay in lockstep during demos.  */
-const SYNC_KEY = 'aura-app-store-v2'
+const SYNC_KEY = 'annachis-app-store-v2'
 let applyingRemote = false
 const syncChannel =
   typeof window !== 'undefined' && typeof BroadcastChannel !== 'undefined'
-    ? new BroadcastChannel('aura-demo-sync-v2')
+    ? new BroadcastChannel('annachis-demo-sync-v2')
     : null
 
 function mirrorWrite(value: string) {
@@ -67,14 +68,76 @@ const syncStorage = {
   },
 }
 
+/**
+ * Computes category-aware dish code for order numbering,
+ * e.g. VEGDOSA, NVBIRYANI, VEGTIFFIN, VEGMEALS, VEGBEV, NVSTARTER
+ */
+export function computeOrderCategoryCode(cart: CartItem[], menuItems: MenuItem[]): string {
+  if (cart.length === 0) return 'GENERAL'
+
+  let hasVeg = false
+  let hasNonVeg = false
+  const categoryQuantities: Record<string, number> = {}
+
+  for (const item of cart) {
+    const menuItem = menuItems.find((m) => m.id === item.menuItemId)
+    const isVeg = menuItem?.tags?.includes('veg') ?? true
+    if (isVeg) hasVeg = true
+    else hasNonVeg = true
+
+    const cat = (menuItem?.category || 'tiffin').toLowerCase()
+    categoryQuantities[cat] = (categoryQuantities[cat] || 0) + item.quantity
+  }
+
+  // Diet indicator: VEG, NV, or MIX
+  const diet = hasNonVeg && hasVeg ? 'MIX' : hasNonVeg ? 'NV' : 'VEG'
+
+  // Pick top category by quantity ordered
+  const sorted = Object.entries(categoryQuantities).sort((a, b) => b[1] - a[1])
+  const primaryCat = sorted[0]?.[0] || 'tiffin'
+
+  let catCode = 'TIFFIN'
+  if (primaryCat.includes('dosa')) catCode = 'DOSA'
+  else if (primaryCat.includes('tiffin')) catCode = 'TIFFIN'
+  else if (primaryCat.includes('meal')) catCode = 'MEALS'
+  else if (primaryCat.includes('biryani')) catCode = 'BIRYANI'
+  else if (primaryCat.includes('starter')) catCode = 'STARTER'
+  else if (primaryCat.includes('drink') || primaryCat.includes('bev')) catCode = 'BEV'
+  else if (primaryCat.includes('sweet') || primaryCat.includes('dessert')) catCode = 'SWEET'
+
+  return `${diet}${catCode}`
+}
+
+/**
+ * Generates an order number in format #AN-<CATEGORY>-<DATE>-<SEQ>
+ * e.g. #AN-VEGDOSA-260910-101
+ */
+export function generateOrderNumber(
+  cart: CartItem[],
+  menuItems: MenuItem[],
+  seq: number,
+  date: Date = new Date(),
+): string {
+  const catTag = computeOrderCategoryCode(cart, menuItems)
+  const yy = String(date.getFullYear()).slice(-2)
+  const mm = String(date.getMonth() + 1).padStart(2, '0')
+  const dd = String(date.getDate()).padStart(2, '0')
+  const dateStr = `${yy}${mm}${dd}`
+  const seqStr = String(seq).padStart(3, '0')
+
+  return `#AN-${catTag}-${dateStr}-${seqStr}`
+}
+
 interface AppState {
   restaurant: Restaurant
   categories: Category[]
   menuItems: MenuItem[]
   customers: Customer[]
   orders: Order[]
+  expenses: Expense[]
   cart: CartItem[]
   cartFulfilment: FulfilmentType
+  cartTableNumber: string
   cartAddress: string
   cartContact: { name: string; phone: string; email: string }
   cartPaymentMethod: string
@@ -93,6 +156,7 @@ interface AppState {
   removeFromCart: (cartItemId: string) => void
   clearCart: () => void
   setCartFulfilment: (f: FulfilmentType) => void
+  setCartTableNumber: (table: string) => void
   setCartAddress: (a: string) => void
   setCartContact: (c: { name: string; phone: string; email: string }) => void
   setCartPaymentMethod: (m: string) => void
@@ -100,6 +164,10 @@ interface AppState {
   placeOrder: (notes?: string) => Order | null
   updateOrderStatus: (orderId: string, status: OrderStatus) => void
   setActiveOrder: (id: string | null) => void
+
+  addExpense: (expense: Omit<Expense, 'id' | 'createdAt'>) => void
+  deleteExpense: (id: string) => void
+
   resetDemo: () => void
 }
 
@@ -109,10 +177,12 @@ export const useAppStore = create<AppState>()(
       restaurant: seedRestaurant,
       categories: seedCategories,
       menuItems: seedMenu,
-      customers: [],
-      orders: [],
+      customers: [], // Clean state: no pre-seeded mock customers
+      orders: [], // Clean state: no pre-seeded mock orders
+      expenses: [], // Clean state: no pre-seeded mock expenses
       cart: [],
-      cartFulfilment: 'delivery' as FulfilmentType,
+      cartFulfilment: 'dine-in' as FulfilmentType,
+      cartTableNumber: 'Table 01',
       cartAddress: '',
       cartContact: {
         name: '',
@@ -120,7 +190,7 @@ export const useAppStore = create<AppState>()(
         email: '',
       },
       cartPaymentMethod: 'UPI',
-      orderSeq: 4821,
+      orderSeq: 101,
       activeOrderId: null,
 
       setActiveOrder: (id) => set({ activeOrderId: id }),
@@ -178,6 +248,7 @@ export const useAppStore = create<AppState>()(
       clearCart: () => set({ cart: [] }),
 
       setCartFulfilment: (f) => set({ cartFulfilment: f }),
+      setCartTableNumber: (table) => set({ cartTableNumber: table }),
       setCartAddress: (a) => set({ cartAddress: a }),
       setCartContact: (c) => set({ cartContact: c }),
       setCartPaymentMethod: (m) => set({ cartPaymentMethod: m }),
@@ -189,15 +260,17 @@ export const useAppStore = create<AppState>()(
         const subtotal = s.cart.reduce((sum, c) => sum + c.price * c.quantity, 0)
         const deliveryFee =
           s.cartFulfilment === 'delivery' ? s.restaurant.deliveryFee : 0
+        const parcelPackCharge =
+          s.cartFulfilment === 'takeaway' ? 20 : 0
         const tax = Math.round(subtotal * s.restaurant.taxRate)
-        const total = subtotal + deliveryFee + tax
+        const total = subtotal + deliveryFee + parcelPackCharge + tax
         const now = new Date().toISOString()
-        const num = `A${s.orderSeq}`
+        const orderNum = generateOrderNumber(s.cart, s.menuItems, s.orderSeq, new Date())
         const customerName = s.cartContact.name.trim() || 'Guest Diner'
 
         const order: Order = {
           id: `ord-${Date.now()}`,
-          orderNumber: num,
+          orderNumber: orderNum,
           customerId: `cust-${Date.now()}`,
           customerName,
           items: s.cart.map((c) => ({
@@ -211,16 +284,18 @@ export const useAppStore = create<AppState>()(
           })),
           status: 'NEW',
           fulfilment: s.cartFulfilment,
+          tableNumber: s.cartFulfilment === 'dine-in' ? (s.cartTableNumber || 'Table 01') : undefined,
           address: s.cartFulfilment === 'delivery' ? s.cartAddress : '',
           contact: {
             name: customerName,
             phone: s.cartContact.phone || '+91 98765 00000',
-            email: s.cartContact.email || 'guest@aura.kitchen',
+            email: s.cartContact.email || 'guest@annachis.in',
           },
           paymentMethod: s.cartPaymentMethod,
           paymentStatus: s.cartPaymentMethod === 'Cash on Delivery' ? 'cod' : 'paid',
           subtotal,
           deliveryFee,
+          parcelPackCharge,
           tax,
           total,
           notes,
@@ -231,8 +306,47 @@ export const useAppStore = create<AppState>()(
         const newSeq = s.orderSeq + 1
         const updatedOrders = [order, ...s.orders]
 
+        // Dynamically track customer in customer list
+        const existingIdx = s.customers.findIndex(
+          (c) =>
+            (c.phone && c.phone === s.cartContact.phone) ||
+            (c.email && c.email === s.cartContact.email),
+        )
+        let updatedCustomers: Customer[]
+        if (existingIdx >= 0) {
+          updatedCustomers = s.customers.map((c, idx) =>
+            idx === existingIdx
+              ? {
+                  ...c,
+                  name: customerName,
+                  totalOrders: c.totalOrders + 1,
+                  totalSpent: c.totalSpent + total,
+                }
+              : c,
+          )
+        } else {
+          updatedCustomers = [
+            ...s.customers,
+            {
+              id: `cust-${Date.now()}`,
+              name: customerName,
+              email: s.cartContact.email || 'guest@annachis.in',
+              phone: s.cartContact.phone || '+91 98765 00000',
+              address:
+                s.cartFulfilment === 'delivery'
+                  ? s.cartAddress
+                  : s.cartFulfilment === 'dine-in'
+                  ? `Dine-In (${s.cartTableNumber || 'Table 01'})`
+                  : 'Takeaway (Parcel)',
+              totalOrders: 1,
+              totalSpent: total,
+            },
+          ]
+        }
+
         set({
           orders: updatedOrders,
+          customers: updatedCustomers,
           cart: [],
           orderSeq: newSeq,
           activeOrderId: order.id,
@@ -250,13 +364,28 @@ export const useAppStore = create<AppState>()(
         }))
       },
 
+      addExpense: (expenseData) => {
+        const newExpense: Expense = {
+          ...expenseData,
+          id: `exp-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+          createdAt: new Date().toISOString(),
+        }
+        set((s) => ({ expenses: [newExpense, ...s.expenses] }))
+      },
+
+      deleteExpense: (id) => {
+        set((s) => ({ expenses: s.expenses.filter((e) => e.id !== id) }))
+      },
+
       resetDemo: () => {
         const resetState = {
           menuItems: seedMenu.map((m) => ({ ...m })),
           orders: [],
           customers: [],
+          expenses: [],
           cart: [],
-          cartFulfilment: 'delivery' as FulfilmentType,
+          cartFulfilment: 'dine-in' as FulfilmentType,
+          cartTableNumber: 'Table 01',
           cartAddress: '',
           cartContact: {
             name: '',
@@ -264,7 +393,7 @@ export const useAppStore = create<AppState>()(
             email: '',
           },
           cartPaymentMethod: 'UPI',
-          orderSeq: 4821,
+          orderSeq: 101,
           activeOrderId: null,
         }
         set(resetState)
@@ -273,12 +402,21 @@ export const useAppStore = create<AppState>()(
     {
       name: SYNC_KEY,
       storage: createJSONStorage(() => syncStorage),
+      onRehydrateStorage: () => (state) => {
+        if (state) {
+          if (!state.orders) state.orders = []
+          if (!state.customers) state.customers = []
+          if (!state.expenses) state.expenses = []
+        }
+      },
       partialize: (state) => ({
         menuItems: state.menuItems,
         orders: state.orders,
         customers: state.customers,
+        expenses: state.expenses,
         cart: state.cart,
         cartFulfilment: state.cartFulfilment,
+        cartTableNumber: state.cartTableNumber,
         cartAddress: state.cartAddress,
         cartContact: state.cartContact,
         cartPaymentMethod: state.cartPaymentMethod,
@@ -296,7 +434,6 @@ if (syncChannel) {
     try {
       const parsed = typeof e.data === 'string' ? JSON.parse(e.data) : e.data
       if (parsed) {
-        // If state was wrapped in persist { state: ... } or raw object
         const nextState = parsed.state ?? parsed
         useAppStore.setState(nextState)
       }

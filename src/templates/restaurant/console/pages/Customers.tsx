@@ -41,24 +41,32 @@ export default function Customers() {
               </tr>
             </thead>
             <tbody>
-              {customers.map((c) => (
-                <tr
-                  key={c.id}
-                  className="border-b border-[var(--color-line-light)] last:border-0 hover:bg-[var(--color-ivory-50)]"
-                >
-                  <td className="px-4 py-3 font-medium text-[var(--color-espresso-900)]">
-                    {c.name}
-                  </td>
-                  <td className="px-4 py-3 text-[var(--color-clay-500)]">{c.email}</td>
-                  <td className="px-4 py-3 text-[var(--color-clay-500)]">{c.phone}</td>
-                  <td className="px-4 py-3 text-right text-[var(--color-clay-500)]">
-                    {c.totalOrders}
-                  </td>
-                  <td className="px-4 py-3 text-right font-semibold text-[var(--color-espresso-900)]">
-                    {formatPrice(c.totalSpent)}
+              {customers.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="px-6 py-12 text-center text-xs text-[var(--color-clay-500)]">
+                    No customer records yet. Customers are automatically registered here as soon as orders are placed.
                   </td>
                 </tr>
-              ))}
+              ) : (
+                customers.map((c) => (
+                  <tr
+                    key={c.id}
+                    className="border-b border-[var(--color-line-light)] last:border-0 hover:bg-[var(--color-ivory-50)]"
+                  >
+                    <td className="px-4 py-3 font-medium text-[var(--color-espresso-900)]">
+                      {c.name}
+                    </td>
+                    <td className="px-4 py-3 text-[var(--color-clay-500)]">{c.email}</td>
+                    <td className="px-4 py-3 text-[var(--color-clay-500)]">{c.phone}</td>
+                    <td className="px-4 py-3 text-right text-[var(--color-clay-500)]">
+                      {c.totalOrders}
+                    </td>
+                    <td className="px-4 py-3 text-right font-semibold text-[var(--color-espresso-900)]">
+                      {formatPrice(c.totalSpent)}
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

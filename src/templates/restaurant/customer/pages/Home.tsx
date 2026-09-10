@@ -38,20 +38,20 @@ export default function CustomerHome() {
             >
               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase text-amber-200 border border-white/10">
                 <Sparkles size={14} className="text-amber-400" />
-                <span>Modern South Indian Kitchen</span>
+                <span>Kongu South Indian Kitchen · Karunya Nagar</span>
               </div>
 
               <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-normal leading-[1.1] tracking-tight text-balance">
-                A taste of the South,{' '}
+                Authentic Kongu flavours,{' '}
                 <span className="italic font-light text-[var(--color-clay-300)]">
-                  reimagined.
+                  crafted with heart.
                 </span>
               </h1>
 
               <p className="text-white/80 text-base sm:text-lg max-w-xl font-normal leading-relaxed">
-                Ground at dawn, roasted in pure ghee, and crafted with intention.
-                Experience slow-fermented heritage dosas, fragrant seeraga samba biryanis,
-                and traditional coastal flavours.
+                Ground at dawn, roasted in pure country ghee, and served with pride.
+                Experience soft Thatte idlis, cast-iron crispy ghee roasts, authentic
+                banana-leaf feasts, and fragrant seeraga samba biryanis.
               </p>
 
               <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
@@ -97,7 +97,7 @@ export default function CustomerHome() {
               <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/10 aspect-[4/3] sm:aspect-[16/11]">
                 <FoodImage
                   src="/food/hero.jpg"
-                  alt="AURA Signature Ghee Roast Dosa"
+                  alt="Annachis Signature Ghee Roast Dosa"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-espresso-900)]/70 via-transparent to-transparent" />
@@ -179,7 +179,7 @@ export default function CustomerHome() {
               Signature Dishes
             </h2>
             <p className="text-sm text-[var(--color-cocoa-400)] mt-1">
-              Dishes that define the kitchen of AURA
+              Dishes that define the kitchen of Annachis
             </p>
           </div>
           <Link
@@ -246,7 +246,7 @@ export default function CustomerHome() {
       {/* ── 4. Popular This Evening ── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-[var(--color-ivory-100)] rounded-3xl p-6 sm:p-10 border border-[var(--color-line)]">
-          <div className="flex items-center gap-2.5 mb-6">
+          <div className="flex items-center gap-3 mb-6">
             <div className="w-8 h-8 rounded-full bg-[var(--color-clay-500)] text-white flex items-center justify-center">
               <Flame size={18} />
             </div>
@@ -255,7 +255,7 @@ export default function CustomerHome() {
                 Popular This Evening
               </h2>
               <p className="text-xs sm:text-sm text-[var(--color-cocoa-400)]">
-                Most ordered by diners in Chennai tonight
+                Most ordered by diners in Karunya Nagar today
               </p>
             </div>
           </div>
@@ -316,18 +316,18 @@ export default function CustomerHome() {
               <span>From Our Kitchen</span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl font-normal tracking-tight text-balance leading-snug">
-              Every dish carries a tradition spanning generations, crafted for today.
+              Every dish carries authentic Kongu culinary heritage, crafted for today.
             </h2>
             <p className="text-white/80 text-sm sm:text-base leading-relaxed">
-              We source our tellicherry peppercorns and single-origin cardamoms directly from
-              estates in Wayanad and Idukki. Our dosa batter ferments for an exact 24 hours
-              under controlled temperature to achieve the signature airy crispness, roasted only
-              in cold-pressed oils and pure A2 cow ghee.
+              Rooted in Karunya Nagar, Annachis celebrates the rich flavors of Coimbatore
+              and the Kongu region. Our dosa batter ferments for an exact 24 hours to achieve
+              signature airy crispness, roasted in cold-pressed sesame oil and pure country ghee.
+              Our spices are hand-pounded, and our coffee is brewed from freshly ground peaberry decoction.
             </p>
             <div className="pt-2 flex items-center gap-6 text-sm text-white/70">
               <div className="flex items-center gap-2">
                 <ShieldCheck size={18} className="text-amber-400" />
-                <span>Zero Artificial Preservatives</span>
+                <span>Zero Artificial Colours</span>
               </div>
               <div className="flex items-center gap-2">
                 <Utensils size={18} className="text-amber-400" />
@@ -346,11 +346,11 @@ export default function CustomerHome() {
               <MapPin size={20} />
             </div>
             <h3 className="font-display font-bold text-lg text-[var(--color-espresso-900)]">
-              Adyar, Chennai
+              Karunya Nagar, Coimbatore
             </h3>
             <p className="text-sm text-[var(--color-cocoa-400)] leading-relaxed">
-              14 Kalakshetra Avenue, Adyar<br />
-              Chennai, Tamil Nadu 600041
+              Siruvani Main Road, Karunya Nagar<br />
+              Coimbatore, Tamil Nadu 641114
             </p>
           </div>
 
@@ -362,9 +362,9 @@ export default function CustomerHome() {
               Daily Service Hours
             </h3>
             <p className="text-sm text-[var(--color-cocoa-400)] leading-relaxed">
-              Breakfast: 7:30 AM – 11:00 AM<br />
-              Lunch: 12:00 PM – 3:30 PM<br />
-              Dinner: 6:30 PM – 10:30 PM
+              Morning Tiffin: 7:00 AM – 11:30 AM<br />
+              Banana Leaf Meals: 12:00 PM – 4:00 PM<br />
+              Dinner & Tiffin: 5:30 PM – 10:30 PM
             </p>
           </div>
 

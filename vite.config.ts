@@ -11,14 +11,15 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg'],
       manifest: {
-        name: 'SaLira — Custom Software Studio',
-        short_name: 'SaLira',
-        description: 'Custom software, built around how each business actually works.',
-        theme_color: '#f6f6f4',
-        background_color: '#f6f6f4',
+        name: 'Annachis — South Indian Kitchen',
+        short_name: 'Annachis',
+        description: 'Authentic South Indian Tiffin, Kongu Meals & Beverages in Karunya Nagar, Coimbatore.',
+        theme_color: '#231A12',
+        background_color: '#FBF6EE',
         display: 'standalone',
         orientation: 'any',
         start_url: '/',
+        scope: '/',
         icons: [
           {
             src: '/favicon.svg',

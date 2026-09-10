@@ -10,7 +10,7 @@ import {
   ExternalLink,
 } from 'lucide-react'
 import { useAppStore } from '../store/useAppStore'
-import { CUSTOMER_BASE, CONSOLE_BASE } from '../routes'
+import { CONSOLE_BASE } from '../routes'
 
 function useNewOrders() {
   return useAppStore((s) => s.orders.filter((o) => o.status === 'NEW').length)
@@ -35,8 +35,8 @@ export default function ConsoleLayout() {
   return (
     <div data-theme="restaurant" className="min-h-screen bg-[var(--color-ivory-50)]">
       <Helmet>
-        <title>AURA Kitchen — Restaurant Console</title>
-        <meta name="description" content="Manage orders, menu, and analytics for AURA Kitchen restaurant operations." />
+        <title>Annachis — Restaurant Console | Karunya Nagar</title>
+        <meta name="description" content="Manage orders, menu, expenses, and analytics for Annachis restaurant operations." />
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
       <aside className="fixed left-0 top-0 z-40 flex h-screen w-[64px] flex-col border-r border-[var(--color-line-light)] bg-white md:w-[240px]">
@@ -49,8 +49,8 @@ export default function ConsoleLayout() {
               fill="#B4532A"
             />
           </svg>
-          <span className="hidden font-display text-lg font-bold tracking-[0.18em] text-[var(--color-espresso-900)] md:inline">
-            AURA
+          <span className="hidden font-display text-lg font-bold tracking-[0.14em] text-[var(--color-espresso-900)] md:inline">
+            ANNACHIS
           </span>
         </div>
 
@@ -89,12 +89,12 @@ export default function ConsoleLayout() {
 
         <div className="border-t border-[var(--color-line-light)] p-2 md:p-3">
           <NavLink
-            to={CUSTOMER_BASE}
+            to="/"
             title="Open customer app"
             className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-[var(--color-cocoa-400)] transition-colors hover:bg-[var(--color-ivory-100)] hover:text-[var(--color-espresso-900)]"
           >
             <ExternalLink className="h-5 w-5 shrink-0" strokeWidth={1.8} />
-            <span className="hidden md:inline">Customer app</span>
+            <span className="hidden md:inline">Customer view</span>
           </NavLink>
           <p className="hidden items-center gap-2 px-3 pt-3 pb-1 text-[11px] text-[var(--color-cocoa-300)] md:flex">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--color-leaf-500)]" />

@@ -33,14 +33,14 @@ export function CustomerLayout() {
   return (
     <div data-theme="restaurant" className="min-h-screen bg-[var(--color-ivory-50)] text-[var(--color-espresso-900)] flex flex-col selection:bg-[var(--color-clay-500)] selection:text-white">
       <Helmet>
-        <title>AURA Kitchen — Order Online</title>
-        <meta name="description" content="Order authentic cuisine from AURA Kitchen. Fresh ingredients, fast delivery, and easy online ordering." />
-        <meta property="og:title" content="AURA Kitchen — Order Online" />
-        <meta property="og:description" content="Order authentic cuisine from AURA Kitchen. Fresh ingredients, fast delivery, and easy online ordering." />
+        <title>Annachis — Authentic South Indian Kitchen | Karunya Nagar, Coimbatore</title>
+        <meta name="description" content="Authentic South Indian Tiffin, Kongu Meals & Beverages at Annachis, Karunya Nagar, Coimbatore. Freshly prepared to order." />
+        <meta property="og:title" content="Annachis — Authentic South Indian Kitchen" />
+        <meta property="og:description" content="Authentic South Indian Tiffin, Kongu Meals & Beverages at Annachis, Karunya Nagar, Coimbatore." />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="AURA Kitchen — Order Online" />
-        <meta name="twitter:description" content="Order authentic cuisine from AURA Kitchen. Fresh ingredients, fast delivery, and easy online ordering." />
+        <meta name="twitter:title" content="Annachis — Authentic South Indian Kitchen" />
+        <meta name="twitter:description" content="Authentic South Indian Tiffin, Kongu Meals & Beverages at Annachis, Karunya Nagar, Coimbatore." />
       </Helmet>
       {/* ── Top Announcement / Live Sync Demo Bar ── */}
       <div className="bg-[var(--color-espresso-900)] text-white/90 text-xs px-4 py-2 flex items-center justify-between border-b border-white/10">
@@ -48,11 +48,11 @@ export function CustomerLayout() {
           <div className="flex items-center gap-2 text-[11px] sm:text-xs">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="font-medium text-white/90">
-              AURA Kitchen is Open
+              Annachis is Open
             </span>
             <span className="hidden sm:inline text-white/40">·</span>
             <span className="hidden sm:inline text-white/70">
-              14 Kalakshetra Ave, Adyar · Delivery & Pickup Available
+              Siruvani Main Road, Karunya Nagar, Coimbatore · Dine-In, Parcel & Delivery
             </span>
           </div>
 
@@ -64,7 +64,7 @@ export function CustomerLayout() {
               className="inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-white px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors border border-white/10"
               title="Open Restaurant Console in a new tab to test live order processing"
             >
-              <span>Restaurant Console</span>
+              <span>Owner Console</span>
               <ExternalLink size={11} />
             </Link>
           </div>
@@ -75,16 +75,16 @@ export function CustomerLayout() {
       <header className="sticky top-0 z-40 bg-[var(--color-ivory-50)]/95 backdrop-blur-md border-b border-[var(--color-line-light)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between gap-4">
           {/* Logo & Identity */}
-          <Link to={CUSTOMER_BASE} className="flex items-center gap-3 group">
+          <Link to="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 rounded-xl bg-[var(--color-espresso-900)] text-[var(--color-ivory-50)] flex items-center justify-center font-display font-bold text-xl tracking-tighter shadow-sm group-hover:bg-[var(--color-clay-500)] transition-colors">
               A
             </div>
             <div className="flex flex-col">
               <span className="font-display text-2xl font-bold tracking-tight text-[var(--color-espresso-900)] leading-none">
-                AURA
+                Annachis
               </span>
               <span className="text-[10px] sm:text-[11px] font-medium tracking-widest uppercase text-[var(--color-cocoa-500)] mt-0.5">
-                Modern South Indian
+                South Indian Kitchen
               </span>
             </div>
           </Link>
@@ -199,12 +199,12 @@ export function CustomerLayout() {
                   A
                 </div>
                 <span className="font-display text-2xl font-bold tracking-tight text-white">
-                  AURA
+                  Annachis
                 </span>
               </div>
               <p className="text-sm text-white/70 leading-relaxed max-w-sm">
-                A modern South Indian kitchen honoring age-old culinary heritage,
-                fresh morning stone grinding, and honest ingredients.
+                Authentic South Indian & Kongu Nadu kitchen in Karunya Nagar, honoring traditional
+                recipes, fresh stone grinding, and pure country ghee.
               </p>
               <div className="pt-2">
                 <button
@@ -259,19 +259,19 @@ export function CustomerLayout() {
               </h4>
               <div className="space-y-2 text-sm text-white/70">
                 <p>
-                  <strong className="text-white font-medium">Breakfast:</strong>{' '}
-                  7:30 AM – 11:00 AM
+                  <strong className="text-white font-medium">Morning Tiffin:</strong>{' '}
+                  7:00 AM – 11:30 AM
                 </p>
                 <p>
-                  <strong className="text-white font-medium">Lunch:</strong>{' '}
-                  12:00 PM – 3:30 PM
+                  <strong className="text-white font-medium">Banana Leaf Meals:</strong>{' '}
+                  12:00 PM – 4:00 PM
                 </p>
                 <p>
-                  <strong className="text-white font-medium">Dinner:</strong>{' '}
-                  6:30 PM – 10:30 PM
+                  <strong className="text-white font-medium">Dinner & Tiffin:</strong>{' '}
+                  5:30 PM – 10:30 PM
                 </p>
                 <p className="text-xs text-[var(--color-clay-400)] pt-1">
-                  Open all 7 days for dine-in, pickup & delivery.
+                  Open all 7 days for Dine-In, Parcel & Delivery.
                 </p>
               </div>
             </div>
@@ -284,23 +284,23 @@ export function CustomerLayout() {
               <div className="space-y-3 text-sm text-white/70">
                 <div className="flex items-start gap-2.5">
                   <MapPin size={16} className="text-[var(--color-clay-400)] shrink-0 mt-0.5" />
-                  <span>14 Kalakshetra Avenue, Adyar, Chennai 600041</span>
+                  <span>Siruvani Main Road, Karunya Nagar, Coimbatore 641114</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <Phone size={16} className="text-[var(--color-clay-400)] shrink-0" />
-                  <span>+91 44 2445 6789</span>
+                  <span>+91 94882 12345</span>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/40">
-            <p>© {new Date().getFullYear()} AURA Kitchen. Interactive Capability Showcase.</p>
+            <p>© {new Date().getFullYear()} Annachis South Indian Kitchen · Karunya Nagar, Coimbatore</p>
             <p className="flex items-center gap-2">
-              <span>Crafted for modern digital dining</span>
+              <span>Authentic Kongu & Tamil Nadu Flavours</span>
               <span>·</span>
-              <Link to={`${CONSOLE_BASE}/orders`} className="text-white/60 hover:text-white underline">
-                Console View
+              <Link to="/console" className="text-white/60 hover:text-white underline">
+                Owner Console
               </Link>
             </p>
           </div>
@@ -313,8 +313,8 @@ export function CustomerLayout() {
           {mobileTabs.map((tab) => (
             <NavLink
               key={tab.to}
-              to={tab.to}
-              end={tab.to === CUSTOMER_BASE}
+              to={tab.to || '/'}
+              end={tab.to === '' || tab.to === '/'}
               className={({ isActive }) =>
                 cn(
                   'flex flex-col items-center justify-center gap-1 w-16 py-1.5 rounded-xl transition-all',

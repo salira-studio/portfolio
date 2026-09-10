@@ -70,7 +70,7 @@ export default function Orders() {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="font-mono font-bold text-base text-[var(--color-espresso-900)] group-hover:text-[var(--color-clay-500)] transition-colors">
-                      #{order.orderNumber}
+                      {order.orderNumber.startsWith('#') ? order.orderNumber : `#${order.orderNumber}`}
                     </span>
                     <StatusPill status={order.status} />
                   </div>

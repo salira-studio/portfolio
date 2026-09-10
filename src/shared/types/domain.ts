@@ -68,7 +68,7 @@ export type OrderStatus =
   | 'OUT_FOR_DELIVERY'
   | 'COMPLETED'
 
-export type FulfilmentType = 'delivery' | 'pickup'
+export type FulfilmentType = 'dine-in' | 'takeaway' | 'delivery' | 'pickup'
 
 export interface SelectedOption {
   groupId: string
@@ -93,12 +93,14 @@ export interface Order {
   items: OrderItem[]
   status: OrderStatus
   fulfilment: FulfilmentType
+  tableNumber?: string
   address: string
   contact: { name: string; phone: string; email: string }
   paymentMethod: string
   paymentStatus: 'paid' | 'pending' | 'cod'
   subtotal: number
   deliveryFee: number
+  parcelPackCharge?: number
   tax: number
   total: number
   notes: string
@@ -114,4 +116,23 @@ export interface CartItem {
   quantity: number
   selectedOptions: SelectedOption[]
   image: string
+}
+
+export type ExpenseCategory =
+  | 'provisions'
+  | 'dairy'
+  | 'vegetables'
+  | 'gas'
+  | 'labor'
+  | 'maintenance'
+  | 'misc'
+
+export interface Expense {
+  id: string
+  category: ExpenseCategory
+  description: string
+  amount: number
+  date: string
+  recordedBy?: string
+  createdAt: string
 }

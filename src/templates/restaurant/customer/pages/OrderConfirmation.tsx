@@ -44,7 +44,7 @@ const STATUS_STAGES: {
   {
     status: 'COMPLETED',
     title: 'Order Completed',
-    desc: 'Delivered or picked up. Thank you for dining with AURA!',
+    desc: 'Delivered or picked up. Thank you for dining with Annachis!',
   },
 ]
 
@@ -120,7 +120,7 @@ export default function OrderConfirmation() {
                   Live Order Tracker
                 </h1>
                 <span className="font-mono font-bold text-sm bg-[var(--color-ivory-200)] text-[var(--color-espresso-900)] px-2.5 py-0.5 rounded-md">
-                  #{order.orderNumber}
+                  {order.orderNumber.startsWith('#') ? order.orderNumber : `#${order.orderNumber}`}
                 </span>
               </div>
               <p className="text-xs sm:text-sm text-[var(--color-cocoa-400)] mt-0.5">
@@ -326,10 +326,18 @@ export default function OrderConfirmation() {
                   <span>Item Subtotal</span>
                   <span>{formatPrice(order.subtotal)}</span>
                 </div>
-                <div className="flex justify-between text-[var(--color-cocoa-500)]">
-                  <span>Delivery Fee</span>
-                  <span>{order.deliveryFee > 0 ? formatPrice(order.deliveryFee) : 'Free'}</span>
-                </div>
+                {order.fulfilment === 'delivery' && (
+                  <div className="flex justify-between text-[var(--color-cocoa-500)]">
+                    <span>Delivery Fee</span>
+                    <span>{order.deliveryFee > 0 ? formatPrice(order.deliveryFee) : 'Free'}</span>
+                  </div>
+                )}
+                {order.fulfilment === 'takeaway' && (
+                  <div className="flex justify-between text-[var(--color-cocoa-500)]">
+                    <span>Parcel Packaging</span>
+                    <span>{formatPrice(order.parcelPackCharge ?? 20)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between text-[var(--color-cocoa-500)]">
                   <span>Taxes (5% GST)</span>
                   <span>{formatPrice(order.tax)}</span>
@@ -348,12 +356,18 @@ export default function OrderConfirmation() {
                   <MapPin size={15} className="text-[var(--color-clay-500)] shrink-0 mt-0.5" />
                   <div>
                     <span className="font-semibold text-[var(--color-espresso-900)] block">
-                      {order.fulfilment === 'delivery' ? 'Delivering To' : 'Kitchen Pickup'}
+                      {order.fulfilment === 'delivery'
+                        ? 'Delivering To'
+                        : order.fulfilment === 'dine-in'
+                        ? 'Dine-In Table'
+                        : 'Express Takeaway'}
                     </span>
                     <span>
                       {order.fulfilment === 'delivery'
-                        ? order.address || 'Standard Address'
-                        : '14 Kalakshetra Avenue, Adyar, Chennai'}
+                        ? order.address || 'Karunya Nagar, Coimbatore'
+                        : order.fulfilment === 'dine-in'
+                        ? `${order.tableNumber || 'Table 01'} (Annachis Dining Hall)`
+                        : 'Annachis Express Counter · Siruvani Main Road, Karunya Nagar, Coimbatore'}
                     </span>
                   </div>
                 </div>

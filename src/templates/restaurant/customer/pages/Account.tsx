@@ -16,7 +16,7 @@ export default function Account() {
             About & Demo Overview
           </h1>
           <p className="text-xs sm:text-sm text-[var(--color-cocoa-400)] mt-0.5">
-            AURA digital dining platform capability showcase
+            Annachis digital dining platform capability showcase
           </p>
         </div>
 

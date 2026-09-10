@@ -299,9 +299,9 @@ export default function CustomerMenu() {
                             <span className="font-display font-bold text-base sm:text-lg text-[var(--color-espresso-900)]">
                               {formatPrice(item.price)}
                             </span>
-                            {item.spiceLevel > 0 && (
-                              <span className="text-[11px] text-[var(--color-cocoa-300)] ml-2">
-                                {'🌶️'.repeat(item.spiceLevel)}
+                            {item.spiceLevel > 1 && (
+                              <span className="text-[10px] font-semibold text-[var(--color-clay-600)] bg-[var(--color-ivory-100)] px-2 py-0.5 rounded-md ml-2 uppercase tracking-wide">
+                                Spicy
                               </span>
                             )}
                           </div>

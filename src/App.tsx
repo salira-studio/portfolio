@@ -65,16 +65,8 @@ export default function App() {
     <BrowserRouter>
       <Suspense fallback={<BlueprintRouteSkeleton />}>
         <Routes>
-          {/* ── SaLira Portfolio ── */}
-          <Route path="/" element={<PortfolioLayout />}>
-            <Route index element={<PortfolioHome />} />
-            <Route path="work" element={<WorkPage />} />
-            <Route path="work/restaurants" element={<RestaurantShowcase />} />
-            <Route path="work/travel" element={<TravelShowcase />} />
-          </Route>
-
-          {/* ── Restaurant template · Customer App ── */}
-          <Route path="/work/restaurants/customer" element={<CustomerLayout />}>
+          {/* ── Annachis · Customer App (Primary Top-Level) ── */}
+          <Route path="/" element={<CustomerLayout />}>
             <Route index element={<CustomerHome />} />
             <Route path="menu" element={<CustomerMenu />} />
             <Route path="item/:id" element={<ItemDetail />} />
@@ -85,8 +77,8 @@ export default function App() {
             <Route path="account" element={<Account />} />
           </Route>
 
-          {/* ── Restaurant template · Restaurant Console ── */}
-          <Route path="/work/restaurants/console" element={<ConsoleLayout />}>
+          {/* ── Annachis · Restaurant Console (Primary Top-Level) ── */}
+          <Route path="/console" element={<ConsoleLayout />}>
             <Route index element={<ConsoleOverview />} />
             <Route path="orders" element={<OrdersConsole />} />
             <Route path="orders/:id" element={<OrderDetail />} />
@@ -94,6 +86,19 @@ export default function App() {
             <Route path="customers" element={<ConsoleCustomers />} />
             <Route path="analytics" element={<ConsoleAnalytics />} />
             <Route path="settings" element={<ConsoleSettings />} />
+          </Route>
+
+          {/* ── Legacy Aliases & Redirects ── */}
+          <Route path="/work/restaurants/customer/*" element={<Navigate to="/" replace />} />
+          <Route path="/work/restaurants/console/*" element={<Navigate to="/console" replace />} />
+          <Route path="/work/restaurants" element={<Navigate to="/" replace />} />
+
+          {/* ── SaLira Portfolio (Accessible at /portfolio) ── */}
+          <Route path="/portfolio" element={<PortfolioLayout />}>
+            <Route index element={<PortfolioHome />} />
+            <Route path="work" element={<WorkPage />} />
+            <Route path="work/restaurants" element={<RestaurantShowcase />} />
+            <Route path="work/travel" element={<TravelShowcase />} />
           </Route>
 
           {/* ── Travel Agency · Customer App ── */}

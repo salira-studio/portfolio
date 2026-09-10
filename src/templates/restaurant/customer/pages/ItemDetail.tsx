@@ -181,13 +181,12 @@ export default function ItemDetail() {
                 {item.spiceLevel > 0 && (
                   <div className="text-right">
                     <span className="text-xs text-[var(--color-cocoa-400)] block">Spice Level</span>
-                    <span className="text-xs font-semibold text-[var(--color-espresso-800)]">
-                      {'🌶️'.repeat(item.spiceLevel)}{' '}
+                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-amber-900 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200/70">
                       {item.spiceLevel === 1
-                        ? 'Mild'
+                        ? 'Mild Heat'
                         : item.spiceLevel === 2
-                        ? 'Medium'
-                        : 'Spicy'}
+                        ? 'Medium Heat'
+                        : 'Hot & Fiery'}
                     </span>
                   </div>
                 )}
