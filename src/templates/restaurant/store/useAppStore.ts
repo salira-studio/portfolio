@@ -14,6 +14,7 @@ import type {
 } from '../../../shared/types/domain'
 import { menuItems as seedMenu, categories as seedCategories } from '../data/menu'
 import { restaurant as seedRestaurant } from '../data/seed'
+import type { Language } from '../customer/i18n'
 
 /* ── Cross-tab live sync ─────────────────────────────────────────────
    The customer PWA and restaurant console may run side-by-side in
@@ -143,7 +144,9 @@ interface AppState {
   cartPaymentMethod: string
   orderSeq: number
   activeOrderId: string | null
+  language: Language
 
+  setLanguage: (lang: Language) => void
   toggleAvailability: (itemId: string) => void
   updateMenuPrice: (itemId: string, price: number) => void
 
@@ -192,7 +195,9 @@ export const useAppStore = create<AppState>()(
       cartPaymentMethod: 'UPI',
       orderSeq: 101,
       activeOrderId: null,
+      language: 'en' as Language,
 
+      setLanguage: (lang: Language) => set({ language: lang }),
       setActiveOrder: (id) => set({ activeOrderId: id }),
 
       toggleAvailability: (itemId) => {
@@ -395,6 +400,7 @@ export const useAppStore = create<AppState>()(
           cartPaymentMethod: 'UPI',
           orderSeq: 101,
           activeOrderId: null,
+          language: 'en' as Language,
         }
         set(resetState)
       },
@@ -422,6 +428,7 @@ export const useAppStore = create<AppState>()(
         cartPaymentMethod: state.cartPaymentMethod,
         orderSeq: state.orderSeq,
         activeOrderId: state.activeOrderId,
+        language: state.language,
       }),
     },
   ),

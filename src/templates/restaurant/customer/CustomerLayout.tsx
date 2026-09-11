@@ -14,13 +14,7 @@ import { cn } from '../../../shared/lib/cn'
 import { useAppStore } from '../store/useAppStore'
 import { formatPrice } from '../../../shared/lib/format'
 import { CUSTOMER_BASE, CONSOLE_BASE } from '../routes'
-
-const mobileTabs = [
-  { to: CUSTOMER_BASE, icon: Home, label: 'Home' },
-  { to: `${CUSTOMER_BASE}/menu`, icon: UtensilsCrossed, label: 'Menu' },
-  { to: `${CUSTOMER_BASE}/cart`, icon: ShoppingBag, label: 'Cart' },
-  { to: `${CUSTOMER_BASE}/orders`, icon: Clock, label: 'Tracking' },
-]
+import { t, SUPPORTED_LANGUAGES } from './i18n'
 
 export function CustomerLayout() {
   const cart = useAppStore((s) => s.cart)
@@ -29,41 +23,44 @@ export function CustomerLayout() {
   const orders = useAppStore((s) => s.orders)
   const activeOrder = orders[0]
   const resetDemo = useAppStore((s) => s.resetDemo)
+  const language = useAppStore((s) => s.language)
+  const setLanguage = useAppStore((s) => s.setLanguage)
+
+  const mobileTabs = [
+    { to: CUSTOMER_BASE, icon: Home, label: t('layout.mobileHome', language) },
+    { to: `${CUSTOMER_BASE}/menu`, icon: UtensilsCrossed, label: t('layout.mobileMenu', language) },
+    { to: `${CUSTOMER_BASE}/cart`, icon: ShoppingBag, label: t('layout.mobileCart', language) },
+    { to: `${CUSTOMER_BASE}/orders`, icon: Clock, label: t('layout.mobileTracking', language) },
+  ]
 
   return (
-    <div data-theme="restaurant" className="min-h-screen bg-white text-[var(--rest-text)] flex flex-col selection:bg-[var(--rest-primary)] selection:text-white">
+    <div data-theme="restaurant" className="min-h-screen bg-[var(--color-ivory-50)] text-[var(--color-espresso-900)] flex flex-col selection:bg-[var(--color-clay-500)] selection:text-white">
       <Helmet>
-        <title>Annachies அண்ணாச்சிஸ் — Authentic South Indian Kitchen | Karunya Nagar, Coimbatore</title>
-        <meta name="description" content="Authentic South Indian Tiffin, Kongu Meals & Beverages at Annachies அண்ணாச்சிஸ், Karunya Nagar, Coimbatore. Freshly prepared to order." />
-        <meta property="og:title" content="Annachies அண்ணாச்சிஸ் — Authentic South Indian Kitchen" />
-        <meta property="og:description" content="Authentic South Indian Tiffin, Kongu Meals & Beverages at Annachies அண்ணாச்சிஸ், Karunya Nagar, Coimbatore." />
+        <html lang={language} />
+        <title>{language === 'ta' ? 'அண்ணாச்சிஸ் — ஆத்திரிசிய தென்னிந்திய சமையல் | கருண்யா நகர், கோயம்புத்தூர்' : 'Annachies — Authentic South Indian Kitchen | Karunya Nagar, Coimbatore'}</title>
+        <meta name="description" content={language === 'ta' ? 'ஆத்திரிசிய தென்னிந்திய டிபன், கொங்கு உணவு & பானங்கள் — அண்ணாச்சிஸ், கருண்யா நகர், கோயம்புத்தூர்' : 'Authentic South Indian Tiffin, Kongu Meals & Beverages at Annachies, Karunya Nagar, Coimbatore.'} />
+        <meta property="og:title" content={language === 'ta' ? 'அண்ணாச்சிஸ் — ஆத்திரிசிய தென்னிந்திய சமையல்' : 'Annachies — Authentic South Indian Kitchen'} />
+        <meta property="og:description" content={language === 'ta' ? 'ஆத்திரிசிய தென்னிந்திய டிபன், கொங்கு உணவு & பானங்கள் — அண்ணாச்சிஸ், கருண்யா நகர், கோயம்புத்தூர்' : 'Authentic South Indian Tiffin, Kongu Meals & Beverages at Annachies, Karunya Nagar, Coimbatore.'} />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="Annachis — Authentic South Indian Kitchen" />
-        <meta name="twitter:description" content="Authentic South Indian Tiffin, Kongu Meals & Beverages at Annachis, Karunya Nagar, Coimbatore." />
+        <meta name="twitter:title" content={language === 'ta' ? 'அண்ணாச்சிஸ் — ஆத்திரிசிய தென்னிந்திய சமையல்' : 'Annachis — Authentic South Indian Kitchen'} />
+        <meta name="twitter:description" content={language === 'ta' ? 'ஆத்திரிசிய தென்னிந்திய டிபன், கொங்கு உணவு & பானங்கள் — அண்ணாச்சிஸ், கருண்யா நகர், கோயம்புத்தூர்' : 'Authentic South Indian Tiffin, Kongu Meals & Beverages at Annachis, Karunya Nagar, Coimbatore.'} />
       </Helmet>
       {/* ── Top Announcement / Live Sync Demo Bar ── */}
-      <div className="bg-[var(--rest-primary-dark)] text-[var(--rest-text)] text-xs px-4 py-2 flex items-center justify-between border-b border-[var(--rest-border)]">
+      <div className="bg-[var(--color-espresso-900)] text-white/90 text-xs px-4 py-2 flex items-center justify-between border-b border-white/10">
         <div className="max-w-7xl mx-auto w-full flex items-center justify-between gap-4">
           <div className="flex items-center gap-2 text-[11px] sm:text-xs">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="font-medium text-white/90">
-              Annachies அண்ணாச்சிஸ் is Open
+              {t('layout.announceOpen', language)}
             </span>
             <span className="hidden sm:inline text-white/40">·</span>
             <span className="hidden sm:inline text-white/70">
-              Siruvani Main Road, Karunya Nagar, Coimbatore · Dine-In, Parcel & Delivery
+              {t('layout.announceLocation', language)}
             </span>
           </div>
 
-          <div className="flex items-center gap-2.5">
-            <Link
-              to="/"
-              className="text-white/60 hover:text-white text-[11px] transition-colors"
-            >
-              ← Portfolio
-            </Link>
-            <span className="text-white/30">|</span>
+          <div className="flex items-center gap-3">
             <Link
               to={`${CONSOLE_BASE}/orders`}
               target="_blank"
@@ -71,7 +68,7 @@ export function CustomerLayout() {
               className="inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-white px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors border border-white/10"
               title="Open Restaurant Console in a new tab to test live order processing"
             >
-              <span>Owner Console</span>
+              <span>{t('layout.ownerConsole', language)}</span>
               <ExternalLink size={11} />
             </Link>
           </div>
@@ -79,19 +76,19 @@ export function CustomerLayout() {
       </div>
 
       {/* ── Main Responsive Header ── */}
-      <header className="sticky top-0 z-40 bg-white border-b border-[var(--rest-border)]">
+      <header className="sticky top-0 z-40 bg-[var(--color-ivory-50)]/95 backdrop-blur-md border-b border-[var(--color-line-light)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between gap-4">
           {/* Logo & Identity */}
-          <Link to={CUSTOMER_BASE} className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-[var(--rest-primary)] text-[var(--rest-text)] flex items-center justify-center font-display font-bold text-xl tracking-tighter shadow-sm group-hover:bg-[var(--rest-primary-light)] transition-colors">
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="w-10 h-10 rounded-xl bg-[var(--color-espresso-900)] text-[var(--color-ivory-50)] flex items-center justify-center font-display font-bold text-xl tracking-tighter shadow-sm group-hover:bg-[var(--color-clay-500)] transition-colors">
               A
             </div>
             <div className="flex flex-col">
-              <span className="font-display text-2xl font-bold tracking-tight text-[var(--rest-text)] leading-none">
-                Annachies <span className="text-lg sm:text-xl">அண்ணாச்சிஸ்</span>
+              <span className="font-display text-2xl font-bold tracking-tight text-[var(--color-espresso-900)] leading-none">
+                {language === 'ta' ? 'அண்ணாச்சிஸ்' : 'Annachies'}
               </span>
-              <span className="text-[10px] sm:text-[11px] font-medium tracking-widest uppercase text-[var(--rest-muted)] mt-0.5">
-                South Indian Kitchen
+              <span className="text-[10px] sm:text-[11px] font-medium tracking-widest uppercase text-[var(--color-cocoa-500)] mt-0.5">
+                {t('layout.brandSubtitle', language)}
               </span>
             </div>
           </Link>
@@ -103,66 +100,83 @@ export function CustomerLayout() {
               end
               className={({ isActive }) =>
                 cn(
-                  'transition-colors py-1 relative hover:text-[var(--rest-primary)]',
+                  'transition-colors py-1 relative hover:text-[var(--color-clay-500)]',
                   isActive
-                    ? 'text-[var(--rest-primary)] font-semibold'
-                    : 'text-[var(--rest-text)]',
+                    ? 'text-[var(--color-clay-500)] font-semibold'
+                    : 'text-[var(--color-espresso-800)]',
                 )
               }
             >
-              Home
+              {t('layout.navHome', language)}
             </NavLink>
             <NavLink
               to={`${CUSTOMER_BASE}/menu`}
               className={({ isActive }) =>
                 cn(
-                  'transition-colors py-1 relative hover:text-[var(--rest-primary)]',
+                  'transition-colors py-1 relative hover:text-[var(--color-clay-500)]',
                   isActive
-                    ? 'text-[var(--rest-primary)] font-semibold'
-                    : 'text-[var(--rest-text)]',
+                    ? 'text-[var(--color-clay-500)] font-semibold'
+                    : 'text-[var(--color-espresso-800)]',
                 )
               }
             >
-              Explore Menu
+              {t('layout.navMenu', language)}
             </NavLink>
             <a
               href={`${CUSTOMER_BASE}#story`}
-              className="text-[var(--rest-text)] hover:text-[var(--rest-primary)] transition-colors py-1"
+              className="text-[var(--color-espresso-800)] hover:text-[var(--color-clay-500)] transition-colors py-1"
             >
-              Our Story
+              {t('layout.navStory', language)}
             </a>
             <a
               href={`${CUSTOMER_BASE}#location`}
-              className="text-[var(--rest-text)] hover:text-[var(--rest-primary)] transition-colors py-1"
+              className="text-[var(--color-espresso-800)] hover:text-[var(--color-clay-500)] transition-colors py-1"
             >
-              Hours & Location
+              {t('layout.navLocation', language)}
             </a>
             <NavLink
               to={`${CUSTOMER_BASE}/orders`}
               className={({ isActive }) =>
                 cn(
-                  'transition-colors py-1 relative hover:text-[var(--rest-primary)] flex items-center gap-1.5',
+                  'transition-colors py-1 relative hover:text-[var(--color-clay-500)] flex items-center gap-1.5',
                   isActive
-                    ? 'text-[var(--rest-primary)] font-semibold'
-                    : 'text-[var(--rest-text)]',
+                    ? 'text-[var(--color-clay-500)] font-semibold'
+                    : 'text-[var(--color-espresso-800)]',
                 )
               }
             >
-              <span>My Orders</span>
+              <span>{t('layout.navOrders', language)}</span>
               {orders.length > 0 && (
-                <span className="w-2 h-2 rounded-full bg-[var(--rest-primary)]" />
+                <span className="w-2 h-2 rounded-full bg-[var(--color-clay-500)]" />
               )}
             </NavLink>
           </nav>
 
           {/* Header Action Buttons */}
           <div className="flex items-center gap-3">
+            {/* Language Toggle */}
+            <div className="flex items-center bg-white rounded-xl p-1 border border-[var(--color-line)] shadow-2xs">
+              {SUPPORTED_LANGUAGES.map((lang) => (
+                <button
+                  key={lang.code}
+                  onClick={() => setLanguage(lang.code)}
+                  className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-colors ${
+                    language === lang.code
+                      ? 'bg-[var(--color-clay-500)] text-white'
+                      : 'text-[var(--color-cocoa-400)] hover:text-[var(--color-espresso-900)]'
+                  }`}
+                >
+                  {lang.label}
+                </button>
+              ))}
+            </div>
+
             {activeOrder && activeOrder.status !== 'COMPLETED' && (
               <Link
                 to={`${CUSTOMER_BASE}/order/${activeOrder.id}`}
-                className="hidden lg:inline-flex items-center gap-2 bg-[var(--rest-accent)] text-[var(--rest-text)] border border-[var(--rest-border)] px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-[var(--rest-primary-light)] transition-colors animate-fade-in"
+                className="hidden lg:inline-flex items-center gap-2 bg-amber-50 text-amber-900 border border-amber-200 px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-amber-100 transition-colors animate-fade-in"
               >
-                <span className="w-2 h-2 rounded-full bg-[var(--rest-primary)] animate-ping" />
+                <span className="w-2 h-2 rounded-full bg-amber-500 animate-ping" />
                 <span>Tracking #{activeOrder.orderNumber}</span>
               </Link>
             )}
@@ -172,16 +186,16 @@ export function CustomerLayout() {
               className={cn(
                 'relative flex items-center gap-2.5 px-3.5 sm:px-4 py-2 rounded-xl text-sm font-semibold transition-all border shadow-sm',
                 cartCount > 0
-                  ? 'bg-[var(--rest-primary)] text-[var(--rest-text)] border-[var(--rest-primary-dark)] hover:bg-[var(--rest-primary-light)]'
-                  : 'bg-white text-[var(--rest-text)] border-[var(--rest-border)] hover:bg-[var(--rest-cream-light)]',
+                  ? 'bg-[var(--color-clay-500)] text-white border-[var(--color-clay-600)] hover:bg-[var(--color-clay-600)]'
+                  : 'bg-white text-[var(--color-espresso-900)] border-[var(--color-line)] hover:bg-[var(--color-ivory-100)]',
               )}
             >
               <ShoppingBag size={18} strokeWidth={2} />
               <span className="hidden sm:inline">
-                {cartCount > 0 ? formatPrice(cartTotal) : 'Bag'}
+                {cartCount > 0 ? formatPrice(cartTotal) : t('layout.bag', language)}
               </span>
               {cartCount > 0 && (
-                <span className="bg-[var(--rest-text)] text-[var(--rest-primary)] font-bold text-xs px-1.5 py-0.5 rounded-full leading-none min-w-[20px] text-center">
+                <span className="bg-white text-[var(--color-clay-600)] font-bold text-xs px-1.5 py-0.5 rounded-full leading-none min-w-[20px] text-center">
                   {cartCount}
                 </span>
               )}
@@ -196,25 +210,21 @@ export function CustomerLayout() {
       </main>
 
       {/* ── Responsive Restaurant Footer ── */}
-      <footer className="hidden md:block rest-footer-gradient text-[var(--rest-text)] border-t border-[var(--rest-border)] pt-14 pb-12">
+      <footer className="hidden md:block rest-footer-dark text-[var(--color-ivory-100)] border-t border-white/10 pt-14 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
             {/* Col 1: Brand */}
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-[var(--rest-primary)] text-[var(--rest-text)] flex items-center justify-center font-display font-bold text-lg">
+                <div className="w-9 h-9 rounded-xl bg-[var(--color-clay-500)] text-white flex items-center justify-center font-display font-bold text-lg">
                   A
                 </div>
-                <span className="font-display text-2xl font-bold tracking-tight text-[var(--rest-text)]">
-                  Annachies அண்ணாச்சிஸ்
+                <span className="font-display text-2xl font-bold tracking-tight text-white">
+                  {language === 'ta' ? 'அண்ணாச்சிஸ்' : 'Annachies'}
                 </span>
               </div>
-              <p className="text-sm text-[var(--rest-muted)] leading-relaxed max-w-sm">
-                Authentic South Indian & Kongu Nadu kitchen in Karunya Nagar, honoring traditional
-                recipes, fresh stone grinding, and pure country ghee.
-              </p>
-              <p className="text-xs text-[var(--rest-muted)] italic mt-2">
-                ஆத்திரிசிய தென்னிந்திய உணவு
+              <p className="text-sm text-white/70 leading-relaxed max-w-sm">
+                {t('layout.footerDesc', language)}
               </p>
               <div className="pt-2">
                 <button
@@ -230,32 +240,32 @@ export function CustomerLayout() {
 
             {/* Col 2: Quick Links */}
             <div>
-              <h4 className="font-display font-semibold text-[var(--rest-text)] text-sm uppercase tracking-wider mb-4">
-                Explore / ஆராய்க
+              <h4 className="font-display font-semibold text-white text-sm uppercase tracking-wider mb-4">
+                {t('layout.footerExplore', language)}
               </h4>
-              <ul className="space-y-2.5 text-sm text-[var(--rest-muted)]">
+              <ul className="space-y-2.5 text-sm text-white/70">
                 <li>
-                  <Link to={CUSTOMER_BASE} className="hover:text-[var(--rest-text)] transition-colors">
-                    Home
+                  <Link to={CUSTOMER_BASE} className="hover:text-white transition-colors">
+                    {t('layout.navHome', language)}
                   </Link>
                 </li>
                 <li>
-                  <Link to={`${CUSTOMER_BASE}/menu`} className="hover:text-[var(--rest-text)] transition-colors">
-                    Full Menu
+                  <Link to={`${CUSTOMER_BASE}/menu`} className="hover:text-white transition-colors">
+                    {t('layout.navMenu', language)}
                   </Link>
                 </li>
                 <li>
-                  <Link to={`${CUSTOMER_BASE}/orders`} className="hover:text-[var(--rest-text)] transition-colors">
-                    Order Tracking
+                  <Link to={`${CUSTOMER_BASE}/orders`} className="hover:text-white transition-colors">
+                    {t('layout.navOrders', language)}
                   </Link>
                 </li>
                 <li>
                   <Link
                     to={`${CONSOLE_BASE}/orders`}
                     target="_blank"
-                    className="hover:text-[var(--rest-text)] transition-colors flex items-center gap-1"
+                    className="hover:text-white transition-colors flex items-center gap-1"
                   >
-                    <span>Restaurant Console</span>
+                    <span>{t('layout.ownerConsole', language)}</span>
                     <ExternalLink size={12} />
                   </Link>
                 </li>
@@ -264,57 +274,53 @@ export function CustomerLayout() {
 
             {/* Col 3: Timings */}
             <div>
-              <h4 className="font-display font-semibold text-[var(--rest-text)] text-sm uppercase tracking-wider mb-4">
-                Dining Hours / உணவு நேரம்
+              <h4 className="font-display font-semibold text-white text-sm uppercase tracking-wider mb-4">
+                {t('layout.footerDiningHours', language)}
               </h4>
-              <div className="space-y-2 text-sm text-[var(--rest-muted)]">
+              <div className="space-y-2 text-sm text-white/70">
                 <p>
-                  <strong className="text-[var(--rest-text)] font-medium">Morning Tiffin:</strong>{' '}
-                  7:00 AM – 11:30 AM
+                  <strong className="text-white font-medium">{t('layout.morningTiffin', language).split(':')[0]}:</strong>{' '}
+                  {t('layout.morningTiffin', language).split(': ').slice(1).join(': ')}
                 </p>
                 <p>
-                  <strong className="text-[var(--rest-text)] font-medium">Banana Leaf Meals:</strong>{' '}
-                  12:00 PM – 4:00 PM
+                  <strong className="text-white font-medium">{t('layout.bananaLeafMeals', language).split(':')[0]}:</strong>{' '}
+                  {t('layout.bananaLeafMeals', language).split(': ').slice(1).join(': ')}
                 </p>
                 <p>
-                  <strong className="text-[var(--rest-text)] font-medium">Dinner & Tiffin:</strong>{' '}
-                  5:30 PM – 10:30 PM
+                  <strong className="text-white font-medium">{t('layout.dinnerDosa', language).split(':')[0]}:</strong>{' '}
+                  {t('layout.dinnerDosa', language).split(': ').slice(1).join(': ')}
                 </p>
-                <p className="text-xs text-[var(--rest-muted)] pt-1">
-                  Open all 7 days for Dine-In, Parcel & Delivery.
+                <p className="text-xs text-[var(--color-clay-400)] pt-1">
+                  {t('layout.closedNote', language)}
                 </p>
               </div>
             </div>
 
             {/* Col 4: Location */}
             <div>
-              <h4 className="font-display font-semibold text-[var(--rest-text)] text-sm uppercase tracking-wider mb-4">
-                Find Us / எங்குள்ளோம்
+              <h4 className="font-display font-semibold text-white text-sm uppercase tracking-wider mb-4">
+                {t('layout.footerFindUs', language)}
               </h4>
-              <div className="space-y-3 text-sm text-[var(--rest-muted)]">
+              <div className="space-y-3 text-sm text-white/70">
                 <div className="flex items-start gap-2.5">
-                  <MapPin size={16} className="text-[var(--rest-primary)] shrink-0 mt-0.5" />
-                  <span>Siruvani Main Road, Karunya Nagar, Coimbatore 641114</span>
+                  <MapPin size={16} className="text-[var(--color-clay-400)] shrink-0 mt-0.5" />
+                  <span>{t('layout.addressText', language)}</span>
                 </div>
                 <div className="flex items-center gap-2.5">
-                  <Phone size={16} className="text-[var(--rest-primary)] shrink-0" />
-                  <span>+91 94882 12345</span>
+                  <Phone size={16} className="text-[var(--color-clay-400)] shrink-0" />
+                  <span>{t('layout.phoneText', language)}</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[var(--rest-muted)]">
-            <p>© {new Date().getFullYear()} Annachies அண்ணாச்சிஸ் South Indian Kitchen · Karunya Nagar, Coimbatore</p>
-            <p className="flex items-center gap-2">
-              <span>Authentic Kongu & Tamil Nadu Flavours</span>
+          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/40">
+            <p>© {new Date().getFullYear()} {t('layout.copyrightNotice', language)}</p>
+              <p className="flex items-center gap-2">
+                <span>{t('layout.konguFlavours', language)}</span>
               <span>·</span>
-              <Link to={CONSOLE_BASE} className="text-[var(--rest-muted)] hover:text-[var(--rest-text)] underline">
+              <Link to="/console" className="text-white/60 hover:text-white underline">
                 Owner Console
-              </Link>
-              <span>·</span>
-              <Link to="/" className="text-[var(--rest-muted)] hover:text-[var(--rest-text)] underline">
-                SaLira Portfolio
               </Link>
             </p>
           </div>
@@ -322,7 +328,7 @@ export function CustomerLayout() {
       </footer>
 
       {/* ── Mobile Bottom Navigation Bar (Hidden on md/desktop) ── */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[var(--rest-border)] safe-area-bottom shadow-lg">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-lg border-t border-[var(--color-line)] safe-area-bottom shadow-lg">
         <div className="flex items-center justify-around h-16 max-w-md mx-auto px-2">
           {mobileTabs.map((tab) => (
             <NavLink
@@ -333,19 +339,19 @@ export function CustomerLayout() {
                 cn(
                   'flex flex-col items-center justify-center gap-1 w-16 py-1.5 rounded-xl transition-all',
                   isActive
-                    ? 'text-[var(--rest-primary)] font-semibold scale-105'
-                    : 'text-[var(--rest-muted)] hover:text-[var(--rest-text)]',
+                    ? 'text-[var(--color-clay-500)] font-semibold scale-105'
+                    : 'text-[var(--color-cocoa-400)] hover:text-[var(--color-espresso-900)]',
                 )
               }
             >
               <div className="relative">
                 <tab.icon size={21} strokeWidth={1.9} />
-                {tab.label === 'Cart' && cartCount > 0 && (
-                  <span className="absolute -top-1.5 -right-2 bg-[var(--rest-primary)] text-[var(--rest-text)] text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm animate-scale-in">
+                {tab.to?.includes('/cart') && cartCount > 0 && (
+                  <span className="absolute -top-1.5 -right-2 bg-[var(--color-clay-500)] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm animate-scale-in">
                     {cartCount}
                   </span>
                 )}
-                {tab.label === 'Tracking' && orders.length > 0 && (
+                {tab.to?.includes('/orders') && orders.length > 0 && (
                   <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white" />
                 )}
               </div>

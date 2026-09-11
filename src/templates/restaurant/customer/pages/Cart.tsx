@@ -57,7 +57,7 @@ export default function Cart() {
         </p>
         <Link
           to={`${CUSTOMER_BASE}/menu`}
-          className="inline-flex items-center gap-2 bg-[var(--color-clay-500)] text-white px-7 py-3.5 rounded-xl font-semibold text-sm hover:bg-[var(--color-clay-600)] transition-all shadow-sm"
+          className="inline-flex items-center gap-2 bg-[var(--color-clay-500)] text-[#13294B] px-7 py-3.5 rounded-xl font-semibold text-sm hover:bg-[var(--color-clay-600)] transition-all shadow-sm"
         >
           <span>Explore the Menu</span>
           <ArrowRight size={16} />
@@ -155,7 +155,7 @@ export default function Cart() {
                         onClick={() => setTableNumber(tbl)}
                         className={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border ${
                           tableNumber === tbl
-                            ? 'bg-[var(--color-clay-500)] text-white border-[var(--color-clay-500)]'
+                            ? 'bg-[var(--color-clay-500)] text-[#13294B] border-[var(--color-clay-500)]'
                             : 'bg-[var(--color-ivory-50)] text-[var(--color-espresso-800)] border-[var(--color-line)] hover:bg-white'
                         }`}
                       >
@@ -314,7 +314,7 @@ export default function Cart() {
 
               <button
                 onClick={() => navigate(`${CUSTOMER_BASE}/checkout`)}
-                className="w-full bg-[var(--color-clay-500)] hover:bg-[var(--color-clay-600)] text-white py-4 rounded-xl font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md transition-all active:scale-[0.99]"
+                className="w-full bg-[var(--color-clay-500)] hover:bg-[var(--color-clay-600)] text-[#13294B] py-4 rounded-xl font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md transition-all active:scale-[0.99]"
               >
                 <span>Proceed to Checkout</span>
                 <ArrowRight size={18} />

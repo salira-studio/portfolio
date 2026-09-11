@@ -33,9 +33,9 @@ function nextAction(o: Order): { label: string; next: OrderStatus; tone: 'clay' 
 }
 
 const ACTION_STYLE = {
-  clay: 'bg-[var(--color-clay-500)] hover:bg-[var(--color-clay-600)]',
-  brass: 'bg-[var(--color-brass-500)] hover:bg-[var(--color-brass-400)]',
-  dark: 'bg-[var(--color-espresso-900)] hover:bg-[var(--color-espresso-700)]',
+  clay: 'bg-[var(--color-clay-500)] hover:bg-[var(--color-clay-600)] text-[#13294B]',
+  brass: 'bg-[var(--color-brass-500)] hover:bg-[var(--color-brass-400)] text-[#13294B]',
+  dark: 'bg-[var(--color-espresso-900)] hover:bg-[var(--color-espresso-700)] text-white',
 } as const
 
 function OrderCard({ order, onAction }: { order: Order; onAction: (id: string, status: OrderStatus) => void }) {
@@ -123,7 +123,7 @@ function OrderCard({ order, onAction }: { order: Order; onAction: (id: string, s
       {action && (
         <button
           onClick={() => onAction(order.id, action.next)}
-          className={`mt-3 w-full rounded-lg py-2.5 text-xs font-bold text-white transition-colors ${ACTION_STYLE[action.tone]}`}
+          className={`mt-3 w-full rounded-lg py-2.5 text-xs font-bold transition-colors ${ACTION_STYLE[action.tone]}`}
         >
           {action.label}
         </button>

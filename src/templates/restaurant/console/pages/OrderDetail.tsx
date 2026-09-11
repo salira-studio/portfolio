@@ -156,12 +156,12 @@ export default function OrderDetail() {
             <button
               onClick={() => updateOrderStatus(order.id, action.next)}
               className={
-                'mt-5 w-full rounded-xl py-3 text-sm font-bold text-white transition-colors ' +
+                'mt-5 w-full rounded-xl py-3 text-sm font-bold transition-colors ' +
                 (action.next === 'READY'
-                  ? 'bg-[var(--color-brass-500)] hover:bg-[var(--color-brass-400)]'
+                  ? 'bg-[var(--color-brass-500)] hover:bg-[var(--color-brass-400)] text-[#13294B]'
                   : action.next === 'COMPLETED' || action.next === 'OUT_FOR_DELIVERY'
-                    ? 'bg-[var(--color-espresso-900)] hover:bg-[var(--color-espresso-700)]'
-                    : 'bg-[var(--color-clay-500)] hover:bg-[var(--color-clay-600)]')
+                    ? 'bg-[var(--color-espresso-900)] hover:bg-[var(--color-espresso-700)] text-white'
+                    : 'bg-[var(--color-clay-500)] hover:bg-[var(--color-clay-600)] text-[#13294B]')
               }
             >
               {action.label}

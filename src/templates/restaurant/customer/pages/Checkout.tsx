@@ -111,7 +111,7 @@ export default function Checkout() {
             <section className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-[var(--color-line)] shadow-xs space-y-4">
               <div className="flex items-center justify-between">
                 <h2 className="font-display text-base sm:text-lg font-bold text-[var(--color-espresso-900)] flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-[var(--color-clay-500)] text-white text-xs flex items-center justify-center font-sans font-bold">
+                  <span className="w-6 h-6 rounded-full bg-[var(--color-clay-500)] text-[#13294B] text-xs flex items-center justify-center font-sans font-bold">
                     1
                   </span>
                   <span>Dining & Service Mode</span>
@@ -182,7 +182,7 @@ export default function Checkout() {
                         onClick={() => setTableNumber(tbl)}
                         className={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border ${
                           tableNumber === tbl
-                            ? 'bg-[var(--color-clay-500)] text-white border-[var(--color-clay-500)]'
+                            ? 'bg-[var(--color-clay-500)] text-[#13294B] border-[var(--color-clay-500)]'
                             : 'bg-[var(--color-ivory-50)] text-[var(--color-espresso-800)] border-[var(--color-line)] hover:bg-white'
                         }`}
                       >
@@ -230,7 +230,7 @@ export default function Checkout() {
             {/* Step 2: Contact Information */}
             <section className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-[var(--color-line)] shadow-xs space-y-4">
               <h2 className="font-display text-base sm:text-lg font-bold text-[var(--color-espresso-900)] flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-[var(--color-clay-500)] text-white text-xs flex items-center justify-center font-sans font-bold">
+                <span className="w-6 h-6 rounded-full bg-[var(--color-clay-500)] text-[#13294B] text-xs flex items-center justify-center font-sans font-bold">
                   2
                 </span>
                 <span>Customer Contact</span>
@@ -305,7 +305,7 @@ export default function Checkout() {
             {/* Step 3: Payment Method & Kitchen Notes */}
             <section className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-[var(--color-line)] shadow-xs space-y-4">
               <h2 className="font-display text-base sm:text-lg font-bold text-[var(--color-espresso-900)] flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-[var(--color-clay-500)] text-white text-xs flex items-center justify-center font-sans font-bold">
+                <span className="w-6 h-6 rounded-full bg-[var(--color-clay-500)] text-[#13294B] text-xs flex items-center justify-center font-sans font-bold">
                   3
                 </span>
                 <span>Payment & Kitchen Notes</span>
@@ -433,7 +433,7 @@ export default function Checkout() {
                 type="button"
                 disabled={isSubmitting}
                 onClick={handlePlaceOrder}
-                className="w-full bg-[var(--color-clay-500)] hover:bg-[var(--color-clay-600)] disabled:opacity-50 text-white py-4 rounded-xl font-semibold text-base flex items-center justify-center gap-2 shadow-md transition-all active:scale-[0.99]"
+                className="w-full bg-[var(--color-clay-500)] hover:bg-[var(--color-clay-600)] disabled:opacity-50 text-[#13294B] py-4 rounded-xl font-semibold text-base flex items-center justify-center gap-2 shadow-md transition-all active:scale-[0.99]"
               >
                 <Sparkles size={18} />
                 <span>Place Order — {formatPrice(total)}</span>

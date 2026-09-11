@@ -86,7 +86,7 @@ export default function OrderConfirmation() {
         </p>
         <Link
           to={`${CUSTOMER_BASE}/menu`}
-          className="inline-flex items-center gap-2 bg-[var(--color-clay-500)] text-white px-6 py-3 rounded-xl font-semibold text-sm hover:bg-[var(--color-clay-600)] transition-colors"
+          className="inline-flex items-center gap-2 bg-[var(--color-clay-500)] text-[#13294B] px-6 py-3 rounded-xl font-semibold text-sm hover:bg-[var(--color-clay-600)] transition-colors"
         >
           <span>Browse Menu</span>
         </Link>
@@ -189,7 +189,7 @@ export default function OrderConfirmation() {
                             isDone
                               ? 'bg-emerald-600 text-white shadow-sm'
                               : isCurrent
-                              ? 'bg-[var(--color-clay-500)] text-white ring-4 ring-[var(--color-clay-500)]/20 scale-110 shadow-sm'
+                              ? 'bg-[var(--color-clay-500)] text-[#13294B] ring-4 ring-[var(--color-clay-500)]/20 scale-110 shadow-sm'
                               : 'bg-gray-100 text-gray-400 border border-gray-200'
                           }`}
                         >

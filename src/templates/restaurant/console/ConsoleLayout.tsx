@@ -45,11 +45,11 @@ export default function ConsoleLayout() {
           className="flex h-16 items-center justify-center gap-2.5 border-b border-[var(--color-line-light)] px-4 md:justify-start md:px-5 hover:opacity-90 transition-opacity"
         >
           <svg viewBox="0 0 24 24" className="h-7 w-7 shrink-0" aria-hidden="true">
-            <circle cx="12" cy="13.4" r="8.6" fill="none" stroke="#A9834F" strokeWidth="1.6" />
-            <circle cx="12" cy="13.4" r="5.4" fill="#F5ECE0" />
+            <circle cx="12" cy="13.4" r="8.6" fill="none" stroke="#D6890F" strokeWidth="1.6" />
+            <circle cx="12" cy="13.4" r="5.4" fill="#FFFDF8" />
             <path
               d="M12 7.2c2.6 2.2 4 4.3 4 6.6 0 2.8-1.7 4.7-4 4.7s-4-1.9-4-4.7c0-2.3 1.4-4.4 4-6.6z"
-              fill="#B4532A"
+              fill="#F5A623"
             />
           </svg>
           <span className="hidden font-display text-lg font-bold tracking-[0.14em] text-[var(--color-espresso-900)] md:inline">
@@ -79,7 +79,7 @@ export default function ConsoleLayout() {
                   <item.icon className="h-5 w-5 shrink-0" strokeWidth={isActive ? 2.1 : 1.8} />
                   <span className="hidden md:inline">{item.label}</span>
                   {item.to === `${CONSOLE_BASE}/orders` && newCount > 0 && (
-                    <span className="ml-auto hidden rounded-full bg-[var(--color-clay-500)] px-1.5 py-0.5 text-[10px] font-bold text-white md:inline">
+                    <span className="ml-auto hidden rounded-full bg-[var(--color-clay-500)] px-1.5 py-0.5 text-[10px] font-bold text-[#13294B] md:inline">
                       {newCount}
                     </span>
                   )}

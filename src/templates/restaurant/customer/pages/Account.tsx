@@ -91,7 +91,7 @@ export default function Account() {
               </Link>
               <Link
                 to={`${CUSTOMER_BASE}/menu`}
-                className="inline-flex items-center gap-1.5 bg-[var(--color-clay-500)] text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[var(--color-clay-600)] transition-colors"
+                className="inline-flex items-center gap-1.5 bg-[var(--color-clay-500)] text-[#13294B] px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[var(--color-clay-600)] transition-colors"
               >
                 <span>Order Dishes</span>
               </Link>

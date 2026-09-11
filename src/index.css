@@ -1,42 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..800&family=JetBrains+Mono:wght@400;500;600&family=Mukta+Malar:wght@400;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap');
 
 @theme {
-  --color-ivory-50: #FBF6EE;
-  --color-ivory-100: #F5ECE0;
-  --color-ivory-200: #EDE0CC;
-  --color-ivory-300: #E0CDB0;
+  /* Annachies Brand Palette */
+  --color-primary: #F5A623;
+  --color-primary-hover: #D6890F;
+  --color-secondary: #C0217A;
+  --color-secondary-hover: #9E1968;
+  --color-warning: #706600;
+  --color-warning-bg: #FAF6DC;
+  --color-warning-border: #E0D8A0;
+  --color-success: #3A7D2C;
+  --color-error: #C0392B;
+
+  --color-ivory-50: #FFFDF8;
+  --color-ivory-100: #F8F3E9;
+  --color-ivory-200: #EFE8DC;
+  --color-ivory-300: #E5DEC9;
 
   --color-espresso-900: #231A12;
-  --color-espresso-800: #34261A;
-  --color-espresso-700: #4A3626;
-  --color-espresso-600: #5C4532;
-  --color-espresso-500: #7A5F46;
+  --color-espresso-800: #2B2A2E;
+  --color-espresso-700: #3E3D43;
+  --color-espresso-600: #4B4A50;
+  --color-espresso-500: #5C5A62;
 
-  --color-cocoa-500: #8B7355;
-  --color-cocoa-400: #A08968;
-  --color-cocoa-300: #BBA282;
+  --color-cocoa-500: #444349;
+  --color-cocoa-400: #5C5A62;
+  --color-cocoa-300: #8E8C94;
 
-  --color-clay-600: #A44A24;
-  --color-clay-500: #B4532A;
-  --color-clay-400: #C46838;
-  --color-clay-300: #D4895A;
+  --color-clay-600: #D6890F;
+  --color-clay-500: #F5A623;
+  --color-clay-400: #F7B74F;
+  --color-clay-300: #FDEFD6;
 
-  --color-leaf-700: #2B4528;
-  --color-leaf-600: #355731;
-  --color-leaf-500: #3E6A38;
-  --color-leaf-400: #4A7D42;
+  --color-leaf-700: #26551D;
+  --color-leaf-600: #306824;
+  --color-leaf-500: #3A7D2C;
+  --color-leaf-400: #509741;
 
-  --color-brass-500: #A9834F;
-  --color-brass-400: #B9935F;
-  --color-brass-300: #C9A36F;
+  --color-brass-500: #D6890F;
+  --color-brass-400: #F5A623;
+  --color-brass-300: #FDEFD6;
 
-  --color-line: #E7DCC8;
-  --color-line-light: #F0E8D8;
+  --color-line: #E8E2D5;
+  --color-line-light: #F2ECE1;
 
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-sans: 'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-display: 'Fraunces', 'Mukta Malar', 'Playfair Display', Georgia, serif;
+  --font-sans: 'DM Sans', 'Noto Sans Tamil', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Noto Sans Tamil', monospace;
 
   /* SaLira Studio Manifesto Typography & Colors */
   --font-special-elite: 'Special Elite', cursive, monospace;
@@ -73,8 +84,8 @@
   }
 
   ::selection {
-    background-color: var(--color-clay-500);
-    color: white;
+    background-color: var(--color-primary);
+    color: var(--color-espresso-900);
   }
 
   input, select, textarea {
@@ -103,6 +114,44 @@
     text-wrap: balance;
   }
 
+  /* ── Automated Multilingual & Vernacular Typography Rules ── */
+  :root[lang="ta"],
+  [lang="ta"],
+  html[lang="ta"] {
+    font-family: var(--font-sans);
+    line-height: 1.55;
+  }
+
+  [lang="ta"] h1,
+  [lang="ta"] h2,
+  [lang="ta"] h3,
+  [lang="ta"] .font-display,
+  html[lang="ta"] h1,
+  html[lang="ta"] h2,
+  html[lang="ta"] h3,
+  html[lang="ta"] .font-display {
+    font-family: 'Mukta Malar', 'Fraunces', Georgia, serif;
+    line-height: 1.35;
+    letter-spacing: normal;
+  }
+
+  [lang="ta"] .tracking-tight,
+  [lang="ta"] .tracking-tighter,
+  html[lang="ta"] .tracking-tight,
+  html[lang="ta"] .tracking-tighter {
+    letter-spacing: 0;
+  }
+
+  .text-balance-auto {
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  .multilingual-btn {
+    white-space: nowrap;
+    min-width: max-content;
+  }
+
   .scrollbar-hidden {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -117,8 +166,8 @@
     justify-content: center;
     gap: 0.5rem;
     padding: 0.875rem 1.5rem;
-    background: var(--color-clay-500);
-    color: white;
+    background: var(--color-primary);
+    color: var(--color-espresso-900);
     border-radius: 12px;
     font-weight: 600;
     font-size: 0.9375rem;
@@ -129,7 +178,8 @@
     width: 100%;
   }
   .btn-primary:hover {
-    background: var(--color-clay-600);
+    background: var(--color-primary-hover);
+    color: var(--color-espresso-900);
   }
   .btn-primary:active {
     transform: scale(0.98);
@@ -336,21 +386,29 @@
 
 /* ── Layer 2: Template Scoped Tokens ── */
 [data-theme="restaurant"] {
-  /* Premium Gold, Cream, White Theme for Annachies */
-  --rest-primary: #F4C430;
-  --rest-primary-dark: #D6A800;
-  --rest-primary-light: #FFD966;
+  /* Annachies Authentic South Indian Restaurant Theme */
+  --rest-primary: #F5A623;
+  --rest-primary-dark: #D6890F;
+  --rest-primary-light: #FDEFD6;
   --rest-surface: #FFFFFF;
   --rest-card: #FFFFFF;
-  --rest-text: #4A4030;
-  --rest-muted: #756B59;
-  --rest-border: rgba(180, 145, 50, 0.16);
-  --rest-accent: #FFE9A3;
-  --rest-gold: #F4C430;
-  --rest-cream: #FFF9E8;
-  --rest-cream-light: #FFFDF2;
-  --rest-gold-shadow: rgba(244, 196, 48, 0.12);
-  --rest-card-shadow: 0 10px 30px rgba(120, 90, 20, 0.08);
+  --rest-text: #13294B;
+  --rest-text-secondary: #2B2A2E;
+  --rest-muted: #5C5A62;
+  --rest-border: rgba(245, 166, 35, 0.15);
+  --rest-accent: #C0217A;
+  --rest-accent-hover: #9E1968;
+  --rest-accent-wash: #FDF0F6;
+  --rest-gold: #F5A623;
+  --rest-cream: #FFFDF8;
+  --rest-cream-light: #F8F3E9;
+  --rest-gold-shadow: rgba(245, 166, 35, 0.15);
+  --rest-card-shadow: 0 10px 30px rgba(19, 41, 75, 0.06);
+  --rest-warning: #706600;
+  --rest-warning-bg: #FAF6DC;
+  --rest-warning-border: #E0D8A0;
+  --rest-veg: #3A7D2C;
+  --rest-nonveg: #C0392B;
 }
 
 [data-theme="travel"] {
@@ -1044,10 +1102,10 @@
   position: absolute;
   inset: 0;
   background-image: 
-    radial-gradient(circle at 10% 20%, rgba(244, 196, 48, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 30% 60%, rgba(244, 196, 48, 0.06) 0%, transparent 40%),
-    radial-gradient(circle at 70% 30%, rgba(244, 196, 48, 0.07) 0%, transparent 45%),
-    radial-gradient(circle at 90% 70%, rgba(244, 196, 48, 0.05) 0%, transparent 35%);
+    radial-gradient(circle at 10% 20%, rgba(245, 166, 35, 0.07) 0%, transparent 50%),
+    radial-gradient(circle at 30% 60%, rgba(245, 166, 35, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 70% 30%, rgba(245, 166, 35, 0.06) 0%, transparent 45%),
+    radial-gradient(circle at 90% 70%, rgba(245, 166, 35, 0.04) 0%, transparent 35%);
   animation: particleFloat 15s ease-in-out infinite;
   pointer-events: none;
 }
@@ -1071,23 +1129,7 @@
   }
 }
 
-/* Enhanced Grid Cell Animations - White Cards */
-.rest-grid-cell {
-  position: relative;
-  background: var(--rest-card);
-  border-radius: 20px;
-  border: 1px solid rgba(180, 145, 50, 0.12);
-  overflow: hidden;
-  transition: transform 300ms ease, box-shadow 300ms ease;
-  cursor: pointer;
-  box-shadow: var(--rest-card-shadow);
-}
-
-.rest-grid-cell:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 40px rgba(120, 90, 20, 0.12);
-  border-color: rgba(180, 145, 50, 0.2);
-}
+/* Enhanced Grid Cell Animations - White Cards (removed — see rest-glow-effect section) */
 
 /* Staggered Entrance Animation */
 .rest-grid-cell-enter {
@@ -1128,29 +1170,14 @@
   50%, 100% { left: 100%; }
 }
 
-/* Category Card - White */
-.rest-category-card {
-  background: #FFFFFF;
-  border: 1px solid rgba(180, 145, 50, 0.12);
-  border-radius: 22px;
-  transition: transform 300ms ease, box-shadow 300ms ease;
-  position: relative;
-  overflow: hidden;
-  box-shadow: var(--rest-card-shadow);
-}
-
-.rest-category-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 40px rgba(120, 90, 20, 0.12);
-  border-color: rgba(180, 145, 50, 0.2);
-}
+/* Category Card (removed — see enhanced rest-category-card below) */
 
 /* Hero Section - Cream/Gold Gradient */
 .rest-hero-bg {
   background: 
-    radial-gradient(circle at 20% 20%, rgba(244, 196, 48, 0.12) 0%, transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(244, 196, 48, 0.08) 0%, transparent 40%),
-    linear-gradient(135deg, #FFFDF2 0%, #FFF3C4 45%, #FFD966 100%);
+    radial-gradient(circle at 20% 20%, rgba(245, 166, 35, 0.09) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(245, 166, 35, 0.05) 0%, transparent 40%),
+    linear-gradient(135deg, #FFFDF8 0%, #FDF4E7 48%, #FCE8C9 100%);
   position: relative;
   overflow: hidden;
 }
@@ -1167,7 +1194,281 @@
 
 /* Footer Gradient Background */
 .rest-footer-gradient {
-  background: linear-gradient(135deg, #FFFDF2 0%, #FFF3C4 45%, #FFD966 100%);
+  background: linear-gradient(135deg, #FFFDF8 0%, #FDF4E7 48%, #FCE8C9 100%);
+}
+
+/* ── Glow Effect on Card Hover ── */
+.rest-glow-effect {
+  position: relative;
+}
+
+.rest-glow-effect::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(245, 166, 35, 0.12),
+    transparent 40%
+  );
+}
+
+.rest-glow-effect:hover::after {
+  opacity: 1;
+}
+
+/* ── Section Backgrounds ── */
+
+/* Categories section — soft ivory with warm dot texture */
+.rest-section-categories {
+  position: relative;
+  background:
+    radial-gradient(circle at 15% 30%, rgba(245, 166, 35, 0.06) 0%, transparent 45%),
+    radial-gradient(circle at 85% 70%, rgba(192, 33, 122, 0.03) 0%, transparent 40%),
+    linear-gradient(180deg, #FFFDF8 0%, #F8F3E9 100%);
+}
+
+/* Signature Dishes — warm terracotta/clay wash */
+.rest-section-signature {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(214, 137, 15, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(192, 33, 122, 0.04) 0%, transparent 45%),
+    linear-gradient(160deg, #FFFDF8 0%, #FDF0E6 40%, #F9E4D0 100%);
+}
+
+/* Popular This Evening — dark espresso night mood */
+.rest-section-popular {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 70% 30%, rgba(245, 166, 35, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 30% 70%, rgba(192, 33, 122, 0.08) 0%, transparent 45%),
+    linear-gradient(160deg, #13294B 0%, #1A3358 40%, #0F2040 100%);
+  color: #F8F3E9;
+}
+
+/* Story / Philosophy — split parchment */
+.rest-section-story {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 10% 50%, rgba(245, 166, 35, 0.06) 0%, transparent 50%),
+    linear-gradient(135deg, #F8F3E9 0%, #FFFDF8 50%, #F8F3E9 100%);
+}
+
+/* Location / Hours — subtle teal-green freshness */
+.rest-section-location {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 80% 30%, rgba(58, 125, 44, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 70%, rgba(245, 166, 35, 0.04) 0%, transparent 45%),
+    linear-gradient(160deg, #F5FAF4 0%, #FFFDF8 50%, #F0F7EF 100%);
+}
+
+/* ── Decorative Section Divider ── */
+.rest-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem 0;
+  opacity: 0.5;
+}
+
+.rest-divider::before,
+.rest-divider::after {
+  content: '';
+  flex: 1;
+  max-width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rest-primary), transparent);
+}
+
+.rest-divider-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rest-primary);
+  flex-shrink: 0;
+}
+
+/* ── Hero Enhanced Patterns ── */
+.rest-hero-pattern {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image:
+    repeating-conic-gradient(
+      var(--rest-primary) 0% 25%,
+      transparent 0% 50%
+    );
+  background-size: 60px 60px;
+}
+
+/* ── Card Category Tinting ── */
+.rest-card-tint-dosa {
+  background: linear-gradient(145deg, #FFFFFF 0%, #FFFBF3 100%);
+  border-color: rgba(214, 137, 15, 0.2);
+}
+
+.rest-card-tint-tiffin {
+  background: linear-gradient(145deg, #FFFFFF 0%, #FFFCF5 100%);
+  border-color: rgba(245, 166, 35, 0.2);
+}
+
+.rest-card-tint-meals {
+  background: linear-gradient(145deg, #FFFFFF 0%, #F5FAF4 100%);
+  border-color: rgba(58, 125, 44, 0.15);
+}
+
+.rest-card-tint-biryani {
+  background: linear-gradient(145deg, #FFFFFF 0%, #FFF8EE 100%);
+  border-color: rgba(192, 33, 122, 0.12);
+}
+
+.rest-card-tint-starters {
+  background: linear-gradient(145deg, #FFFFFF 0%, #FFF5F3 100%);
+  border-color: rgba(192, 57, 43, 0.12);
+}
+
+.rest-card-tint-drinks {
+  background: linear-gradient(145deg, #FFFFFF 0%, #F0F7F9 100%);
+  border-color: rgba(56, 128, 135, 0.15);
+}
+
+.rest-card-tint-desserts {
+  background: linear-gradient(145deg, #FFFFFF 0%, #FFF6F0 100%);
+  border-color: rgba(220, 168, 75, 0.18);
+}
+
+/* ── Enhanced Card Hover ── */
+.rest-grid-cell {
+  position: relative;
+  background: var(--rest-card);
+  border-radius: 20px;
+  border: 1px solid rgba(245, 166, 35, 0.15);
+  overflow: hidden;
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 400ms cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 400ms ease;
+  cursor: pointer;
+  box-shadow: var(--rest-card-shadow);
+}
+
+.rest-grid-cell:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 8px 24px rgba(19, 41, 75, 0.08),
+    0 20px 48px rgba(245, 166, 35, 0.1);
+  border-color: rgba(245, 166, 35, 0.4);
+}
+
+/* ── Chef's Pick Ribbon ── */
+.rest-ribbon {
+  position: absolute;
+  top: 16px;
+  right: -8px;
+  z-index: 20;
+  background: linear-gradient(135deg, #C0217A 0%, #9E1968 100%);
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 16px 4px 12px;
+  clip-path: polygon(8px 0, 100% 0, 100% 100%, 0 100%);
+  box-shadow: 0 2px 8px rgba(192, 33, 122, 0.3);
+}
+
+/* ── Price Pill ── */
+.rest-price-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  background: rgba(19, 41, 75, 0.85);
+  backdrop-filter: blur(8px);
+  color: #F5A623;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.875rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ── Enhanced Category Card ── */
+.rest-category-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(245, 166, 35, 0.15);
+  border-radius: 22px;
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 400ms cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 300ms ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--rest-card-shadow);
+}
+
+.rest-category-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(245, 166, 35, 0.04) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+
+.rest-category-card:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 10px 30px rgba(19, 41, 75, 0.08),
+    0 20px 50px rgba(245, 166, 35, 0.08);
+  border-color: rgba(245, 166, 35, 0.4);
+}
+
+.rest-category-card:hover::before {
+  opacity: 1;
+}
+
+/* ── Footer Dark Gradient ── */
+.rest-footer-dark {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(245, 166, 35, 0.08) 0%, transparent 50%),
+    linear-gradient(180deg, #0F2040 0%, #13294B 40%, #0A1628 100%);
+  color: #F8F3E9;
+}
+
+/* ── Section Heading Decorative Underline ── */
+.rest-heading-accent {
+  position: relative;
+  display: inline-block;
+}
+
+.rest-heading-accent::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--rest-primary), var(--rest-accent));
+}
+
+/* ── Scroll Indicator ── */
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+
+.rest-scroll-indicator {
+  animation: scrollBounce 2s ease-in-out infinite;
 }
 
 .sl-specular-card-light {

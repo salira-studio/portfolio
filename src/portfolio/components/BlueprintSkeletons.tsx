@@ -68,31 +68,31 @@ export function PortfolioSkeleton() {
 /** ── Restaurant Customer Skeleton ── */
 export function RestaurantCustomerSkeleton() {
   return (
-    <div className="min-h-screen bg-[#FBF6EE] p-4 sm:p-6 animate-pulse" data-theme="restaurant">
+    <div className="min-h-screen bg-[#FFFDF8] p-4 sm:p-6 animate-pulse" data-theme="restaurant">
       <div className="mx-auto max-w-6xl">
         {/* Nav skeleton */}
-        <div className="flex items-center justify-between border-b border-[#E7DCC8] pb-4 mb-6">
-          <div className="h-7 w-32 rounded bg-[#B4532A]/20" />
-          <div className="h-8 w-24 rounded-full bg-[#B4532A]/15" />
+        <div className="flex items-center justify-between border-b border-[#E8E2D5] pb-4 mb-6">
+          <div className="h-7 w-32 rounded bg-[#F5A623]/20" />
+          <div className="h-8 w-24 rounded-full bg-[#F5A623]/15" />
         </div>
 
         {/* Categories Bar */}
         <div className="flex gap-3 overflow-hidden mb-8">
           {[1, 2, 3, 4, 5].map((i) => (
-            <div key={i} className="h-9 w-24 shrink-0 rounded-full bg-[#E7DCC8]" />
+            <div key={i} className="h-9 w-24 shrink-0 rounded-full bg-[#E8E2D5]" />
           ))}
         </div>
 
         {/* Food Items Grid */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div key={i} className="rounded-2xl border border-[#E7DCC8] bg-white p-4 space-y-3">
-              <div className="h-44 w-full rounded-xl bg-[#E7DCC8]/60" />
-              <div className="h-5 w-3/4 rounded bg-[#231A12]/15" />
-              <div className="h-4 w-1/2 rounded bg-[#7A5F46]/20" />
+            <div key={i} className="rounded-2xl border border-[#E8E2D5] bg-white p-4 space-y-3">
+              <div className="h-44 w-full rounded-xl bg-[#E8E2D5]/60" />
+              <div className="h-5 w-3/4 rounded bg-[#13294B]/15" />
+              <div className="h-4 w-1/2 rounded bg-[#5C5A62]/20" />
               <div className="flex items-center justify-between pt-2">
-                <div className="h-6 w-16 rounded bg-[#B4532A]/20" />
-                <div className="h-8 w-20 rounded-lg bg-[#B4532A]/30" />
+                <div className="h-6 w-16 rounded bg-[#F5A623]/20" />
+                <div className="h-8 w-20 rounded-lg bg-[#F5A623]/30" />
               </div>
             </div>
           ))}

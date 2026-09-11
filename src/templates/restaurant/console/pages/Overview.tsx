@@ -90,7 +90,7 @@ export default function Overview() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-2.5">
           <button
             onClick={() => setIsExpenseModalOpen(true)}
-            className="inline-flex items-center gap-2 rounded-xl bg-[var(--color-clay-500)] hover:bg-[var(--color-clay-600)] text-white px-4 py-2.5 text-xs font-bold transition-all shadow-xs active:scale-[0.98]"
+            className="inline-flex items-center gap-2 rounded-xl bg-[var(--color-clay-500)] hover:bg-[var(--color-clay-600)] text-[#13294B] px-4 py-2.5 text-xs font-bold transition-all shadow-xs active:scale-[0.98]"
           >
             <Plus size={15} />
             <span>Record Expense</span>

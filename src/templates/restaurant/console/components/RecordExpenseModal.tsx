@@ -169,7 +169,7 @@ export default function RecordExpenseModal({ isOpen, onClose }: RecordExpenseMod
               <button
                 type="submit"
                 disabled={success}
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[var(--color-clay-500)] hover:bg-[var(--color-clay-600)] text-white text-xs font-bold transition-all shadow-xs"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[var(--color-clay-500)] hover:bg-[var(--color-clay-600)] text-[#13294B] text-xs font-bold transition-all shadow-xs"
               >
                 {success ? (
                   <>

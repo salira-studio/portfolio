@@ -49,7 +49,7 @@ export default function ItemDetail() {
         </p>
         <Link
           to={`${CUSTOMER_BASE}/menu`}
-          className="mt-6 px-6 py-2.5 rounded-xl bg-[var(--color-clay-500)] text-white text-sm font-semibold hover:bg-[var(--color-clay-600)] transition-colors"
+          className="mt-6 px-6 py-2.5 rounded-xl bg-[var(--color-clay-500)] text-[#13294B] text-sm font-semibold hover:bg-[var(--color-clay-600)] transition-colors"
         >
           Return to Menu
         </Link>
@@ -314,7 +314,7 @@ export default function ItemDetail() {
                       key="add"
                       whileTap={{ scale: 0.98 }}
                       onClick={handleAdd}
-                      className="w-full bg-[var(--color-clay-500)] text-white py-4 rounded-xl font-semibold text-sm sm:text-base flex items-center justify-between px-6 hover:bg-[var(--color-clay-600)] transition-all shadow-md active:scale-[0.99]"
+                      className="w-full bg-[var(--color-clay-500)] text-[#13294B] py-4 rounded-xl font-semibold text-sm sm:text-base flex items-center justify-between px-6 hover:bg-[var(--color-clay-600)] transition-all shadow-md active:scale-[0.99]"
                     >
                       <span className="flex items-center gap-2">
                         <ShoppingBag size={18} />

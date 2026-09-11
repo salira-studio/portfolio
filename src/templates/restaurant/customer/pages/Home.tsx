@@ -16,17 +16,20 @@ import { VegDot } from '../../../../shared/components/ui/VegDot'
 import { Badge } from '../../../../shared/components/ui/Badge'
 import { FoodImage } from '../../../../shared/components/ui/FoodImage'
 import { formatPrice } from '../../../../shared/lib/format'
+import { t } from '../i18n'
 
 export default function CustomerHome() {
   const items = useAppStore((s) => s.menuItems)
   const categories = useAppStore((s) => s.categories)
+  const language = useAppStore((s) => s.language)
   const signature = items.filter((i) => i.signature && i.available)
   const popular = items.filter((i) => i.popular && i.available)
 
   return (
-    <div className="space-y-16 sm:space-y-24 bg-white rest-particles">
+    <div className="space-y-0 bg-white rest-particles">
       {/* ── 1. Hero: Responsive Editorial Composition ── */}
       <section className="relative overflow-hidden rest-hero-bg text-[var(--rest-text)]">
+        <div className="rest-hero-pattern" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 lg:py-24">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* Hero Copy */}
@@ -38,7 +41,7 @@ export default function CustomerHome() {
             >
               <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase text-[var(--rest-text)] border border-[var(--rest-border)]">
                 <Sparkles size={14} className="text-[var(--rest-primary)]" />
-                <span>Kongu South Indian Kitchen · Karunya Nagar · கொங்கு தென்னிந்திய உணவு</span>
+                <span>{t('hero.badge', language)}</span>
               </div>
 
               <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium leading-[1.05] tracking-tight text-balance">
@@ -48,7 +51,7 @@ export default function CustomerHome() {
                 </span>
               </h1>
               <p className="text-lg sm:text-xl text-[var(--rest-muted)] font-medium mt-2">
-                ஆத்திரிசிய கொங்கு சுவைகள்
+                {language === 'ta' ? 'ஆத்திரிசிய கொங்கு சுவைகள்' : 'Authentic Kongu flavours, crafted with passion.'}
               </p>
 
               <p className="text-[var(--rest-muted)] text-base sm:text-lg max-w-xl font-normal leading-relaxed">
@@ -62,7 +65,7 @@ export default function CustomerHome() {
                   to={`${CUSTOMER_BASE}/menu`}
                   className="inline-flex items-center justify-center gap-2.5 bg-[var(--rest-primary)] text-[var(--rest-text)] px-7 py-4 rounded-xl font-semibold text-base shadow-md hover:bg-[var(--rest-primary-light)] transition-all active:scale-[0.99]"
                 >
-                  <span>Explore Menu & Order / மெனுவை ஆராய்க</span>
+                  <span>{t('hero.cta', language)}</span>
                   <ArrowRight size={18} />
                 </Link>
                 <a
@@ -123,24 +126,34 @@ export default function CustomerHome() {
             </motion.div>
           </div>
         </div>
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 rest-scroll-indicator">
+          <div className="w-6 h-10 rounded-full border-2 border-[var(--rest-text)]/20 flex items-start justify-center p-1.5">
+            <div className="w-1.5 h-2.5 rounded-full bg-[var(--rest-primary)]" />
+          </div>
+        </div>
       </section>
 
+      {/* Divider */}
+      <div className="rest-divider"><span className="rest-divider-dot" /></div>
+
       {/* ── 2. Category Quick Browse ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="rest-section-categories py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-3">
           <div>
             <p className="text-xs font-bold uppercase tracking-widest text-[var(--rest-primary)] mb-1">
-              Curated Offerings / தேர்ந்தெடுக்கப்பட்டவை
+              {t('home.curatedOfferings', language)}
             </p>
             <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-[var(--rest-text)]">
-              Browse by Category / வகைப்படுத்தவும்
+              {t('home.browseByCategory', language)}
             </h2>
           </div>
           <Link
             to={`${CUSTOMER_BASE}/menu`}
             className="text-sm font-semibold text-[var(--rest-primary)] hover:text-[var(--rest-primary-dark)] flex items-center gap-1 group"
           >
-            <span>View all dishes / அனைத்து உணவுகளும்</span>
+            <span>{t('home.viewAllDishes', language)}</span>
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
@@ -169,34 +182,39 @@ export default function CustomerHome() {
                   )}
                 </div>
                 <div className="mt-4 flex items-center justify-between text-xs font-semibold text-[var(--rest-primary)]">
-                  <span>Explore / ஆராய்க</span>
+                  <span>{t('home.explore', language)}</span>
                   <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </div>
               </Link>
             </motion.div>
           ))}
         </div>
+        </div>
       </section>
 
+      {/* Divider */}
+      <div className="rest-divider"><span className="rest-divider-dot" /></div>
+
       {/* ── 3. Signature Dishes (Responsive 3-4 Col Grid) ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-end justify-between mb-8">
+      <section className="rest-section-signature py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-end justify-between mb-8">
           <div>
             <p className="text-xs font-bold uppercase tracking-widest text-[var(--rest-primary)] mb-1">
-              House Specialties / சிறப்பு உணவுகள்
+              {t('home.houseSpecialties', language)}
             </p>
             <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-[var(--rest-text)]">
-              Signature Dishes / சிறப்பு உணவுகள்
+              {t('home.signatureDishes', language)}
             </h2>
             <p className="text-sm text-[var(--rest-muted)] mt-1">
-              Dishes that define the kitchen of Annachies அண்ணாச்சிஸ்
+              {t('home.signatureSubtitle', language)}
             </p>
           </div>
           <Link
             to={`${CUSTOMER_BASE}/menu`}
             className="hidden sm:flex text-sm font-semibold text-[var(--rest-primary)] items-center gap-1 hover:underline"
           >
-            <span>See entire menu / முழு மெனுவையும் காண்க</span>
+            <span>{t('home.seeEntireMenu', language)}</span>
             <ArrowRight size={15} />
           </Link>
         </div>
@@ -214,17 +232,26 @@ export default function CustomerHome() {
                 to={`${CUSTOMER_BASE}/item/${item.id}`}
                 className="rest-grid-cell rest-glow-effect group flex flex-col h-full overflow-hidden"
               >
+                {/* Chef's Pick Ribbon */}
+                {item.signature && (
+                  <div className="rest-ribbon">Chef's Pick</div>
+                )}
                 <div className="relative aspect-[16/10] overflow-hidden bg-[var(--rest-cream-light)]">
                   <FoodImage
                     src={item.image}
                     alt={item.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
                   <div className="absolute top-3 left-3">
                     <Badge variant="signature">Signature</Badge>
                   </div>
                   <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full p-1 shadow-sm z-10">
                     <VegDot type={item.tags[0]} />
+                  </div>
+                  {/* Floating Price Pill */}
+                  <div className="absolute bottom-3 right-3 rest-price-pill opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                    {formatPrice(item.price)}
                   </div>
                 </div>
 
@@ -243,7 +270,7 @@ export default function CustomerHome() {
                       {formatPrice(item.price)}
                     </span>
                     <span className="text-xs font-semibold bg-[var(--rest-accent)] text-[var(--rest-text)] px-3 py-1.5 rounded-lg group-hover:bg-[var(--rest-primary)] group-hover:text-[var(--rest-text)] transition-colors">
-                      Customize / தனிப்பயனாக்கு
+                      {t('home.customize', language)}
                     </span>
                   </div>
                 </div>
@@ -251,67 +278,77 @@ export default function CustomerHome() {
             </motion.div>
           ))}
         </div>
+        </div>
       </section>
 
-      {/* ── 4. Popular This Evening ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[var(--rest-cream-light)] rounded-3xl p-6 sm:p-10 border border-[var(--rest-border)]">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-8 rounded-full bg-[var(--rest-primary)] text-[var(--rest-text)] flex items-center justify-center">
-              <Flame size={18} />
-            </div>
-            <div>
-              <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-[var(--rest-text)]">
-                Popular This Evening / இன்றைய சிறப்பு
-              </h2>
-              <p className="text-xs sm:text-sm text-[var(--rest-muted)]">
-                Most ordered by diners in Karunya Nagar today
-              </p>
-            </div>
-          </div>
+      {/* Divider */}
+      <div className="rest-divider"><span className="rest-divider-dot" /></div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {popular.slice(0, 6).map((item) => (
-              <Link
-                key={item.id}
-                to={`${CUSTOMER_BASE}/item/${item.id}`}
-                className="rest-grid-cell flex items-center gap-4 p-3.5 bg-white rounded-xl border border-[var(--rest-border)] hover:shadow-md transition-all group"
-              >
-                <div className="w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-[var(--rest-cream-light)]">
-                  <FoodImage
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="flex-1 min-w-0 relative z-10">
-                  <div className="flex items-center gap-1.5 mb-1">
-                    <h3 className="font-display font-semibold text-sm sm:text-base text-[var(--rest-text)] truncate group-hover:text-[var(--rest-primary)] transition-colors">
-                      {item.name}
-                    </h3>
-                    <VegDot type={item.tags[0]} />
+      {/* ── 4. Popular This Evening ── */}
+      <section className="rest-section-popular py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="rounded-3xl p-6 sm:p-10 border border-white/10 bg-white/5 backdrop-blur-sm">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-8 rounded-full bg-[var(--rest-primary)] text-[var(--rest-text)] flex items-center justify-center">
+                <Flame size={18} />
+              </div>
+              <div>
+                <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-white">
+                  {t('home.popularThisEvening', language)}
+                </h2>
+                <p className="text-xs sm:text-sm text-white/60">
+                  Most ordered by diners in Karunya Nagar today
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {popular.slice(0, 6).map((item) => (
+                <Link
+                  key={item.id}
+                  to={`${CUSTOMER_BASE}/item/${item.id}`}
+                  className="flex items-center gap-4 p-3.5 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10 hover:bg-white/15 hover:border-white/20 transition-all group"
+                >
+                  <div className="w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-white/10">
+                    <FoodImage
+                      src={item.image}
+                      alt={item.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
-                  <p className="text-xs text-[var(--rest-muted)] line-clamp-1">
-                    {item.description}
-                  </p>
-                  <div className="mt-2 flex items-center justify-between">
-                    <span className="font-semibold text-sm text-[var(--rest-primary)]">
-                      {formatPrice(item.price)}
-                    </span>
-                    <span className="text-[11px] font-medium text-[var(--rest-muted)] group-hover:text-[var(--rest-text)]">
-                      Select →
-                    </span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <h3 className="font-display font-semibold text-sm sm:text-base text-white truncate group-hover:text-[var(--rest-primary)] transition-colors">
+                        {item.name}
+                      </h3>
+                      <VegDot type={item.tags[0]} />
+                    </div>
+                    <p className="text-xs text-white/50 line-clamp-1">
+                      {item.description}
+                    </p>
+                    <div className="mt-2 flex items-center justify-between">
+                      <span className="font-semibold text-sm text-[var(--rest-primary)]">
+                        {formatPrice(item.price)}
+                      </span>
+                      <span className="text-[11px] font-medium text-white/40 group-hover:text-white/70">
+                        Select →
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
+      {/* Divider */}
+      <div className="rest-divider"><span className="rest-divider-dot" /></div>
+
       {/* ── 5. Story / Philosophy ── */}
-      <section id="story" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl overflow-hidden text-[var(--rest-text)] grid grid-cols-1 lg:grid-cols-12 shadow-lg border border-[var(--rest-border)]">
+      <section id="story" className="rest-section-story py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-3xl overflow-hidden text-[var(--rest-text)] grid grid-cols-1 lg:grid-cols-12 shadow-lg border border-[var(--rest-border)]">
           <div className="lg:col-span-5 relative min-h-[300px] lg:min-h-[440px]">
             <FoodImage
               src="/food/kitchen.jpg"
@@ -323,13 +360,13 @@ export default function CustomerHome() {
           <div className="lg:col-span-7 p-8 sm:p-12 lg:p-14 flex flex-col justify-center space-y-6">
             <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--rest-primary)]">
               <Leaf size={14} />
-              <span>From Our Kitchen / எங்கள் சமையலறையிலிருந்து</span>
+              <span>{t('home.fromOurKitchen', language)}</span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl font-normal tracking-tight text-balance leading-snug">
               Every dish carries authentic Kongu culinary heritage, crafted for today.
             </h2>
             <p className="text-lg text-[var(--rest-primary)] italic mt-2">
-              ஒவ்வொரு உணவும் ஆத்திரிசிய கொங்கு சமையல் பாரம்பரியத்தை சுமக்கிறது
+              {t('home.storyTamil', language)}
             </p>
             <p className="text-[var(--rest-muted)] text-sm sm:text-base leading-relaxed">
               Rooted in Karunya Nagar, Annachies celebrates the rich flavors of Coimbatore
@@ -340,27 +377,32 @@ export default function CustomerHome() {
             <div className="pt-2 flex items-center gap-6 text-sm text-[var(--rest-muted)]">
               <div className="flex items-center gap-2">
                 <ShieldCheck size={18} className="text-[var(--rest-primary)]" />
-                <span>Zero Artificial Colours / செயற்கை நிறம் இல்லை</span>
+                <span>{t('home.zeroArtificial', language)}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Utensils size={18} className="text-[var(--rest-primary)]" />
-                <span>Prepared Fresh to Order / புதிதாக தயாரிக்கப்படும்</span>
+                <span>{t('home.preparedFresh', language)}</span>
               </div>
             </div>
           </div>
         </div>
+        </div>
       </section>
 
+      {/* Divider */}
+      <div className="rest-divider"><span className="rest-divider-dot" /></div>
+
       {/* ── 6. Hours & Location ── */}
-      <section id="location" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-[var(--rest-border)] shadow-sm grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+      <section id="location" className="rest-section-location py-16 sm:py-24 pb-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-3xl p-8 sm:p-12 border border-[var(--rest-border)] shadow-sm grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
           <div className="space-y-2">
             <div className="w-10 h-10 rounded-xl bg-[var(--rest-accent)] text-[var(--rest-text)] flex items-center justify-center mx-auto md:mx-0">
               <MapPin size={20} />
             </div>
-            <h3 className="font-display font-bold text-lg text-[var(--rest-text)]">
-              Karunya Nagar, Coimbatore / கருண்யா நகர்
-            </h3>
+              <h3 className="font-display font-bold text-lg text-[var(--rest-text)]">
+                {t('home.locationTitle', language)}
+              </h3>
             <p className="text-sm text-[var(--rest-muted)] leading-relaxed">
               Siruvani Main Road, Karunya Nagar<br />
               Coimbatore, Tamil Nadu 641114
@@ -371,9 +413,9 @@ export default function CustomerHome() {
             <div className="w-10 h-10 rounded-xl bg-[var(--rest-accent)] text-[var(--rest-text)] flex items-center justify-center mx-auto md:mx-0">
               <Clock size={20} />
             </div>
-            <h3 className="font-display font-bold text-lg text-[var(--rest-text)]">
-              Daily Service Hours / தினசரி சேவை நேரம்
-            </h3>
+              <h3 className="font-display font-bold text-lg text-[var(--rest-text)]">
+                {t('home.serviceHours', language)}
+              </h3>
             <p className="text-sm text-[var(--rest-muted)] leading-relaxed">
               Morning Tiffin: 7:00 AM – 11:30 AM<br />
               Banana Leaf Meals: 12:00 PM – 4:00 PM<br />
@@ -384,7 +426,7 @@ export default function CustomerHome() {
           <div className="flex flex-col justify-between space-y-4">
             <div>
               <h3 className="font-display font-bold text-lg text-[var(--rest-text)]">
-                Ready for Dining? / உணவு தயாரா?
+                {t('home.readyForDining', language)}
               </h3>
               <p className="text-sm text-[var(--rest-muted)] mt-1">
                 Order online for swift pickup or doorstep delivery.
@@ -394,9 +436,10 @@ export default function CustomerHome() {
               to={`${CUSTOMER_BASE}/menu`}
               className="inline-flex items-center justify-center gap-2 bg-[var(--rest-primary)] hover:bg-[var(--rest-primary-light)] text-[var(--rest-text)] px-6 py-3 rounded-xl font-semibold text-sm transition-colors"
             >
-              <span>Start Your Order / உங்கள் ஆர்டரைத் தொடங்குங்கள்</span>
+              <span>{t('home.startYourOrder', language)}</span>
               <ArrowRight size={16} />
             </Link>
+            </div>
           </div>
         </div>
       </section>

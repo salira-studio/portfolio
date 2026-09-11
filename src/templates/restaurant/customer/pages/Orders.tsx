@@ -23,7 +23,7 @@ export default function Orders() {
         </p>
         <Link
           to={`${CUSTOMER_BASE}/menu`}
-          className="inline-flex items-center gap-2 bg-[var(--color-clay-500)] text-white px-7 py-3.5 rounded-xl font-semibold text-sm hover:bg-[var(--color-clay-600)] transition-all shadow-sm"
+          className="inline-flex items-center gap-2 bg-[var(--color-clay-500)] text-[#13294B] px-7 py-3.5 rounded-xl font-semibold text-sm hover:bg-[var(--color-clay-600)] transition-all shadow-sm"
         >
           <span>Explore Menu & Order</span>
           <ArrowRight size={16} />
