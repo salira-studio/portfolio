@@ -69,16 +69,16 @@ export default function CustomerMenu() {
   }, [categories, filteredItems, activeCategory])
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white rest-particles">
       {/* ── Menu Header & Sticky Filter Bar ── */}
-      <div className="sticky top-18 sm:top-20 z-30 bg-[var(--color-ivory-50)]/95 backdrop-blur-md border-b border-[var(--color-line)] shadow-xs">
+      <div className="sticky top-18 sm:top-20 z-30 bg-white border-b border-[var(--rest-border)] shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-3">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h1 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-[var(--color-espresso-900)]">
-                Our Menu
+              <h1 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-[var(--rest-text)]">
+                Our Menu / எங்கள் மெனு
               </h1>
-              <p className="text-xs sm:text-sm text-[var(--color-cocoa-400)]">
+              <p className="text-xs sm:text-sm text-[var(--rest-muted)]">
                 Freshly prepared South Indian delicacies made to order
               </p>
             </div>
@@ -96,12 +96,12 @@ export default function CustomerMenu() {
                   placeholder="Search dishes..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 bg-white border border-[var(--color-line)] rounded-xl text-sm placeholder:text-[var(--color-cocoa-300)] focus:border-[var(--color-clay-500)] outline-none transition-colors"
+                  className="w-full pl-10 pr-4 py-2 bg-white border border-[var(--rest-border)] rounded-xl text-sm placeholder:text-[var(--rest-muted)] focus:border-[var(--rest-primary)] outline-none transition-colors"
                 />
                 {search && (
                   <button
                     onClick={() => setSearch('')}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[var(--color-cocoa-400)] hover:text-[var(--color-espresso-900)]"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[var(--rest-muted)] hover:text-[var(--rest-text)]"
                   >
                     Clear
                   </button>
@@ -109,13 +109,13 @@ export default function CustomerMenu() {
               </div>
 
               {/* Veg / Non-Veg Switcher */}
-              <div className="flex items-center bg-white rounded-xl p-1 border border-[var(--color-line)] shadow-2xs">
+              <div className="flex items-center bg-white rounded-xl p-1 border border-[var(--rest-border)] shadow-2xs">
                 <button
                   onClick={() => setDietaryFilter('all')}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
                     dietaryFilter === 'all'
-                      ? 'bg-[var(--color-espresso-900)] text-white'
-                      : 'text-[var(--color-cocoa-500)] hover:text-[var(--color-espresso-900)]'
+                      ? 'bg-[var(--rest-primary)] text-[var(--rest-text)]'
+                      : 'text-[var(--rest-muted)] hover:text-[var(--rest-text)]'
                   }`}
                 >
                   All
@@ -125,7 +125,7 @@ export default function CustomerMenu() {
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
                     dietaryFilter === 'veg'
                       ? 'bg-emerald-700 text-white'
-                      : 'text-[var(--color-cocoa-500)] hover:text-[var(--color-espresso-900)]'
+                      : 'text-[var(--rest-muted)] hover:text-[var(--rest-text)]'
                   }`}
                 >
                   <span className="w-2 h-2 rounded-full bg-emerald-500" />
@@ -135,8 +135,8 @@ export default function CustomerMenu() {
                   onClick={() => setDietaryFilter('non-veg')}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
                     dietaryFilter === 'non-veg'
-                      ? 'bg-amber-800 text-white'
-                      : 'text-[var(--color-cocoa-500)] hover:text-[var(--color-espresso-900)]'
+                      ? 'bg-[var(--rest-primary)] text-white'
+                      : 'text-[var(--rest-muted)] hover:text-[var(--rest-text)]'
                   }`}
                 >
                   <span className="w-2 h-2 rounded-full bg-red-500" />
@@ -152,8 +152,8 @@ export default function CustomerMenu() {
               onClick={() => handleCategorySelect('all')}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold shrink-0 transition-all ${
                 activeCategory === 'all'
-                  ? 'bg-[var(--color-clay-500)] text-white shadow-sm'
-                  : 'bg-white text-[var(--color-espresso-800)] border border-[var(--color-line)] hover:bg-[var(--color-ivory-100)]'
+                  ? 'bg-[var(--rest-primary)] text-[var(--rest-text)] shadow-sm'
+                  : 'bg-white text-[var(--rest-text)] border border-[var(--rest-border)] hover:bg-[var(--rest-cream-light)]'
               }`}
             >
               All Items ({items.length})
@@ -167,16 +167,16 @@ export default function CustomerMenu() {
                   onClick={() => handleCategorySelect(cat.slug)}
                   className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold shrink-0 transition-all flex items-center gap-1.5 ${
                     isSelected
-                      ? 'bg-[var(--color-clay-500)] text-white shadow-sm'
-                      : 'bg-white text-[var(--color-espresso-800)] border border-[var(--color-line)] hover:bg-[var(--color-ivory-100)]'
+                      ? 'bg-[var(--rest-primary)] text-[var(--rest-text)] shadow-sm'
+                      : 'bg-white text-[var(--rest-text)] border border-[var(--rest-border)] hover:bg-[var(--rest-cream-light)]'
                   }`}
                 >
                   <span>{cat.name}</span>
                   <span
                     className={`text-[11px] px-1.5 py-0.2 rounded-full ${
                       isSelected
-                        ? 'bg-white/20 text-white'
-                        : 'bg-[var(--color-ivory-100)] text-[var(--color-cocoa-400)]'
+                        ? 'bg-[var(--rest-text)] text-[var(--rest-primary)]'
+                        : 'bg-[var(--rest-cream-light)] text-[var(--rest-muted)]'
                     }`}
                   >
                     {count}
@@ -191,12 +191,12 @@ export default function CustomerMenu() {
       {/* ── Main Menu Grid Container ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-12">
         {groupedCategories.length === 0 && (
-          <div className="text-center py-20 bg-white rounded-3xl border border-[var(--color-line)] p-8 max-w-md mx-auto">
-            <AlertCircle size={40} className="mx-auto text-[var(--color-cocoa-300)] mb-3" />
-            <h3 className="font-display text-lg font-bold text-[var(--color-espresso-900)]">
-              No dishes found
+          <div className="text-center py-20 bg-white rounded-3xl border border-[var(--rest-border)] p-8 max-w-md mx-auto">
+            <AlertCircle size={40} className="mx-auto text-[var(--rest-muted)] mb-3" />
+            <h3 className="font-display text-lg font-bold text-[var(--rest-text)]">
+              No dishes found / உணவுகள் எதுவும் கிடைக்கவில்லை
             </h3>
-            <p className="text-xs text-[var(--color-cocoa-400)] mt-1">
+            <p className="text-xs text-[var(--rest-muted)] mt-1">
               Try changing your search term or clearing the dietary filters.
             </p>
             <button
@@ -205,27 +205,27 @@ export default function CustomerMenu() {
                 setDietaryFilter('all')
                 setActiveCategory('all')
               }}
-              className="mt-4 px-4 py-2 rounded-xl bg-[var(--color-clay-500)] text-white text-xs font-semibold"
+              className="mt-4 px-4 py-2 rounded-xl bg-[var(--rest-primary)] text-[var(--rest-text)] text-xs font-semibold"
             >
-              Reset Filters
+              Reset Filters / வடிகட்டிகளை மீட்டமை
             </button>
           </div>
         )}
 
         {groupedCategories.map((cat) => (
           <section key={cat.id} className="space-y-4">
-            <div className="border-b border-[var(--color-line-light)] pb-2 flex items-baseline justify-between">
+            <div className="border-b border-[var(--rest-border)] pb-2 flex items-baseline justify-between">
               <div>
-                <h2 className="font-display text-2xl font-bold tracking-tight text-[var(--color-espresso-900)]">
+                <h2 className="font-display text-2xl font-bold tracking-tight text-[var(--rest-text)]">
                   {cat.name}
                 </h2>
                 {cat.description && (
-                  <p className="text-xs sm:text-sm text-[var(--color-cocoa-400)] mt-0.5">
+                  <p className="text-xs sm:text-sm text-[var(--rest-muted)] mt-0.5">
                     {cat.description}
                   </p>
                 )}
               </div>
-              <span className="text-xs text-[var(--color-cocoa-300)] font-medium">
+              <span className="text-xs text-[var(--rest-muted)] font-medium">
                 {cat.items.length} {cat.items.length === 1 ? 'item' : 'items'}
               </span>
             </div>
@@ -245,14 +245,14 @@ export default function CustomerMenu() {
                   >
                     <Link
                       to={`${CUSTOMER_BASE}/item/${item.id}`}
-                      className={`group flex flex-col h-full bg-white rounded-2xl border border-[var(--color-line-light)] transition-all overflow-hidden relative ${
+                      className={`rest-grid-cell rest-glow-effect group flex flex-col h-full overflow-hidden relative ${
                         isSoldOut
                           ? 'opacity-75 bg-gray-50/80 cursor-pointer'
-                          : 'hover:border-[var(--color-clay-500)] hover:shadow-lg'
+                          : ''
                       }`}
                     >
                       {/* Food Image */}
-                      <div className="relative aspect-[16/10] overflow-hidden bg-[var(--color-ivory-100)]">
+                      <div className="relative aspect-[16/10] overflow-hidden bg-[var(--rest-cream-light)]">
                         <FoodImage
                           src={item.image}
                           alt={item.name}
@@ -267,7 +267,7 @@ export default function CustomerMenu() {
                           {item.popular && <Badge variant="popular">Popular</Badge>}
                         </div>
 
-                        <div className="absolute top-2.5 right-2.5 bg-white/95 backdrop-blur-sm rounded-full p-1 shadow-sm">
+                        <div className="absolute top-2.5 right-2.5 bg-white/95 backdrop-blur-sm rounded-full p-1 shadow-sm z-10">
                           <VegDot type={item.tags[0]} />
                         </div>
 
@@ -282,26 +282,26 @@ export default function CustomerMenu() {
                       </div>
 
                       {/* Content details */}
-                      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3">
+                      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3 relative z-10">
                         <div>
                           <div className="flex items-start justify-between gap-2">
-                            <h3 className="font-display font-semibold text-base sm:text-lg text-[var(--color-espresso-900)] group-hover:text-[var(--color-clay-500)] transition-colors leading-snug">
+                            <h3 className="font-display font-semibold text-base sm:text-lg text-[var(--rest-text)] group-hover:text-[var(--rest-primary)] transition-colors leading-snug">
                               {item.name}
                             </h3>
                           </div>
-                          <p className="text-xs text-[var(--color-cocoa-400)] mt-1.5 line-clamp-2 leading-relaxed">
+                          <p className="text-xs text-[var(--rest-muted)] mt-1.5 line-clamp-2 leading-relaxed">
                             {item.description}
                           </p>
                         </div>
 
-                        <div className="pt-3 border-t border-[var(--color-line-light)] flex items-center justify-between">
+                        <div className="pt-3 border-t border-[var(--rest-border)] flex items-center justify-between">
                           <div>
-                            <span className="font-display font-bold text-base sm:text-lg text-[var(--color-espresso-900)]">
+                            <span className="font-display font-bold text-base sm:text-lg text-[var(--rest-text)]">
                               {formatPrice(item.price)}
                             </span>
                             {item.spiceLevel > 1 && (
-                              <span className="text-[10px] font-semibold text-[var(--color-clay-600)] bg-[var(--color-ivory-100)] px-2 py-0.5 rounded-md ml-2 uppercase tracking-wide">
-                                Spicy
+                              <span className="text-[10px] font-semibold text-[var(--rest-text)] bg-[var(--rest-accent)] px-2 py-0.5 rounded-md ml-2 uppercase tracking-wide">
+                                Spicy / காரமான
                               </span>
                             )}
                           </div>
@@ -311,9 +311,9 @@ export default function CustomerMenu() {
                               Unavailable
                             </span>
                           ) : (
-                            <span className="inline-flex items-center gap-1 text-xs font-semibold bg-[var(--color-ivory-100)] text-[var(--color-clay-600)] px-3 py-1.5 rounded-lg group-hover:bg-[var(--color-clay-500)] group-hover:text-white transition-colors">
+                            <span className="inline-flex items-center gap-1 text-xs font-semibold bg-[var(--rest-accent)] text-[var(--rest-text)] px-3 py-1.5 rounded-lg group-hover:bg-[var(--rest-primary)] group-hover:text-[var(--rest-text)] transition-colors">
                               <Plus size={13} strokeWidth={2.5} />
-                              <span>{item.optionGroups.length > 0 ? 'Customize' : 'Add'}</span>
+                              <span>{item.optionGroups.length > 0 ? 'Customize / தனிப்பயனாக்கு' : 'Add / சேர்'}</span>
                             </span>
                           )}
                         </div>
